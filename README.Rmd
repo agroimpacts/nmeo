@@ -24,5 +24,9 @@ Class is held in JC105 on Mondays and Wednesdays from 12-13.15.
 
 The syllabus is [here](docs/syllabus.Rmd)
 
+<br><br>
+
+<center>
 ![](docs/figures/whittier_10082018.png?raw=true)
+</center>
 
