@@ -27,6 +27,6 @@ The syllabus is [here](docs/syllabus.Rmd)
 <br><br>
 
 <center>
-![](docs/figures/whittier_10082018.png?raw=TRUE)
+![](docs/figures/whittier_10082018.png?raw=true)
 </center>
 
