@@ -14,7 +14,7 @@ We will learn a range of new skills, including:
 - Postgres/PostGIS databases;
 - UAS flight planning and image processing with PIX4D software.
 
-After an initial introduction to the various toolsets we will be using, students will form project teams (~5 people each) to tackle further development and application of one of the three project areas. These projects will be assessed by means of a formal in-class presentation and team-authored final project. 
+After an initial introduction to the various toolsets we will be using, students will form project teams (~5 people each) to tackle further development and application of one of the three project areas. These projects (described [here](docs/projects.md) in more detail) will be assessed by means of a formal in-class presentation and team-authored final project. 
 
 ## Course details
 
