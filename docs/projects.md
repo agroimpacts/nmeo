@@ -1,14 +1,17 @@
 # Team Projects
 
-There are three general subject areas from which projects for this course can be drawn.  
+There are four general subject areas from which projects for this course can be drawn.  
 
-1. Multi-scale estimation of crop growth/productivity metrics
-2. Use cloud-based EO platforms to create multi-source image time series
-3. Land cover mapping using crowdsourcing and machine learning
+1. Multi-scale estimation of crop LAI
+2. Crop yield estimation
+3. Use cloud-based EO platforms to create multi-source image time series
+4. Land cover mapping using crowdsourcing and machine learning
+
+Note that projects 1 and 2 are closely related and inter-twined with one another.
 
 More detail on each follows:
 
-## Project 1: Leaf Area Index
+## Project 1: Maize Leaf Area Index
 
 We have been collecting data over the course of the summer in a maize/corn field at Whittier Farms, in Sutton, MA. Data include:
 
@@ -18,7 +21,7 @@ We have been collecting data over the course of the summer in a maize/corn field
 
 In addition to these, we can also acquire near-daily PlanetScope 3-4 RGBNIR imagery over the same fields. 
 
-The goal of this project, is to develop estimates of maize leaf area index (LAI) from these multiple sources and understand how these estimates change with scale and extent. To do this, we will: 
+One major goal of this project is to develop estimates of maize leaf area index (LAI) from these multiple sources and understand how these estimates change with scale and extent. To do this, we will: 
 
 - Derive measurements of LAI first from the field measurements; 
 - Use these measurements to estimate LAI values from the Marks' spectrometer data, and co-located UAS and PlanetScope image pixels; 
@@ -27,9 +30,15 @@ The goal of this project, is to develop estimates of maize leaf area index (LAI)
 
 Along the way, we will make additional use of our Mark data to convert PlanetScope imagery to surface reflectance, perhaps with topographic normalization thrown in for good measure. 
 
-This is the project with the most moving parts, so could perhaps be divided into 2 or more sub-projects. 
+## Project 2: Maize yield
 
-## Project 2: EO Platforms and High Resolution Image Time Series
+This project is closely related to project 1, in that part of it will rely on the LAI estimates project 1 generates. In this project, we will 
+
+- Use the Mark micro-meteorology estimates to run a mechanistic crop simulator to predict maize yields. 
+- Use the mechanistic model outputs (including simulated LAI) and a subset of simplified inputs to develop an empirical model of yields.   
+- Using these relationships together with remotely-sensed predictors (primarily LAI), we will map predicted yields in ~16-25 m^2^ blocks through the fields.
+
+## Project 3: EO Platforms and High Resolution Image Time Series
 
 One ongoing research need for estimating agricultural productivity is to have a set of imagery that is: 
 
@@ -45,13 +54,14 @@ In this project, we aim to develop such a dataset for Zambia, using a new approa
 
 Related to both this project and Project 1, we may also use an EO platform to process the Planet data we need for Project 1. 
 
-## Project 3: Active Learning
+## Project 4: Active Learning
 We are developing a new land cover mapping platform that runs on Amazon Web Services virtual machines. The platform is based on active learning, where a machine learning algorithm iteratively tasks human mappers to collect training data in areas of lingering classification uncertainty. The mappers create this training data by digitizing crop fields they identify in high resolution Planet imagery.  
 
-There are two possible projects related to this: 
+There are three possible projects related to this: 
 
 1. Deploy the active learning framework to a new geography outside of the current target region (Ghana).
-2. Use the training datasets and imagery collected for Ghana to investigate the impact that training data error has on classification accuracy. 
+2. Apply it to new land cover type.
+3. Use the training datasets and imagery collected for Ghana to investigate the impact that training data error has on classification accuracy. 
 
 ## References
 
