@@ -3,11 +3,9 @@
 There are four general subject areas from which projects for this course can be drawn.  
 
 1. Multi-scale estimation of crop LAI
-2. Crop yield estimation
-3. Use cloud-based EO platforms to create multi-source image time series
-4. Land cover mapping using crowdsourcing and machine learning
-
-Note that projects 1 and 2 are closely related and inter-twined with one another.
+2. Multi-scale estimation of crop yield
+3. Using cloud-based EO platforms to create multi-source image time series
+4. Mapping land cover using crowdsourcing and machine learning
 
 More detail on each follows:
 
@@ -32,7 +30,7 @@ Along the way, we will make additional use of our Mark data to convert PlanetSco
 
 ## Project 2: Maize yield
 
-This project is closely related to project 1, in that part of it will rely on the LAI estimates project 1 generates. In this project, we will 
+This project is closely related to project 1, in that it will rely in part on the LAI estimates. For this project, we want to: 
 
 - Use the Mark micro-meteorology estimates to run a mechanistic crop simulator to predict maize yields. 
 - Use the mechanistic model outputs (including simulated LAI) and a subset of simplified inputs to develop an empirical model of yields.   

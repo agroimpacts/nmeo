@@ -22,7 +22,7 @@ Class is held in JC105 on Mondays and Wednesdays from 12-13.15.
 
 ## Syllabus
 
-The syllabus is [here](docs/syllabus.Rmd)
+The syllabus is [here](docs/syllabus.md)
 
 <br><br>
 
