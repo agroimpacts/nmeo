@@ -1,6 +1,8 @@
-## Syllabus
+# Syllabus
 
-Schedule for GEOG287-387 and subjects covered
+- The schedule for GEOG287-387 and subjects covered is below. 
+- [More details](introductory-modules.md) regarding the introductory modules for the first 8 weeks.
+- [Overview of potential group projects](projects.md).
 
 
 | Date 	       | Week | Subject                                         | 
@@ -20,8 +22,8 @@ Schedule for GEOG287-387 and subjects covered
 | 8 October    | 7 | Fall Break     |
 | 10 October   | 7 | Sensor data    |
 | 15 October   | 8 | Sensor data  |        
-| 17 October   | 8 | Crowdsourcing / Active learning           |
-| 22 October   | 9 | Crowdsourcing / Active learning           |
+| 17 October   | 8 | Combing human and machine intelligence   |
+| 22 October   | 9 | Combining human and machine intelligence   |
 | 24 October   | 9 | Project team/proposals due                |
 | 29 October)  | 10 | Group projects          |
 | 31 October)  | 10 | Group projects                 |
@@ -38,4 +40,4 @@ Schedule for GEOG287-387 and subjects covered
 | 10 December  | 16 | Presentations                 |
 | 17 December  |    | Final project due             |
 
-[Back to course README](../README.Rmd)
+[Back to course README](../README.md)
