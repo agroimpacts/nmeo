@@ -1,8 +1,8 @@
 # Introductory Modules
 
-[Drones](##drones)
+[Drones](#drones)
 
-[Small Sats](##small-sats)
+[Small Sats](#small-sats)
 
 ## Drones
 
