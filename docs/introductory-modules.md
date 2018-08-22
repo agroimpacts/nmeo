@@ -33,6 +33,8 @@ ___
         - Preliminary analyses
 
 #### Reading
+- SfM paper
+- UAS-based reflectance
 
 #### Tools
 - eMotion3: Flight control software for Ebee.  Download and install from [here](https://www.dropbox.com/s/a8m1254bhous1v1/eMotion_3.5.0.msi?dl=0) 
@@ -85,15 +87,25 @@ ___
 #### Tools
 - Sign up for accounts on [RadiantEarth's app](https://radiantearth.auth0.com/login?state=6LlsOI74Hgbl6bmX57uZx9sBzwxzjFKM&client=xqRq3Jr8ePFd0FTqb6jIEw8t5kK2lF4W&protocol=oauth2&response_type=code&redirect_uri=https%3A%2F%2Fraster-foundry.auth0.com%2Flogin%2Fcallback&scope=openid%20email%20profile) and [EarthEngine](https://signup.earthengine.google.com/#!/)
 
-
 [Back to TOC](#toc)
 
 ___
 
 ### Real-time _in situ_ sensors
 #### Material covered
+- Our use cases: estimating LAI from downward looking sensors, developing surface reflectance conversions, running crop models
+- Science:
+    - LAI, its measurement, and significance
+    - Sensors and spatial and temporal variability
+- Practice:
+    - Accessing the Arable API
+    - Calculating key variables at different temporal resolutions
+
 #### Reading
+- TBD
+
 #### Tools
+- R and [RStudio](https://www.rstudio.com/products/rstudio/download/#download) (both should be on classroom computers), and Arable's R client package (to be distributed separately). 
 
 [Back to TOC](#toc)
 
