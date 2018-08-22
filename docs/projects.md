@@ -4,7 +4,7 @@ There are four general subject areas from which projects for this course can be 
 
 1. Multi-scale estimation of crop LAI
 2. Multi-scale estimation of crop yield
-3. Using cloud-based EO platforms to create multi-source image time series
+3. Using cloud-based EO processing platforms to create multi-source image time series
 4. Mapping land cover using crowdsourcing and machine learning
 
 More detail on each follows:

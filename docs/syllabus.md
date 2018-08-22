@@ -15,9 +15,9 @@
 | 12 September | 3 | Small Sats: PlanetScope    |
 | 17 September | 4 | Small Sats: PlanetScope    |
 | 19 September | 4 | Small Sats: PlanetScope    |
-| 24 September | 5 | Big data / EO platforms        |
-| 26 September | 5 | Big data / EO platforms        |
-| 1 October    | 6 | Big data / EO platforms (practical: Planet/NDVI-LAI) |
+| 24 September | 5 | Cloud-based EO processing        |
+| 26 September | 5 | Cloud-based EO processing          |
+| 1 October    | 6 | Cloud-based EO processing   |
 | 3 October    | 6 | Sensor data (Dr. Adam Wolf from Arable)            |
 | 8 October    | 7 | Fall Break     |
 | 10 October   | 7 | Sensor data    |
