@@ -28,13 +28,18 @@ ___
         - Safety and [checklists](https://www.dropbox.com/s/u0eu5qvqcisjge5/eBee_plus_checklist-5.pdf?dl=0)
         - Collecting images (field excursion to [Whittier Farms](http://www.whittiers.com), specifically [here](https://goo.gl/maps/fFhJ25cRDXz))
     - Data processing:
-        - Set-up AWS virtual server (maybe)
         - Mosaicking
         - Preliminary analyses
 
 #### Reading
-- SfM paper
-- UAS-based reflectance
+- Manfreda et al [(2018)](http://www.mdpi.com/2072-4292/10/4/641)
+- [Pix4D Academy](https://support.pix4d.com/hc/en-us/articles/214483743-Video-academy) videos, watch:
+    - _Getting Started with Your First Project_
+    - _Georeferencing_
+    - _Tie Points_
+    - _Multispectral camera (Parrot Sequoia)_
+- A[n optional] useful [comparison](https://imagininc.wildapricot.org/resources/SPPC/2015/papers/john_gross_paper.pdf) of different SfM software
+
 
 #### Tools
 - eMotion3: Flight control software for Ebee.  Download and install from [here](https://www.dropbox.com/s/a8m1254bhous1v1/eMotion_3.5.0.msi?dl=0) 
@@ -91,7 +96,7 @@ ___
 
 ___
 
-### Real-time _in situ_ sensors
+### Real-time _In Situ_ Sensors
 #### Material covered
 - Our use cases: estimating LAI from downward looking sensors, developing surface reflectance conversions, running crop models
 - Science:
@@ -113,7 +118,21 @@ ___
 
 ### Human and Machine Intelligence
 #### Material covered
+- Our use case: Land cover mapping using active learning--machine learning guiding humans to collect most informative training data
+- Science:
+    - The nature of training data, its quality, and potential impact on maps
+    - Consensus labelling
+    - Active learning and complementary intelligence
+- Practice:
+    - Crowdsourced mapping
+    - Accessing S3 buckets
+    - Programmatic access to postgres/postgis databases
+    - Spinning up AWS virtual machines
+
 #### Reading
+-TBD 
+
 #### Tools
+- Logon credentials to active learning project (to be provided)
 
 [Back to TOC](#toc)
