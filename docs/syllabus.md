@@ -8,7 +8,7 @@
 | Date 	       | Week | Subject                                         | 
 |--------------|------|-------------------------------------------------|
 | 27 August    | 1 | Course overview               |
-| 29 August    | 1 | Course overview 2 / prep work            |
+| 29 August    | 1 | Our methods in context            |
 | 3 September  | 2 | Droning on (field visit 1 of 3 days)     |
 | 5 September  | 2 | Droning on (field visit 1 of 3 days)     |
 | 10 September | 3 | Droning on (field visit 1 of 3 days)     |
