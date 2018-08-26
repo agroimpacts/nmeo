@@ -29,8 +29,6 @@ Office hours: Tuesdays 1-3 pm in Jefferson 105.
 - [Content of Introductory Modules](docs/introductory-modules.md)
 - [General Information](docs/general-information.md)
 
-
-
 <br><br>
 
 ![](docs/figures/whittier10082018.png?raw=true)
