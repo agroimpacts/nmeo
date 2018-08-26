@@ -1,3 +1,5 @@
+[Course Home](../README.md) | [General Info](general-information.md) | [Syllabus](syllabus.md) | [Projects](projects.md)
+
 ## Introductory Modules
 
 An overview of each of the modules that we will cover in the first 8 weeks or so.
@@ -136,3 +138,5 @@ ___
 - Logon credentials to active learning project (to be provided)
 
 [Back to TOC](#toc)
+
+[Course Home](../README.md) | [General Info](general-information.md) | [Syllabus](syllabus.md) | [Projects](projects.md) | [Intro 

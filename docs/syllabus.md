@@ -1,3 +1,5 @@
+[Course Home](../README.md) | [General Info](general-information.md) | [Projects](projects.md) | [Intro Modules](introductory-modules.md)
+
 # Syllabus
 
 - The schedule for GEOG287-387 and subjects covered is below. 
@@ -40,4 +42,4 @@
 | 10 December  | 16 | Presentations                 |
 | 17 December  |    | Final project due             |
 
-[Back to course README](../README.md)
+[Course Home](../README.md) | [General Info](general-information.md) | [Projects](projects.md) | [Intro Modules](introductory-modules.md)

@@ -1,3 +1,5 @@
+[Course Home](../README.md) | [General Info](general-information.md) | [Syllabus](syllabus.md) | [Intro Modules](introductory-modules.md)
+
 # Team Projects
 
 There are four general subject areas from which projects for this course can be drawn.  
@@ -65,5 +67,6 @@ There are three possible projects related to this:
 
 Luo, Y., Guan, K., Peng, J., 2018. STAIR: A generic and fully-automated method to fuse multiple sources of optical satellite data to generate a high-resolution, daily and cloud-/gap-free surface reflectance product. Remote Sensing of Environment 214, 87–99. https://doi.org/10.1016/j.rse.2018.04.042
 
+[Course Home](../README.md) | [General Info](general-information.md) | [Syllabus](syllabus.md) | [Intro Modules](introductory-modules.md)
 
 
