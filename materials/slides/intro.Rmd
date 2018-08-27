@@ -1,0 +1,61 @@
+---
+title: "New Methods in Earth Observation"
+author: "Lyndon Estes"
+date: "8/27/2018"
+output:
+  slidy_presentation: 
+    css: custom.css
+---
+
+## Background
+
+- Limits to Earth Observation
+
+![](figures/limits.png){width=100%}
+
+## Background
+
+Collapsed limits down to:
+
+- Physical 
+- Methodological
+- Societal
+
+
+## Background
+Innovations:
+
+- Upping the N
+- More eyes in the sky
+- Peering into the gaps
+- Advances in sensors/communications
+- Data and model-data fusion
+- Computer vision, machine, and deep learning
+- Cloud-based data and analytical platforms
+
+
+## Course Walk-through
+
+- [Home page](https://github.com/agroimpacts/geog287387)
+- [Approach](https://github.com/agroimpacts/geog287387/blob/master/docs/general-information.md)
+- [Syllabus](https://github.com/agroimpacts/geog287387/blob/master/docs/syllabus.md)
+- [Projects](https://github.com/agroimpacts/geog287387/blob/master/docs/projects.md)
+
+## Project Tools
+
+- UAS
+- [Sensors](https://clark.arable.com/dashboard/locations)
+- [Cloud-processing](https://www.radiant.earth)
+- [Active learning](https://sandbox.crowdmapper.org/api/webapp/employee/assignment)
+
+
+## Housekeeping
+
+- Scheduling field work
+- Assignment for Wednesday: read GEOG391 summary paper
+
+
+
+
+
+
