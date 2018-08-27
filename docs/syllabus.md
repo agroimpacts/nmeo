@@ -10,15 +10,15 @@
 | Date 	       | Week | Subject                                         | 
 |--------------|------|-------------------------------------------------|
 | 27 August    | 1 | Course overview               |
-| 29 August    | 1 | Our methods in context            |
-| 3 September  | 2 | Droning on (field visit 1 of 3 days)     |
+| 29 August    | 1 | Our methods in context. Reading: [GEOG391 manuscript](https://www.dropbox.com/s/ac40iyiwylzh1nz/geog391_ms.docx?dl=0) |
+| 3 September  | 2 | Labor Day     |
 | 5 September  | 2 | Droning on (field visit 1 of 3 days)     |
 | 10 September | 3 | Droning on (field visit 1 of 3 days)     |
-| 12 September | 3 | Small Sats: PlanetScope    |
+| 12 September | 3 | Droning on (field visit 1 of 3 days)    |
 | 17 September | 4 | Small Sats: PlanetScope    |
 | 19 September | 4 | Small Sats: PlanetScope    |
-| 24 September | 5 | Cloud-based EO processing        |
-| 26 September | 5 | Cloud-based EO processing          |
+| 24 September | 5 | Small Sats: PlanetScope / Cloud-based EO processing |
+| 26 September | 5 | Cloud-based EO processing |
 | 1 October    | 6 | Cloud-based EO processing   |
 | 3 October    | 6 | Sensor data (Dr. Adam Wolf from Arable)            |
 | 8 October    | 7 | Fall Break     |
