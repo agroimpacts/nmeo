@@ -139,4 +139,4 @@ ___
 
 [Back to TOC](#toc)
 
-[Course Home](../README.md) | [General Info](general-information.md) | [Syllabus](syllabus.md) | [Projects](projects.md) | [Intro 
+[Course Home](../README.md) | [General Info](general-information.md) | [Syllabus](syllabus.md) | [Projects](projects.md)

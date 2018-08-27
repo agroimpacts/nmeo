@@ -3,7 +3,7 @@
 ## Overview
 This course is a skills-based follow-on to GEO391-Innovation in Earth Observation, a seminar that reviewed key limitations facing Earth Observation (EO), and the recent developments that are challenging these limitations. In this course, students will work, within the broader context of several active research projects, on developing and applying several specific EO methods that were reviewed in GEOG391. These methods are: 
 
-- Scaling-up crop growth and productivity estimates derived from automated in situ sensors and UAS imagery up to smallsats; 
+- Scaling-up crop growth and productivity estimates derived from automated _in situ_ sensors and UAS imagery up to smallsats; 
 - Processing imagery using cloud-based computational platforms, such as Google Earth Engine and Radiant Earth.
 - An active learning approach (combining crowdsourcing and machine learning) to mapping agricultural land cover;
 
@@ -24,10 +24,10 @@ Office hours: Tuesdays 1-3 pm in Jefferson 105.
 
 ## Course contents
 
+- [General Information](docs/general-information.md)
 - [Syllabus](docs/syllabus.md)
 - [Overview of Projects](docs/projects.md)
 - [Content of Introductory Modules](docs/introductory-modules.md)
-- [General Information](docs/general-information.md)
 
 <br><br>
 
