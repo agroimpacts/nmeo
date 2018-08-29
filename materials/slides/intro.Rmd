@@ -48,6 +48,7 @@ Innovations:
 - [Cloud-processing](https://www.radiant.earth)
 - [Active learning](https://sandbox.crowdmapper.org/api/webapp/employee/assignment)
 
+![](figures/uas.jpg){width=50%}
 
 ## Housekeeping
 
