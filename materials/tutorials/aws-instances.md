@@ -19,6 +19,15 @@ Instructions, or links to other online instructions, are provided for various st
 ### Controlling access to the console
 *Under construction, but [see here](https://docs.aws.amazon.com/IAM/latest/UserGuide/console_controlling-access.html)*
 
+#### Creating an IAM policy
+These control how users can access and use a range of AWS resources. An administrator must assign policies to a specific user or user group. Here's a good example of [a policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_ec2_tag-owner.html) that allows a user to start and stop EC2 instances that list that user's name as an Owner in the resource tag. To create this policy, you:
+
+1. Go To IAM > Policies > Create Policy
+2. Paste the copied policy into the JSON tab
+3. Replace the *:* in this part `arn:aws:ec2:*:*:instance/*` with availability zone (e.g. us-east-1) and account number, e.g. us-east-1:511111111111
+4. Hit Review Policy, name it something meaningful, and finish up
+5. Go to Users or Groups under IAM, and then assign that policy to the user or group. 
+
 
 ### Setting up an AWS Windows Server
 
@@ -63,7 +72,10 @@ These instructions assume you are the administrator of the account, or a user wh
 
 ## Using an AWS Virtual Windows Server
 
-1. First start up the virtual machine (if you have EC2 console permissions-if not, ask the admin to start it)
+1. First start up the virtual machine: 
+    - If you have EC2 console permissions, what you will do is use your console sign-in link, e.g. https://551111111111.signin.aws.amazon.com/console, and then enter your admin-assigned user name and password.  
+    - Go to EC2 > Instance, and then browse the list of available instances. Choose the one you need, and then Actions > Instance State > Start. It will spin up, taking a few minutes before ready. If you don't have permissions for this instance, you will not be able to start it. 
+    -If you don't have permissions, ask the admin to start it. 
 2. Install the right remote desktop client, and open it. Choose create a new connection. If you are using Microsoft Remote Desktop it will look like this: 
 
     ![](figures/rdc_conn.png?raw=true){size=60%}
