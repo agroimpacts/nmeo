@@ -75,7 +75,8 @@ These instructions assume you are the administrator of the account, or a user wh
 1. First start up the virtual machine: 
     - If you have EC2 console permissions, what you will do is use your console sign-in link, e.g. https://551111111111.signin.aws.amazon.com/console, and then enter your admin-assigned user name and password.  
     - Go to EC2 > Instance, and then browse the list of available instances. Choose the one you need, and then Actions > Instance State > Start. It will spin up, taking a few minutes before ready. If you don't have permissions for this instance, you will not be able to start it. 
-    -If you don't have permissions, ask the admin to start it. 
+    - If you don't have permissions, ask the admin to start it. 
+    
 2. Install the right remote desktop client, and open it. Choose create a new connection. If you are using Microsoft Remote Desktop it will look like this: 
 
     ![](figures/rdc_conn.png?raw=true){size=60%}
