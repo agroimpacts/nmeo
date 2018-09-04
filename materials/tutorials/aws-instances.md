@@ -94,7 +94,41 @@ These instructions assume you are the administrator of the account, or a user wh
         - Once the machine has stopped completely (it takes a bit), go to Actions > Image > Create Image. Name it something memorable, choose a size for the output disk, and then "Create Image"
         - You can then terminate the instance once the image is created, (it might take a little while to create). 
         - The beauty of this is that you can create a new instance, either bigger or smaller, using this image, and it will have everything you installed on it from the get go.  This helps if you decide the original instance size/type you chose wasn't the right one for the job. 
-        
+
+### Even better, use the CLI
+
+Controlling instances can be even easier if use the AWS Command Line Interface (CLI), which allows you to start and stop an instance and describe it from the command line on your local computer.  
+
+First, you have to install the CLI.  Directions on how to do that are [here](https://docs.aws.amazon.com/cli/latest/userguide/installing.html) 
+
+For Windows users, there are also a few ways you can go with respect to using the command line. This is taken from our wiki for the active learning project: 
+
+> One good way to go on Windows...is to install Cygwin on your desktop or laptop: https://www.cygwin.com. The latest version, 2.10.0 was released 2/2018. Cygwin provides a large collection of GNU and Open Source tools which provide functionality similar to a Linux distribution on Windows.
+
+> Another alternative - that requires no knowledge of Linux - is to install a Windows terminal emulator, such as PuTTY, available here: https://www.chiark.greenend.org.uk/~sgtatham/putty and https://www.ssh.com/ssh/putty/download.
+
+If you have the CLI installed and working, and have set your path to find the tools (instructions [here](https://docs.aws.amazon.com/cli/latest/userguide/awscli-install-windows.html#awscli-install-windows-path)) then it becomes fairly easy to use it. 
+
+For example, start an instance with the id `i-0c138e67140b7e65`:
+
+```
+aws ec2 start-instances --instance-ids i-0c138e67140b7e65
+```
+
+Retrieve its public DNS name once it is spinning (note you might not have permissions to do this if the admin hasn't given it to you):
+
+```
+aws ec2 describe-instances --instance-ids i-0c138e67140b7e650 --filters --query "Reservations[].Instances[].PublicDnsName"
+```
+
+Stop it when you are done: 
+
+```
+aws ec2 stop-instances --instance-ids i-0c138e67140b7e65
+```
+
+
+```        
 [Back to TOC](#toc)        
     
 
