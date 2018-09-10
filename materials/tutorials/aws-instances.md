@@ -8,11 +8,14 @@ Instructions, or links to other online instructions, are provided for various st
 
 ### TOC
 - [Administration](#administration)
+    - [Setting up IAM user group](#setting-up-iam-user-group)
+    - [Controlling access to the console](#controlling-access-to-the-console)
+    - [Creating an IAM policy](#creating-an-iam-policy)
     - [Setting up an AWS Windows Server](#setting-up-an-aws-windows-server)
 - [Using an AWS Virtual Windows Server](#using-an-aws-virtual-windows-server)
 
 ## Administration
-### Setting up IAM User Groups
+### Setting up IAM User Group
 
 *Under construction*
 
@@ -28,6 +31,19 @@ These control how users can access and use a range of AWS resources. An administ
 4. Hit Review Policy, name it something meaningful, and finish up
 5. Go to Users or Groups under IAM, and then assign that policy to the user or group. 
 
+#### Assigning an IAM Role to an Instance
+You might need your AWS instance to be able to access other AWS resources, for example S3, so you have to assign an IAM role to it. 
+
+To do that, you have to create an IAM role:
+
+1. Got to IAM console > Roles > Create Role
+2. Choose the IAM service you want to create the role for, in this case EC2
+3. Click Next:Permissions, and you can either choose to create a policy, or select an existing one.  In this case, as an example, type in S3 into the filter window and choose AmazonS3ReadOnlyAccess
+4. Click Next:Review, and then name it. 
+
+Now go back to the EC2 console, find the instance you want to give those permissions to, and in the Instance Settings choose Attach/Replace IAM Roles. Find the policy you just made and assign it.  You will now have permissions. 
+
+I used this approach to give permissions to a GPU instance on which I installed PIX4D. In this case, we needed to upgrade the GPU drivers to allow PIX4D's raycloud to be used, following [these instructions](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/install-nvidia-driver-windows.html), following all but steps 4-6, which seem out of date.  
 
 ### Setting up an AWS Windows Server
 
@@ -127,8 +143,10 @@ Stop it when you are done:
 aws ec2 stop-instances --instance-ids i-0c138e67140b7e65
 ```
 
+### Expand the volume
 
-```        
+Perhaps you need more EBS storage space.  If so, follow [these instructions](https://aws.amazon.com/premiumsupport/knowledge-center/expand-ebs-root-volume-windows/). [These](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ebs-modify-volume.html ) are also helpful.
+
 [Back to TOC](#toc)        
     
 
