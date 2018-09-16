@@ -65,7 +65,7 @@ ___
     
 #### Reading
 - Planet white paper on [surface reflectance](https://assets.planet.com/marketing/PDF/Planet_Surface_Reflectance_Technical_White_Paper.pdf)
-- McCabe et al [(2017)](https://doi.org/10.1002/2017WR022240) (tentative)
+- McCabe et al [(2017)](https://doi.org/10.1002/2017WR022240)
 
 #### Tools
 - Dockerized agroimpacts/mapper Planet-query [function](https://github.com/agroimpacts/mapperAL/tree/feature/planet-query/spatial/python/planet) (update link)

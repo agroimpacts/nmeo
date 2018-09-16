@@ -403,4 +403,6 @@ points(pt[, 1], pt[, 2], col = "cyan", pch = "+")
 dev.off()
 ```
 
+---
+
 ![](figures/05/spat_diff.png) 
