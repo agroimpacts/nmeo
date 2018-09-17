@@ -132,7 +132,7 @@ ___
     - Spinning up AWS virtual machines
 
 #### Reading
--TBD 
+- [Debats et al, 2017](https://peerj.com/preprints/3004/)
 
 #### Tools
 - Logon credentials to active learning project (to be provided)

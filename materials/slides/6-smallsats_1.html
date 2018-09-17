@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Small Sats</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Lyndon Estes" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/lucy.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/middlebury-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="class6-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Small Sats
+## New Methods in Earth Observation
+### Lyndon Estes
+### 9/17/2018
+
+---
+
+class: center, middle
+# UAS Review
+
+---
+### Pseudo-True From Sequioa Imagery
+
+
+```r
+library(raster)
+img1 &lt;- brick("materials/data/05/aug24_ngb_noreftarget_cog_gcs.tif")
+green &lt;- (img1[[3]] * 3 + img1[[1]]) / 4  # pseudo green band
+red &lt;- img1[[3]]  # red as red
+blue &lt;- img1[[2]]  # green serves as blue
+plotRGB(stack(red, green, blue), scale = 0.41, zlim = c(0, 0.41))
+```
+
+
+
+![](figures/06/pseudo_rgb.png)
+
+---
+
+### GCVI =&gt; LAI
+
+GCVI = (NIR / GRN) – 1
+
+GCVI = 1.4 * LAI^1.03 + 0.93
+
+
+```r
+gcvi &lt;- (img1[[1]] / img1[[3]]) - 1
+```
+
+
+
+
+
+.center[![](figures/06/gcvi.png)]
+
+---
+
+LAI = ((GCVI - 0.93) / 1.4)^(1 / 1.03)
+
+
+```r
+lai &lt;- ((gcvi - 0.93) / 1.4)^(1 / 1.03)
+```
+
+
+
+.center[![](figures/06/lai.png)]
+
+---
+# Take-aways from this Module
+
+&amp;nbsp;&amp;nbsp;- Familiarity with Drone Operations
+
+&amp;nbsp;&amp;nbsp;- Know how to process Sequioia imagery with PIX4D
+
+&amp;nbsp;&amp;nbsp;- Insight into uses, strengths, limitations
+
+---
+class: center, middle
+# Small Sats
+---
+
+## Objectives
+### Understand: 
+&amp;nbsp;&amp;nbsp; - What has enabled them
+
+&amp;nbsp;&amp;nbsp; - Their value
+
+&amp;nbsp;&amp;nbsp; - Their limitations
+
+### Know how to:
+&amp;nbsp;&amp;nbsp; - Access Planet data
+
+&amp;nbsp;&amp;nbsp; - Run some basic searching &amp; filtering (programmatically, with luck)
+
+---
+background-image: url(https://cdn.vox-cdn.com/uploads/chorus_image/image/58407563/38583831555_9ae89f5c10_o.0.jpg)
+background-size: cover
+
+
+## What has enabled small sats?
+
+&amp;nbsp;&amp;nbsp; - Technology gains in other sectors
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;* Cell phones
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;* Computer (drives)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;* Rocketry
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;* Etc
+&lt;/div&gt;
+
+---
+
+## Their Value
+
+.center[![](figures/06/kennedy_etal2014_1.png)]
+
+.center[Kennedy et al (2014), Figure 1]
+
+---
+
+.center[![](figures/06/kennedy_etal2014_3.png)]
+.center[Kennedy et al (2014), Figure 3]
+
+---
+## Examples
+
+![](https://cdn-images-1.medium.com/max/1400/1*ZZLYeSY72o_RI4fnOiBNyg.jpeg)
+.center[Urban growth in Shanghai]
+
+---
+
+## Examples
+
+.center[![](figures/06/mccabe_etal1.png)]
+.center[McCabe et al (2017), Figure 1]
+
+---
+
+## Examples
+
+.center[![](figures/06/mccabe_etal2.png)]
+.center[McCabe et al (2017), Figure 2]
+
+---
+
+## Examples
+
+.center[![](figures/06/planet1.png)]
+.center[![](figures/06/planet2.png)]
+
+---
+
+## Tradeoffs and Limitations
+
+&amp;nbsp;&amp;nbsp;- Spatial resolution not that high
+
+&amp;nbsp;&amp;nbsp;- Radiometry not superb
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;* Cross-calibration between sensors an issue (5-6% SD)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;* Radiometric resolution fairly low
+
+&amp;nbsp;&amp;nbsp;- Accessibility
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
