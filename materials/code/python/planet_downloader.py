@@ -34,9 +34,9 @@ yr_start = int(2018)
 yr_end = yr_start
 
 # logger
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-logging.basicConfig(format = '%(message)s', datefmt = '%m-%d %H:%M')
+# logger = logging.getLogger(__x name__)
+# logger.setLevel(logging.INFO)
+# logging.basicConfig(format = '%(message)s', datefmt = '%m-%d %H:%M')
 
 download = False
 cloud_filter = False
