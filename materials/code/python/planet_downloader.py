@@ -9,7 +9,12 @@ import geojson
 import json
 import logging
 import datetime
-
+import rasterio
+from rasterio.mask import mask
+from rasterio.coords import BoundingBox
+from rasterio import transform
+from rasterio.warp import transform_bounds
+from subprocess import call
 
 # read configuration
 config = configparser.ConfigParser()
@@ -19,6 +24,7 @@ imagery_config = config['imagery']
 cloud_config = config['cloud_shadow']
 aoi_config = config['aoi']
 date_config = config['dates']
+processing_config = config['processing']
 
 # specific variables
 api_key = planet_config['api_key']
@@ -32,14 +38,18 @@ day_start = int(date_config['day_start'])
 day_end = int(date_config['day_end'])
 yr_start = int(2018)
 yr_end = yr_start
+download = processing_config['download']
+cloud_filter = processing_config['cloud_filter']
+crop = processing_config['crop']
+max_clouds = float(imagery_config['max_clouds'])
+max_shadows = float(imagery_config['max_shadows'])
+max_nodata = float(imagery_config['max_nodata'])
+output_path = imagery_config['catalog_path']
 
 # logger
 # logger = logging.getLogger(__x name__)
 # logger.setLevel(logging.INFO)
 # logging.basicConfig(format = '%(message)s', datefmt = '%m-%d %H:%M')
-
-download = False
-cloud_filter = False
 
 # pclient init
 pclient = PClientV1(api_key, config)
@@ -47,7 +57,6 @@ pclient = PClientV1(api_key, config)
 # # build a valid dt string from a month number
 # def dt_construct(month, day = 1, year = 2018, t = "00:00:00.000Z"):
 #     return "{}-{:02d}-{:02d}T{}".format(year, month, day, t)
-
 aoi = GeoUtils.define_aoi(x, y, cellSize)  # aoi by a cell grid x, y
 # print(aoi)
 
@@ -81,23 +90,80 @@ for item in res.items_iter(pclient.maximgs):
      print("Matching scene ID: " + scene_id)
      
      if download:
-        print("...Downloading " + scene_id)
         # output_file = pclient.download_localfs_analytic_sr(scene_id)
+        print("..Downloading " + scene_id)
+        output_file = pclient.download_localfs_analytic_sr(scene_id)
      
      if cloud_filter:
         bbox_local = GeoUtils.define_BoundingBox(x, y, cellSize)
         # print(bbox_local)
         
-       # nodata percentage
-       # nodata_perc = nodata_stats(output_file, bbox_local)
+        # nodata percentage
+        nodata_perc = nodata_stats(output_file, bbox_local)
+        print("...No data pixels in image: " + str(nodata_perc))
        
-       # use custom cloud detection function to calculate clouds and shadows
-       # cloud_perc, shadow_perc = cloud_stats(output_file, bbox_local, cloud_config)
-       # check if cell grid is good enough
-       # if (cloud_perc <= pclient.max_clouds and nodata_perc <= pclient.max_nodata):
-           # break
-     # else:
-           # scene_id = ''
+        # use custom cloud detection function to calculate clouds and shadows
+        cloud_perc, shadow_perc = cloud_stats(output_file, bbox_local, 
+                                              cloud_config)
+        print("...Cloudy pixels in AOI: " + str(cloud_perc) + 
+              "; Shadow pixels in AOI: " + str(shadow_perc))
+        
+        # check if cell grid is clear enough
+        if (cloud_perc <= max_clouds and shadow_perc <= max_shadows and 
+            nodata_perc <= max_nodata):
+            print("....Scene is clear for your AOI")
+        
+        if crop:
+            src = rasterio.open(output_file)
+            print(src.crs)
+            bounds_ext = GeoUtils.BoundingBox_to_extent(BoundingBox(*transform_bounds("EPSG:4326", src.crs, *bbox_local)))
+            # aoi_poly = shape(GeoUtils.extent_to_polygon(bounds_ext))
+            # print(aoi_poly)
+            # shapes = ((geom,value) for geom, value in zip(aoi_poly.geometry, "id"))
+            # print(aoi_poly)
+            
+            bnds = "%s %s %s %s" % (bounds_ext["xmin"], bounds_ext["ymin"], bounds_ext["xmax"], 
+                    bounds_ext["ymax"])
+            output = output_path + scene_id + "_aoi.tif"
+            input = output_file
+            call("gdalwarp -te " + ' ' + bnds + ' ' + input + ' ' + output, 
+                  shell = True)
+            # call()
+            
+            
+            
+            # print(bounds_ext)
+            # out_image, out_transform = mask(src, aoi_poly, crop=True)
+            # out_meta = src.meta.copy()
+            # 
+            # out_meta.update({"driver": "GTiff", "height": out_image.shape[1],
+            #                  "width": out_image.shape[2],
+            #                  "transform": out_transform})
+            # # 
+            # crop_file = output_path + scene_id + "_aoi.tif"
+            # # print(crop_file)
+            # with rasterio.open(crop_file, "w", **out_meta) as dest:
+            #     dest.write(out_image)
+            
+            # bounds_window = src.window(*bounds_ext)
+            # print(bounds_window)
+            # # bounds_window = bounds_window.intersection(
+            #     # Window(0, 0, src.width, src.height))
+            # 
+            # # Get the window with integer height
+            # # and width that contains the bounds window.
+            # crop_file = output_path + scene_id + "_aoi.tif"
+            # out_window = bounds_window.round_lengths(op='ceil')
+            # 
+            # height = int(out_window.height)
+            # width = int(out_window.width)
+            # 
+            # with rasterio.open(crop_file, 'w', **out_kwargs) as out:
+            #     out.write(src.read(window=out_window,
+            #                        out_shape=(src.count, height, width)))
+
+     else:
+        print("....Scene " + scene_id + " is not usable") #scene_id = ''
                                       
                                         
 # # For each day, find the corresponding scene ids that pass filters
