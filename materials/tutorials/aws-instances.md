@@ -95,7 +95,7 @@ These instructions assume you are the administrator of the account, or a user wh
     
 2. Install the right remote desktop client, and open it. Choose create a new connection. If you are using Microsoft Remote Desktop it will look like this: 
 
-    ![](figures/rdc_conn.png?raw=true){size=60%}
+    ![](figures/rdc_conn.png?raw=true)
 
     - Enter a memorable name for the connection
     - PC name is the AWS Public DNS for the instance, which you will either be provided by the Admin or get from the Instance dialog in the Management Console, if you have permissions. Important: you will have to put in a new DNS each time you start the instance up again, as it doesn't stay fixed (unless we buy a fixed IP for the instance).  

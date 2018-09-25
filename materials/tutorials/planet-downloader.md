@@ -87,20 +87,34 @@ Once you have made those two changes, you can run the downloader:
 > python planet_downloader.py
 ```
 
-Entered either into the Anaconda prompt (Windows) or terminal (Mac).
+Entered either into the Anaconda prompt (Windows), terminal (Mac), or the Rstudio terminal. Note: for this to work, you have to set your working directory to set to the folder in which the `planet_downloader.py` and accompanying scripts reside. Let's say you have a Windows box, and your directory is:
 
-You should get these results:
+> c:\Users\you\Documents\classes\geog287387\materials\code\python\
+
+To get there, in your shell/terminal of choice, you simply have to enter this command: 
 
 ```
-Matching scene ID: 20180622_145904_1048
-Matching scene ID: 20180622_145903_1048
-Matching scene ID: 20180617_145943_0f2d
-Matching scene ID: 20180617_150425_0f22
-Matching scene ID: 20180617_150423_0f22
-Matching scene ID: 20180616_145932_0f4d
-Matching scene ID: 20180616_145931_0f4d
+> cd c:\Users\you\Documents\classes\geog287387\materials\code\python\
+```
+
+And then you execute the `python planet_downloader.py` command.  
+
+If your start and end days are set to 10 and 15 for the month of June (6), you should get these results:
+
+```
 Matching scene ID: 20180612_150003_1043
+.Downloading 20180612_150003_1043
+..No data pixels in image: 0.0
+..Cloudy pixels in AOI: 0.0; Shadow pixels in AOI: 0.0
+...Scene is clear for your AOI
+....Finished writing AOI C:\Users\airg\Desktop\images\20180612_150003_1043_aoi.tif
 ```
+
+That means that the downloader found one scene covering our area (for June 12th) downloaded it, passed the filters over it to check that there were no clouds or cloud shadows, as well as missing data, and then cropped it down to our area of interest, and then wrote it out to the file in question. 
+
+It should look something like this, when draped over a satellite imagery basemap:
+
+![](figures/planet_aoi.png?raw=true)
 
 If this doesn't work, please copy the complete error messages you get into our Slack channel.  
 
