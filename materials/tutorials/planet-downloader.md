@@ -73,11 +73,17 @@ month_end: 6
 day_start: 1
 day_end: 30
 
+[processing]
+cloud_filter = True
+crop = True
+
 [imagery]
 catalog_path: C:\Users\airg\Desktop\images
 ```
 
-You just need to replace the API key with your own Planet API key.  And you need to replace the catalog path with the directory to the folder where you want your images to go (**do not** include the "analytic_sr" in the path name).
+You just need to replace the API key with your own Planet API key.  And you need to replace the catalog path with the directory to the folder where you want your images to go (**do not** include the "analytic_sr" in the path name). 
+
+Once you get this running, you can also choose to turn off the cloud filtering or cropping options, if you just want to download the scenes. Note that the downloader will not redownload a scene if it finds that you already have it in your `catalog_path`. 
 
 Note, a Mac user will want to make the file path Unix-y, e.g. `/Users/airg/Desktop/images`.
 

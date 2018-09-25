@@ -39,7 +39,7 @@ day_start = int(date_config['day_start'])
 day_end = int(date_config['day_end'])
 yr_start = int(2018)
 yr_end = yr_start
-download = processing_config['download']
+# download = processing_config['download']
 cloud_filter = processing_config['cloud_filter']
 crop = processing_config['crop']
 max_clouds = float(imagery_config['max_clouds'])
@@ -89,11 +89,8 @@ for item in res.items_iter(pclient.maximgs):
      geom = shape(geojson.loads(json.dumps(item["geometry"])))
      scene_id = item["id"]
      print("Matching scene ID: " + scene_id)
-     
-     if download:
-        # output_file = pclient.download_localfs_analytic_sr(scene_id)
-        print(".Downloading " + scene_id)
-        output_file = pclient.download_localfs_analytic_sr(scene_id)
+     print(".Downloading " + scene_id)
+     output_file = pclient.download_localfs_analytic_sr(scene_id)
      
      if cloud_filter:
         bbox_local = GeoUtils.define_BoundingBox(x, y, cellSize)
