@@ -51,16 +51,16 @@ The same install instructions should work.  If you already have gdal, use the se
 
 After you have the steps above done, you should be able to run the downloader. 
 
-Get the latest version of the GEOG287/387 repo. The easiest is to just clone it from GitHub or download it as a zipfile and unpack it somewhere where you want it. 
+Get the latest version of the GEOG287/387 repo. The easiest is to just clone it from GitHub or download it as a zipfile and unpack it somewhere where you want it. I have shown you in class how you can use Rstudio to clone the project, and then use its git pull button to keep your local copies of the repo synced. 
 
 Next, make a folder where you want downloaded images to be sent. Make a sub-folder in that folder called "analytic_sr". 
 
-Open the config.ini file in the materials/code/python folder that you got from the class repo. 
+You then need to take the confi_template.ini and save it in the same directory as the python scripts (materials/code/python) as `config.ini`. 
 
-The top lines of the one I just ran in windows looks like this
+Open that up, and look for these lines:
 ```
 [planet]
-api_key: x9f35333xxxc4qdfb437ygh4fff44c2
+api_key: <copy your Planet key here>
 
 [aoi]
 x: -71.8071 
