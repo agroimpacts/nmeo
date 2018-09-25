@@ -14,8 +14,8 @@ from rasterio.mask import mask
 from rasterio.coords import BoundingBox
 from rasterio import transform
 from rasterio.warp import transform_bounds
-from subprocess import call
-# HELLO!
+from rasterio.windows import Window
+# from subprocess import call
 
 # read configuration
 config = configparser.ConfigParser()
@@ -92,7 +92,7 @@ for item in res.items_iter(pclient.maximgs):
      
      if download:
         # output_file = pclient.download_localfs_analytic_sr(scene_id)
-        print("..Downloading " + scene_id)
+        print(".Downloading " + scene_id)
         output_file = pclient.download_localfs_analytic_sr(scene_id)
      
      if cloud_filter:
@@ -101,94 +101,62 @@ for item in res.items_iter(pclient.maximgs):
         
         # nodata percentage
         nodata_perc = nodata_stats(output_file, bbox_local)
-        print("...No data pixels in image: " + str(nodata_perc))
+        print("..No data pixels in image: " + str(nodata_perc))
        
         # use custom cloud detection function to calculate clouds and shadows
         cloud_perc, shadow_perc = cloud_stats(output_file, bbox_local, 
                                               cloud_config)
-        print("...Cloudy pixels in AOI: " + str(cloud_perc) + 
+        print("..Cloudy pixels in AOI: " + str(cloud_perc) + 
               "; Shadow pixels in AOI: " + str(shadow_perc))
         
         # check if cell grid is clear enough
         if (cloud_perc <= max_clouds and shadow_perc <= max_shadows and 
             nodata_perc <= max_nodata):
-            print("....Scene is clear for your AOI")
+            print("...Scene is clear for your AOI")
         
-        if crop:
-            src = rasterio.open(output_file)
-            print(src.crs)
-            bounds_ext = GeoUtils.BoundingBox_to_extent(BoundingBox(*transform_bounds("EPSG:4326", src.crs, *bbox_local)))
-            # aoi_poly = shape(GeoUtils.extent_to_polygon(bounds_ext))
-            # print(aoi_poly)
-            # shapes = ((geom,value) for geom, value in zip(aoi_poly.geometry, "id"))
-            # print(aoi_poly)
+            if crop:
+                src = rasterio.open(output_file)
+                bounds = transform_bounds("EPSG:4326", src.crs, *bbox_local)
             
-            bnds = "%s %s %s %s" % (bounds_ext["xmin"], bounds_ext["ymin"], bounds_ext["xmax"], 
-                    bounds_ext["ymax"])
-            output = output_path + scene_id + "_aoi.tif"
-            input = output_file
-            call("gdalwarp -te " + ' ' + bnds + ' ' + input + ' ' + output, 
-                  shell = True)
-            # call()
-            
-            
-            
-            # print(bounds_ext)
-            # out_image, out_transform = mask(src, aoi_poly, crop=True)
-            # out_meta = src.meta.copy()
-            # 
-            # out_meta.update({"driver": "GTiff", "height": out_image.shape[1],
-            #                  "width": out_image.shape[2],
-            #                  "transform": out_transform})
-            # # 
-            # crop_file = output_path + scene_id + "_aoi.tif"
-            # # print(crop_file)
-            # with rasterio.open(crop_file, "w", **out_meta) as dest:
-            #     dest.write(out_image)
-            
-            # bounds_window = src.window(*bounds_ext)
-            # print(bounds_window)
-            # # bounds_window = bounds_window.intersection(
-            #     # Window(0, 0, src.width, src.height))
-            # 
-            # # Get the window with integer height
-            # # and width that contains the bounds window.
-            # crop_file = output_path + scene_id + "_aoi.tif"
-            # out_window = bounds_window.round_lengths(op='ceil')
-            # 
-            # height = int(out_window.height)
-            # width = int(out_window.width)
-            # 
-            # with rasterio.open(crop_file, 'w', **out_kwargs) as out:
-            #     out.write(src.read(window=out_window,
-            #                        out_shape=(src.count, height, width)))
+                bounds_window = src.window(*bounds)
+                bounds_window = bounds_window.intersection(Window(
+                    0, 0, src.width, src.height))
 
-     else:
-        print("....Scene " + scene_id + " is not usable") #scene_id = ''
-                                      
-                                        
-# # For each day, find the corresponding scene ids that pass filters
-# while start <= end:
-#     # print(start)
-#     s  = start.strftime('%Y-%m-%dT%H:%M:%SZ')
-#     s2  = start2.strftime('%Y-%m-%dT%H:%M:%SZ')
-#     # print(s)
-#     # print(s2)
-#     start += step
-#     start2 += step
-#     planet_filters = pclient.set_filters_sr(aoi, s, s2)
-#     res = pclient.request_intersecting_scenes(planet_filters)
-#     
-#     print("Querying scenes for " + start.strftime('%Y-%m-%d'))
-#     print(str(res))
-    
-    # loop through all scenes for day
-    # for item in res.items_iter(pclient.maximgs):
-    #     geom = shape(geojson.loads(json.dumps(item["geometry"])))
-    #     scene_id = item["id"]
-    #     print(item)
-        # if scene_id:
-        #     print(scene_id)
-        # else: 
-        #     print("...no scene")
-                                        
+                # Get the window with integer height
+                # and width that contains the bounds window.
+                out_window = bounds_window.round_lengths(op='ceil')
+                height = int(out_window.height)
+                width = int(out_window.width)
+            
+                out_kwargs = src.profile
+                out_kwargs.update({
+                  'driver': "GTiff",
+                  'height': height,
+                  'width': width,
+                  'transform': src.window_transform(out_window)})
+               # out_kwargs.update(**creation_options)
+
+                if 'blockxsize' in out_kwargs and out_kwargs['blockxsize'] > width:
+                     del out_kwargs['blockxsize']
+                if 'blockysize' in out_kwargs and out_kwargs['blockysize'] > height:
+                     del out_kwargs['blockysize']
+                   
+                output = output_path + scene_id + "_aoi.tif"
+                with rasterio.open(output, 'w', **out_kwargs) as out:
+                     out.write(src.read(window=out_window,
+                               out_shape=(src.count, height, width)))
+                print("....Finished writing AOI " + output)
+                print(" ")
+
+               # gdal variant, depends on bounds_ext
+               # bnds = "%s %s %s %s" % (bounds_ext["xmin"], bounds_ext["ymin"], bounds_ext["xmax"], 
+               #         bounds_ext["ymax"])
+               # output = output_path + scene_id + "_aoi.tif"
+               # input = output_file
+               # call("gdalwarp -te " + ' ' + bnds + ' ' + input + ' ' + output, 
+               #       shell = True)
+               # call()
+
+        else:
+            print("...Scene " + scene_id + " is not usable!!!") #scene_id = ''
+            print(" ")                          
