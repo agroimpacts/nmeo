@@ -18,7 +18,7 @@
 | 17 September | 4 | Small Sats: PlanetScope. Reading: see [Introduction Modules > Small Sats > Reading](introductory-modules.md#small-sats)    |
 | 19 September | 4 | Small Sats: PlanetScope    |
 | 24 September | 5 | Small Sats: PlanetScope / Cloud-based EO processing |
-| 26 September | 5 | Cloud-based EO processing |
+| 26 September | 5 | Cloud-based EO processing Reading: see [Introduction Modules > Cloud-based Processing > Reading](introductory-modules.md#cloud-based-processing) |
 | 1 October    | 6 | Cloud-based EO processing   |
 | 3 October    | 6 | Sensor data (Dr. Adam Wolf from Arable)            |
 | 8 October    | 7 | Fall Break     |
