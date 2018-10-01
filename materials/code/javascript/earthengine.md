@@ -7,6 +7,8 @@ Copy and paste any of these into a new script in EarthEngine.
     - [Working with SRTM data](#working-with-srtm-data)
     - [Landsat Image Collections](#landsat-image-collections)
 - [More Advanced Examples](#more-advanced-examples)
+    - [Filtering and exporting images](#filtering-and-exporting-images)
+    - [Calculating NDVI amplitude](#calculating-ndvi-amplitude)
 
 ## In-class examples
 
