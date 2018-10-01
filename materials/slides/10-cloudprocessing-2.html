@@ -242,8 +242,55 @@ print(chart);
 
 ---
 
-# Radiant Earth
-## Start a project and ingest images
+# Homework 
+
+The scripts we used today, plus some more advanced ones, are provided [here](../code/javascript/earthengine.md). You may find these helpful in undertaking the homework. 
+
+## Earth Engine 1
+Adapt the Landsat code as follows: 
+
+&amp;nbsp;&amp;nbsp;- Replace Landsat 8 TOA with the Tier 1 surface reflectance collection
+
+&amp;nbsp;&amp;nbsp;- Calculate GCVI instead of NDVI, using this function: 
+
+
+```js
+var addGCVI = function(image){
+  gcvi = image.expression(
+    '(NIR / GREEN) - 1.0', {
+    'NIR': image.select('B5'),
+    'GREEN': image.select('B3')
+    }).rename('GCVI');
+  return(image.addBands(gcvi))    
+}
+```
+
+---
+
+## Earth Engine 2
+&amp;nbsp;&amp;nbsp;- Upload the full Planet scenes (unclipped) you downloaded
+
+&amp;nbsp;&amp;nbsp;- Upload the PPK non-target reflectance drone image
+
+&amp;nbsp;&amp;nbsp;- You will ingest these as image assets.
+
+
+## Radiant Earth
+&amp;nbsp;&amp;nbsp;- Follow this [tutorial](https://help.radiant.earth/basic-resource-guide/creating-projects/create-a-standard-project-and-add-available-imagery) to create your first project
+
+&amp;nbsp;&amp;nbsp;- Zoom in to level 9 over Sutton, MA
+
+&amp;nbsp;&amp;nbsp;- Select all Sentinel 2 scenes that: 
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;+ Totally cover that location; 
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;+ Falling within the period May 1, 2018 - September 15, 2018;
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;+ Have cloud cover &lt;10%. 
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;+ [These instructions will help](https://help.radiant.earth/basic-resource-guide/creating-projects/how-to-find-the-right-image)
+
+Note that these scenes will show up as not yet ingested, so will take a while to show up in your project.
     </textarea>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
