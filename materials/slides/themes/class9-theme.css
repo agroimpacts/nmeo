@@ -1,0 +1,11 @@
+.title-slide {
+  background-image: url(https://lh3.googleusercontent.com/1oKUVZYOCaWB-EZwSPOenEI-fr9qDDote2yBNHyLK4z_Y_IUGyr62aukBYlQKRvBrEmF2kz8iWB9DzBFntEYgCIZ1XyQbzo=s688);
+  background-size: cover;
+}
+.title-slide h1 {
+  color: #00BFFF;
+}
+.title-slide h2, .title-slide h3 {
+  color: #e7e8e2; 
+  line-height: 1.5em;
+}
