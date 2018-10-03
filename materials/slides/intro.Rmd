@@ -4,7 +4,7 @@ author: "Lyndon Estes"
 date: "8/27/2018"
 output:
   slidy_presentation: 
-    css: custom.css
+    css: themes/class2-theme.css
 ---
 
 ## Background
