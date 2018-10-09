@@ -256,7 +256,7 @@ Adapt the Landsat code as follows:
 
 ```js
 var addGCVI = function(image){
-  gcvi = image.expression(
+  var gcvi = image.expression(
     '(NIR / GREEN) - 1.0', {
     'NIR': image.select('B5'),
     'GREEN': image.select('B3')
@@ -264,7 +264,6 @@ var addGCVI = function(image){
   return(image.addBands(gcvi))    
 }
 ```
-
 ---
 
 ## Earth Engine 2

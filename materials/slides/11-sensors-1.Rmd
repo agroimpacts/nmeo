@@ -47,23 +47,39 @@ m <- leaflet() %>% addProviderTiles("Esri.WorldImagery") %>%
 m
 ```
 
----
-
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
-library(data.table)
-load(file.path("~/Dropbox/projects/yld/external/data/", 
-               "whittier_hourly_08062018-06092018.rda"))
-datsdt <- lapply(dats, data.table)
-par(mfrow = c(3, 1), mar = c(3, 3, 1, 0), oma = c(3, 3, 0, 0))
-cols = c("purple", "orange", "blue")
-axesplot = c("n", "n", "s")
-for(i in 1:3) {
-  datsdt[[i]][, plot(time, PARdw, type = "l", col = cols[i], xlab = "date", 
-                     ylab = "PAR", xaxt = axesplot[i], las = 2)]
-} 
+# library(data.table)
+# library(reticulate)
+# # py_install("pandas")
+# 
+# f <- file.path("~/Dropbox/teaching/clark/courses/geog287387/materials/code/", 
+#                "python/physics.py")
+# physics <- source_python(file = f)
+# 
+# solar_noon_(r_to_py(datsdt[[1]]$datetime), datsdt[[1]]$long[1])
+# 
+# load(file.path("~/Dropbox/projects/yld/external/data/", 
+#                "whittier_hourly_08062018-06092018.rda"))
+# datsdt <- lapply(dats, data.table)
+# par(mfrow = c(3, 1), mar = c(3, 3, 1, 0), oma = c(3, 3, 0, 0))
+# cols = c("purple", "orange", "blue")
+# axesplot = c("n", "n", "s")
+# for(i in 1:3) {
+#   
+#   datsdt[[i]][, day := lubridate::day(datetime)]
+#   datsdt[[i]][, list(B4uw, B6uw), {
+#     
+#   }]
+#   datsdt[[i]][, plot(time, (B6uw - B4uw) / (B6uw + B4uw), type = "l", 
+#                      col = cols[i], xlab = "date", 
+#                      ylab = "PAR", xaxt = axesplot[i], las = 2)]
+# } 
 
 ```
 
 ---
 
 # Introducing Dr. Adam Wolf
+
+[Lecture](11-adamwolf.pdf)
+
