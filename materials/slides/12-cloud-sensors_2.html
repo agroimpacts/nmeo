@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cloud-based Processed =&gt; Realtime In Situ Sensing</title>
+    <meta charset="utf-8">
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/lucy.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/middlebury-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="themes/class11-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Cloud-based Processed =&gt; Realtime In Situ Sensing
+## New Methods in Earth Observation
+### 10/3/2018
+
+---
+
+class: center, middle
+
+# Cloud Processing Practicals/Homework
+## Wrap-up
+
+---
+## Earth Engine 
+### 1. GCVI on Landsat
+
+[Code](https://code.earthengine.google.com/21f7df3222b920bc725ab242c729ec37)
+
+### 2. Upload Planet and UAS imagery
+
+### 3. Planet ImageCollection and GCVI
+
+[Code](https://code.earthengine.google.com/21f7df3222b920bc725ab242c729ec37)
+
+---
+## Radiant Earth
+[Login](https://app.radiant.earth)
+
+
+---
+## Working with Arable Mark data
+
+Get the `aRable` R package .tgz from Slack
+
+
+```r
+# install.packages("devtools")  # if you don't already have it
+library(devtools)
+library(data.table)
+install.packages("~/Dropbox/projects/aRable_0.1.1.tgz", repos = NULL)
+
+# our device IDs
+devices &lt;- c("A000667", "A000671", "A000680")
+
+# let's get some daily data for A000667
+?ArableClient
+dev1 &lt;- ArableClient(device = devices[1], measure = "daily",
+                     start = "2018-06-01", end = "2018-06-30",
+                     email = "lestes@clarku.edu", password = "rollinghills88",
+                     tenant = "clark")
+```
+
+---
+
+## Let's take a look at the data
+
+
+```r
+dev1 &lt;- data.table(dev1)
+dev1[is.na(precip), precip := 0]
+par(mfrow = c(2, 2), mgp = c(2, 0.25, 0), tcl = -0.1, las = 2, 
+    mar = c(3, 3, 0.5, 0), lwd = 2)
+dev1[, plot(datetime, precip, type = "l", col = "blue", xlab = "")]
+dev1[, plot(datetime, NDVI, type = "l", col = "green3", xlab = "")]
+dev1[plot(datetime, meanT, type = "l", col = "purple", xlab = "")]
+dev1[plot(datetime, CGDD, type = "l", col = "orange", xlab = "")]
+```
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

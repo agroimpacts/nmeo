@@ -22,7 +22,7 @@
 | 1 October    | 6 | Cloud-based EO processing   |
 | 3 October    | 6 | Sensor data (Dr. Adam Wolf from Arable)            |
 | 8 October    | 7 | Fall Break     |
-| 10 October   | 7 | Sensor data    |
+| 10 October   | 7 | Cloud-based EO processing (wrap-up), sensors    |
 | 15 October   | 8 | Sensor data  |        
 | 17 October   | 8 | Combing human and machine intelligence   |
 | 22 October   | 9 | Combining human and machine intelligence   |
