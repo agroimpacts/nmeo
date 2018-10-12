@@ -357,3 +357,82 @@ Map.addLayer(ampndvicrop, {min:0, max:1},'NDVI amplitude');
 ```
 
 [Back to TOC](#toc)
+
+## Download CHIRPs data
+
+For a specific date range and location (Sutton, MA, in this example), and saved as a multiband geotiff to your Google Drive folder.  
+
+```js
+// Download multiband stacks of CHIRPS data masked to Sutton area
+// Modifying approaches used by Sitian Xiong.
+
+// 1. Clip boundaries (generous margin around Sutton)
+var sutton = ee.Feature(ee.Geometry.Rectangle(-71.88, 42.06, -71.70, 42.18));  
+
+// 2. Functions 
+// Stacking function
+var STACK = function(collection){
+    var first = ee.Image(collection.sort('system:index').first()).select([]);
+    var appendBands = function(image, previous){
+        return ee.Image(previous).addBands(image);
+    };
+    return ee.Image(collection.iterate(appendBands,first))
+};  
+
+// Get Function
+var CHIRPS_GET = function(img){
+  var rain = img.select(['precipitation'])  // select rainfall
+  var rainclip = rain.clip(sutton);  
+  //rename the band as rain_ + its Date, e.g.,"rain_2008_10_01"
+  var text = ee.String('rain_').cat(ee.String(img.get('system:index'))); 
+  return rainclip.rename(text);
+};
+
+// 3. Create multiband stacks for 2007-2017 for October 1-January 10 (yr:yr+1)
+var yrs = [2018]//ee.List.sequence(2017, 2018); // list years
+// print(yrs)
+var chirps_multibands = ee.ImageCollection(yrs.map(function(yr){
+  // var end_yr = ee.Number(yr).add(ee.Number(1));
+  
+  // select data within date ranges
+  var imgs = ee.ImageCollection('UCSB-CHG/CHIRPS/DAILY')
+            .filterDate(ee.String(ee.Number(yr).int()).cat(ee.String('-06-01')), // start month/day
+            ee.String(ee.Number(yr).int()).cat(ee.String('-06-30')));  //end month/day
+            //ee.String(ee.Number(end_yr).int()).cat(ee.String('-08-01')));  //end month/day
+  var imgs_yr = ee.ImageCollection(imgs.map(CHIRPS_GET));  // clip each date
+  return STACK(imgs_yr)   // stack and return
+}));
+
+// 4. One day's rainfall, plotted
+var rain = chirps_multibands.select(11);
+
+// Map it
+Map.setCenter(-71.8067, 42.1214, 12);
+Map.addLayer(rain, {min: 0, max: 5});
+
+
+// 4. Export to Drive
+var imgs_4export = chirps_multibands.getInfo()['features'];  
+// see https://gis.stackexchange.com/questions/236707/
+// how-can-i-export-a-set-of-images-from-google-earth-engine
+print(imgs_4export) 
+for (var i = 0; i<imgs_4export.length;i++) {
+  var imgs_list = chirps_multibands.toList(chirps_multibands.size());
+  var img_4export =ee.Image(imgs_list.get(i));    
+  
+  //rename the multi-bands image using its year and export
+  var img_name = 'chirps_'+img_4export.get('system:index').getInfo().slice(0,4);
+  //print('exporting'+img_name)
+  Export.image.toDrive({
+      image: img_4export, 
+      description: img_name, 
+      folder:  'chirps',  // this folder will be created on your drive if you don't have it
+      region: sutton, 
+      scale: 5000,
+      maxPixels: 1000000000
+  });
+}
+```
+
+
+[Back to TOC](#toc)
