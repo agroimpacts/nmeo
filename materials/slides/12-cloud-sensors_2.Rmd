@@ -146,7 +146,7 @@ grid.arrange(p1, p2, p3, p4, ncol = 2)
 ---
 **Part 2: Download CHIRPs daily rainfall data for Sutton**
 
-Using this [code](https://code.earthengine.google.com)
+Using this [code](https://code.earthengine.google.com/6f336c9395f267786520f246814ce765)
 
 - Change the dates for download to start on 5/1/2018 and end on 9/1/2018 
 - Export it to your Google Drive account
@@ -154,7 +154,10 @@ Using this [code](https://code.earthengine.google.com)
     - Be ready to explain how you would change it to download more than one year's worth of data. 
 
 
-
+Extra practice/deeper dive: 
+- Have a look at this [script](https://code.earthengine.google.com/6f336c9395f267786520f246814ce765). 
+- See if you can apply the cloud masking algorithm in it to our [Landsat GCVI exercise](https://code.earthengine.google.com/715d072c5f92d9e17922023c18fb4c4e) from the previous class. 
+- How does it affect the results in the chart and image inspector? 
 
 
 
