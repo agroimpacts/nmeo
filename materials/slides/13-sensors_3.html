@@ -54,12 +54,12 @@ library(leaflet)
 dev1 &lt;- ArableClient(device = "A000667", measure = "daily", 
                      start = "2018-06-01", end = "2018-09-06", 
                      email = "lestes@clarku.edu", 
-                     password = "&lt;pw&gt;",  # replace this w/ actual p
+                     password = "rollinghills88",  # replace this w/ actual p
                      tenant = "clark")
 # a little cleaning
 dev1 &lt;- data.table(dev1)
 dev1[is.na(precip), precip := 0]  # set NA precip to 0
-# dev1 &lt;- na.omit(dev1)  
+# dev1 &lt;- na.omit(dev1)
 ```
 ---
 
@@ -70,7 +70,7 @@ And for the other two pods
 dev2 &lt;- ArableClient(device = "A000671", measure = "daily", 
                      start = "2018-06-01", end = "2018-09-06", 
                      email = "lestes@clarku.edu", 
-                     password = "&lt;pw&gt;",  # replace this w/ actual p
+                     password = "rollinghills88",  # replace this w/ actual p
                      tenant = "clark")
 dev2 &lt;- data.table(dev2)
 dev2[is.na(precip), precip := 0]  # set NA precip to 0
@@ -79,7 +79,7 @@ dev2[is.na(precip), precip := 0]  # set NA precip to 0
 dev3 &lt;- ArableClient(device = "A000680", measure = "daily", 
                      start = "2018-06-01", end = "2018-09-06", 
                      email = "lestes@clarku.edu", 
-                     password = "&lt;pw&gt;",  # replace this w/ actual p
+                     password = "rollinghills88",  # replace this w/ actual p
                      tenant = "clark")
 dev3 &lt;- data.table(dev3)
 dev3[is.na(precip), precip := 0]  # set NA precip to 0
@@ -97,11 +97,13 @@ devs &lt;- rbind(dev1, dev2, dev3)  # put them together
 Combining all three pods' results into a single plot
 
 ```r
-devs
+# plot(precip ~ datetime, data = devs[device == "A000667"], type = "l")
+# lines(precip ~ datetime, data = devs[device == "A000671"], col = "red")
+# lines(precip ~ datetime, data = devs[device == "A000680"], col = "purple")
 mytheme &lt;- function() theme(axis.title.x = element_blank())
-p1 &lt;- ggplot(devs) + geom_line(aes(datetime, precip, colour = device)) +
+p1 &lt;- ggplot(devs) + geom_line(aes(x = datetime, y = precip, colour = device)) +
   mytheme()
-p2 &lt;- ggplot(devs) + geom_line(aes(datetime, NDVI, colour = device)) +
+p2 &lt;- ggplot(devs) + geom_line(aes(x = datetime, y = NDVI, colour = device)) +
   mytheme()
 p3 &lt;- ggplot(devs) + geom_line(aes(datetime, meanT, colour = device)) +
   mytheme()
@@ -132,7 +134,7 @@ devs_list &lt;- lapply(pods, function(x) {
   dev[is.na(precip), precip := 0]  # set NA precip to 0
   dev
 })
-devs &lt;- rbindlist(dev_list)  # joint them into a single dataset
+devs &lt;- rbindlist(devs_list)  # joint them into a single dataset
 ```
 
 ---
@@ -160,7 +162,7 @@ devs[, mean(SWdw, na.rm = TRUE), by = device]  # average incoming shortwave
 We'll start by getting the coordinates of the pods. Let's take a look at them. 
 
 ```r
-ggplot(devs) + geom_point(aes(long, lat, colour = device))
+ggplot(devs) + geom_point(aes(x = long, y = lat, colour = device))
 ```
 
 &lt;img src="13-sensors_3_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
@@ -194,7 +196,7 @@ m &lt;- leaflet() %&gt;% addProviderTiles("Esri.WorldImagery") %&gt;%
   addTiles(sequoia, group = "sequoia") %&gt;% 
   addCircleMarkers(lng = dev_coords$long, lat = dev_coords$lat, radius = 1, 
                    col = "red", opacity = 1) %&gt;% 
-  addLayersControl(overlayGroups = c("sequoia", "planet6/16"),
+  addLayersControl(overlayGroups = c("sequoia", "planet6/12"),
                    options = layersControlOptions(collapsed = FALSE, 
                                                   autoZIndex = FALSE))
 m
@@ -202,8 +204,8 @@ m
 
 ---
 
-<div id="htmlwidget-504f2b05c36f9cc24090" style="width:504px;height:504px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-504f2b05c36f9cc24090">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Esri.WorldImagery",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addTiles","args":["https://tiles.rasterfoundry.com/7a4b4cb3-fe35-46c9-9896-6e98eec46665/{z}/{x}/{y}/?tag=1538578249206&mapToken=8ab506f7-9ef0-46f2-afe6-db5ec1c9e9e4",null,"planet6/12",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false}]},{"method":"addTiles","args":["https://tiles.rasterfoundry.com/e319cae9-4093-40b1-8961-033fa6753ec6/{z}/{x}/{y}/?tag=1538580563314&mapToken=3438e35f-07d3-4644-a52a-aea0a4bf7aec",null,"sequoia",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false}]},{"method":"addCircleMarkers","args":[[42.1229820224719,42.1208483146067,42.1218],[-71.8054573033708,-71.8069,-71.8065],1,null,null,{"interactive":true,"className":"","stroke":true,"color":"red","weight":5,"opacity":1,"fill":true,"fillColor":"red","fillOpacity":0.2},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addLayersControl","args":[[],["sequoia","planet6/16"],{"collapsed":false,"autoZIndex":false,"position":"topright"}]}],"setView":[[42.1229820224719,-71.8069],15,[]],"limits":{"lat":[42.1208483146067,42.1229820224719],"lng":[-71.8069,-71.8054573033708]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c9fedfc1c1e7beafd1f2" style="width:504px;height:504px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c9fedfc1c1e7beafd1f2">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Esri.WorldImagery",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addTiles","args":["https://tiles.rasterfoundry.com/7a4b4cb3-fe35-46c9-9896-6e98eec46665/{z}/{x}/{y}/?tag=1538578249206&mapToken=8ab506f7-9ef0-46f2-afe6-db5ec1c9e9e4",null,"planet6/12",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false}]},{"method":"addTiles","args":["https://tiles.rasterfoundry.com/e319cae9-4093-40b1-8961-033fa6753ec6/{z}/{x}/{y}/?tag=1538580563314&mapToken=3438e35f-07d3-4644-a52a-aea0a4bf7aec",null,"sequoia",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false}]},{"method":"addCircleMarkers","args":[[42.1229820224719,42.1208483146067,42.1218],[-71.8054573033708,-71.8069,-71.8065],1,null,null,{"interactive":true,"className":"","stroke":true,"color":"red","weight":5,"opacity":1,"fill":true,"fillColor":"red","fillOpacity":0.2},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addLayersControl","args":[[],["sequoia","planet6/16"],{"collapsed":false,"autoZIndex":false,"position":"topright"}]}],"setView":[[42.1229820224719,-71.8069],15,[]],"limits":{"lat":[42.1208483146067,42.1229820224719],"lng":[-71.8069,-71.8054573033708]}},"evals":[],"jsHooks":[]}</script>
 
 
 ---
@@ -239,7 +241,7 @@ m &lt;- leaflet() %&gt;% addProviderTiles("Esri.WorldImagery") %&gt;%
   addRasterImage(rfsum, group = "CHIRPS") %&gt;% 
   addCircleMarkers(lng = dev_coords$long, lat = dev_coords$lat, radius = 1, 
                    col = "red", opacity = 1, group = "Pods") %&gt;% 
-  addLayersControl(overlayGroups = c("sequoia", "planet6/16", "CHIRPS", "Pods"),
+  addLayersControl(overlayGroups = c("sequoia", "planet6/12", "CHIRPS", "Pods"),
                    options = layersControlOptions(collapsed = FALSE, 
                                                   autoZIndex = FALSE))
 m
@@ -247,8 +249,8 @@ m
 
 ---
 
-<div id="htmlwidget-7d2e47360f46b8305705" style="width:504px;height:504px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7d2e47360f46b8305705">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Esri.WorldImagery",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addTiles","args":["https://tiles.rasterfoundry.com/7a4b4cb3-fe35-46c9-9896-6e98eec46665/{z}/{x}/{y}/?tag=1538578249206&mapToken=8ab506f7-9ef0-46f2-afe6-db5ec1c9e9e4",null,"planet6/12",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false}]},{"method":"addTiles","args":["https://tiles.rasterfoundry.com/e319cae9-4093-40b1-8961-033fa6753ec6/{z}/{x}/{y}/?tag=1538580563314&mapToken=3438e35f-07d3-4644-a52a-aea0a4bf7aec",null,"sequoia",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false}]},{"method":"addRasterImage","args":["data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAECAYAAABGM/VAAAAASElEQVQImWP8d6vtP6OUOkP37R8MDAwMDCJGcxmYGLAAFteFhgzSV14zsBeyMDAwMDBkl7IyMJYeX/q/y1iI4f+d0xBlXFwMAAJ+EaSo52s6AAAAAElFTkSuQmCC",[[42.220818354,-71.910138494],[42.041155297,-71.685559673]],1,null,null,"CHIRPS"]},{"method":"addCircleMarkers","args":[[42.1229820224719,42.1208483146067,42.1218],[-71.8054573033708,-71.8069,-71.8065],1,null,"Pods",{"interactive":true,"className":"","stroke":true,"color":"red","weight":5,"opacity":1,"fill":true,"fillColor":"red","fillOpacity":0.2},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addLayersControl","args":[[],["sequoia","planet6/16","CHIRPS","Pods"],{"collapsed":false,"autoZIndex":false,"position":"topright"}]}],"setView":[[42.1229820224719,-71.8069],11,[]],"limits":{"lat":[42.041155297,42.220818354],"lng":[-71.910138494,-71.685559673]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-271a5272c867ab9498b2" style="width:504px;height:504px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-271a5272c867ab9498b2">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Esri.WorldImagery",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addTiles","args":["https://tiles.rasterfoundry.com/7a4b4cb3-fe35-46c9-9896-6e98eec46665/{z}/{x}/{y}/?tag=1538578249206&mapToken=8ab506f7-9ef0-46f2-afe6-db5ec1c9e9e4",null,"planet6/12",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false}]},{"method":"addTiles","args":["https://tiles.rasterfoundry.com/e319cae9-4093-40b1-8961-033fa6753ec6/{z}/{x}/{y}/?tag=1538580563314&mapToken=3438e35f-07d3-4644-a52a-aea0a4bf7aec",null,"sequoia",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false}]},{"method":"addRasterImage","args":["data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAECAYAAABGM/VAAAAASElEQVQImWP8d6vtP6OUOkP37R8MDAwMDCJGcxmYGLAAFteFhgzSV14zsBeyMDAwMDBkl7IyMJYeX/q/y1iI4f+d0xBlXFwMAAJ+EaSo52s6AAAAAElFTkSuQmCC",[[42.220818354,-71.910138494],[42.041155297,-71.685559673]],1,null,null,"CHIRPS"]},{"method":"addCircleMarkers","args":[[42.1229820224719,42.1208483146067,42.1218],[-71.8054573033708,-71.8069,-71.8065],1,null,"Pods",{"interactive":true,"className":"","stroke":true,"color":"red","weight":5,"opacity":1,"fill":true,"fillColor":"red","fillOpacity":0.2},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addLayersControl","args":[[],["sequoia","planet6/16","CHIRPS","Pods"],{"collapsed":false,"autoZIndex":false,"position":"topright"}]}],"setView":[[42.1229820224719,-71.8069],11,[]],"limits":{"lat":[42.041155297,42.220818354],"lng":[-71.910138494,-71.685559673]}},"evals":[],"jsHooks":[]}</script>
 
 
 ---

@@ -43,12 +43,12 @@ library(leaflet)
 dev1 <- ArableClient(device = "A000667", measure = "daily", 
                      start = "2018-06-01", end = "2018-09-06", 
                      email = "lestes@clarku.edu", 
-                     password = "<pw>",  # replace this w/ actual p
+                     password = "rollinghills88",  # replace this w/ actual p
                      tenant = "clark")
 # a little cleaning
 dev1 <- data.table(dev1)
 dev1[is.na(precip), precip := 0]  # set NA precip to 0
-# dev1 <- na.omit(dev1)  
+# dev1 <- na.omit(dev1)
 ```
 ---
 
@@ -58,7 +58,7 @@ And for the other two pods
 dev2 <- ArableClient(device = "A000671", measure = "daily", 
                      start = "2018-06-01", end = "2018-09-06", 
                      email = "lestes@clarku.edu", 
-                     password = "<pw>",  # replace this w/ actual p
+                     password = "rollinghills88",  # replace this w/ actual p
                      tenant = "clark")
 dev2 <- data.table(dev2)
 dev2[is.na(precip), precip := 0]  # set NA precip to 0
@@ -67,7 +67,7 @@ dev2[is.na(precip), precip := 0]  # set NA precip to 0
 dev3 <- ArableClient(device = "A000680", measure = "daily", 
                      start = "2018-06-01", end = "2018-09-06", 
                      email = "lestes@clarku.edu", 
-                     password = "<pw>",  # replace this w/ actual p
+                     password = "rollinghills88",  # replace this w/ actual p
                      tenant = "clark")
 dev3 <- data.table(dev3)
 dev3[is.na(precip), precip := 0]  # set NA precip to 0
@@ -83,11 +83,13 @@ devs <- rbind(dev1, dev2, dev3)  # put them together
 
 Combining all three pods' results into a single plot
 ```{r, eval = FALSE}
-devs
+# plot(precip ~ datetime, data = devs[device == "A000667"], type = "l")
+# lines(precip ~ datetime, data = devs[device == "A000671"], col = "red")
+# lines(precip ~ datetime, data = devs[device == "A000680"], col = "purple")
 mytheme <- function() theme(axis.title.x = element_blank())
-p1 <- ggplot(devs) + geom_line(aes(datetime, precip, colour = device)) +
+p1 <- ggplot(devs) + geom_line(aes(x = datetime, y = precip, colour = device)) +
   mytheme()
-p2 <- ggplot(devs) + geom_line(aes(datetime, NDVI, colour = device)) +
+p2 <- ggplot(devs) + geom_line(aes(x = datetime, y = NDVI, colour = device)) +
   mytheme()
 p3 <- ggplot(devs) + geom_line(aes(datetime, meanT, colour = device)) +
   mytheme()
@@ -122,7 +124,7 @@ devs_list <- lapply(pods, function(x) {
   dev[is.na(precip), precip := 0]  # set NA precip to 0
   dev
 })
-devs <- rbindlist(dev_list)  # joint them into a single dataset
+devs <- rbindlist(devs_list)  # joint them into a single dataset
 ```
 
 ---
@@ -152,7 +154,7 @@ load("../data/13/devs.rda")
 ## Comparing with gridded/RS data
 We'll start by getting the coordinates of the pods. Let's take a look at them. 
 ```{r, message=FALSE, warning=FALSE, fig.align="center", fig.width=5, fig.height=4, results="hold"}
-ggplot(devs) + geom_point(aes(long, lat, colour = device))
+ggplot(devs) + geom_point(aes(x = long, y = lat, colour = device))
 ```
 
 ---
@@ -186,7 +188,7 @@ m <- leaflet() %>% addProviderTiles("Esri.WorldImagery") %>%
   addTiles(sequoia, group = "sequoia") %>% 
   addCircleMarkers(lng = dev_coords$long, lat = dev_coords$lat, radius = 1, 
                    col = "red", opacity = 1) %>% 
-  addLayersControl(overlayGroups = c("sequoia", "planet6/16"),
+  addLayersControl(overlayGroups = c("sequoia", "planet6/12"),
                    options = layersControlOptions(collapsed = FALSE, 
                                                   autoZIndex = FALSE))
 m
@@ -254,7 +256,7 @@ m <- leaflet() %>% addProviderTiles("Esri.WorldImagery") %>%
   addRasterImage(rfsum, group = "CHIRPS") %>% 
   addCircleMarkers(lng = dev_coords$long, lat = dev_coords$lat, radius = 1, 
                    col = "red", opacity = 1, group = "Pods") %>% 
-  addLayersControl(overlayGroups = c("sequoia", "planet6/16", "CHIRPS", "Pods"),
+  addLayersControl(overlayGroups = c("sequoia", "planet6/12", "CHIRPS", "Pods"),
                    options = layersControlOptions(collapsed = FALSE, 
                                                   autoZIndex = FALSE))
 m
@@ -351,3 +353,4 @@ Divide into 5 groups:
 - Group 4: Assemble Planet data from classmates into `ee.ImageCollection()`. clip to Whittier, calculate NDVI. Extract and compare to pod NDVI.
 
 - Group 5: Collect from groups 2-4 Planet, Sentinel, and Landsat 8 datasets from cloud-free image over Whittier AOI nearest in date to August 24 UAS image. Calculate NDVI from all images. Resample all to Landsat resolution. Download and compare NDVI differences. 
+
