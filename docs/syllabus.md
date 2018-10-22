@@ -24,13 +24,13 @@
 | 8 October    | 7 | Fall Break     |
 | 10 October   | 7 | Cloud-based EO processing (wrap-up), sensors    |
 | 15 October   | 8 | Sensor data  |        
-| 17 October   | 8 | Combing human and machine intelligence   |
+| 17 October   | 8 | Sensor data (team practicals)   |
 | 22 October   | 9 | Combining human and machine intelligence   |
-| 24 October   | 9 | Project team/proposals due                |
-| 29 October)  | 10 | Group projects          |
-| 31 October)  | 10 | Group projects                 |
-| 5 November)  | 11 | Progress report / group projects                 |
-| 7 November)  | 11 | Group projects                 |
+| 24 October   | 9 | Combining human and machine intelligence & Project team/proposals due                |
+| 29 October  | 10 | Group projects          |
+| 31 October  | 10 | Group projects                 |
+| 5 November  | 11 | Progress report / group projects                 |
+| 7 November  | 11 | Group projects                 |
 | 12 November  | 12 | Progress report / group projects                 |
 | 14 November  | 12 | Group projects                 |
 | 19 November  | 13 | Progress report / group projects               |
