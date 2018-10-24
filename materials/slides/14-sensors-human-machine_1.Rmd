@@ -2,7 +2,7 @@
 title: "Realtime In Situ Sensing/Combining Human & Machine Intelligence"
 subtitle: "New Methods in Earth Observation"
 # author: "Lyndon Estes"
-date: "10/21/2018"
+date: "10/22/2018"
 output:
   xaringan::moon_reader:
     lib_dir: libs
