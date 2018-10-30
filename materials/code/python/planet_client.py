@@ -74,6 +74,7 @@ class PClientV1():
     def __init__(self, api_key, config):
         imagery_config = config['imagery']
         self.api_key = api_key
+        self.max_clouds_initial = float(imagery_config['max_clouds_initial'])
         self.max_clouds = float(imagery_config['max_clouds'])  # max proportion of pixels that are clouds
         self.max_bad_pixels = float(imagery_config['max_bad_pixels']) # max proportion of bad pixels (transmission errors, etc.)
         self.max_nodata = float(imagery_config['max_nodata']) # max nodata values per cellgrid
@@ -142,7 +143,7 @@ class PClientV1():
             'type': 'RangeFilter',
             'field_name': 'cloud_cover',
             'config': {
-                'lte': self.max_clouds
+                'lte': self.max_clouds_initial
             }
         }
 
