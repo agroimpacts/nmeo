@@ -7,8 +7,8 @@ For running Rstudio server on an AWS machine, plus additional customizations tha
 The links to these can be found [here](http://www.louisaslett.com/RStudio_AMI/).
 
 ## Configure 
-Allow HTTP access and ssh access from clark university addresses
-60 GB hard drive
+Allow HTTP access and ssh access from relevant addresses, give it a 60GB
+EBS volume
 
 ## Check that python3 is installed
 This is an Ubuntu 16.04 install, with python 3.5 as the latest
@@ -17,9 +17,7 @@ This is an Ubuntu 16.04 install, with python 3.5 as the latest
 
 Following these instructions: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
 
-
 # Installing Anaconda/Jupyter notebooks on Rstudio-server Ubuntu
-
 I followed these [directions](https://medium.com/@alexjsanchez/python-3-notebooks-on-aws-ec2-in-15-mostly-easy-steps-2ec5e662c6c6), starting at step 7 because we already have our AWS machine setup. I followed the instructions exactly, except at Step 12, I made one small change from instructions. I changed this line in the text I edited in `jupyter_notebook_config.py` from: 
 
 ```vim
@@ -30,11 +28,11 @@ To:
 ```vim
 c.NotebookApp.certfile = u'/home/ubuntu/certs/mycert.pem'
 ```
-Because we are running on an Ubuntu machine rather than Amazon Linux. Oh, I also had to copy in the sha key that I set up (which the directions state explicitly). 
+Because we are running on an Ubuntu machine rather than Amazon Linux. I also had to copy in the sha key that I set up (which the directions state explicitly). 
 
 ## Add permissions to allow access to port 8888
 
-Before being able to successfully launch a notebook from my local machine, I had to open access to port 8888 for my IP addresses (home and Clark campus), adding a custom TCP rule to the Inbound section of the instance's security group. 
+Before being able to successfully launch a notebook from my local machine, I had to open access to port 8888 for the IP addresses that the instances will be used from, adding a custom TCP rule to the Inbound section of the instance's security group. 
 
 ## Running the Jupyter notebook
 
@@ -42,9 +40,11 @@ While ssh'd into the rstudio instance, you can simply run:
 ```bash
 jupyter notebook
 ```
-And then copy the url below into your browser. 
+And then copy the public DNS from the instance into the browser address bar, such that it looks like this: 
 
-https://ec2-107-23-251-189.compute-1.amazonaws.com:8888/
+https://ec2-000-11-222-333.compute-1.amazonaws.com:8888/
+
+Note that you have to get the correct DNS address from the EC2 console.
 
 Follow the instruction to enter the browser with an untrusted certificate. 
 
@@ -100,10 +100,11 @@ You can get an output that looks so:
 ```
 Obviously the token looks different. To get the jupyter notebook in your local browser, you have to append that token to the url we use to get the notebook:
 ```bash
-https://ec2-107-23-251-189.compute-1.amazonaws.com:8888/?token=<a long token string>
+https://ec2-000-11-222-333.compute-1.amazonaws.com:8888/?token=<a long token string>
 ```
 
-And that gets you into the notebook. 
+And that gets you into the notebook. I had to add one final step to be able to read the datasets out of the spacenet s3 bucket, which was to attach an AmazonS3ReadOnlyAccess policy to the user whose policy credentials are being used for the instance. 
+
 
 
 
