@@ -105,6 +105,36 @@ https://ec2-000-11-222-333.compute-1.amazonaws.com:8888/?token=<a long token str
 
 And that gets you into the notebook. I had to add one final step to be able to read the datasets out of the spacenet s3 bucket, which was to attach an AmazonS3ReadOnlyAccess policy to the user whose policy credentials are being used for the instance. 
 
+# Getting jupyter to run from Rstudio-server terminal
+This required a few more gymnastics. The default user for Rstudio is rstudio.  That's where you get logged in when you enter Rstudio-server through the browser. I got jupyter set-up to run from /home/ubuntu. I could change into the user ubuntu from Rstudio's terminal, using:
+
+```bash
+sudo -u ubuntu bash
+```
+
+But scripts/jupyter would fail because jupyter was always trying to write temp files to /home/rstudio, and didn't have permissions. 
+
+So I added ubuntu as an Rstudio user.  From root:
+
+```bash
+sudo echo 'server-user=ubuntu' >> /etc/rstudio/rserver.conf
+sudo rm -rf /var/log/rstudio-server
+sudo rm -rf /var/lib/rstudio-server
+sudo rm -rf /tmp/rstudio-rsession
+sudo rm -rf /tmp/rstudio-rserver
+sudo rstudio-server restart
+ps aux | grep ubuntu
+```
+
+Had to change the password for ubuntu to get this to work:
+```bash
+sudo passwd ubuntu
+```
+
+After doing that and another `rstudio-server restart`, I was able to log in to rstudio with the user ubuntu and the new PW. 
+
+And scripts/jupyter now works from the rstudio terminal. 
+
 
 
 
