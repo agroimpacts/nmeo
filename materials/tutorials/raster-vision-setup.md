@@ -21,6 +21,14 @@ Default region name [us-east-1]: us-east-1
 Default output format [None]:
 ```
 
+Make the packer image.
+```
+make packer-image
+```
+
+In Ubuntu/Linux, you probably will need to run sudo
+
+
 The next step is not clear from the documentation, which is that you have to do this:
 ```
 cd raster-vision-aws
