@@ -27,14 +27,14 @@ script_path <- "materials/code/R/external/scripts/class5_functions.R"
 #  each of the images will we be creating. 
 mband1 <- "aug24_ngb"
 mband2 <- "aug24_ngb_noreftarget"
-mband3 <- "aug24_ngb_noppk"
-mband4 <- "aug31_ngb_noreftarget"
+# mband3 <- "aug24_ngb_noppk"
+# mband4 <- "aug31_ngb_noreftarget"
 
 # Output names for warped and stretched
 out1 <- "aug24_ngb_cog"
 out2 <- "aug24_ngb_noreftarget_cog"
-out3 <- "aug24_ngb_noppk_cog"
-out4 <- "aug31_ngb_noreftarget_cog"
+# out3 <- "aug24_ngb_noppk_cog"
+# out4 <- "aug31_ngb_noreftarget_cog"
 
 
 # Load packages and functions
@@ -67,20 +67,20 @@ nms <- img_nms[c(2, 4, 1)]
 b2 <- multi_band_stack(nms = nms, out_dir = out_dir, out_name = mband2)
 plotRGB(b2, scale = 1, colNA = "transparent", zlim = c(0, 1))
 
-# August 24, no PPK, no reflectance target
-fp <- file.path(img_path, project3)
-img_nms <- refl_paths(fp)
-nms <- img_nms[c(2, 4, 1)]
-b3 <- multi_band_stack(nms = nms, out_dir = out_dir, out_name = mband3)
-plotRGB(b3, scale = 1, colNA = "transparent", zlim = c(0, 1))
-
-# August 31, PPK, no reflectance target
-fp <- file.path(img_path, project4)
-img_nms <- refl_paths(fp)
-nms <- img_nms[c(2, 4, 1)]
-b4 <-  multi_band_stack(nms = nms, out_dir = out_dir, out_name = mband4)
-plotRGB(b4, scale = 1, colNA = "transparent", zlim = c(0, 1))
-
+# # August 24, no PPK, no reflectance target
+# fp <- file.path(img_path, project3)
+# img_nms <- refl_paths(fp)
+# nms <- img_nms[c(2, 4, 1)]
+# b3 <- multi_band_stack(nms = nms, out_dir = out_dir, out_name = mband3)
+# plotRGB(b3, scale = 1, colNA = "transparent", zlim = c(0, 1))
+# 
+# # August 31, PPK, no reflectance target
+# fp <- file.path(img_path, project4)
+# img_nms <- refl_paths(fp)
+# nms <- img_nms[c(2, 4, 1)]
+# b4 <-  multi_band_stack(nms = nms, out_dir = out_dir, out_name = mband4)
+# plotRGB(b4, scale = 1, colNA = "transparent", zlim = c(0, 1))
+# 
 ## Processing for band math, using custom function that calls gdalwarp
 # Common extent for all images
 ext <- c(-71.8101, 42.1193, -71.8041, 42.1242)
@@ -93,10 +93,10 @@ plotRGB(b1a, scale = 1, colNA = "transparent", zlim = c(0, 1))  # have a look
 # Process the rest
 b2a <- img_align(img = b2@file@name, out_dir = out_dir, out_name = out2, 
                  ext = ext)
-b3a <- img_align(img = b3@file@name, out_dir = out_dir, out_name = out3, 
-                 ext = ext)
-b4a <- img_align(img = b4@file@name, out_dir = out_dir, out_name = out4, 
-                 ext = ext)
+# b3a <- img_align(img = b3@file@name, out_dir = out_dir, out_name = out3, 
+#                  ext = ext)
+# b4a <- img_align(img = b4@file@name, out_dir = out_dir, out_name = out4, 
+#                  ext = ext)
 
 ####### Comparisons
 ## Reflectance calibration strategy
@@ -111,30 +111,30 @@ stats <- cellStats(ref_diff, summary)
 colnames(stats) <- nms
 round(stats, 3)
 
-## PPK versus not
-ref_diff <- b2a - b3a  # subtract no ref target from ref target
-plot(ref_diff, main = nms, axes = FALSE, zlim = c(-0.5, 0.5))
-stats <- cellStats(ref_diff, summary)
-colnames(stats) <- nms
-round(stats, 3)
-
-## Two different dates
-ref_diff <- b2a - b4a  # subtract no ref target from ref target
-plot(ref_diff, main = nms, axes = FALSE, zlim = c(-0.5, 0.5))
-stats <- cellStats(ref_diff, summary)
-colnames(stats) <- nms
-round(stats, 3)
-
-## Effective Resolution
-## How much shift between PPK strategies?
-ext <- c(-71.80825, 42.120780, -71.807550, 42.121566)
-pt <- cbind(mean(ext[c(1, 3)]), mean(ext[c(2, 4)]))
-par(mar = c(0, 0, 0, 0), mfrow = c(1, 2))
-plot(as(extent(ext[c(1, 3, 2, 4)]), "SpatialPolygons"), lty = 0)
-plotRGB(b2a, scale = 1, colNA = "transparent", zlim = c(0, 1), add = TRUE)
-points(pt[, 1], pt[, 2], col = "cyan", pch = "+")
-plot(as(extent(ext[c(1, 3, 2, 4)]), "SpatialPolygons"), lty = 0)
-plotRGB(b3a, scale = 1, colNA = "transparent", zlim = c(0, 1), add = TRUE)
-points(pt[, 1], pt[, 2], col = "cyan", pch = "+")
-
-
+# ## PPK versus not
+# ref_diff <- b2a - b3a  # subtract no ref target from ref target
+# plot(ref_diff, main = nms, axes = FALSE, zlim = c(-0.5, 0.5))
+# stats <- cellStats(ref_diff, summary)
+# colnames(stats) <- nms
+# round(stats, 3)
+# 
+# ## Two different dates
+# ref_diff <- b2a - b4a  # subtract no ref target from ref target
+# plot(ref_diff, main = nms, axes = FALSE, zlim = c(-0.5, 0.5))
+# stats <- cellStats(ref_diff, summary)
+# colnames(stats) <- nms
+# round(stats, 3)
+# 
+# ## Effective Resolution
+# ## How much shift between PPK strategies?
+# ext <- c(-71.80825, 42.120780, -71.807550, 42.121566)
+# pt <- cbind(mean(ext[c(1, 3)]), mean(ext[c(2, 4)]))
+# par(mar = c(0, 0, 0, 0), mfrow = c(1, 2))
+# plot(as(extent(ext[c(1, 3, 2, 4)]), "SpatialPolygons"), lty = 0)
+# plotRGB(b2a, scale = 1, colNA = "transparent", zlim = c(0, 1), add = TRUE)
+# points(pt[, 1], pt[, 2], col = "cyan", pch = "+")
+# plot(as(extent(ext[c(1, 3, 2, 4)]), "SpatialPolygons"), lty = 0)
+# plotRGB(b3a, scale = 1, colNA = "transparent", zlim = c(0, 1), add = TRUE)
+# points(pt[, 1], pt[, 2], col = "cyan", pch = "+")
+# 
+# 

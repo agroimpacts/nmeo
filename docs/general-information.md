@@ -33,9 +33,50 @@ Grades will be based on:
 #### Presentations 
 The presentation will be assessed according to the following criteria, which sum to 60 points:
 
-- **Quality** evaluates the _content_ of the material you present related to your project, focusing on the information and ideas conveyed in your presentation. How much did you contribute to the project, and how creatively and thoroughly did you do it? [30 points]
-- **Progress** evaluates whether you achieved the objectives put forward in your project proposal [15 points]
-- **Clarity** relates to the presentation itself--how clear your slides were, and your presentation of the material on them; how closely you stuck to time limits; how well you ordered the presentation and how easy it was to follow [15 points]
+- **Quality** evaluates the _content_ of the material you present related to your project, focusing on the information and ideas conveyed in your presentation. How much did you contribute to the project, and how creatively and thoroughly did you do it (i.e. how hard and how-well did you try to problem-solve)? [30 points]
+- **Progress** evaluates whether you achieved the objectives put forward in your project proposal, and assessed against the date of project start [15 points]
+- **Clarity** relates to the presentation itself--how clear your slides were (they should show, not tell), and your presentation of the material on them; how closely you stuck to time limits; how well you ordered the presentation and how easy it was to follow [15 points]
+
+_Rubric_
+
+Codes: 
+
+- Assessment sub-categories
+  - OM = How well were the objectives/methods/goals of the project understood?
+  - CON = How much contributed to project?
+  - CRE = Creativity/problem-solving 
+  - SLI = How clear/effective were the slides?
+  - TIM = How was the presentation's timing? 
+  - NAR = Was the narrative clear?
+- Modifiers:
+  - N = No, None, or Not (as in unclear)
+  - NV = Not very, not very much
+  - F = Fair, fairly
+  - H = Highly, outstanding
+  - WLWS = Way too long or way too short
+  - TLTS = Too long or too short (2-4 minutes)
+  - BLBS = Slighly too long or too short (1-2 minutes)
+  - PT = Perfect timing
+
+| Quality | Quality pts| Progress | Progress pts | Clarity | Clarity pts |
+|--------------|----------|-----------|-----------|-----------|-----------|
+| OM N, CON N, CRE N | 0 | N | 0 | NAR N, NAR N, TIM WLWS | 0 |
+| OM NV, CON NV, CRE NV | 20 | NV | 9 | NAR NV, NAR NV, TIM TLTS | 9  
+| OM F, CON F, CRE F | 25 | F | 12 | NAR F, NAR F, TIM BLBS | 12 |
+| OM H, CON H, CRE H | 30 | H | 15 |  NAR H, NAR H, TIM PT | 15 |
+
+##### Presentation structure
+- Each person's individual presentation time should last no more than **9 minutes**: *6 minutes* of actual presentation, followed by *2-3 minutes* of questions. That means if you are in a group of 4, your total group time should be no more than 36 minutes. 
+- Teams should present together, with each person presenting part of the presentation. Questions can be taken after each person goes, or at the end of all members presentations. 
+- A rough rule of them that generally works is to have 1 slide prepared per minute of presentation.  
+- Slides should be used to help illustrate a point, and should rather have figures than text. Figures should have labels that can be easily read from the furthest seat in the room.
+- What should the presentation convey? 
+    - What the overall aim of the project is (introduction)
+    - What methods you used and why they might be considered "New Methods in Earth Observation". Here you are providing an explainer to your colleagues, who were focusing on different projects and didn't get a chance to delve into the projects you were doing
+    - What results you got so far
+    - What you plan to achieve by the submission date, and potentially beyond
+    - Projects vary in their format and how they were pursued. It might make more sense for each person in a group to try convey some or all of these aspects, or for each member to focus on presenting one or more of these aspects. We can discuss that. 
+
 
 #### Final paper/report
 The purpose of the final paper/report is to provide a working demonstration of the method you have been developing as a group. It should build on the work you already presented in class. It should be submitted as a single project/report, but each member should write the section that describes their contribution, while writing in any common sections can be divided equitably between team members. 
