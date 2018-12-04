@@ -62,6 +62,20 @@ Next run:
 make create image
 ```
 
+However, we need to make some changes first, based on feedback at Azavea, in packer/scripts/configure-gpu.sh, change this line:
+
+```
+sudo docker run --privileged --runtime=nvidia --rm nvidia/cuda nvidia-smi
+```
+
+To this:
+
+```
+sudo docker run --privileged --runtime=nvidia --rm nvidia/cuda:9.0 nvidia-smi
+```
+
+Based on comments by @martham93 on Azavea's [gitter channel](https://gitter.im/azavea/raster-vision?at=5bd52c646e5a401c2ddfefc3).
+
 You then wait for the process to finish, and at the end, it will spit out the AMI ID. Reopen the 
 
 ## Getting a container running
