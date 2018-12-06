@@ -169,7 +169,8 @@ AMIID=`aws ec2 create-image --instance-id $IID --name "$INAME image" \
 ### Set up new GPU spot instance
 We can then launch a new instance from that AMI, once it is ready. We launch a p3.2xlarge with a Spot Request, where we set the instance maximum price we want to pay at 1.25. 
 ```bash
-aws ec2 run-instances --image-id $AMIID --count 1 --instance-type p3.2xlarge --key-name airg-key-pair --security-groups airg-security --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=airg_ubuntu_gpu}]' --instance-market-options 'MarketType=spot,SpotOptions={MaxPrice=1.25,SpotInstanceType=persistent,ValidUntil=2018-12-03T23:00:00,InstanceInterruptionBehavior=hibernate}'
+AMIID=ami-017f2bcbc0540a338
+aws ec2 run-instances --image-id $AMIID --count 1 --instance-type p3.2xlarge --key-name airg-key-pair --security-groups airg-security --monitoring Enabled=true --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=airg_ubuntu_gpu_dl2}]' --instance-market-options 'MarketType=spot,SpotOptions={MaxPrice=1.25,SpotInstanceType=persistent,ValidUntil=2018-12-06T23:00:00,InstanceInterruptionBehavior=hibernate}'
 ```
 
 Once that starts running, we can then ssh into our new instance, simply updating our last ssh command with the new public DNS for that instance.  Since our public key is already in the image, we can log right in without referring to the .pem. For this example, looking the "Spot Requests" tab in the ec2 console shows us that the zone our instance is running in (us-east-1f), the price hasn't exceeded about $1.22 in the past week, so we should be safe. 
