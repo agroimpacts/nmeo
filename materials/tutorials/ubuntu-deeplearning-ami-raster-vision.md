@@ -57,7 +57,7 @@ We need to make a few changes to have this work:
 
 ```bash
 cd raster-vision-examples
-scripts/build --gpu
+vim scripts/build
 ```
 Edit line 42 to look like this: 
 
@@ -133,4 +133,4 @@ rastervision run local -e potsdam.semantic_segmentation -a root_uri s3://agroimp
 
 It should run, although the ssh connection might be reset and kill the run.  Something we are currently looking into. 
 
-
+aws ec2 run-instances --image-id $AMIID --count 1 --instance-type p3.2xlarge --key-name airg-key-pair --security-groups airg-security --monitoring Enabled=true --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=airg_ubuntu_gpu_dl_cnm}]' --instance-market-options 'MarketType=spot,SpotOptions={MaxPrice=1.25,SpotInstanceType=persistent,ValidUntil=2018-12-07T07:00:00,InstanceInterruptionBehavior=hibernate}' --block-device-mappings file://mapping.json
