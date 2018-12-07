@@ -57,7 +57,7 @@ We need to make a few changes to have this work:
 
 ```bash
 cd raster-vision-examples
-vim scripts/build
+vim scripts/console
 ```
 Edit line 42 to look like this: 
 
