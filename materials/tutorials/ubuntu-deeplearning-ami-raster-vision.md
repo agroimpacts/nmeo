@@ -1,9 +1,11 @@
-# Configuring an AWS Ubuntu Deep Learning AMI for raster-vision-examples
+# Configuring an AWS Ubuntu Deep Learning AMI for `raster-vision-examples`
 
 This assumes that you have the following steps already done: 
 
 - An AWS profile set up on your local machine with the necessary permissions. 
 - A security group set up with permissions that allow access to port 8888 from your relevant IP addresses. 
+
+This approach has been tested and successfully run on the Potsdam semantic segmentation example. 
 
 ## Configure an on-demand instance
 
@@ -131,6 +133,36 @@ First download the data to a relevant S3 bucket, and then execute the command:
 rastervision run local -e potsdam.semantic_segmentation -a root_uri s3://agroimpacts/raster-vision/potsdam/lde -a data_uri s3://agroimpacts/raster-vision/Data
 ```
 
-It should run, although the ssh connection might be reset and kill the run.  Something we are currently looking into. 
+It should run, although the ssh connection is likely to be lost part way through. If that happens, it does not necessarily kill the run, but you won't be able to log back into the container. However, you can see what is going on if, upon ssh'ing back in, you run:
 
-aws ec2 run-instances --image-id $AMIID --count 1 --instance-type p3.2xlarge --key-name airg-key-pair --security-groups airg-security --monitoring Enabled=true --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=airg_ubuntu_gpu_dl_cnm}]' --instance-market-options 'MarketType=spot,SpotOptions={MaxPrice=1.25,SpotInstanceType=persistent,ValidUntil=2018-12-07T07:00:00,InstanceInterruptionBehavior=hibernate}' --block-device-mappings file://mapping.json
+```bash
+docker ps
+```
+
+If the container is still running, it will show you something like this
+```bash
+CONTAINER ID  IMAGE                       COMMAND CREATED     STATUS      
+31565774305f  raster-vision-examples-gpu  "bash"  5 hours ago Up 5 hours  
+PORTS                              NAMES
+0.0.0.0:6006->6006/tcp, 8888/tcp   laughing_bartik
+```
+
+Copy the container ID, and then run
+
+```bash
+docker logs 31565774305f
+```
+
+That will show you where the container is in its run, e.g. 
+
+```bash
+INFO:tensorflow:global step 53690: loss = 0.2710 (0.321 sec/step)
+INFO:tensorflow:global step 53700: loss = 0.4517 (0.320 sec/step)
+INFO:tensorflow:global step 53710: loss = 0.3777 (0.317 sec/step)
+INFO:tensorflow:global step 53720: loss = 0.3549 (0.318 sec/step)
+INFO:tensorflow:global step 53730: loss = 0.4178 (0.322 sec/step)
+INFO:tensorflow:global step 53740: loss = 0.5255 (0.323 sec/step)
+INFO:tensorflow:global step 53750: loss = 0.3123 (0.324 sec/step)
+INFO:tensorflow:global step 53760: loss = 0.4218 (0.320 sec/step)
+```
+
