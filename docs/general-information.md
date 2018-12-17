@@ -102,7 +102,7 @@ In terms of structure, we want to be less texty and more visual. Question 1 shou
 
 Since this is a methods class, Questions 2 and 3 hold the greatest interest, and here is where the size of the group matters.  More detail is expect in these sections, reflecting the subdivision of work
 
-The format you follow in terms of headings and structure can be flexible as long as the questions above are addressed.  It should be submitted as a single project/report, but each member should write the section that describes their contribution, while writing in any common sections can be divided equitably between team members. 
+The format you follow in terms of headings and structure can be flexible as long as the questions above are addressed.  It should be submitted as a single project/report, but each member should write the section that describes their contribution, while writing in any common sections can be divided equitably between team members. Please use initials to denote your parts of the writing. 
 
 The following provides a working overview of the paper/report structure:
 
