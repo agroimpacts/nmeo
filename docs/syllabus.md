@@ -9,37 +9,20 @@
 
 | Date 	       | Week | Subject                                         | 
 |--------------|------|-------------------------------------------------|
-| 27 August    | 1 | Course overview               |
-| 29 August    | 1 | Our methods in context. Reading: [GEOG391 manuscript](https://www.dropbox.com/s/ac40iyiwylzh1nz/geog391_ms.docx?dl=0) |
-| 3 September  | 2 | Labor Day     |
-| 5 September  | 2 | Droning on (plus field visit) - see [Introduction Modules > Drones > Reading](introductory-modules.md#droning-on) for reading  |
-| 10 September | 3 | Droning on      |
-| 12 September | 3 | Droning on     |
-| 17 September | 4 | Small Sats: PlanetScope. Reading: see [Introduction Modules > Small Sats > Reading](introductory-modules.md#small-sats)    |
-| 19 September | 4 | Small Sats: PlanetScope    |
-| 24 September | 5 | Small Sats: PlanetScope / Cloud-based EO processing |
-| 26 September | 5 | Cloud-based EO processing Reading: see [Introduction Modules > Cloud-based Processing > Reading](introductory-modules.md#cloud-based-processing) |
-| 1 October    | 6 | Cloud-based EO processing   |
-| 3 October    | 6 | Sensor data (Dr. Adam Wolf from Arable)            |
-| 8 October    | 7 | Fall Break     |
-| 10 October   | 7 | Cloud-based EO processing (wrap-up), sensors    |
-| 15 October   | 8 | Sensor data  |        
-| 17 October   | 8 | Sensor data (team practicals)   |
-| 22 October   | 9 | Combining human and machine intelligence   |
-| 24 October   | 9 | Combining human and machine intelligence & Project team/proposals due                |
-| 29 October  | 10 | Group projects          |
-| 31 October  | 10 | Group projects                 |
-| 5 November  | 11 | Progress report / group projects                 |
-| 7 November  | 11 | Group projects                 |
-| 12 November  | 12 | Progress report / group projects                 |
-| 14 November  | 12 | Group projects                 |
-| 19 November  | 13 | Progress report / group projects               |
-| 21 November  | 13 | Thanksgiving Recess |
-| 26 November  | 14 | Group projects                 |
-| 28 November  | 14 | Group projects                 |
-| 3 December   | 15 | Presentations                 |
-| 5 December   | 15 | Presentations                 |
-| 10 December  | 16 | Presentations                 |
-| 17 December  |    | Final project due             |
+| 14 January    | 1 | Course overview/Our methods in context.           |
+| 21 January  | 2 | Droning on - see [Introduction Modules > Drones > Reading](introductory-modules.md#droning-on) for reading  |
+| 4 February | 3 | Small Sats: PlanetScope. Reading: see [Introduction Modules > Small Sats > Reading](introductory-modules.md#small-sats)    |
+| 11 February | 4 | Small Sats: PlanetScope / Cloud-based EO processing |
+| 18 February | 5 | Cloud-based EO processing Reading: see [Introduction Modules > Cloud-based Processing > Reading](introductory-modules.md#cloud-based-processing) |
+| 25 February    | 6 | Cloud-based EO processing   |
+| March 3        | - | Spring break |
+| March 10       | 7 | Sensor data |
+| March 17       | 8 | Human and machine intelligence |
+| March 24  | 9 | Human and machine intelligence & Project team/proposals due |
+| March 31  | 10 | Group projects          |
+| April 7  | 11 | Group projects                 |
+| April 14   | 12 | Group projects                 |
+| April 21  | 13 | Final presentations                 |
+| May 3 | -   | Final project due             |
 
 [Course Home](../README.md) | [General Info](general-information.md) | [Projects](projects.md) | [Intro Modules](introductory-modules.md)
