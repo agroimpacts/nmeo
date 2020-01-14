@@ -3,7 +3,7 @@
 ## General information
 
 ### Expectations
-Since our class is a computer lab, please no food or drink. Class attendance is expected, as is on-time submission of assignments (late submissions require valid justification prior to submission date), and doing all the readings/assignments prior to the class for which they are assigned. 
+Class attendance is expected, as is on-time submission of assignments (late submissions require valid justification prior to submission date), and doing all the readings/assignments prior to the class for which they are assigned. 
 
 We follow the University's policies on plagiarism and cheating. Please familiarize yourself with the University's [policy](http://www2.clarku.edu/offices/aac/integrity.cfm) on academic integrity, particularly section I. 
 
