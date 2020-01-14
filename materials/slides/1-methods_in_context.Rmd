@@ -1,6 +1,6 @@
 ---
 title: "New Methods in Earth Observation"
-subtitle: "Our Methods in Context"
+subtitle: "Overview and Our Methods in Context"
 date: "14 January 2020"
 output:
   xaringan::moon_reader:
@@ -17,6 +17,57 @@ output:
   - Course introduction
   - Housekeeping: computing, class, etc
   - Background and introduction
+
+---
+
+## Background
+
+- Limits to Earth Observation
+
+![](figures/limits.png)
+
+---
+
+## Background 
+Collapsed limits down to:
+
+- Physical 
+- Methodological
+- Societal
+
+---
+## Background
+Innovations:
+
+- More eyes in the sky
+- Advances in sensors/communications
+- Seeing into the blind spots
+- Upping the N
+- Data and model-data fusion
+- Computer vision, machine, and deep learning
+- Earth Observation and analytical platforms
+
+---
+
+## Course Walk-through
+
+- [Home page](https://github.com/agroimpacts/geog287387)
+- [Approach](https://github.com/agroimpacts/geog287387/blob/master/docs/general-information.md)
+- [Syllabus](https://github.com/agroimpacts/geog287387/blob/master/docs/syllabus.md)
+- [Projects](https://github.com/agroimpacts/geog287387/blob/master/docs/projects.md)
+
+---
+background-image: url(figures/uas.jpg)
+background-size: 60%
+background-position: right
+
+## Project Tools
+
+- UAS
+- [Sensors](https://clark.arable.com/dashboard/locations)
+- [Cloud-processing](https://www.mlhub.earth)
+- [Active learning](https://mappingafrica.io)
+
 
 ---
 
@@ -68,10 +119,11 @@ output:
 - Collection biases
 
 ---
+background-image: url(figures/02/current_scales.png)
+background-size: 80%
+background-position: center
 
 ## The Combined Effect of Limits
-
-![](figures/02/current_scales.png){width=90%} 
 
 ---
 
@@ -110,12 +162,14 @@ grid.arrange(img1, img2, ncol = 2)
 - PlanetScope
 
 ---
+background-image: url(figures/02/geowiki.png)
+background-size: 60%
+background-position: bottom
+
 
 ## Innovation Pushing Back Limits 2
 
 - Upping the N
-
-![geowiki.org](figures/02/geowiki.png){width=70%}
 
 ---
 
@@ -137,12 +191,16 @@ grid.arrange(img1, img2, ncol = 2)
 - Arable
 
 ---
+background-image: url(figures/02/gaveau_etal2014.png)
+background-size: 60%
+background-position: center
+<!-- ![Gaveau et al (2014)](figures/02/gaveau_etal2014.png){width=70%} -->
+
 
 ## Innovation Pushing Back Limits 3
 
 - Peering into the gaps
 
-![Gaveau et al (2014)](figures/02/gaveau_etal2014.png){width=70%}
 
 ---
 
@@ -163,12 +221,14 @@ grid.arrange(img1, img2, ncol = 2)
 - UAS
 
 ---
+background-image: url(https://ngee-arctic.ornl.gov/sites/default/files/9.jpeg)
+background-size: 40%
+background-position: bottom
 
 ## Innovations Pushing Back Limits 4
 
 - Advances in sensors/communications
 
-![](https://ngee-arctic.ornl.gov/sites/default/files/9.jpeg){width=60%}
 
 ---
 
@@ -184,6 +244,11 @@ grid.arrange(img1, img2, ncol = 2)
     - Cost/accessibility
 
 ---
+background-image: url(figures/whittier10082018.png)
+background-size: 50%
+background-position: center
+
+
 
 ## How Our Methods Fit In
 
@@ -195,13 +260,15 @@ grid.arrange(img1, img2, ncol = 2)
 
 - Data and model-data fusion
 
-![Luo et al (2018): STAIR](figures/02/luo_etal2018.png){width=80%} 
+![Luo et al (2018): STAIR](figures/02/luo_etal2018.png)
 
 ---
+background-image: url(http://2.bp.blogspot.com/-JpPn3jLt5Nw/VVDSnQ3WNEI/AAAAAAAAAR0/wmhUJp7SQ1c/s1600/output_SAPgfu.gif)
+background-size: 50%
+background-position: center
 
 ## SCYM
-
-![Scalable Yield Mapper Results](http://2.bp.blogspot.com/-JpPn3jLt5Nw/VVDSnQ3WNEI/AAAAAAAAAR0/wmhUJp7SQ1c/s1600/output_SAPgfu.gif){width=80%}
+- Scalable Yield Mapping (Lobell et al, 2015)
 
 ---
 
@@ -221,11 +288,13 @@ grid.arrange(img1, img2, ncol = 2)
 - Arable Marks + Ebee + Planet + DSSAT crop model & R package
 
 ---
+background-image: url(http://2rct3i2488gxf9jvb1lqhek9-wpengine.netdna-ssl.com/wp-content/uploads/2017/05/isprs-potsdam-predicitions-4.gif)
+background-size: 50%
+background-position: bottom
 
 ## Innovations Pushing Back Limits 6
 - Computer vision, machine, and deep learning
-
-![Azavea Deep Learning for Semantic Segmentation of Aerial Imagery](http://2rct3i2488gxf9jvb1lqhek9-wpengine.netdna-ssl.com/wp-content/uploads/2017/05/isprs-potsdam-predicitions-4.gif){width=60%}
+- Azavea's `rastervision`
 
 ---
 
@@ -235,22 +304,29 @@ grid.arrange(img1, img2, ncol = 2)
     - Inadequate models
 
 ---
+background-image: url(figures/02/ll_debatsetal_slide.png)
+background-size: 50%
+background-position: bottom
 
 ## How Our Methods Fit In
 
-![Lei and Luisa's slide of Debat et al (2016) method](figures/02/ll_debatsetal_slide.png){width=70%}
+- Debats et al (2016) (adapted by Song and Young, 2018)
+
+---
+background-image: url(figures/02/activelearning.png)
+background-size: 50%
+background-position: bottom
 
 ## How Our Methods Fit In
 
-![Active learning](figures/02/activelearning.png){width=60%}
-
+- Active learning (Debats et al, 2017; Estes et al, forthcoming)
 ---
 
 ## Innovations Pushing Back Limits 7
 
 - Cloud-based data and analytical platforms
 
-![Global Surface Water](figures/02/global_surface_water.png){width = 80%}
+![Global Surface Water](figures/02/global_surface_water.png)
 
 ---
 
@@ -269,11 +345,12 @@ grid.arrange(img1, img2, ncol = 2)
 - Process Planet
 - Host and view UAS imagery
 
-
 ---
 
 ## Computing set up
 
 - eMotion3
 - PIX4D
+- Anaconda, with Jupyter Notebooks and RStudio
+- AWS Workspaces
 

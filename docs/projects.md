@@ -2,10 +2,10 @@
 
 # Team Projects
 
-There are four general subject areas from which projects for this course can be drawn.  
+There are several potential projects that can be undertaken for this class.  
 
 1. Multi-scale estimation of crop LAI
-2. Multi-scale estimation of crop yield
+2. Multi-scale esitmation of crop yield
 3. Using cloud-based EO processing platforms to create multi-source image time series
 4. Mapping land cover using crowdsourcing and machine learning
 
@@ -15,11 +15,11 @@ More detail on each follows:
 
 We have been collecting data over the course of the summer in a maize/corn field at Whittier Farms, in Sutton, MA. Data include:
 
-- Micro-meteorology and crop growth data collected by three Arable Mark sensors
-- Field measurements of leaf area index collected underneath each Mark
-- 10 cm multi-spectral imagery collected by a Sequioa+ camera mounted on an Ebee Plus UAS on several dates
+- Micro-meteorology and crop growth data collected by three Arable Mark sensors over two seasons
+- Field measurements of leaf area index collected underneath each Mark (two seasons)
+- 10 cm multi-spectral imagery collected by a Sequioa+ camera mounted on an Ebee Plus UAS on several dates (two seasons)
 
-In addition to these, we can also acquire near-daily PlanetScope 3-4 RGBNIR imagery over the same fields. 
+In addition to these, we can also acquire near-daily PlanetScope 3-4 RGBNIR imagery over the same fields for the same years. 
 
 One major goal of this project is to develop estimates of maize leaf area index (LAI) from these multiple sources and understand how these estimates change with scale and extent. To do this, we will: 
 
@@ -62,6 +62,17 @@ There are three possible projects related to this:
 1. Deploy the active learning framework to a new geography outside of the current target region (Ghana).
 2. Apply it to new land cover type.
 3. Use the training datasets and imagery collected for Ghana to investigate the impact that training data error has on classification accuracy. 
+
+## Project 5: Map [Hadwen Arboretum](https://en.wikipedia.org/wiki/Hadwen_Arboretum)
+This is UAS-based project, and requires action from the beginning of the semester. Project outline: 
+
+- Identify correct UAS multicopter for the job, purchase
+- Get FAA clearances to fly
+- Conduct test flights
+- Plan and conduct arboretum flights (late Spring)
+- Create orthomosaic, DTM, DEM, etc. 
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/HadwenArboretum.jpg/1280px-HadwenArboretum.jpg)
 
 ## References
 
