@@ -18,9 +18,9 @@ After an initial introduction to the various toolsets we will be using, students
 
 ## Course details
 
-Class is held in JC105 on Mondays and Wednesdays from 12-13.15. 
+Class is held in BP217 on Tuesdays from 1450-1750. 
 
-Office hours: Tuesdays 1-3 pm in Jefferson 105. 
+Office hours: Wednesdays 0930-1130 in Jefferson 105. 
 
 ## Course contents
 
