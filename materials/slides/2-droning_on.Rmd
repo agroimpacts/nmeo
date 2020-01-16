@@ -266,7 +266,7 @@ If you want to learn more about the math, go here [here](https://www.youtube.com
 ---
 ### Radiometric calibration
 
-.center[![](figures/02/ciraolo_el.pdf)]
+.center[![](figures/02/ciraolo_etal.png)]
 .center[Credit: Giuseppe Ciraolo, Università degli Studi di Palermo]
 
 ---
@@ -291,7 +291,7 @@ background-size: cover
 ### Missing Data
 
 ---
-background-image: url(figures/02/hotspots.pdf)
+background-image: url(figures/02/hotspots.png)
 background-size: cover
 
 
@@ -488,7 +488,7 @@ class: center, middle
 
 ### For homework, run the following processing tasks:
 
-#### On the imagery for August 24th (EP-01-18467_0029, with .bb3 flight log having the same name), run the following tasks:
+#### On the imagery you have been given (link in slack, data includes a .bb3 flight log having the same name), run the following tasks:
 
 ##### - Create a PPK and reflectance-target corrected set of imagery (reflectance orthomosaics and DSM/DTM). i.e. Do the PPK corrections from Rinex file in eMotion3, and let PIX4D pick up the reflectance target images. 
 
