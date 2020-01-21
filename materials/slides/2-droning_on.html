@@ -14,7 +14,7 @@ class: center, middle, inverse, title-slide
 
 # Droning On
 ## New Methods in Earth Observation
-### 9/4/2018
+### 1/21/20
 
 ---
 
@@ -148,6 +148,11 @@ background-size: cover
 ![](figures/02/estes_etal_2ac.png)
 
 .center[Estes et al (2018), Figure 2]
+---
+# The Scales of Ecological Observations
+
+![](figures/02/Manfreda.png)
+.center[Manfreda et al (2018), Figure 5]
 
 ---
 background-image: url(figures/02/uas_slides/uas_slides.035.png)
@@ -259,7 +264,7 @@ If you want to learn more about the math, go here [here](https://www.youtube.com
 
 ## Geometric 
     - Orthomosaic from SfM
-    - RTK/PPK and/or GCPs
+    - RTK/PPK([video](https://www.youtube.com/watch?v=1A3ZmYwx330) ) and/or GCPs
 
 ## Atmospheric effects
 
@@ -274,6 +279,19 @@ If you want to learn more about the math, go here [here](https://www.youtube.com
 ## Hard to Correct/Uncorrectable Errors
 - Blur
 - Hotspots / BRDF
+
+---
+background-image: url(figures/02/blurry.png)
+background-size: 70%
+### Blurry Flight (transects go downwind)
+
+
+
+---
+background-image: url(figures/02/nonblurry.png)
+background-size: 70%
+### Less Blurry (transects go upwind)
+
 
 ---
 background-image: url(figures/02/IMG_4796.JPG)
@@ -291,11 +309,30 @@ background-size: cover
 ### Missing Data
 
 ---
+background-image: url(figures/02/schaaf_brdf_1.png)
+background-size: 70%
+### BRDF effects (backscattering vs. forward scattering)
+#### [Dr. Crystal Schaaf's Lab](https://www.umb.edu/spectralmass/terra_aqua_modis/modis)
+
+---
+background-image: url(figures/02/schaaf_brdf_2.png)
+background-size: 70%
+### BRDF effects (backscattering vs. forward scattering)
+
+
+---
 background-image: url(figures/02/hotspots.png)
 background-size: cover
 
 
 # Collecting Data
+
+---
+
+class: center, middle
+
+# Flight Simulation
+## [Pre-flight checklist](https://docs.google.com/document/d/1E_k8FtFEPNm1VbdBeYy1wgPX22jcMSnUrJtBy5e8Vmo/edit?usp=sharing)
 
 ---
 
@@ -378,6 +415,14 @@ background-size: cover
 ##### - PPK: Process drone's raw GNSS data
 
 ##### - For PPK, collect and load in RINEX file from [here](https://www.ngs.noaa.gov/UFCORS/), for our demo area we want MASB (the Sturbridge station), for the date and time of our flight. Note the RINEX request should cover the entire flight interval. Download and unzip the file, and load in the observations (.18o file).  The other fields will populate. Click next. Some calculations will be made. 
+---
+#### Reminder!!!
+
+![](figures/02/bb8_slide.png)
+
+
+
+
 
 ---
 
@@ -393,6 +438,7 @@ background-size: cover
 class: center, middle
 
 # Image Mosaicking
+## [Post-processing steps](https://docs.google.com/document/d/1gHhvpTWcttZ7V7v3K58-kpIGM2xct0BsLmwzX9rMGBU/edit?usp=sharing)
 
 ---
 ### Open PIX4D
@@ -488,7 +534,7 @@ class: center, middle
 
 ### For homework, run the following processing tasks:
 
-#### On the imagery you have been given (link in slack, data includes a .bb3 flight log having the same name), run the following tasks:
+#### On the imagery you have been given (Aug. 24 2018, EP-01-18467_0029) (link in slack, data includes a .bb3 flight log having the same name), run the following tasks:
 
 ##### - Create a PPK and reflectance-target corrected set of imagery (reflectance orthomosaics and DSM/DTM). i.e. Do the PPK corrections from Rinex file in eMotion3, and let PIX4D pick up the reflectance target images. 
 
@@ -496,11 +542,14 @@ class: center, middle
 
 ##### - Create a non-PPK corrected (standalone geotags mode in eMotion3), non-reflectance target corrected set of images
 
-#### On the imagery for August 31st (EP-01-18467_0030, with .bb3 flight log having the same name):
+#### On the imagery for August 26th 2019 (EP-01-20622_201, with .bb3 flight log having the "_20" suffix):
 
 ##### - PPK (you need a new Rinex file) + non-reflectance target corrected images.  
 
 ### We will analyze the differences next class!
+
+---
+### Part 107 Questions(https://www.faa.gov/training_testing/testing/test_questions/media/uag_sample_exam.pdf)
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
