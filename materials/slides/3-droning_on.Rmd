@@ -5,7 +5,7 @@ date: "9/4/2018"
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    css: ["default", "lucy", "middlebury-fonts", "themes/class5-theme.css"]
+    css: ["default", "lucy", "middlebury-fonts", "themes/class3-theme.css"]
     nature:
       highlightStyle: github
       highlightLines: true
@@ -17,18 +17,28 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Review of previous class
+- Drones and scaling 
+- PIX4d questions
+
 ## Analyzing Drone Orthomosaics
 
 #### - eMotion/flight correction
 #### - Examine PIX4D outputs
-#### - Exercises using R, gdal, and leaflet to examine the drone orthomosaics we created for homework. 
-&nbsp;&nbsp;+ Requires working R, Rstudio, gdal installs, and changing a few parameters 
+#### - Exercises using `R`, `gdal`, and `leaflet` to examine the drone orthomosaics we created for homework. 
+&nbsp;&nbsp;+ Requires working `R`, Rstudio, `gdal` installs, and changing a few parameters 
 
 &nbsp;&nbsp;+ If that fails, ArcGIS/Terrset/QGIS as a substitute
 
-##### - Run the following code to start, in open Rstudio session
+---
+## Setup
+Working with our Anaconda-installed versions of RStudio, we will have to first install:
+
+- `gdal` into the Anaconda Rstudio environment
+- in RStudio, in a new script or console prompt::
 
 ```{r, eval = FALSE}
+install.packages("Rcpp")
 install.packages("gdalUtils")
 install.packages("raster")
 install.packages("knitr")
@@ -53,6 +63,7 @@ class: center, middle
 class: center, middle
 # Examining Our Orthomosaic Results
 
+We'll use examples of 2018 imagery to start. 
 ---
 ## Starting with Pre-processing
 
@@ -63,8 +74,8 @@ We are going to use R and Rstudio to perform these analyses.  These slides provi
 ### Coding Tips
 #### - To execute code, simply highlight the lines you want to run, and then hit Ctrl + Enter (windows) or CMD + Enter (Mac)
 #### - Assuming you have all the libraries and `gdal` properly installed, this code should work. The only things you have to change are path settings for files. 
-
 ---
+
 
 ## Set up your R code
 
@@ -74,7 +85,7 @@ First you have to set path variables, and load the R packages you need for analy
 # Path variables
 ## You have to replace the paths within the quotes to match: 
 # 1. the directory path where you put the PIX4D outputs 
-img_path <- "~/Dropbox/data/imagery/uas/pix4d"
+img_path <- "~/data/imagery/uas/pix4d"
 
 # 2. The folder names for each of the projects. 
 # !!!NOTE!!!: this assumes you put all four PIX4D project folders in one common # directory. Please move them into one if you didn't do so.
