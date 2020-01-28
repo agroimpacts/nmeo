@@ -23,9 +23,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Analyzing Drone Orthomosaics
 
-#### - eMotion/flight correction
-#### - Examine PIX4D outputs
-#### - Exercises using `R`, `gdal`, and `leaflet` to examine the drone orthomosaics we created for homework. 
+#### eMotion/flight correction
+#### Examine PIX4D outputs
+#### Exercises using `R`, `gdal`, and `leaflet` to examine the drone orthomosaics we created for homework. 
 &nbsp;&nbsp;+ Requires working `R`, Rstudio, `gdal` installs, and changing a few parameters 
 
 &nbsp;&nbsp;+ If that fails, ArcGIS/Terrset/QGIS as a substitute
@@ -34,8 +34,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Setup
 Working with our Anaconda-installed versions of RStudio, we will have to first install:
 
-- `gdal` into the Anaconda Rstudio environment
-- in RStudio, in a new script or console prompt::
+#### `gdal` into the Anaconda Rstudio environment
+#### in RStudio, in a new script or console prompt::
 
 ```{r, eval = FALSE}
 install.packages("Rcpp")
