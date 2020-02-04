@@ -73,7 +73,7 @@ dev.off()
 ```
 
 ```{r, echo = FALSE, out.width="100%", fig.align='center'}
-knitr::include_graphics('figures/04/pseudo.png')
+knitr::include_graphics('figures/04/pseudo_rgb.png')
 ```
 
 <!-- ![](figures/04/pseudo_rgb.png) -->
