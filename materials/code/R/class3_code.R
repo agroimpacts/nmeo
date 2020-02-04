@@ -3,7 +3,7 @@
 ##### Path variables
 ## You have to replace the paths within the quotes to match: 
 # 1. the directory path where you put the PIX4D outputs 
-img_path <- "~/Dropbox/data/imagery/uas/pix4d"
+img_path <- "materials/data/imagery/uas/pix4d"
 
 # 2. The folder names for each of the projects. 
 # !!!NOTE!!!: this assumes you put all four PIX4D project folders in one common # directory. Please move them into one if you didn't do so.
@@ -12,16 +12,17 @@ project2 <- "whittier_demo_24August2018_noreftarget"
 project3 <- "whittier_demo_24August2018_noppk"
 project4 <- "whittier_demo_31August2018_noreftarget"
 
-# 3. the directory where you want your outputs to be written 
-out_dir <- "materials/data/05"  
+# 3. the directory where you want your outputs to be written
+out_dir <- "materials/data/03"  
+if(!dir.exists(out_dir)) dir.create(out_dir)
 
 # 4. the directory containing reflectance images in your projects. 
 # If you only created tile outputs, your results will live in 
 # .../4_index/reflectance/tiles/". If so, set the value to "tiles". If you have # merged outputs, they you will images in 4_index/reflectance/, so set the variable to "merged". In my case, they are merged, so I chose "merged"
 ref_dir <- "merged"
 
-# 5. path to companion class5_functions.R script
-script_path <- "materials/code/R/external/scripts/class5_functions.R"
+# 5. path to companion uas_image_functions.R script
+script_path <- "materials/code/R/uas_image_functions.R"
 
 ## The following variables are optional to change. These are the name roots for 
 #  each of the images will we be creating. 
@@ -107,9 +108,8 @@ nms <- c("NIR", "Red", "Green")
 plot(ref_diff, main = nms, axes = FALSE, zlim = c(-0.5, 0.5))  
 
 # How much difference in stats?
-stats <- cellStats(ref_diff, summary)
+stats <- summary(sampleRandom(ref_diff, 1000))
 colnames(stats) <- nms
-round(stats, 3)
 
 # ## PPK versus not
 # ref_diff <- b2a - b3a  # subtract no ref target from ref target
