@@ -10,7 +10,6 @@ These instructions are based on installing everything new on a freshly started W
 - Install takes a while, but once down, you can search for `Anaconda Prompt` on your desktop and open that.  
 - First, if you don't have it (but most of you do), install gdal.  I suggest installing [osgeo4w](http://download.osgeo.org/osgeo4w/osgeo4w-setup-x86_64.exe) - Run these commands from the Anaconda prompt
 
-
 ```bash
 > pip install planet
 > conda install -c conda-forge gdal
@@ -19,7 +18,14 @@ These instructions are based on installing everything new on a freshly started W
 > pip install geojson
 ```
 
-For an existing machine that already has gdal installed on it, I would try something like:
+### For current workspaces version
+With Anaconda already installed and the *rstudio* environment already installed, first, from the Anaconda prompt:
+```bash
+conda activate rstudio
+conda list
+```
+
+The second command should ensure that you are now in rstudio environment. Then:
 ```bash
 > pip install planet
 > pip install rasterio

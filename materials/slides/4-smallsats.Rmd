@@ -289,6 +289,25 @@ background-position: bottom
 .center[The Joint Research Centre, from [here](http://publications.jrc.ec.europa.eu/repository/bitstream/JRC111221/jrc_technical_report_planetscope-final_2.pdf)]
 
 ---
+## CESTEM
+
+```{r, echo = FALSE, out.width="100%", fig.align='center', fig.cap='Houbourg and McCabe, 2018'}
+knitr::include_graphics('figures/04/cestem_schematic.png')
+```
+
+---
+
+## CESTEM
+```{r, echo = FALSE, out.width="100%", fig.align='center', fig.cap='Houbourg and McCabe, 2018'}
+knitr::include_graphics('figures/04/cestem_ndvi.png')
+```
+
+---
+## CESTEM
+```{r, echo = FALSE, out.width="100%", fig.align='center', fig.cap='Houbourg and McCabe, 2018'}
+knitr::include_graphics('figures/04/cestem_lai.png')
+```
+---
 
 ### Working with Planet Explorer
 #### The Point and Click Method
