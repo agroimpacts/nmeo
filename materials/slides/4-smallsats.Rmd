@@ -15,6 +15,45 @@ class: center, middle
 # Finish-up UAS
 
 ---
+## Your results
+#### - 2018 versus 2019 PPK with reflectance targets
+#### - 2019 PPK reflectance target vs 2019 PPK no-reflectance target
+#### - 2019 PPK reflectance target vs 2019 no-PPK reflectance target
+
+---
+## Comparisons from last year
+### Reflectance strategies (2018)
+```{r, echo = FALSE, out.width="100%", fig.align='center'}
+knitr::include_graphics('figures/04/uas_2018_ref_difference.png')
+```
+<!-- ![](figures/04/uas_2018_ref_difference.png) -->
+
+---
+### Date differences (2018)
+```{r, echo = FALSE, out.width="100%", fig.align='center'}
+knitr::include_graphics('figures/04/uas_2018_date_difference.png')
+```
+
+<!-- ![](figures/04/uas_2018_date_difference.png) -->
+
+
+---
+### PPK/no-PPK differences (2018)
+```{r, echo = FALSE, out.width="100%", fig.align='center'}
+knitr::include_graphics('figures/04/uas_2018_ppk_difference.png')
+```
+
+<!-- ![](figures/04/uas_2018_ppk_difference.png) -->
+
+---
+### Spatial offset
+```{r, echo = FALSE, out.width="100%", fig.align='center'}
+knitr::include_graphics('figures/04/uas_2018_ppk_offset.png')
+```
+
+<!-- ![](figures/04/uas_2018_ppk_offset.png) -->
+
+---
 ### Pseudo-True From Sequioa Imagery
 
 ```{r, eval = FALSE}
@@ -27,13 +66,17 @@ plotRGB(stack(red, green, blue), scale = 0.41, zlim = c(0, 0.41))
 ```
 
 ```{r, echo = FALSE, eval=FALSE}
-png("materials/slides/figures/06/pseudo_rgb.png", height = 400, width = 400)
+png("materials/slides/figures/04/pseudo_rgb.png", height = 400, width = 400)
 par(mar = c(0, 0, 0, 0), bg = "transparent")
 plotRGB(stack(red, green, blue), scale = 0.41, zlim = c(0, 0.41), bgalpha = 0)
 dev.off()
 ```
 
-![](figures/06/pseudo_rgb.png)
+```{r, echo = FALSE, out.width="100%", fig.align='center'}
+knitr::include_graphics('figures/04/pseudo.png')
+```
+
+<!-- ![](figures/04/pseudo_rgb.png) -->
 
 ---
 
@@ -49,15 +92,13 @@ gcvi <- (img1[[1]] / img1[[3]]) - 1
 
 ```{r, echo = FALSE, eval=FALSE}
 gcvi[gcvi > 10] <- 10
-png("materials/slides/figures/06/gcvi.png", height = 400, width = 400)
+png("materials/slides/figures/04/gcvi.png", height = 400, width = 400)
 par(mar = c(0, 0, 0, 0), bg = "transparent")
 plot(gcvi, axes = FALSE, axis.args = list(col = "white", col.axis = "white"))
 dev.off()
 ```
 
-
-
-.center[![](figures/06/gcvi.png)]
+.center[![](figures/04/gcvi.png)]
 
 ---
 
@@ -68,13 +109,13 @@ lai <- ((gcvi - 0.93) / 1.4)^(1 / 1.03)
 ```
 
 ```{r, echo = FALSE, eval=FALSE}
-png("materials/slides/figures/06/lai.png", height = 400, width = 400)
+png("materials/slides/figures/04/lai.png", height = 400, width = 400)
 par(mar = c(0, 0, 0, 0), bg = "transparent")
 plot(lai, axes = FALSE, axis.args = list(col = "white", col.axis = "white"))
 dev.off()
 ```
 
-.center[![](figures/06/lai.png)]
+.center[![](figures/04/lai.png)]
 
 ---
 # Take-aways from this Module
@@ -125,13 +166,13 @@ background-size: cover
 
 ## Their Value
 
-.center[![](figures/06/kennedy_etal2014_1.png)]
+.center[![](figures/04/kennedy_etal2014_1.png)]
 
 .center[Kennedy et al (2014), Figure 1]
 
 ---
 
-.center[![](figures/06/kennedy_etal2014_3.png)]
+.center[![](figures/04/kennedy_etal2014_3.png)]
 .center[Kennedy et al (2014), Figure 3]
 
 ---
@@ -144,22 +185,22 @@ background-size: cover
 
 ## Examples
 
-.center[![](figures/06/mccabe_etal1.png)]
+.center[![](figures/04/mccabe_etal1.png)]
 .center[McCabe et al (2017), Figure 1]
 
 ---
 
 ## Examples
 
-.center[![](figures/06/mccabe_etal2.png)]
+.center[![](figures/04/mccabe_etal2.png)]
 .center[McCabe et al (2017), Figure 2]
 
 ---
 
 ## Examples
 
-.center[![](figures/06/planet1.png)]
-.center[![](figures/06/planet2.png)]
+.center[![](figures/04/planet1.png)]
+.center[![](figures/04/planet2.png)]
 
 ---
 
@@ -175,7 +216,7 @@ background-size: cover
 
 &nbsp;&nbsp;- Accessibility
 
-background-image: url(figures/07/explorer.png)
+background-image: url(figures/04/explorer.png)
 background-size: cover
 
 class: center, top
@@ -224,21 +265,21 @@ background-position: bottom
 
 ---
 
-.center[![](figures/07/brdf.png)]
+.center[![](figures/04/brdf.png)]
 .center[[Source](http://www.conabio.gob.mx/conocimiento/premota/doctos/papers/LandVeg/Crystal_Schaaf.ppt.pdf)]
 
 ---
 
 ### PlanetScope Geometric Accuracy
 
-![](figures/07/ortho.png)
+![](figures/04/ortho.png)
 .center[Dobrinić et al, from [here](https://bib.irb.hr/datoteka/947280.DobrinicGasparovicZupan_manuscript.pdf)]
 
 ---
 
 ### Another assessment
 
-.center[![](figures/07/ortho2.png)]
+.center[![](figures/04/ortho2.png)]
 .center[The Joint Research Centre, from [here](http://publications.jrc.ec.europa.eu/repository/bitstream/JRC111221/jrc_technical_report_planetscope-final_2.pdf)]
 
 ---
@@ -298,21 +339,21 @@ m
 
 ## Point and click only gets you so far
 
-.center[![](figures/07/planet_downloads_180915103248.png)]
+.center[![](figures/04/planet_downloads_180915103248.png)]
 .center[September 15th, 10:30 AM]
 
 ---
 
 ## Point and click only gets you so far
 
-.center[![](figures/07/planet_downloads_180917091530.png)]
+.center[![](figures/04/planet_downloads_180917091530.png)]
 .center[September 17th, 3:30 PM]
 
 ---
 
 ## Point and click only gets you so far
 
-.center[![](figures/07/planet_downloads_180919112717.png)]
+.center[![](figures/04/planet_downloads_180919112717.png)]
 .center[11:30 AM Today]
 
 ---
