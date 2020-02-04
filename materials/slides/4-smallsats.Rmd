@@ -54,6 +54,12 @@ knitr::include_graphics('figures/04/uas_2018_ppk_offset.png')
 <!-- ![](figures/04/uas_2018_ppk_offset.png) -->
 
 ---
+### 2018-2019 difference (no reflectance target)
+```{r, echo = FALSE, out.width="100%", fig.align='center'}
+knitr::include_graphics('figures/04/uas_2018-2019_ref_difference.png')
+```
+
+---
 ### Pseudo-True From Sequioa Imagery
 
 ```{r, eval = FALSE}
@@ -72,7 +78,7 @@ plotRGB(stack(red, green, blue), scale = 0.41, zlim = c(0, 0.41), bgalpha = 0)
 dev.off()
 ```
 
-```{r, echo = FALSE, out.width="100%", fig.align='center'}
+```{r, echo = FALSE, out.width="50%", fig.align='center'}
 knitr::include_graphics('figures/04/pseudo_rgb.png')
 ```
 
@@ -289,8 +295,6 @@ background-position: bottom
 
 [Let's Login](https://www.planet.com/login/)
 
----
-
 ```{r, echo = FALSE, message = FALSE, warning=FALSE, eval=FALSE, fig.align='center'}
 library(dplyr)
 library(rmapaccuracy)
@@ -333,7 +337,6 @@ m <- leaflet() %>% addProviderTiles("Esri.WorldImagery") %>%
 m
 
 ```
-
 
 ---
 
