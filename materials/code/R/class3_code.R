@@ -28,14 +28,14 @@ script_path <- "materials/code/R/uas_image_functions.R"
 #  each of the images will we be creating. 
 mband1 <- "aug24_ngb"
 mband2 <- "aug24_ngb_noreftarget"
-# mband3 <- "aug24_ngb_noppk"
-# mband4 <- "aug31_ngb_noreftarget"
+mband3 <- "aug24_ngb_noppk"
+mband4 <- "aug31_ngb_noreftarget"
 
 # Output names for warped and stretched
 out1 <- "aug24_ngb_cog"
 out2 <- "aug24_ngb_noreftarget_cog"
-# out3 <- "aug24_ngb_noppk_cog"
-# out4 <- "aug31_ngb_noreftarget_cog"
+out3 <- "aug24_ngb_noppk_cog"
+out4 <- "aug31_ngb_noreftarget_cog"
 
 
 # Load packages and functions
