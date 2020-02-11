@@ -18,13 +18,6 @@ These instructions are based on installing everything new on a freshly started W
 > pip install geojson
 ```
 
-### For current workspaces version
-With Anaconda already installed and the *rstudio* environment already installed, first, from the Anaconda prompt:
-```bash
-conda activate rstudio
-conda list
-```
-
 The second command should ensure that you are now in rstudio environment. Then:
 ```bash
 > pip install planet
@@ -36,6 +29,9 @@ The second command should ensure that you are now in rstudio environment. Then:
 If rasterio gives you trouble, replace `pip install rasterio` with `conda install -c conda-forge rasterio`
 
 A nice thing about installing conda is that it provides various libraries already, such as scipy, numpy, skimage, etc.  
+
+### For current workspaces version
+With Anaconda already installed and the *rstudio* environment already installed, first, from the Anaconda navigator, go in and activate the rstudio environment, and then go to environments and search for rasterio under the packages not installed dialog. Install it, followed by `shapely` and `geojson`
 
 A good way to verify that things are working is to get into the Anaconda shell and then run:
 ```bash
