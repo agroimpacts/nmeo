@@ -1,7 +1,7 @@
 ---
 title: "Droning On"
 subtitle: "New Methods in Earth Observation"
-date: "1/21/20"
+date: "Class 2"
 output:
   xaringan::moon_reader:
     lib_dir: libs

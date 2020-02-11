@@ -1,7 +1,7 @@
 ---
 title: "New Methods in Earth Observation"
 subtitle: "Overview and Our Methods in Context"
-date: "14 January 2020"
+date: "Class 1"
 output:
   xaringan::moon_reader:
     lib_dir: libs

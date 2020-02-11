@@ -1,6 +1,34 @@
 # Running the Planet Downloader
-## Install Anaconda and Dependencies 
-### Windows
+
+There is a new and old way of downloading Planet data. The first way uses a downloader developed by Azavea that worked with version of Planet's API.  The second approach uses [`porder`](https://github.com/samapriya/porder), which is much faster. We use the second approach now for our [mapping project](mappingafrica.io). 
+
+## New Version
+Assuming `python3` is installed, with various dependencies
+```bash
+pip install porder
+```
+
+And then to use the downloader to select a set of scenes using different filters, in your command line (e.g. `git bash` or Anaconda prompt), run
+
+```bash
+porder idlist --input 'your/path/geog287387/materials/data/whittier/whittier_aoi.geojson' --start '2019-08-01' --end '2019-08-31' --item 'PSScene4Band' --asset 'analytic_sr' --outfile 'your/path/geog287387/materials/data/planet/whittier_0108_31082019.csv' --overlap '100' --filters 'range:view_angle:-3:3' 'range:clear_percent:55:100' 'string:ground_control:True' 'string:quality_category:standard' 
+```
+
+That will use a geojson over Whittier as the AOI, and select PlanetScope surface reflectance analytic images between August 1 and 31 that intersect entirely the AOI with 55-100 percent cloud cover. The list of scenes is placed into a csv that you specify, and then you specify the order:
+```bash
+porder order --name 'Your_Order_Name' --idlist 'your/path/geog287387/materials/data/planet/whittier_0108_31082019.csv' --item "PSScene4Band" --asset "analytic_sr"
+```
+
+This will then give a download link, and then you run:
+```bash
+porder download --url "the url you get from the above step"
+```
+
+
+## Old Version
+
+### Install Anaconda and Dependencies 
+#### Windows
 These instructions are based on installing everything new on a freshly started Windows Server 2016 instance.  Results will vary for already established machines, most likely. 
 
 - On your Windows Box, download the latest Anaconda distribution from [here](https://www.anaconda.com/download/). Choose the Python 3.6 version
@@ -30,7 +58,8 @@ If rasterio gives you trouble, replace `pip install rasterio` with `conda instal
 
 A nice thing about installing conda is that it provides various libraries already, such as scipy, numpy, skimage, etc.  
 
-### For current workspaces version
+#### For current workspaces version
+[Made an attempt with version 1 here, but `rasterio` was not cooperating]
 With Anaconda already installed and the *rstudio* environment already installed, first, from the Anaconda navigator, go in and activate the rstudio environment, and then go to environments and search for rasterio under the packages not installed dialog. Install it, followed by `shapely` and `geojson`
 
 A good way to verify that things are working is to get into the Anaconda shell and then run:
