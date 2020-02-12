@@ -1,0 +1,225 @@
+---
+title: "Class 5 practice - Planetscope"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Instructions
+Execute all chunks separately. i.e. ctrl-shift-enter while the cursor is in the chunk. 
+
+Make sure this returns your file path ending in "geog287387/". If it doesn't, uncomment out line 19 and edit it match your path to the geog287387 project.  
+```{r, eval=FALSE}
+bpath <- paste0(getwd(), "/")
+# bpath <- "D:/Users/<your_user_name>/Documents/geog287387/"
+bpath
+```
+
+
+## Packages
+```{r, eval=FALSE}
+# setwd("..")
+library(gdalUtils)
+library(raster)
+script_path <- paste0(bpath, "materials/code/R/uas_image_functions.R")
+source(script_path)
+```
+
+## Paths
+Set up paths to downloaded Planetscope imagery, and create output directory for adjusting images. You can make notes here. 
+```{r, eval=FALSE}
+img_path <- paste0(bpath, "materials/data/imagery/planet/")
+out_dir <- paste0(bpath, "materials/data/05")
+
+if(!dir.exists(out_dir)) dir.create(out_dir)
+
+planet_dirs <- dir(img_path, pattern = "2019", full.names = TRUE)
+planet_imgs <- lapply(planet_dirs, function(x) {
+  dir(x, pattern = "MS_SR", full.names = TRUE)
+})
+```
+
+## Read in image details
+
+Testing read in and plot of one image
+```{r, eval=FALSE}
+b1 <- brick(planet_imgs[[1]])
+
+# Use gdal to reproject images to EPSG4326 and to a defined extent
+ext <- c(-71.8101, 42.1193, -71.8041, 42.1242)
+out1 <- substr(basename(planet_imgs[[1]]), 1, 8)
+prj <- proj4string(b1)
+planet1 <- img_align(img = b1@file@name, res = 3 / 100000, out_dir = out_dir, 
+                     out_name = out1, ext = ext)
+plotRGB(planet1[[c(4, 3, 2)]], stretch = "lin")
+```
+
+## Read in and process all PlanetScope images
+```{r, eval=FALSE}
+ext <- c(-71.8101, 42.1193, -71.8041, 42.1242)
+
+plist <- lapply(1:length(planet_imgs), function(x) {
+  nm <- planet_imgs[[x]]
+  b <- brick(nm)
+  out <- paste0(substr(basename(nm), 1, 8), "_", x)
+  prj <- proj4string(b)
+  planet1 <- img_align(img = b@file@name, res = 3 / 100000, out_dir = out_dir,                        out_name = out, ext = ext)
+})
+```
+
+## Drone image
+Read in the August 26, 2019 UAS orthomosaic processed during class 4. It should have been processed with PPK correction and against the reflectance target.  
+```{r, eval=FALSE}
+uas <- brick("materials/data/04/aug262019_ngb_cog_gcs.tif")
+```
+
+## Extract time series from imagery
+### Create random points
+And use them to first collect points from the drone data, and filter out those pts falling in NA areas of drone data
+```{r, eval=FALSE}
+library(sf)
+library(dplyr)
+
+# create random sample of spatial points
+set.seed(1)
+pts <- sf::st_sample(st_as_sf(as(extent(uas[[1]]), "SpatialPolygons")), 
+                     size = 1000, exact = TRUE)
+pts <- cbind(ID = 1:length(pts), st_sf(pts))  # convert points to sfc
+
+# use points to extract values from uas raster
+uas_dat <- extract(uas, y = pts)
+uas_dat <- cbind(uas_dat, 
+                 ndvi = (uas_dat[, 1] - uas_dat[, 2]) / 
+                   (uas_dat[, 1] + uas_dat[, 2])) 
+pts <- cbind(pts, uas_dat) 
+colnames(pts) <- c("ID", "nir", "red", "green", "ndvi", "pts")
+plotRGB(uas, stretch = "lin")
+plot(st_geometry(pts), add = TRUE)
+
+# then reduce pts to just those falling in UAS imaged area
+pts <- pts %>% filter(!is.na(nir))
+plot(st_geometry(pts), add = TRUE, col = "green", pch = 16) # check their distr
+
+```
+
+## Time series
+
+Now use points to extract points from Planet time series, but first
+```{r, eval = FALSE}
+# create vector of dates
+dates <- substr(basename(unlist(planet_imgs)), 1, 8)
+dates <- lubridate::as_date(dates)
+
+# check images to see which have complete coverage
+par(mfrow = c(3, 4), mar = rep(3, 4))
+for(i in 1:length(plist)) {
+  plot(plist[[i]][[4]], main = dates[i])
+}
+
+# select just full coverage images
+plist2 <- plist[c(3, 4, 7, 8, 9, 10, 12)]
+dates2 <- dates[c(3, 4, 7, 8, 9, 10, 12)]
+
+# Note: (a fancier way to do this would be to count NAs in each image), e.g. 
+# which(sapply(plist, function(x) length(which(is.na(values(x[[4]]))))) == 0)
+# but you would have to check by date as well (this makes it more complicated,
+# here is how you would do it below -- not run)
+# plist2 <- lapply(unique(dates), function(x) {  # iterate over unique dates
+#   plist_1dy <- plist[dates == x]  # pull out images for just that date
+#   ind <- sapply(plist_1dy, function(y) {
+#     length(which(is.na(values(y[[4]]))))
+#   })  # vector of length of NAs in each NIR band of each image from this date
+#   # randomly select image w/no nas
+#   set.seed(1)
+#   out <- plist_1dy[[sample(which(ind == 0), 1)]]
+#   return(out)
+# })
+
+# extract points from all rasters
+ppts <- lapply(plist2, function(x) raster::extract(x, y = pts))
+
+# subset to NIR, red, green, blue, ndvi
+nir <- lapply(ppts, function(x) x[, 4])
+red <- lapply(ppts, function(x) x[, 3])
+green <- lapply(ppts, function(x) x[, 2])
+blue <- lapply(ppts, function(x) x[, 1])
+ndvi <- lapply(ppts, function(x) (x[, 4] - x[, 3]) / (x[, 4] + x[, 3]))
+
+# calculate mean of NIR NDVI
+nir_mu <- sapply(nir, function(x) mean(x, na.rm = TRUE))
+ndvi_mu <- sapply(ndvi, function(x) mean(x, na.rm = TRUE))
+
+## mean of times series
+dev.off() # resets previous plots
+plot(dates2, nir_mu, main = "NIR mean", type = "l")
+
+# ndvi mean
+plot(dates2, ndvi_mu, type = "l")
+
+# select 10 random points from images and look at them
+set.seed(40)
+ss <- sample(1:nrow(pts), size = 10, replace = FALSE)
+
+# use it to select from the already extracted points
+ndvi_ss <- lapply(ndvi, function(x) x[ss])  # ndvi
+ndvi_ss <- do.call(rbind, ndvi_ss)  # bind into matrix
+nir_ss <- lapply(nir, function(x) x[ss])  # nir
+nir_ss <- do.call(rbind, nir_ss) # bind into matrix
+
+# plot
+plot(dates2, ndvi_ss[, 1], ylim = c(0, 1), type = "l")  # first date first
+for(i in 2:10) lines(dates2, ndvi_ss[, i])  # 
+
+plot(dates2, nir_ss[, 1], ylim = c(0, 1), type = "l")
+for(i in 2:10) lines(dates2, nir_ss[, i] / 10000)  # nir/10000 to scale to refl
+
+# where are these points?
+plot(plist2[[1]][[1]])
+plot(st_geometry(pts[ss, ]), add = TRUE)
+```
+
+## UAS-Planet comparison
+Now compare, for those same 10 points, the data from the drone to the values from the Planet image collected on the closest date (August 24) to see how different they are. Compare the NIR and red channels as well NDVI. The code above provides everything you need to do that. Note that we have already extracted all the values from the UAS for the full set of sample points. We also have already extracted from the PlanetScope data, and subset the values. You just need to select the right subset of points to compare from the UAS data to compare. The comparison is now on a scatter plot. I'll get you started.
+
+```{r, eval=FALSE}
+uas_nir <- pts %>% slice(ss) %>% pull(nir)  # pulls the values out pts for nir 
+plot(uas_nir, nir_ss[6, ] / 10000, xlab = "UAS NIR", ylab = "Planet NIR") # plot
+```
+
+We select the 6th row of `nir_ss` because the rows in the matrix represent different image dates (columns are different points from the image), and August 24th is the 6th or 7 PlanetScope images in the time series. 
+
+
+```{r, eval=FALSE}
+uas_ndvi <- pts %>% slice(ss) %>% pull(ndvi) # pulls the values out pts for nir 
+plot(uas_ndvi, ndvi_ss[6, ], xlab = "UAS NIR", ylab = "Planet NIR") # plot
+```
+
+Now do the same for red and ndvi. 
+
+## Scaling comparison
+Now, using the code from the previous class:
+
+- aggregate the UAS data to the same resolution as the PlanetScope data. Use a factor of 27 to aggregate
+- Create a file `pts2` using this argument `pts2 <- pts %>% select(ID)`
+- then, using all of `pts2`, extract the NDVI, NIR, red, and green reflectance values from aggregated drone data. Lines 95-100 will help you recreate the steps you need to extract from aggregated uas data using `pts`. 
+- Once extract, compare aggregated UAS reflectances (NDVI, NIR, red, and green) to those from the August 24 Planet (which doesn't need aggregation).  
+by plotting the extracted points for each band against the relevant PlanetScope subsets from lines 147-151 above. Use the correct PlanetScope data (image 6 in the time series). Note that red, green, and NIR needed to be scaled by 10000. 
+- The code from class 4 practice can show you how to plot the values in a scatter plot with the 1:1 line. 
+- Be ready to show your results in class 
+```{r, eval=FALSE}
+# code here
+```
+
+
+
+
+
+
+
+
+

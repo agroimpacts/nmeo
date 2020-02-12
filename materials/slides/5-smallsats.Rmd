@@ -84,7 +84,6 @@ background-size: cover
 .center[![](figures/04/planet2.png)]
 
 ---
-
 ## Tradeoffs and Limitations
 
 &nbsp;&nbsp;- Spatial resolution not that high
@@ -97,10 +96,10 @@ background-size: cover
 
 &nbsp;&nbsp;- Accessibility
 
-background-image: url(figures/04/explorer.png)
-background-size: cover
 
 ---
+background-image: url(figures/04/explorer.png)
+background-size: cover
 class: center, top
 # Working with PlanetScope Data
 
@@ -118,7 +117,7 @@ background-position: bottom
 ---
 ## Surface Reflectance
 
-![](figures/07/boa.png)
+![](figures/04/boa.png)
 
 ---
 ## Surface Reflectance
