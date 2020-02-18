@@ -82,17 +82,16 @@ ___
     - Impact on spatial and temporal scales of analysis
     - Multi-sensor fusion
 - Practice:
-    - Using EarthEngine and RadiantEarth
+    - Using EarthEngine and Astraea EarthAI notebook:
         - Collect cloud-free image time series, Landsat, MODIS, Planet
         - Calculate GNDVI and from that LAI
     
 #### Reading
-- Read the docs at [RadiantEarth](https://help.radiant.earth)
 - An introduction to [COGs](https://medium.com/planet-stories/cloud-native-geospatial-part-2-the-cloud-optimized-geotiff-6b3f15c696ed)
 - Gorelick et al [(2017)](https://doi.org/10.1016/j.rse.2017.06.031)
 
 #### Tools
-- Sign up for accounts on [RadiantEarth's app](https://radiantearth.auth0.com/login?state=6LlsOI74Hgbl6bmX57uZx9sBzwxzjFKM&client=xqRq3Jr8ePFd0FTqb6jIEw8t5kK2lF4W&protocol=oauth2&response_type=code&redirect_uri=https%3A%2F%2Fraster-foundry.auth0.com%2Flogin%2Fcallback&scope=openid%20email%20profile) and [EarthEngine](https://signup.earthengine.google.com/#!/)
+- Sign up for accounts on [EarthEngine](https://signup.earthengine.google.com/#!/) and [Astraea's Earth AI Notebook](http://notebook.earthai.astraea.earth/).
 
 [Back to TOC](#toc)
 
