@@ -1,0 +1,447 @@
+---
+title: "Cloud-based Processing"
+subtitle: "New Methods in Earth Observation"
+date: "Class 6"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "lucy", "middlebury-fonts", "themes/class6-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+class: center, middle
+# Small Sats Review
+
+---
+### A look at our Planet results
+
+```{r, eval = FALSE, echo = FALSE}
+library(raster)
+p <- dir("materials/data/06", pattern = "tif", full.names = TRUE)
+rl <- lapply(p, function(x) {
+  b <- brick(x)
+  b / cellStats(b, max)
+})
+
+# plot
+png("materials/slides/figures/06/planet_clips.png", width = 500, height = 150)
+par(mfrow = c(1, 4), mar = c(0, 0, 1, 0), bg = "transparent")
+for(i in 1:length(rl)) {
+  b <- rl[[i]]
+  nm <- gsub("_aoi.tif", "", basename(p[i]))
+  plot(as(extent(b), "SpatialPolygons"), lty = 0, axes = FALSE)
+  plotRGB(b[[1:3]], axes = FALSE, scale = 1, add = TRUE)
+  mtext(nm, side = 3, line = 0, cex = 0.8, col = "white")
+}
+dev.off()
+```
+
+```{r, echo = FALSE, out.width="80%", fig.align='center'}
+knitr::include_graphics('figures/06/planet_clips.png')
+```
+
+---
+
+### GCVI => LAI
+
+GCVI = (NIR / GRN) – 1
+
+GCVI = 1.4 * LAI^1.03 + 0.93
+
+LAI = ((GCVI - 0.93) / 1.4)^(1 / 1.03)
+
+```{r, eval = FALSE}
+png("materials/slides/figures/06/planet_lai.png", width = 500, height = 150)
+par(mfrow = c(1, 4), mar = c(0, 0, 1, 0))
+for(i in 1:length(rl)) {
+  b <- rl[[i]]
+  gcvi <- b[[4]] / b[[1]] - 1
+  lai <- ((gcvi - 0.93) / 1.4)^(1 / 1.03)
+  nm <- gsub("_aoi.tif", "", basename(p[i]))
+  plot(as(extent(lai), "SpatialPolygons"), lty = 0, axes = FALSE)
+  plot(lai, axes = FALSE, add = TRUE, zlim = c(0, 5))#, 
+       #axis.args = list(col = "white", col.axis = "white"))
+  mtext(nm, side = 3, line = 0, cex = 0.8)#, col = "white")
+}
+dev.off()
+```
+
+---
+
+```{r, echo = FALSE, out.width="80%", fig.align='center'}
+knitr::include_graphics('figures/06/planet_lai.png')
+```
+
+---
+
+# Take-aways from Small-Sats Module
+
+&nbsp;&nbsp; - Understand what has enabled Small Sats
+
+&nbsp;&nbsp; - Understand their value
+
+&nbsp;&nbsp; - Understand their limitations
+
+&nbsp;&nbsp; - Know how to access Planet data
+
+&nbsp;&nbsp; - Run some basic searching & filtering
+
+&nbsp;&nbsp; - Can do these things both programmatically and through Explorer
+
+---
+# Cloud-based Processing
+
+## Objectives
+### Understand: 
+&nbsp;&nbsp; - What has enabled them?
+
+&nbsp;&nbsp; - What is their value?
+
+&nbsp;&nbsp; - What are their limitations?
+
+### Know how to:
+&nbsp;&nbsp; - Access Google Earth Engine and Radiant Earth
+
+&nbsp;&nbsp; - Perform some basic large-scale processing on each
+
+&nbsp;&nbsp; - Ingest and do some basic analyses of our datasets
+---
+
+## What Has Enabled Cloud-Based Processing?
+
+#### 1. Large-scale processing + Internet
+#### 2. Open image archives
+#### 3. Software Advances
+
+---
+### Large-scale processing + Internet
+
+![](https://datacenterfrontier.com/wp-content/uploads/2015/09/amazon-dc-hamilton.jpg)
+
+---
+### Large-scale processing + Internet
+![](https://www.turnkeylinux.org/files/images/blog/aws-datacenters.jpg)
+
+---
+### [Open Image Archives](https://registry.opendata.aws)
+
+
+```{r, echo = FALSE, out.width="80%", fig.align='center'}
+knitr::include_graphics('figures/06/remote_pixel.png')
+```
+
+
+---
+
+### Software Advances
+
+Libraries and algorithms that can process these images at scale, e.g.
+
+&nbsp;&nbsp; - Hadoop
+
+&nbsp;&nbsp; - GeoSpark
+
+&nbsp;&nbsp; - TerraLib
+
+---
+
+```{r, echo = FALSE, out.width="80%", fig.align='center'}
+knitr::include_graphics('figures/06/hadoop1.png')
+```
+
+---
+
+```{r, echo = FALSE, out.width="80%", fig.align='center'}
+knitr::include_graphics('https://kapost-files-prod.s3.amazonaws.com/uploads/direct/1461686104-174-6263/SystemIllustration.jpg')
+```
+
+<!-- ![](https://kapost-files-prod.s3.amazonaws.com/uploads/direct/1461686104-174-6263/SystemIllustration.jpg) -->
+
+---
+
+```{r, echo = FALSE, out.width="50%", fig.align='center'}
+knitr::include_graphics('figures/06/geospark.png')
+```
+
+<!-- .center[![](figures/06/geospark.png)] -->
+.center[[Yu et al, 2015](http://dl.acm.org/citation.cfm?doid=2820783.2820860)]
+
+---
+
+### Image hosting 
+
+> A Cloud Optimized GeoTIFF (COG) is a regular GeoTIFF file, aimed at being hosted on a HTTP file server, with an internal organization that enables more efficient workflows on the cloud. It does this by leveraging the ability of clients issuing HTTP GET range requests to ask for just the parts of a file they need.
+
+[COG Maps](https://cholmes.github.io/cog-map/)
+
+---
+## Bringing These All Together
+
+.center[![](figures/06/ee_architecture.png)]
+.center[Gorelick et al, 2017]
+
+---
+## Value and Capabilities
+
+&nbsp;&nbsp; - Opened new scales to analysis
+
+&nbsp;&nbsp; - Much Greater Accessibility
+
+---
+### New Scales
+
+[Global Surface Water](https://global-surface-water.appspot.com)
+
+[Global Forest Watch](https://www.globalforestwatch.org/map/3/16.52/0.98/ALL/grayscale/loss/607,556,580,592?tab=analysis-tab&begin=2001-01-01&end=2016-01-01&threshold=30&dont_analyze=true)
+
+---
+
+### Greater Accessibility
+
+[Remap](https://remap-app.org)
+
+<!-- ![](https://youtu.be/nDiqkHR7n-g) -->
+
+---
+
+## Limitations
+
+&nbsp;&nbsp; - Less control?
+
+&nbsp;&nbsp; - More opacity?
+
+---
+## Practicals
+
+&nbsp;&nbsp; - Google Earth Engine
+
+&nbsp;&nbsp; - Astraea Earth AI notebooks
+
+---
+## Earth Engine
+
+### [Introduction](https://developers.google.com/earth-engine/)
+### [Code Editor](https://developers.google.com/earth-engine/playground)
+### [Datasets](https://developers.google.com/earth-engine/datasets/catalog/)
+### [Tutorials](https://developers.google.com/earth-engine/tutorials)
+
+---
+## Some Basics
+
+### Load and Display an Image
+
+Adapted from the Earth Engine [introductory tutorial](https://developers.google.com/earth-engine/tutorial_api_02).
+```{js, eval = FALSE}
+// Instantiate an image with the Image constructor.
+var srtm = ee.Image('CGIAR/SRTM90_V4');
+
+// Zoom to a location.
+Map.setCenter(-112.8598, 36.2841, 9); // Center on the Grand Canyon.
+
+// Display the image on the map.
+Map.addLayer(srtm);
+```
+
+Let's point somewhere else (substitute this into script)
+```{js, eval = FALSE}
+Map.setCenter(28, -13, 6); // Where is this?
+```
+
+How about here? 
+```{js, eval = FALSE}
+Map.setCenter(-71.8067, 42.1214, 14); // Where is this?
+```
+
+---
+
+Let's add some color
+```{js, eval = FALSE}
+Map.addLayer(srtm, {min: 0, max: 3000, palette: ['blue', 'green', 'red']},
+             'custom palette');
+```
+
+---
+### Derived Layers
+#### Slope and Aspect
+
+Calculate and then have a look 
+```{js, eval = FALSE}
+// Slope
+var slope = ee.Terrain.slope(srtm);
+
+// Aspect
+var aspect = ee.Terrain.aspect(srtm);
+
+// Convert to radians, compute the sin of the aspect.
+var sinImage = aspect.divide(180).multiply(Math.PI).sin();
+
+// Add these to your displays
+Map.addLayer(slope, {min: 0, max :60}, 'slope');
+Map.addLayer(aspect, {min: 0, max: 360, palette: ['blue', 'green', 'red']}, 
+             'aspect');
+Map.addLayer(sinImage, {min: -1, max: 1, palette: ['blue', 'green', 'red']}, 
+             'sin');
+```
+
+---
+### Image Statistics
+#### First, define an area of interest
+&nbsp;&nbsp;1. Use the polygon tool to draw a polygon, which you rename to "myaoi"
+
+&nbsp;&nbsp;2. Turn an extent into a geometry feature
+```{js, eval = FALSE}
+// Clip boundaries (generous margin around Zambia)
+var zam = ee.Feature(ee.Geometry.Rectangle(21, -19, 34.5, -7.5));
+```
+
+&nbsp;&nbsp;3. Use an existing feature collection
+```{js, eval = FALSE}
+// Load a region representing Zambia
+var zam = ee.Feature(
+  ee.FeatureCollection('ft:1tdSwUL7MVpOauSgRzqVTOwdfy17KDbw-1d9omPw')
+  .filterMetadata('Country', 'equals', 'Zambia')
+  .first());
+```
+
+Or:
+```{js, eval = FALSE}
+var zam = ee.Feature(
+  ee.FeatureCollection("USDOS/LSIB/2013")
+  .filterMetadata('cc', 'equals', 'ZA')
+  .first());
+```
+
+---
+
+#### Calculate summary statistics within the AOI
+```{js, eval = FALSE}
+// Mean elevation
+var meanDict = srtm.reduceRegion({
+  reducer: ee.Reducer.mean(),
+  geometry: zam.geometry(),
+  scale: 90,
+  maxPixels: 1e8
+  //bestEffort: true
+});
+
+// Get the mean from the dictionary and print it.
+var mean = meanDict.get('elevation');
+print('Mean elevation', mean);
+```
+
+---
+## Image Collections
+
+Landsat 8
+```{js, eval = FALSE}
+var l8 = ee.ImageCollection('LANDSAT/LC08/C01/T1_TOA');
+
+var spatialFiltered = l8.filterBounds(myaoi);
+print('spatialFiltered', spatialFiltered);
+
+var temporalFiltered = spatialFiltered.filterDate('2018-05-01', '2018-09-15');
+print('temporalFiltered', temporalFiltered);
+```
+
+Find least cloudy
+```{js, eval = FALSE}
+// Sort from least to most cloudy.
+var sorted = temporalFiltered.sort('CLOUD_COVER');
+
+// Get least cloudy image
+var scene = ee.Image(sorted.first());
+```
+
+Display. Run this then try make a false color. 
+```{js, eval = FALSE}
+var visParams = {bands: ['B4', 'B3', 'B2'], max: 0.3};
+//var visParams = {bands: ['B5', 'B4', 'B3'], max: 0.3};
+Map.addLayer(scene, visParams, 'true-color composite');
+```
+
+---
+Show a collection
+```{js, eval = FALSE}
+var visParams = {bands: ['B4', 'B3', 'B2'], max: 0.3};
+Map.addLayer(temporalFiltered, visParams, 'Whittier L8 collection');
+```
+
+### Compositing
+
+```{js, eval = FALSE}
+var median = temporalFiltered.median();
+Map.addLayer(median, visParams, 'Whittier L8 collection');
+```
+
+### Cropping
+```{js, eval = FALSE}
+var whittier_median = median.clip(myaoi);
+```
+
+### Masking
+```{js, eval = FALSE}
+var elevmask = srtm.gt(100);
+var maskedMedian = median.updateMask(elevmask);
+```
+
+---
+## Calculating NDVI over a collection
+```{js, eval = FALSE}
+var addNDVI = function(image) {
+  var ndvi = image.normalizedDifference(['B5', 'B4']).rename('NDVI');
+  return image.addBands(ndvi);
+};
+
+// Apply function to single image
+var ndvi = addNDVI(scene).select('NDVI');
+
+// Map onto a collection
+var withNDVI = temporalFiltered.map(addNDVI);
+```
+---
+
+## Clip and calculate NDVI over a collection
+```{r, eval=FALSE}
+var zamNDVI = temporalFiltered.map(function(image) {
+    var img = image.clip(myaoi);
+    var ndvi = img.normalizedDifference(['B5', 'B4']).rename('NDVI');
+    return img.addBands(ndvi);
+});
+```
+
+## Charts
+```{js, eval = FALSE}
+// Create chart
+var chart = ui.Chart.image.series({
+  imageCollection: withNDVI.select('NDVI'),
+  region: myaoi,
+  reducer: ee.Reducer.first(),
+  scale: 30
+}).setOptions({title: 'NDVI over time'});
+
+// Display the chart in the console.
+print(chart);
+
+```
+
+---
+
+## Other work
+&nbsp;&nbsp;- Loading a Planet Collection
+&nbsp;&nbsp;- Harmonic models
+&nbsp;&nbsp;- Smooth curves
+&nbsp;&nbsp;- Center pivot detection
+
+# Homework 
+&nbsp;&nbsp;- Do the background readings for this unit
+&nbsp;&nbsp;- Load in the 2018 Whittier Planet collection and clip to our extent
+&nbsp;&nbsp;- Create a 2019 Whitter Planet collection, load in and clip to extent
+&nbsp;&nbsp;- Fit a smooth curves to the NDVI time series for 2018 and 2019, separately
+
+
+
+
+
+
