@@ -1,0 +1,11 @@
+.title-slide {
+  background-image: url(https://pixfeeds.com/images/14/388569/1200-497100312-cumulus-clouds.jpg);
+  background-size: cover;
+}
+.title-slide h1 {
+  color: #000000;
+}
+.title-slide h2, .title-slide h3 {
+  color: #000000; 
+  line-height: 1.5em;
+}
