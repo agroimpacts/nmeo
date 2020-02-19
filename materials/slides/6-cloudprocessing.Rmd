@@ -444,13 +444,14 @@ print(chart);
 
 &nbsp;&nbsp; - Do the background readings for this unit
 
-&nbsp;&nbsp; - Load in the 2018 Whittier Planet collection and clip to our extent
-
-&nbsp;&nbsp; - Create a 2019 Whitter Planet collection, load in and clip to extent
-
 &nbsp;&nbsp; - Run & study code for harmonic models, smooth curves, & center pivot detection
 
-&nbsp;&nbsp; - Fit a smooth curves to the NDVI time series for 2018 and 2019, separately
+&nbsp;&nbsp; - Load in the 2018 Whittier PlanetScope collection and clip to our extent
+
+&nbsp;&nbsp; - Create a time series for the clipped PlanetScope collection
+
+&nbsp;&nbsp; - Fit a smooth curves to the PlanetScope NDVI time series for 2018
+
 
 
 
