@@ -429,16 +429,28 @@ print(chart);
 ---
 
 ## Other work
-&nbsp;&nbsp;- Loading a Planet Collection
-&nbsp;&nbsp;- Harmonic models
-&nbsp;&nbsp;- Smooth curves
-&nbsp;&nbsp;- Center pivot detection
 
-# Homework 
-&nbsp;&nbsp;- Do the background readings for this unit
-&nbsp;&nbsp;- Load in the 2018 Whittier Planet collection and clip to our extent
-&nbsp;&nbsp;- Create a 2019 Whitter Planet collection, load in and clip to extent
-&nbsp;&nbsp;- Fit a smooth curves to the NDVI time series for 2018 and 2019, separately
+&nbsp;&nbsp; - Loading a Planet Collection
+
+&nbsp;&nbsp; - Harmonic models
+
+&nbsp;&nbsp; - Smooth curves
+
+&nbsp;&nbsp; - Center pivot detection
+
+---
+
+## Homework 
+
+&nbsp;&nbsp; - Do the background readings for this unit
+
+&nbsp;&nbsp; - Load in the 2018 Whittier Planet collection and clip to our extent
+
+&nbsp;&nbsp; - Create a 2019 Whitter Planet collection, load in and clip to extent
+
+&nbsp;&nbsp; - Run & study code for harmonic models, smooth curves, & center pivot detection
+
+&nbsp;&nbsp; - Fit a smooth curves to the NDVI time series for 2018 and 2019, separately
 
 
 
