@@ -11,10 +11,16 @@ You may need to install a couple libraries, e.g. geopandas.  You can do this on 
 Lyndon will pass along a file `config.yml` that has various API keys and passwords.  Put this in the same directory as these notebooks.
 
 ## Install notes (for GEOG287387 virtual machines)
-To run this, you will need to install the following additional `python` packages:
+To run this, you will need to install the following additional `python` packages. Open the Anaconda prompt, and then:
 
-`geopandas`
-`matplotlib`
-`joblib`
-`descarteslabs`
+```bash
+conda activate rstudio
+pip install geopandas
+#pip install pyproj  # note this might be needed
+pip install matplotlib
+pip install joblib
+pip install descarteslabs
+```
+
+
 
