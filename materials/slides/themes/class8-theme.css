@@ -1,0 +1,24 @@
+.title-slide {
+  background-image: url(../figures/08/arablemark.jpg);
+  background-size: cover;
+}
+.title-slide h1 {
+  color: #000000;
+}
+.title-slide h2, .title-slide h3 {
+  color: #000000; 
+  line-height: 1.5em;
+}
+.large { font-size: 130% }
+.small { font-size: 70% }
+.verysmall { font-size: 50% }
+li {
+ font-size: 20px;
+  margin: 18px 0;
+}
+.remark-inline-code{
+  background: #272626; /* lighter */
+  color: #FE0909; /* darker */
+  border-radius: 0px;
+  padding: 1px;
+}

@@ -1,0 +1,59 @@
+---
+title: "Realtime In Situ Sensing"
+subtitle: "New Methods in Earth Observation"
+# author: "Lyndon Estes"
+date: "3/10/2020"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "lucy", "middlebury-fonts", "themes/class8-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+
+
+
+```{r, eval = TRUE, echo = FALSE, warning = FALSE, message = FALSE}
+library(leaflet)
+library(sf)
+library(dplyr)
+
+xs <- c(-71.806965, -71.806478, -71.805491)
+ys <- c(42.120884, 42.121805, 42.122951)
+
+pts <- st_sfc(st_multipoint(cbind(x = as.numeric(xs), y = as.numeric(ys))))
+
+planet1 <- paste0("https://tiles.rasterfoundry.com/", 
+                  "7a4b4cb3-fe35-46c9-9896-6e98eec46665/{z}/{x}/{y}/?tag=",
+                  "1538578249206&mapToken=8ab506f7-9ef0-46f2-afe6-db5ec1c9e9e4")
+planet2 <- paste0("https://tiles.rasterfoundry.com/",
+                  "43ebd5c0-ae71-4505-8ab5-e1009583d0be/{z}/{x}/{y}/?tag=",
+                  "1538578546868&mapToken=93ccd998-413a-458c-a573-ffa7e49ca251")
+sequoia <- paste0("https://tiles.rasterfoundry.com/", 
+                  "e319cae9-4093-40b1-8961-033fa6753ec6/{z}/{x}/{y}/?tag=",
+                  "1538580563314&mapToken=3438e35f-07d3-4644-a52a-aea0a4bf7aec")
+
+m <- leaflet() %>% addProviderTiles("Esri.WorldImagery") %>% 
+  setView(xs[1], ys[2], zoom = 15) %>%
+  addTiles(planet1, group = "planet6/12") %>% 
+  addTiles(sequoia, group = "planet6/16") %>% 
+  addMarkers(lng = as.numeric(xs), lat = as.numeric(ys)) %>% 
+  addLayersControl(overlayGroups = c("sequoia", "planet6/16"),
+                   options = layersControlOptions(collapsed = FALSE, 
+                                                  autoZIndex = FALSE))
+m
+```
+
+
+---
+
+# Introducing Dr. Adam Wolf
+
+```{r, echo = FALSE, out.width="60%", fig.align='center'}
+knitr::include_graphics('https://miro.medium.com/max/1000/1*3d-bRxQ9dkIjwjYg5HJUPQ.jpeg')
+```
+<!-- ![](https://miro.medium.com/max/1000/1*3d-bRxQ9dkIjwjYg5HJUPQ.jpeg) -->
+
