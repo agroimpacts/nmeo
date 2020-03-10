@@ -9,3 +9,7 @@
   color: #000000; 
   line-height: 1.5em;
 }
+li {
+ font-size: 20px;
+  margin: 18px 0;
+}
