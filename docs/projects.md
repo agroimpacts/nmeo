@@ -12,7 +12,7 @@ There are several potential projects that can be undertaken for this class.
 
 More detail on each follows:
 
-## Project 1{#project-1}
+## Project 1{##-project-1}
 ### Maize Leaf Area Index
 
 We have been collecting data over the course of the summer in a maize/corn field at Whittier Farms, in Sutton, MA. Data include:
