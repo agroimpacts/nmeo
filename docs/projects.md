@@ -4,14 +4,16 @@
 
 There are several potential projects that can be undertaken for this class.  
 
-1. Multi-scale estimation of crop LAI
-2. Multi-scale esitmation of crop yield
-3. Using cloud-based EO processing platforms to create multi-source image time series
-4. Mapping land cover using crowdsourcing and machine learning
+1. [Multi-scale estimation of crop LAI](#project-1)
+2. [Multi-scale estimation of crop yield](#project-2)
+3. [Using cloud-based EO processing platforms to create multi-source image time series](#project-3)
+4. [Mapping land cover using crowdsourcing and machine learning](#project-4)
+5. [Drone mapping Hadwen Arboretum](#project-5)
 
 More detail on each follows:
 
-## Project 1: Maize Leaf Area Index
+## Project 1{#project-1}
+### Maize Leaf Area Index
 
 We have been collecting data over the course of the summer in a maize/corn field at Whittier Farms, in Sutton, MA. Data include:
 
@@ -30,15 +32,16 @@ One major goal of this project is to develop estimates of maize leaf area index 
 
 Along the way, we will make additional use of our Mark data to convert PlanetScope imagery to surface reflectance, perhaps with topographic normalization thrown in for good measure. 
 
-## Project 2: Maize yield
-
+## Project 2{#project-2}
+### Maize yield
 This project is closely related to project 1, in that it will rely in part on the LAI estimates. For this project, we want to: 
 
 - Use the Mark micro-meteorology estimates to run a mechanistic crop simulator to predict maize yields. 
 - Use the mechanistic model outputs (including simulated LAI) and a subset of simplified inputs to develop an empirical model of yields.   
 - Using these relationships together with remotely-sensed predictors (primarily LAI), we will map predicted yields in ~16-25 m^2^ blocks through the fields.
 
-## Project 3: EO Platforms and High Resolution Image Time Series
+## Project 3{#project-3}
+### EO Platforms and High Resolution Image Time Series
 
 One ongoing research need for estimating agricultural productivity is to have a set of imagery that is: 
 
@@ -52,9 +55,10 @@ There are new approaches that allow the fusion of MODIS and Landsat data, where 
 
 In this project, we aim to develop such a dataset for Zambia, using a new approach such as [STAIR](https://www.sciencedirect.com/science/article/pii/S0034425718301998) (Luo et al, 2018). 
 
-Related to both this project and Project 1, we may also use an EO platform to process the Planet data we need for Project 1. 
+This could be done in EarthEngine or EarthAI notebooks.
 
-## Project 4: Active Learning
+## Project 4{#project-4}
+### Active Learning
 We are developing a new land cover mapping platform that runs on Amazon Web Services virtual machines. The platform is based on active learning, where a machine learning algorithm iteratively tasks human mappers to collect training data in areas of lingering classification uncertainty. The mappers create this training data by digitizing crop fields they identify in high resolution Planet imagery.  
 
 There are three possible projects related to this: 
@@ -63,7 +67,11 @@ There are three possible projects related to this:
 2. Apply it to new land cover type.
 3. Use the training datasets and imagery collected for Ghana to investigate the impact that training data error has on classification accuracy. 
 
-## Project 5: Map [Hadwen Arboretum](https://en.wikipedia.org/wiki/Hadwen_Arboretum)
+### Deep learning
+Apply a deep learning model to develop a classification map. One approach might be to try adapt this approach [here](https://github.com/microsoft/landcover) to get it running on a local or AWS server, and then point it at a new geography (e.g. Ghana). 
+
+## Project 5{#project-5} 
+###Map [Hadwen Arboretum](https://en.wikipedia.org/wiki/Hadwen_Arboretum)
 This is UAS-based project, and requires action from the beginning of the semester. Project outline: 
 
 - Identify correct UAS multicopter for the job, purchase
