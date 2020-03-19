@@ -123,9 +123,9 @@ local or AWS server, and then point it at a new geography (e.g. Ghana).
 
 ## Project 5
 
-\#\#\#Map [Hadwen
-Arboretum](https://en.wikipedia.org/wiki/Hadwen_Arboretum) This is
-UAS-based project, and requires action from the beginning of the
+### Map [Hadwen Arboretum](https://en.wikipedia.org/wiki/Hadwen_Arboretum)
+
+This is UAS-based project, and requires action from the beginning of the
 semester. Project outline:
 
   - Identify correct UAS multicopter for the job, purchase
