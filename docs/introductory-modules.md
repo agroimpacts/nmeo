@@ -126,15 +126,15 @@ ___
     - Active learning and complementary intelligence
 - Practice:
     - Crowdsourced mapping
-    - Accessing S3 buckets
-    - Programmatic access to postgres/postgis databases
-    - Spinning up AWS virtual machines
+    - Implementing Mapping Africa platform
+    - Fitting a deep learning model
 
 #### Reading
-- [Debats et al, 2017](https://peerj.com/preprints/3004/)
+- [Elmes et al, 2020](https://eartharxiv.org/7zsyr/)
+
 
 #### Tools
-- Logon credentials to active learning project (to be provided)
+- Deep learning tutorial (TBD)
 
 [Back to TOC](#toc)
 
