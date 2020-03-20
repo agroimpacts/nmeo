@@ -11,18 +11,22 @@ You may need to install a couple libraries, e.g. geopandas.  You can do this on 
 Lyndon will pass along a file `config.yml` that has various API keys and passwords.  Put this in the same directory as these notebooks.
 
 ## Install notes (for GEOG287387 virtual machines)
-To run this, you will need to install the following additional `python` packages. Open the Anaconda prompt, and then:
+To run this, you will need to install the following additional `python` packages. Open the Anaconda Powershell prompt, and then run:
 
 ```bash
-conda activate rstudio
-conda install pandas
-# conda install geopandas
-conda install -c conda-forge geopandas
-#pip install pyproj  # note this might be needed
-conda install matplotlib
+conda create -n sensorlab python=3.7 geopandas descarteslabs jupyterlab 
+conda install matplotlib 
 conda install joblib
-conda install -c conda-forge descarteslabs
+conda install pyyaml
 ```
 
+Follow the prompts to install the various packages as they arise. Once it completes, within the Powershell, run the following:
 
+```bash
+conda activate sensorlab
+cd D:\Users\<user>\Documents\geog287387\materials\code\sensors\
+jupyter lab
+```
+
+Where the <user> in the CD line is replaced by yout user name, and then amend the path as needed to get to where your geog287387 repo lives. This will open up a new `jupyterlab` environment in your browser, which will open right to where the notebooks are installed.  
 
