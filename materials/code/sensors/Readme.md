@@ -15,11 +15,13 @@ To run this, you will need to install the following additional `python` packages
 
 ```bash
 conda activate rstudio
-pip install geopandas
+conda install pandas
+# conda install geopandas
+conda install -c conda-forge geopandas
 #pip install pyproj  # note this might be needed
-pip install matplotlib
-pip install joblib
-pip install descarteslabs
+conda install matplotlib
+conda install joblib
+conda install -c conda-forge descarteslabs
 ```
 
 
