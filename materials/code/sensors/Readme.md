@@ -15,6 +15,7 @@ To run this, you will need to install the following additional `python` packages
 
 ```bash
 conda create -n sensorlab python=3.7 geopandas descarteslabs jupyterlab 
+conda activate sensorlab
 conda install matplotlib 
 conda install joblib
 conda install pyyaml
