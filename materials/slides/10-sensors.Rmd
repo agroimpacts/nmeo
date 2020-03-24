@@ -1,0 +1,38 @@
+---
+title: "Realtime In Situ Sensing"
+subtitle: "New Methods in Earth Observation"
+# author: "Lyndon Estes"
+date: "24 March 2020"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "lucy", "middlebury-fonts", "themes/class8-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+## Today
+- Getting back up to speed
+    - online logistics
+    - projects
+    - next week
+- Today
+    - EarthAI notebook exercise
+    - Brief recap of sensors
+    - Sensors exercises (jupyter notebooks)
+
+---
+
+## Sensors
+
+- A look back at a few slides from last week (index sensitivity)
+
+---
+
+```{r, echo = FALSE, out.width="100%", fig.align='center'}
+knitr::include_graphics('figures/10/nextgen_eo.png')
+```
+<!-- ![](https://miro.medium.com/max/1000/1*3d-bRxQ9dkIjwjYg5HJUPQ.jpeg) -->
+
