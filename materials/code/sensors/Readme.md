@@ -14,7 +14,10 @@ Lyndon will pass along a file `config.yml` that has various API keys and passwor
 To run this, you will need to install the following additional `python` packages. Open the Anaconda Powershell prompt, and then run:
 
 ```bash
+conda config --add channels conda-forge
+conda config --set channel_priority strict
 conda create -n sensorlab python=3.7 geopandas descarteslabs jupyterlab 
+conda activate sensorlab
 conda install matplotlib 
 conda install joblib
 conda install pyyaml
