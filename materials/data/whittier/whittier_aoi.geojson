@@ -1,7 +1,0 @@
-{
-"type": "FeatureCollection",
-"name": "whittier_aoi",
-"features": [
-{ "type": "Feature", "properties": { }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -71.8111, 42.1182995 ], [ -71.8111, 42.1252 ], [ -71.8030995, 42.1252 ], [ -71.8030995, 42.1182995 ], [ -71.8111, 42.1182995 ] ] ] } }
-]
-}
