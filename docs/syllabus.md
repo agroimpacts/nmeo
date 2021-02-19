@@ -16,21 +16,21 @@ projects](projects.md).
 
 | Date        | Week | Subject                                                                                                                                            |
 | ----------- | ---- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 23/25 Feb   | 1    | Course overview/Our methods in context.                                                                                                            |
-| 21 January  | 2    | Droning on - see [Introduction Modules \> Drones \> Reading](introductory-modules.md#droning-on) for reading                                       |
-| 4 February  | 3    | Small Sats: PlanetScope. Reading: see [Introduction Modules \> Small Sats \> Reading](introductory-modules.md#small-sats)                          |
-| 11 February | 4    | Small Sats: PlanetScope / Cloud-based EO processing                                                                                                |
-| 18 February | 5    | Cloud-based EO processing Reading: see [Introduction Modules \> Cloud-based Processing \> Reading](introductory-modules.md#cloud-based-processing) |
-| 25 February | 6    | Cloud-based EO processing                                                                                                                          |
-| March 3     | \-   | Spring break                                                                                                                                       |
-| March 10    | 7    | Sensor data - guest lecture                                                                                                                        |
-| March 17    | 8    | Human and machine intelligence                                                                                                                     |
-| March 24    | 9    | Human and machine intelligence & Project team/proposals due                                                                                        |
-| March 31    | 10   | Group projects                                                                                                                                     |
-| April 7     | 11   | Group projects                                                                                                                                     |
-| April 14    | 12   | Group projects                                                                                                                                     |
-| April 21    | 13   | Final presentations                                                                                                                                |
-| May 3       | \-   | Final project due                                                                                                                                  |
+| Feb 23/25   | 1    | Course overview/Our methods in context.                                                                                                            |
+| Mar 2/4     | 2    | Droning on - see [Introduction Modules \> Drones \> Reading](introductory-modules.md#droning-on) for reading                                       |
+| Mar 9/11    | 3    | Small Sats: PlanetScope. Reading: see [Introduction Modules \> Small Sats \> Reading](introductory-modules.md#small-sats)                          |
+| Mar 16/18   | 4    | Small Sats: PlanetScope / Cloud-based EO processing                                                                                                |
+| Mar 25 (no class Tues)| 5    | Cloud-based EO processing Reading: see [Introduction Modules \> Cloud-based Processing \> Reading](introductory-modules.md#cloud-based-processing) |
+| Mar 30 / Apr 1 | 6    | Cloud-based EO processing                                                                                                                          |
+| Apr 6/8   | 7    | Sensor data - guest lecture                                                                                                                        |
+| Apr 13/15 | 8    | Human and machine intelligence                                                                                                                     |
+| Apr 20/22 | 9    | Human and machine intelligence & Project team/proposals due                                                                                        |
+| Apr 27/29 | 10   | Data Visualization                                                                                                                                     |
+| May 4/6   | 11   | Group projects                                                                                                                                     |
+| May 11/13 | 12   | Group projects                                                                                                                                     |
+| May 18 (no class Thurs) | 13   | Group projects                                                                                                                               |
+| May 25/27      | 14   | Final presentations                                                                                                                                 |
+| June 4      | \-   | Final project due                                                                                                                                  |
 
 <center>
 

@@ -13,6 +13,20 @@ We will conduct class communications via a Slack channel that you should already
 ### Approach
 This is a project-oriented class, and the projects map onto ongoing research problems. This means that the course will be hands-on and devoted to developing new methods/analyses from some of the newest tools to hit the EO scenes. The downside is that this means that we are all learning as we go, and there will generally not be step-by-step tutorials or recipes to follow. The upside to that downside is that we will all learn a lot more! 
 
+### Academic Dishonesty 
+University’s policies on academic integrity will be strictly enforced. Go to www.clarku.edu/offices/aac/integrity.cfm  to learn more about this policy and what it entails. Plagiarism, cheating, lying, stealing, or falsification will not be tolerated and will be referred to the University Administration. 
+
+### Additional Information
+
+#### Disability Statement:
+This course is open to all students who met the academic requirements for participation.  Any student who has a need for accommodation based on the impact of a disability should contact the instructor privately to discuss the specific situation as soon as possible. Contact the Accessibility Services office http://www2.clarku.edu/offices/aac/ada/ to coordinate reasonable accommodations. 
+
+#### FERPA Policy: 
+https://www2.clarku.edu/offices/registrar/ferpa/
+
+#### Title IX:
+This notice is to inform you that the Faculty member(s) and Classroom Assistant(s) associated with this course are considered “Responsible Employees” by Clark University. As such, they are required to report all alleged sexual offenses to the University’s Title IX Coordinator, Lynn Levey, Title-IX@clarku.edu or  llevey@clarku.edu.The only exceptions to this reporting responsibility are the community members who have been designated and/or trained as “Confidential” Sources.  This includes the professional staff in Clark’s Center for Counseling and Personal Growth and the medical providers at the Health Center.  This also includes Professor Kathy Palm Reed, kpr.confidential@clarku.edu, Professor Andrew Stewart, als.confidential@clarku.edu, and Professor James Cordova, jvc.confidential@clarku.edu. 
+
 ### Assessment
 
 Final letter grades will be assigned as follows:
