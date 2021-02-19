@@ -19,7 +19,8 @@ projects](projects.md).
 | Feb 23/25   | 1    | Course overview/Our methods in context.                                                                                                            |
 | Mar 2/4     | 2    | Droning on - see [Introduction Modules \> Drones \> Reading](introductory-modules.md#droning-on) for reading                                       |
 | Mar 9/11    | 3    | Small Sats: PlanetScope. Reading: see [Introduction Modules \> Small Sats \> Reading](introductory-modules.md#small-sats)                          |
-| Mar 16/18   | 4    | Small Sats: PlanetScope / Cloud-based EO processing  \n Colloquium lecture Meha Jain, Mar 18 12-1PM                                                                                              |
+| Mar 16/18   | 4    | Small Sats: PlanetScope / Cloud-based EO processing
+Colloquium lecture Meha Jain, Mar 18 12-1PM                                                                                              |
 | Mar 25 (no class Tues)| 5    | Cloud-based EO processing Reading: see [Introduction Modules \> Cloud-based Processing \> Reading](introductory-modules.md#cloud-based-processing) |
 | Mar 30 / Apr 1 | 6    | Cloud-based EO processing                                                                                                                          |
 | Apr 6/8   | 7    | Ground sensor data                                                                                                                         |
