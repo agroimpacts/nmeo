@@ -11,11 +11,12 @@ Syllabus
   - The schedule for GEOG287-387 and subjects covered is below.
   - [More details](introductory-modules.md) regarding the introductory
     modules for the first 8 weeks.
-  - [Overview of potential group projects](projects.md).
+  - [Overview of potential group
+projects](projects.md).
 
 | Date        | Week | Subject                                                                                                                                            |
 | ----------- | ---- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 14 January  | 1    | Course overview/Our methods in context.                                                                                                            |
+| 23/25 Feb   | 1    | Course overview/Our methods in context.                                                                                                            |
 | 21 January  | 2    | Droning on - see [Introduction Modules \> Drones \> Reading](introductory-modules.md#droning-on) for reading                                       |
 | 4 February  | 3    | Small Sats: PlanetScope. Reading: see [Introduction Modules \> Small Sats \> Reading](introductory-modules.md#small-sats)                          |
 | 11 February | 4    | Small Sats: PlanetScope / Cloud-based EO processing                                                                                                |
