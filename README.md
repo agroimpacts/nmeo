@@ -13,7 +13,7 @@ We will learn a range of new skills, including:
 - UAS flight planning and image processing with eMotion and PIX4D software.
 - Deep learning applications using Google Colab and RadiantEarth.
 
-After an initial introduction to the various toolsets we will be using, students will form project teams (~3-5 people each) to tackle further development and application of one of the three project areas. These projects (described [here](docs/projects.md) in more detail) will be assessed by means of a formal in-class presentation and team-authored final project. 
+After an initial introduction to the various toolsets we will be using, students will form project teams (~2-4 people each) to tackle further development and application of one of the three project areas. These projects (described [here](docs/projects.md) in more detail) will be assessed by means of a formal in-class presentation and team-authored final project. 
 
 ## Course details
 
