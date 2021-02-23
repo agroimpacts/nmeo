@@ -28,6 +28,10 @@ ___
 
 - McCabe et al. [(2017)](https://agupubs.onlinelibrary.wiley.com/doi/epdf/10.1002/2017WR022240) 
 
+[Back to TOC](#toc)
+
+___
+
 ### Drones
 #### Material covered
 
@@ -79,7 +83,7 @@ ___
 #### Reading
 - Planet white paper on [surface reflectance](https://assets.planet.com/marketing/PDF/Planet_Surface_Reflectance_Technical_White_Paper.pdf)
 - Jain et al [(2016)](https://doi.org/10.3390/rs8100860)
-- Houborg et al [(2018)](https://doi.org/10.3390/rs10060890) Read abstract, Intro, Discussion, try to get a general idea of Methods/Results. Also [video here](https://www.youtube.com/watch?v=qCwAqWCGnI8), lecture on CESTEM starts at 12:50.
+- Houborg et al [(2018)](https://doi.org/10.3390/rs10060890). Also [video here](https://www.youtube.com/watch?v=qCwAqWCGnI8), lecture on CESTEM starts at 12:50.
 
 #### Tools
 - Dockerized agroimpacts/mapper Planet-query [function](https://github.com/agroimpacts/mapperAL/tree/feature/planet-query/spatial/python/planet) (update link)
@@ -127,7 +131,7 @@ ___
 - Antony et al [(2020)](https://doi.org/10.3390/su12093750)
 
 #### Tools
-- Python and [Jupyter Labs](https://jupyter.org/) (both should be on classroom computers), and Arable's Python client package (to be distributed separately). 
+- Python and [Jupyter Labs](https://jupyter.org/), and Arable's Python client package (to be distributed separately). 
 
 [Back to TOC](#toc)
 
@@ -147,7 +151,7 @@ ___
 
 #### Reading
 - [Elmes et al, 2020](https://doi.org/10.3390/rs12061034)
-- Deep learning readings tbd
+- Deep learning readings TBD
 
 
 #### Tools
@@ -160,14 +164,14 @@ ___
 ### Data Visualization
 #### Material covered
 
-- New developments in EO data visualization for different software
+- New developments in EO data visualization
 
 #### Reading
 
 - TBD 
 
 #### Tools
-- Unfolded (https://docs.unfolded.ai/)
+- [Unfolded](https://docs.unfolded.ai/)
 
 
 [Back to TOC](#toc)
