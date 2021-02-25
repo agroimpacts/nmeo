@@ -1,0 +1,23 @@
+library(raster)
+
+s2_raster <- raster::stack("materials/data/whittier/sentinel_class_test_2018_08_26.tif")
+l8_raster <- raster::stack("materials/data/whittier/landsat_class_test_2018_08_27.tif")
+planet_raster <- raster::stack("materials/data/whittier/planet_class_test_2018_08_26.tif")
+drone_raster <- raster::stack("materials/data/whittier/drone_2018_08_24/whittier_24aug18_pix4d_transparent_reflectance_green.tif",
+                              "materials/data/whittier/drone_2018_08_24/whittier_24aug18_pix4d_transparent_reflectance_red.tif",
+                              "materials/data/whittier/drone_2018_08_24/whittier_24aug18_pix4d_transparent_reflectance_nir.tif")
+
+drone_crs = crs(drone_raster)
+
+s2_raster_rpj <- projectRaster(s2_raster, crs = drone_crs )
+l8_raster_rpj <- projectRaster(l8_raster, crs = drone_crs )
+planet_raster_rpj <- projectRaster(planet_raster, crs = drone_crs )
+
+
+plotRGB(s2_raster_rpj, r =4, g = 3, b = 2, scale = 5000, colNA = "transparent", zlim = c(0, 5000) )
+plotRGB(l8_raster_rpj, r =5, g = 4, b = 3, scale = 0.5, colNA = "transparent")
+plotRGB(planet_raster_rpj, r =4, g = 3, b = 2, scale = 5000, colNA = "transparent")
+plotRGB(drone_raster, r =3, g = 2, b = 1, scale = 0.5, colNA = "transparent", zlim = c(0, 0.5))
+
+## add drone points 
+
