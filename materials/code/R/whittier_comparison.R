@@ -14,6 +14,7 @@ drone_raster <- raster::stack("materials/data/whittier/drone_2018_08_24/whittier
 
 drone_crs = crs(drone_raster)
 
+## project all images to drone coordinate reference system
 s2_raster_rpj <- projectRaster(s2_raster, crs = drone_crs )
 l8_raster_rpj <- projectRaster(l8_raster, crs = drone_crs )
 planet_raster_rpj <- projectRaster(planet_raster, crs = drone_crs )
