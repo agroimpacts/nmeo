@@ -1,4 +1,9 @@
 library(raster)
+library(sf)
+library(dplyr)
+library(here)
+library(lubridate)
+library(ggplot2)
 
 s2_raster <- raster::stack("materials/data/whittier/sentinel_class_test_2018_08_26.tif")
 l8_raster <- raster::stack("materials/data/whittier/landsat_class_test_2018_08_27.tif")
@@ -19,5 +24,27 @@ plotRGB(l8_raster_rpj, r =5, g = 4, b = 3, scale = 0.5, colNA = "transparent")
 plotRGB(planet_raster_rpj, r =4, g = 3, b = 2, scale = 5000, colNA = "transparent")
 plotRGB(drone_raster, r =3, g = 2, b = 1, scale = 0.5, colNA = "transparent", zlim = c(0, 0.5))
 
-## add drone points 
+## add Mark sensor data
 
+
+
+pt_1 <- SpatialPoints(cbind(-71.806452,	42.121811)) %>% st_as_sf()
+st_crs(pt_1) <- 4326
+pt_1_reproj  <- st_transform(pt_1, crs = drone_crs)
+
+plotRGB(s2_raster_rpj, r =4, g = 3, b = 2, scale = 5000, colNA = "transparent", zlim = c(0, 5000) )
+plot(pt_1_reproj,  add = TRUE, pch = 19, col = "blue")
+
+# show time-series of Mark sensor data
+load(here("materials/data/whittier/", "A000680_daily.rda"))
+dev$date <- as_date(dev$time)
+dev_aug_26 <- dev %>% filter(date == as_date("2018-08-26"))
+
+
+ggplot(dev) + 
+  geom_point(aes (x = date, y = NDVI))
+
+## show time-series with observation for Aug 26 highlighted
+ggplot(dev) + 
+  geom_point(aes (x = date, y = NDVI))+ 
+  geom_point(data = dev_aug_26, aes (x = date, y = NDVI), color = "blue", size = 5)

@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>New Methods in Earth Observation</title>
+    <meta charset="utf-8" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/lucy.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/middlebury-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="themes/class1-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# New Methods in Earth Observation
+## Overview and Our Methods in Context
+### Class 2
+
+---
+
+
+## Introduction
+- Today: 
+  - Review of McCabe et al. paper
+  - Overview of key limitations/innovations in EO
+  - Comparison of different sensor networks
+  - Housekeeping: computing, R setup
+
+---
+
+## Software check-in
+- Have you been able to clone the class repo?
+
+
+---
+
+## Background
+
+- Limits to Earth Observation
+
+![](figures/limits.png)
+
+
+---
+
+## McCabe et al (2017)
+
+![Figure 1](figures/mccabe_figure_1.jpg)
+
+---
+
+## McCabe et al (2017)
+
+- What are key limitations to EO mentioned in this paper?
+ - physical
+ - economic
+ - institutional
+ - knowledge
+
+---
+
+## McCabe et al (2017)
+- How does the use of Planet CubeSats overcome these limitations?
+- What limitations remain, and what new limitations are introduced?
+
+---
+
+## Background 
+Collapsed limits down to:
+
+- Physical 
+- Methodological
+- Societal
+
+---
+
+## Physical Limits 1
+
+- Space-time tradeoff
+- Initiated by conflict between resolution and extent
+- [Youtube video](https://youtu.be/kY7wsSeIkMY?t=1008) by Middlebury RS
+ - SNR = signal-to-noise ratio 
+ - IFOV = instantaneous field of view
+
+---
+
+## Physical Limits 2
+
+- Temporal: length of record
+
+---
+
+## Physical limits 3
+
+- Surface characteristics: terrain and vegetation
+- Atmosphere
+- Perspective
+
+---
+
+## Methodological Limits
+
+- Inadequate models: 
+    - Need these to solve the inverse problem 
+    - Models outpaced by EO data
+- Not enough cal/val data
+- Competing standards
+
+---
+
+## Societal Limits
+- Expertise barrier
+- Institutional limitations
+    - Data access and collection policies
+    - Coordination
+- Accessibility to methods
+- Collection biases
+
+---
+background-image: url(figures/01/current_scales.png)
+background-size: 80%
+background-position: center
+
+## The Combined Effect of Limits
+
+---
+
+## Innovation Pushing Back Limits 1
+
+- More Eyes in the Sky
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="1-methods_in_context_part2_s2021_files/figure-html/unnamed-chunk-1-1.png" alt="Left: max. resolution versus year of launch (Belward &amp;amp; Skøien, 2015), Right: number of launches (Radtke et al, 2017) "  /&gt;
+&lt;p class="caption"&gt;Left: max. resolution versus year of launch (Belward &amp; Skøien, 2015), Right: number of launches (Radtke et al, 2017) &lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+## Limits Addressed
+
+- Physical:
+    - Space-time tradeoff mitigated: 
+        - Resolution versus extent
+        - Atmospheric interference
+    - Terrain effects (more radar)
+    - Perspective (more radar and lidar)
+- Societal:
+    - Accessibility (cheaper)
+
+---
+
+## How Our Methods Fit In
+
+- PlanetScope, SmallSats
+
+---
+background-image: url(figures/01/geowiki.png)
+background-size: 60%
+background-position: bottom
+
+
+## Innovation Pushing Back Limits 2
+
+- Upping the N
+
+---
+
+## Limits Addressed
+
+- Physical:
+    - Perspective
+- Methodological:
+    - Inadequate calibration/validation data
+    - Better models
+- Societal:
+    - Accesibility
+  
+---
+
+## How Our Methods Fit In
+
+- Crowdsourcing platform
+- Arable ground sensors
+
+---
+background-image: url(figures/01/gaveau_etal2014.png)
+background-size: 60%
+background-position: center
+
+## Innovation Pushing Back Limits 3
+
+- Peering into the gaps (due to time, cloud cover)
+
+
+---
+
+## Limits Addressed
+
+- Physical
+    - Space-time tradeoff
+    - Perspective
+- Methodological
+    - Inadequate cal/val
+- Societal
+    - Cost/accessibility
+
+---
+
+## How Our Methods Fit In
+
+- UAS
+- Arable ground sensors
+
+---
+background-image: url(https://ngee-arctic.ornl.gov/sites/default/files/9.jpeg)
+background-size: 40%
+background-position: bottom
+
+## Innovations Pushing Back Limits 4
+
+- Advances in sensors/communications
+
+
+---
+
+## Limits Addressed
+
+- Physical:
+    - Space-time tradeoff
+    - Perspective
+- Methodological
+    - Better models
+    - Inadequate cal/val
+- Societal
+    - Cost/accessibility
+
+---
+background-image: url(figures/whittier10082018.png)
+background-size: 50%
+background-position: center
+
+
+
+## How Our Methods Fit In
+
+- Sequoia
+- Miniaturization of CubeSat sensors
+
+---
+
+## Innovations Pushing Back Limits 5
+
+- Data and model-data fusion
+
+![Luo et al (2018): STAIR](figures/01/luo_etal2018.png)
+
+---
+background-image: url(http://2.bp.blogspot.com/-JpPn3jLt5Nw/VVDSnQ3WNEI/AAAAAAAAAR0/wmhUJp7SQ1c/s1600/output_SAPgfu.gif)
+background-size: 50%
+background-position: center
+
+## SCYM
+- Scalable Yield Mapping (Lobell et al, 2015)
+
+---
+
+## Limits Addressed
+
+- Physical:
+    - Space-time tradeoff
+    - Duration
+- Methodological
+    - Better models
+
+---
+
+## How Our Methods Fit In
+
+- Arable Marks + Ebee + Planet + DSSAT crop model &amp; R package
+
+---
+background-image: url(http://2rct3i2488gxf9jvb1lqhek9-wpengine.netdna-ssl.com/wp-content/uploads/2017/05/isprs-potsdam-predicitions-4.gif)
+background-size: 50%
+background-position: bottom
+
+## Innovations Pushing Back Limits 6
+- Computer vision, machine, and deep learning
+
+---
+
+## Limits Addressed
+
+- Methodological:
+    - Inadequate models
+
+---
+background-image: url(figures/01/ll_debatsetal_slide.png)
+background-size: 50%
+background-position: bottom
+
+## How Our Methods Fit In
+
+- Debats et al (2016) (adapted by Song and Young, 2018)
+
+---
+background-image: url(figures/01/activelearning.png)
+background-size: 50%
+background-position: bottom
+
+## How Our Methods Fit In
+
+- Active learning (Debats et al, 2017; Elmes et al, 2020)
+- RadiantEarth machine learning data sets
+
+---
+
+## Innovations Pushing Back Limits 7
+
+- Cloud-based data and analytical platforms
+
+![Global Surface Water](figures/01/global_surface_water.png)
+
+---
+
+## Limits Addressed
+
+- Methodological:
+    - Inadequate models
+- Societal:
+    - Accessibility
+
+---
+
+## How Our Methods Fit In
+
+- Compare Sentinel-1 and Sentinel-2 imagery on Google Earth Engine
+- Process Planet
+- Host and view UAS imagery
+
+---
+
+## Whittier Farms image comparison
+
+- Open "whittier_comparison.R" in materials --&gt; code --&gt; R 
+- This likely won't work yet, but you can follow along
+
+
+
+
+---
+
+## Multispectral sensor comparison
+
+- In groups, open the "Multispectral sensor comparison sheet"
+- Your group is assigned a sensor. Try to fill out the sheet!
+- Your answer may be "it depends", this is OK! Try to explain what your answer depends on
+
+
+
+
+---
+
+## Multispectral sensor comparison
+
+- How well would your group's sensor be used for the following applications?
+ - Precision irrigation for vineyards  
+ - Mapping forest fire burn areas
+ - Mapping smallholder agriculture productivity (small, irregular shaped fields) at a  (state/district) scale
+ - Mapping national crop productivity over multiple years
+
+
+---
+
+## For next class
+
+- Read Manfreda et al. [(2018)](https://doi.org/10.3390/rs10040641) 
+- Watch full video on [remote sensing resolutions](https://www.youtube.com/watch?v=kY7wsSeIkMY)
+- Install RStudio packages (details on Slack)
+- Download/install eMotion and Pix4D software (details on Slack)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
