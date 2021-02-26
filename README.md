@@ -19,7 +19,7 @@ After an initial introduction to the various toolsets we will be using, students
 
 Class is held in ASEC 303 on Tues/Thurs from 1615-1730. Class is also available on Zoom (link to be sent via Slack). First two weeks of class are only on Zoom.
 
-Office hours: Wednesdays 1200-1400 on Zoom. Appointments can be made [here](https://calendly.com/mcecil/office-hours)
+Office hours: Wednesdays 1200-1400 on Zoom. Appointments can be made [here](https://calendly.com/michaeljcecil/15min)
 
 ## Course contents
 
