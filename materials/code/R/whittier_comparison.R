@@ -46,6 +46,6 @@ ggplot(dev) +
   geom_point(aes (x = date, y = NDVI))
 
 ## show time-series with observation for Aug 26 highlighted
-ggplot(dev) + 
+ggplot(dev) + library(rgdal)
   geom_point(aes (x = date, y = NDVI))+ 
   geom_point(data = dev_aug_26, aes (x = date, y = NDVI), color = "blue", size = 5)
