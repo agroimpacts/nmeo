@@ -1,7 +1,7 @@
 ---
 title: "Droning On"
 subtitle: "New Methods in Earth Observation"
-date: "Class 2"
+date: "Class 3"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -11,12 +11,46 @@ output:
       highlightLines: true
       countIncrementalSlides: false
 ---
+
+## Introduction
+- Today: 
+  - RStudio review
+  - Resolutions worksheet
+  - Manfreda et al article
+  - Drones intro
+  - eMotion simulation
+
+---
+# RStudio review
+- Open whittier_comparison.R file
+ - located under materials --> code --> R
+
+---
+# resolution comparison
+- [Satellite costs link](https://www.researchgate.net/publication/326417596_Benchmark_of_Satellites_Image_Services_for_Precision_Agricultural_use)
+
+---
+# Manfreda article
+- What is ideal extent for UAS?
+![](figures/02/uas_slides/manfreda_fig_5.png)
+---
+# Manfreda article
+- Why are UAS tranformative?
+![](figures/02/uas_slides/manfreda_fig_2.png)
+
+
+---
+# Manfreda article
+- Limitations/constraints
+
+
+---
 class: center, middle
 # What Can UAS Do That Field Scientists and Cheap Satellites Can't?
 
 ![](figures/02/uas-cover.png)
----
 
+---
 background-image: url(figures/02/uas_slides/uas_slides.002.png)
 background-size: cover
 
@@ -141,18 +175,7 @@ background-size: cover
 
 background-image: url(figures/02/uas_slides/uas_slides.021.png)
 background-size: cover
----
 
-# The Scales of Ecological Observations
-
-![](figures/02/estes_etal_2ac.png)
-
-.center[Estes et al (2018), Figure 2]
----
-# The Scales of Ecological Observations
-
-![](figures/02/Manfreda.png)
-.center[Manfreda et al (2018), Figure 5]
 
 ---
 background-image: url(figures/02/uas_slides/uas_slides.035.png)
@@ -231,6 +254,28 @@ background-image: url(figures/02/uas_slides/uas_slides.054.png)
 background-size: cover
 
 ---
+
+# The Scales of Ecological Observations
+
+![](figures/02/estes_etal_2ac.png)
+
+.center[Estes et al (2018), Figure 2]
+
+---
+# The Scales of Ecological Observations
+
+![](figures/02/Manfreda.png)
+.center[Manfreda et al (2018), Figure 5]
+
+---
+
+# The Scales of Ecological Observations
+ - [Padua et al. (2017)](https://doi.org/10.1080/01431161.2017.1297548)
+![](figures/02/uas_slides/padua_fig_1.jpg)
+
+
+
+---
 # Working With Drones
 ## Preflight Planning
 - Flight properties: Height, overlap
@@ -260,15 +305,51 @@ If you want to learn more about the math, go here [here](https://www.youtube.com
 
 ---
 
+## Software 
+
+Structure From Motion
+
+![](figures/02/uas_slides/Anderson_fig2.png)
+
+
+---
+
 # Sources of Error
 
 ## Geometric 
-    - Orthomosaic from SfM
-    - RTK/PPK([video](https://www.youtube.com/watch?v=1A3ZmYwx330) ) and/or GCPs
+### Orthomosaic from SfM
+### Geometric correction (RTK/PPK/GCP)
 
 ## Atmospheric effects
 
 ---
+
+# Sources of Error
+
+## RTK/PPK links
+### [RTK/PPK/GCP video](https://www.youtube.com/watch?v=1A3ZmYwx330)
+### [Sensefly link](https://www.sensefly.com/blog/gcps-rtk-ppk-when-what-why/)
+### [Wingtra link](https://wingtra.com/ppk-drones-vs-rtk-drones/)
+
+---
+
+# Sources of Error
+
+## RTK scehmatic (Wingtra)
+![](figures/02/uas_slides/rtk_schematic_wingtra.png)
+
+---
+
+# Sources of Error
+
+## PPK scehmatic (Wingtra)
+![](figures/02/uas_slides/ppk_schematic_wingtra.png)
+
+---
+
+
+
+
 ### Radiometric calibration
 
 .center[![](figures/02/ciraolo_etal.png)]
@@ -332,7 +413,7 @@ background-size: cover
 class: center, middle
 
 # Flight Simulation
-## [Pre-flight checklist](https://docs.google.com/document/d/1E_k8FtFEPNm1VbdBeYy1wgPX22jcMSnUrJtBy5e8Vmo/edit?usp=sharing)
+## [Pre-flight checklist link](https://docs.google.com/document/d/1E_k8FtFEPNm1VbdBeYy1wgPX22jcMSnUrJtBy5e8Vmo/edit?usp=sharing)
 
 ---
 
@@ -381,7 +462,7 @@ class: center, middle
 
 ---
 
-### Post-mission
+### Post-mission 
 #### Transfer photos from camera to computer
 
 --
@@ -434,119 +515,15 @@ class: center, middle
 
 ##### - You can click finish
 
----
-class: center, middle
 
-# Image Mosaicking
-## [Post-processing steps](https://docs.google.com/document/d/1gHhvpTWcttZ7V7v3K58-kpIGM2xct0BsLmwzX9rMGBU/edit?usp=sharing)
-
----
-### Open PIX4D
-#### Create new project
-##### - Name it something related to the eMotion3 project name
-
---
-
-#### Add images 
-##### - Select the "msp" directory from the eMotion3 project folder you just created (under an img sub-folder), click next, and it will upload the images. 
-
---
-
-##### - The imported images include any reflectance target images that were taken. 
-
---
-
-##### - These images should be excluded if you don't want PIX4D to calculate reflectance from the targets. 
-
---
-
-##### - To do that, you can either choose to import photos by using the "Add images" dialog, and leaving out the calibration images from the dataset (they are the first 12 images by timestamp in our sample datasets).  The other way we will see in a little while. 
-
---
-
-##### - Once images are imported, click next and next through defaults, until you arrive at the Processing Options Template. Choose the Ag Multispectral template, and click finish.
-
----
-
-#### Choose post-processing options 
-
-You will see an image that looks like the one below now. Click the "Processing Options Button at the Bottom", which will pop up a dialog.
-
-![](figures/02/pix4d_view.png)
-
----
-
-The dialog lists
-
-#### *1. Initial processing* 
-#### *2. Point cloud and mesh*
-#### *3. DSM, orthomosaic, and index*
-
----
-
-##### - Leave *initial processing* as is
-
---
-
-##### - Under *Point cloud and mesh*'s Point Cloud tab, select "Classify Point Cloud", "LAS" (under export), and "Merge Tiles into One File"
-
---
-
-##### - Under *DSM, orthomosaic, and index*, the settings you should select for the first two tabs (DSM and Orthomosaic and Additional Outputs) should like the images in the next two slides 
 
 
 ---
 
-![](figures/02/dsm_ortho.png)
 
----
+## For next class
 
-![](figures/02/add_settings.png)
+- Review [DroneDeploy website](https://www.dronedeploy.com/) (guest speaker next class!)
+- Review RTK/PPK links 
+- Sign-up for Pix4D trial (details on Slack)
 
----
-
-##### - The Index Calculator tab should look like this (uncheck the two export options at bottom)
-
-![](figures/02/index.png)
-
----
-
-##### - Now, under the Radiometric Processing and Calibration tabs, here is the second place you can remove the calibration targets, which aren't always detected. If you click "calibrate" under each band, you will see this:
-
-![](figures/02/calibrate.png)
-
-If there is a blue box in there, the software detected the target successfully. It not, you can manually draw in a box.  You can also close the dialog and choose "Reset", to clear the calibration images. When you do this, PIX4d will draw on conversion coefficients that were calculated from the plane's sunshine sensor (as it will do if you choose not to import the calibration images).  
-
----
-
-### Start Processing
-
-![](figures/02/process.png)
-
-It will take a while, but when finished view the results. Check out the Ray Cloud, the Quality Report, and then inspect the actual output reflectance images and the DSM/DTMs. You will find them in the project folder that you named. 
-
----
-class: center, middle
-
-# Homework
-
----
-
-### For homework, run the following processing tasks:
-
-#### On the imagery you have been given (Aug. 24 2018, EP-01-18467_0029) (link in slack, data includes a .bb3 flight log having the same name), run the following tasks:
-
-##### - Create a PPK and reflectance-target corrected set of imagery (reflectance orthomosaics and DSM/DTM). i.e. Do the PPK corrections from Rinex file in eMotion3, and let PIX4D pick up the reflectance target images. 
-
-##### - Create a PPK and non-reflectance target image (i.e. don't let PIX4D find the reflectance target images)
-
-##### - Create a non-PPK corrected (standalone geotags mode in eMotion3), non-reflectance target corrected set of images
-
-#### On the imagery for August 26th 2019 (EP-01-20622_201, with .bb3 flight log having the "_20" suffix):
-
-##### - PPK (you need a new Rinex file) + non-reflectance target corrected images.  
-
-### We will analyze the differences next class!
-
----
-### Part 107 Questions(https://www.faa.gov/training_testing/testing/test_questions/media/uag_sample_exam.pdf)
