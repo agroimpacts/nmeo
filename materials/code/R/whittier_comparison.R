@@ -5,6 +5,7 @@ library(here)
 library(lubridate)
 library(ggplot2)
 
+#test
 s2_raster <- raster::stack("materials/data/whittier/sentinel_class_test_2018_08_26.tif")
 l8_raster <- raster::stack("materials/data/whittier/landsat_class_test_2018_08_27.tif")
 planet_raster <- raster::stack("materials/data/whittier/planet_class_test_2018_08_26.tif")
