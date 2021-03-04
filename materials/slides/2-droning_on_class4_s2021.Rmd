@@ -16,9 +16,17 @@ output:
 - Today: 
   - Dan Mahr talk
   - eMotion/Pix4D Processing
+  - [class survey](https://forms.gle/osUheU3FGzckpeQT8)
+  - [class file share](https://clarkuedu-my.sharepoint.com/:f:/g/personal/mcecil_clarku_edu/EsTYfjDrXJdKmxWkdq6yxEMBE9Jzc-z4Bu08L0TDBZAeZw?e=8LDKnM)
 
 ---
+## Dan Mahr talk
+### Dan is an expert in geospatial programming/computer science
+### Expert level on [GIS Stack Exchange!](https://gis.stackexchange.com/)
+### [I hate coordinate systems!](https://ihatecoordinatesystems.com/)
 
+
+---
 ## UAS Workflow
 
 ![](figures/02/uas_slides/UAS workflow.png)
@@ -258,7 +266,7 @@ class: center, middle
 
 ##### - Create a PPK and reflectance-target corrected set of imagery (reflectance orthomosaics and DSM/DTM). i.e. Do the PPK corrections from Rinex file in eMotion3, and let PIX4D pick up the reflectance target images. 
 
-##### - Create a PPK and non-reflectance target image (i.e. don't let PIX4D find the reflectance target images)
+##### - Create a PPK and non-reflectance target image (i.e. don't let PIX4D find the reflectance target images - press "reset" for each calibration image)
 
 ##### - Create a non-PPK corrected (standalone geotags mode in eMotion3), non-reflectance target corrected set of images
 
@@ -272,5 +280,7 @@ class: center, middle
 ## For next class
 
 - Read [Estes et al. (2018)](https://doi.org/10.1038/s41559-018-0524-4)
+- Watch eMotion/Pix4D videos 
 - Work through HW 
+- data/videos/readings on [class share](https://clarkuedu-my.sharepoint.com/:f:/g/personal/mcecil_clarku_edu/EsTYfjDrXJdKmxWkdq6yxEMBE9Jzc-z4Bu08L0TDBZAeZw?e=8LDKnM)
 
