@@ -33,7 +33,7 @@ We flew the drone on both 7/21/20 (cloudy) and 8/3/20 (clear). We want to see th
 
 We've already created PPK-corrected mosaics for 8/3/20, both with and without radiometric calibration. We need to first do the same for the 7/21/20 images.
 
-Step 1. In Pix4D, process the PPK-corrected images for 7/21/20, first with radiometric calibration, then without radiometric calibration (pressing "Reset" for the calibration images). You can find the PPK-corrected images for 7/21/20 on the class share.
+Step 1. In Pix4D, process the PPK-corrected images for 7/21/20, first with radiometric calibration, then without radiometric calibration (pressing "Reset" for the calibration images). You can find the PPK-corrected images for 7/21/20 on the [class share](https://clarkuedu-my.sharepoint.com/:f:/g/personal/mcecil_clarku_edu/EvX9FJhGeftDrtH7VgB3lToBI9cs3FFJUQqRmkTp2lifqA?e=6BIP1M).
 
 ---
 
@@ -81,7 +81,7 @@ Step 4. What were the mean differences in (i) NIR surface reflectance and (ii) N
 Which date saw a greater difference between reflectance calibrated/non-calibrated images for NIR? for NDVI?
 
 ```{r, eval = FALSE}
-## write code/answers for Step43 here
+## write code/answers for Step 4 here
 
 
 
