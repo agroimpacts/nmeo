@@ -1,0 +1,91 @@
+---
+title: "Droning On"
+subtitle: "New Methods in Earth Observation"
+date: "Assignment 1"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "lucy", "middlebury-fonts", "themes/class3-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Short Answer questions
+
+1. Why does the spatial-temporal resolution trade-off exist for satellite imagery? How do drones help overcome this tradeoff? What are some potential limitations of drones compared to traditional satellites?
+
+2. What are the requirements for RTK and PPK geometric correction of drone imagery? Name one advantage of RTK correction, and one advantage of PPK correction.
+
+3. Aside from improved spatial/temporal resolution, name 2 reasons mentioned in the Manfreda paper on how drones can be transformative for Earth Observation.
+
+---
+
+## Lab Questions
+
+We flew the drone on both 7/21/20 (cloudy) and 8/3/20 (clear). We want to see the effect of radiomeric calibration on each date, to see if radiometric calibration has a larger effect on one of the dates.
+
+We've already created PPK-corrected mosaics for 8/3/20, both with and without radiometric calibration. We need to first do the same for the 7/21/20 images.
+
+Step 1. In Pix4D, process the PPK-corrected images for 7/21/20, first with radiometric calibration, then without radiometric calibration (pressing "Reset" for the calibration images). You can find the PPK-corrected images for 7/21/20 on the class share.
+
+---
+
+You have now created surface reflectance mosaics for 7/21/20. Together with the mosaics for 8/3/20 (on the class share), we now have four sets of mosaics.
+- 7/21/20 PPK corrected, reflectance calibration
+- 7/21/20 PPK corrected, no reflectance calibration
+- 8/3/20 PPK corrected, reflectance calibration
+- 8/3/20 PPK corrected, no reflectance calibration
+
+You will need to perform several steps to load the images into R. 
+
+Step 2. Load the images into R using the "raster" function. For each set of mosaics, create an NDVI image. Make sure to use a consistent naming convenion
+
+Also, load the "whittier.shp" shapefile and project it to the drone CRS.
+
+```{r, eval = FALSE}
+## write code for Step 2 here
+library(raster)
+library(rgdal)
+library(sf)
+library(dplyr)
+
+
+
+
+```
+
+--- 
+
+Step 3. For the 7/21/20 NIR images, find the difference between NIR surface reflectance with and without reflectance calibration. (something like this)Also, for 7/21/20 find the difference between NDVI with and without reflectance calibration. Use the extract function to calculate the mean difference over the Whittier polygons.
+
+Perform the same steps for the 8/3/20 images (clear skies)
+
+```{r, eval = FALSE}
+## write code for Step 3 here
+
+
+
+
+
+```
+
+Step 4. What were the mean differences in (i) NIR surface reflectance and (ii) NDVI for each date? 
+
+Which date saw a greater difference between reflectance calibrated/non-calibrated images for NIR? for NDVI?
+
+```{r, eval = FALSE}
+## write code/answers for Step43 here
+
+
+
+
+
+```
+
