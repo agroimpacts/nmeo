@@ -25,6 +25,14 @@ knitr::opts_chunk$set(echo = TRUE)
 
 3. Aside from improved spatial/temporal resolution, name 2 reasons mentioned in the Manfreda paper on how drones can be transformative for Earth Observation.
 
+```
+## write short answer responses here
+
+
+
+
+
+```
 ---
 
 ## Lab Questions
