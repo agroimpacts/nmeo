@@ -17,7 +17,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Short Answer questions
+## Short Answer questions. One paragraph each. 
 
 1. Why does the spatial-temporal resolution trade-off exist for satellite imagery? How do drones help overcome this tradeoff? What are some potential limitations of drones compared to traditional satellites?
 
@@ -35,16 +35,22 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 ---
 
-## Lab Questions
+## Reflectance calibratin vs. non-reflectance calibration 
 
-We flew the drone on both 7/21/20 (cloudy) and 8/3/20 (clear). We want to see the effect of radiomeric calibration on each date, to see if radiometric calibration has a larger effect on one of the dates.
+We flew the drone on both 7/21/20 (cloudy) and 8/3/20 (clear). We want to see the effect of reflectance calibration on each date, to see if reflectance calibration has a larger effect on one of the dates. We will compare the reflectance and non-reflectance corrected versions of (i) near-infrared band and (ii) NDVI band for each date.
 
-We've already created PPK-corrected mosaics for 8/3/20, both with and without radiometric calibration. We need to first do the same for the 7/21/20 images.
-
-Step 1. In Pix4D, process the PPK-corrected images for 7/21/20, first with radiometric calibration, then without radiometric calibration (pressing "Reset" for the calibration images). You can find the PPK-corrected images for 7/21/20 on the [class share](https://clarkuedu-my.sharepoint.com/:f:/g/personal/mcecil_clarku_edu/EvX9FJhGeftDrtH7VgB3lToBI9cs3FFJUQqRmkTp2lifqA?e=6BIP1M).
 
 ---
 
+## Step 1, processing July 21 images in Pix4D
+
+We've already created PPK-corrected mosaics for 8/3/20 , both with and without reflectance calibration (ON CLASS SHARE). We need to first do the same for the 7/21/20 images.
+
+Step 1. In Pix4D, process the PPK-corrected images for 7/21/20, first with reflectance calibration, then without reflectance calibration (pressing "Reset" for the calibration images). You can find the PPK-corrected images for 7/21/20 on the [class share](https://clarkuedu-my.sharepoint.com/:f:/g/personal/mcecil_clarku_edu/EvX9FJhGeftDrtH7VgB3lToBI9cs3FFJUQqRmkTp2lifqA?e=6BIP1M).
+
+---
+
+## Step 2, importing images into RStudio, creating NDVI images
 You have now created surface reflectance mosaics for 7/21/20. Together with the mosaics for 8/3/20 (on the class share), we now have four sets of mosaics.
 - 7/21/20 PPK corrected, reflectance calibration
 - 7/21/20 PPK corrected, no reflectance calibration
@@ -71,6 +77,8 @@ library(dplyr)
 
 --- 
 
+## Step 3, creating difference images, calculating mean difference
+
 Step 3. For the 7/21/20 NIR images, find the difference between NIR surface reflectance with and without reflectance calibration. (something like this)Also, for 7/21/20 find the difference between NDVI with and without reflectance calibration. Use the extract function to calculate the mean difference over the Whittier polygons.
 
 Perform the same steps for the 8/3/20 images (clear skies)
@@ -83,6 +91,8 @@ Perform the same steps for the 8/3/20 images (clear skies)
 
 
 ```
+
+## Step 4, comparing results between July 21 and August 03
 
 Step 4. What were the mean differences in (i) NIR surface reflectance and (ii) NDVI for each date? 
 
@@ -97,3 +107,5 @@ Which date saw a greater difference between reflectance calibrated/non-calibrate
 
 ```
 
+
+Your final submission should be a single R markdown file. Please send this file on Slack to a group with yourself, Mike Cecil, and Laurence SanBoeuf.

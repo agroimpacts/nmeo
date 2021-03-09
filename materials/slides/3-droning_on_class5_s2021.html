@@ -1,16 +1,23 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Droning On 3</title>
+    <meta charset="utf-8" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/lucy.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/middlebury-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="themes/class3-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Droning On 3
+## New Methods in Earth Observation
+### Class 5
+
 ---
-title: "Droning On 3"
-subtitle: "New Methods in Earth Observation"
-date: "Class 5"
-output:
-  xaringan::moon_reader:
-    lib_dir: libs
-    css: ["default", "lucy", "middlebury-fonts", "themes/class3-theme.css"]
-    nature:
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
----
+
 
 
 ## Introduction
@@ -18,13 +25,6 @@ output:
   - eMotion/Pix4D Processing
   - Assignment 1
   - Sign-up for Planet educational license
-
-
----
-## [Class 5 Pix4D data](https://clarkuedu-my.sharepoint.com/:f:/g/personal/mcecil_clarku_edu/EnEi1LYvuYBHrmrntkZsqNkB1k78Z8eyMRvSJoEig1R9gQ?e=nhZni8)
-
-
-
 
 
 ---
@@ -48,9 +48,7 @@ output:
 
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+
 
 ## Review of previous class
 - Drones and scaling 
@@ -61,9 +59,9 @@ knitr::opts_chunk$set(echo = TRUE)
 #### eMotion/flight correction
 #### Examine PIX4D outputs
 #### Exercises using `R`, `gdal`, and `leaflet` to examine the drone orthomosaics we created for homework. 
-&nbsp;&nbsp;+ Requires working `R`, Rstudio, `gdal` installs, and changing a few parameters 
+&amp;nbsp;&amp;nbsp;+ Requires working `R`, Rstudio, `gdal` installs, and changing a few parameters 
 
-&nbsp;&nbsp;+ If that fails, ArcGIS/Terrset/QGIS as a substitute
+&amp;nbsp;&amp;nbsp;+ If that fails, ArcGIS/Terrset/QGIS as a substitute
 
 ---
 ### Open PIX4D
@@ -157,7 +155,8 @@ Working with our Anaconda-installed versions of RStudio, we will have to first i
 #### `gdal` into the Anaconda Rstudio environment
 #### in RStudio, in a new script or console prompt::
 
-```{r, eval = FALSE}
+
+```r
 install.packages("Rcpp")
 install.packages("gdalUtils")
 install.packages("raster")
@@ -184,7 +183,7 @@ class: center, middle
 class: center, middle
 # Examining Our Orthomosaic Results
 
-We'll use examples of 2020 imagery to start. 
+We'll use examples of 2018 imagery to start. 
 ---
 ## Starting with Pre-processing
 
@@ -202,53 +201,55 @@ We are going to use R and Rstudio to perform these analyses.  These slides provi
 
 First you have to set path variables, and load the R packages you need for analysis. The first lines of code are path and name variables, which are the only places where you have to change anything.
 
-```{r, eval = FALSE}
+
+```r
 # Path variables
 ## You have to replace the paths within the quotes to match: 
 # 1. the directory path where you put the PIX4D outputs 
-img_path <- "C:/Users/micha/Documents/pix4d"
+img_path &lt;- "C:/Users/micha/Documents/pix4d"
 
 # 2. The folder names for each of the projects. 
 # !!!NOTE!!!: this assumes you put all four PIX4D project folders in one common # directory. Please move them into one if you didn't do so.
-project1 <- "whittier_03aug20_pix4d"
-project2 <- "whittier_03aug20_ppk_without_refl_cal"
-project3 <- "whittier_03aug20_nonppk_norefl"
-project4 <- "whittier_10aug20_ppk_without_refl_cal"
+project1 &lt;- "whittier_03aug20_pix4d"
+project2 &lt;- "whittier_03aug20_ppk_without_refl_cal"
+project3 &lt;- "whittier_03aug20_nonppk_norefl"
+project4 &lt;- "whittier_10aug20_ppk_without_refl_cal"
 
 # 3. the directory where you want your outputs to be written 
-out_dir <- "C:/Users/micha/Documents/geog287387_s2021/materials/data/05"  
+out_dir &lt;- "C:/Users/micha/Documents/geog287387_s2021/materials/data/05/"  
 
 # 4. the directory containing reflectance images in your projects. 
 # If you only created tile outputs, your results will live in 
 # .../4_index/reflectance/tiles/". If so, set the value to "tiles". If you have # merged outputs, they you will images in 4_index/reflectance/, so set the variable to "merged". In my case, they are merged, so I chose "merged"
-ref_dir <- "merged"
+ref_dir &lt;- "merged"
 
 # 5. path to companion class5_functions.R script
-script_path <- "C:/Users/micha/Documents/geog287387_s2021/materials/code/R/uas_image_functions.R"
-
+script_path &lt;- "C:/Users/micha/Documents/geog287387_s2021/materials/code/R/uas_image_functions.R"
 ```
 
 ---
 
 The next lines can be changed, but these are optional
 
-```{r, eval=FALSE}
+
+```r
 ## The following variables are optional to change. These are the name roots for 
 #  each of the images will we be creating. 
-mband1 <- "aug03_ngb"
-mband2 <- "aug03_ngb_noreftarget"
-mband3 <- "aug03_ngb_noppk"
-mband4 <- "aug10_ngb_noreftarget"
+mband1 &lt;- "aug03_ngb"
+mband2 &lt;- "aug03_ngb_noreftarget"
+mband3 &lt;- "aug03_ngb_noppk"
+mband4 &lt;- "aug10_ngb_noreftarget"
 
 # Output names for warped and stretched
-out1 <- "aug03_ngb_cog"
-out2 <- "aug03_ngb_noreftarget_cog"
-out3 <- "aug03_ngb_noppk_cog"
-out4 <- "aug10_ngb_noreftarget_cog"
+out1 &lt;- "aug03_ngb_cog"
+out2 &lt;- "aug03_ngb_noreftarget_cog"
+out3 &lt;- "aug03_ngb_noppk_cog"
+out4 &lt;- "aug10_ngb_noreftarget_cog"
 ```
 
 Then load in the packages and functions we will need
-```{r, eval = FALSE}
+
+```r
 library(gdalUtils)
 library(raster)
 library(here)
@@ -264,22 +265,18 @@ source(script_path)  # this loads the companion scripts
 ##### - Run this code
 
 Replace the path in `p` with the directory string for the project directory on your computer.  After replacing this, run this chunk of code
-```{r, eval = FALSE}
+
+```r
 # This reads the path to the four reflectance maps
-fp <- file.path(img_path, project1)
-img_nms <- refl_paths(fp)
+fp &lt;- file.path(img_path, project1)
+img_nms &lt;- refl_paths(fp)
 
 # This creates a stack of the NIR, Red, Green bands, and then plots them in R
-s <- stack(lapply(img_nms[c(2, 4, 1)], raster))
+s &lt;- stack(lapply(img_nms[c(2, 4, 1)], raster))
 plotRGB(s, scale = 1, zlim = c(0, 1))
 ```
 
-```{r, echo = FALSE, eval=FALSE}
-png(here("materials/slides/figures/05/aug03_1.png"), height = 600, width = 600)
-par(mar = c(0, 0, 0, 0), bg = "transparent")
-plotRGB(s, scale = 1, colNA = "transparent", zlim = c(0, 1), bgalpha = 0)
-dev.off()
-```
+
 You should see something that looks like this
 
 ---
@@ -289,110 +286,94 @@ You should see something that looks like this
 
 Now let's make a multi-band stack of the images, drawing on a customized function that relies on gdal, called `multi_band_stack`, which takes 3 arguments: 
 
-&nbsp;&nbsp;+ `nms`, the paths to the reflectance bands. We want just NIR, Red, Green.
+&amp;nbsp;&amp;nbsp;+ `nms`, the paths to the reflectance bands. We want just NIR, Red, Green.
 
-&nbsp;&nbsp;+ `out_dir`, the path to the output directory you select
+&amp;nbsp;&amp;nbsp;+ `out_dir`, the path to the output directory you select
 
-&nbsp;&nbsp;+ `out_name`, the root base name (no extension) for the stacked geotiff
+&amp;nbsp;&amp;nbsp;+ `out_name`, the root base name (no extension) for the stacked geotiff
 
 
-```{r, eval = FALSE}
-nms <- img_nms[c(2, 4, 1)]  
-b1 <- multi_band_stack(nms = nms, out_dir = out_dir, out_name = mband1)
+
+```r
+nms &lt;- img_nms[c(2, 4, 1)]  
+b1 &lt;- multi_band_stack(nms = nms, out_dir = out_dir, out_name = mband1)
 plotRGB(b1, scale = 1, colNA = "transparent", zlim = c(0, 1))
 ```
 
 ---
 
-Okay, let's convert the other 3 projects to multi-band stacks
+Okay, let's convert the other 4 images to multi-band stacks
 
 August 03, PPK, no reflectance target
-```{r, eval = FALSE}
-fp <- file.path(img_path, project2)
-img_nms <- refl_paths(fp)
-nms <- img_nms[c(2, 4, 1)]  
-b2 <- multi_band_stack(nms = nms, out_dir = out_dir, out_name = mband2)
+
+```r
+fp &lt;- file.path(img_path, project2)
+img_nms &lt;- refl_paths(fp)
+nms &lt;- img_nms[c(2, 4, 1)]  
+b2 &lt;- multi_band_stack(nms = nms, out_dir = out_dir, out_name = mband2)
 plotRGB(b2, scale = 1, colNA = "transparent", zlim = c(0, 1))
 ```
 
-```{r, echo = FALSE, eval=FALSE}
-png(here("materials/slides/figures/05/aug03_2.png"), height = 400, width = 400)
-par(mar = c(0, 0, 0, 0), bg = "transparent")
-plotRGB(b2, scale = 1, colNA = "transparent", zlim = c(0, 1), bgalpha = 0)
-dev.off()
-```
+
 
 ![](figures/05/aug03_2.png)
 
 ---
 
 August 03, no PPK, no reflectance target
-```{r, eval = FALSE}
-fp <- file.path(img_path, project3)
-img_nms <- refl_paths(fp)
-nms <- img_nms[c(2, 4, 1)]
-b3 <- multi_band_stack(nms = nms, out_dir = out_dir, out_name = mband3)
+
+```r
+fp &lt;- file.path(img_path, project3)
+img_nms &lt;- refl_paths(fp)
+nms &lt;- img_nms[c(2, 4, 1)]
+b3 &lt;- multi_band_stack(nms = nms, out_dir = out_dir, out_name = mband3)
 plotRGB(b3, scale = 1, colNA = "transparent", zlim = c(0, 1))
 ```
 
-```{r, echo = FALSE, eval=FALSE}
-png(here("materials/slides/figures/05/aug03_3.png"), height = 400, width = 400)
-par(mar = c(0, 0, 0, 0), bg = "transparent")
-plotRGB(b3, scale = 1, colNA = "transparent", zlim = c(0, 1), bgalpha = 0)
-dev.off()
-```
+
 
 ![](figures/05/aug03_3.png)
-
 
 ---
 
 August 10, PPK, no reflectance target
-```{r, eval = FALSE}
-fp <- file.path(img_path, project4)
-img_nms <- refl_paths(fp)
-nms <- img_nms[c(2, 4, 1)]
-b4 <-  multi_band_stack(nms = nms, out_dir = out_dir, out_name = mband4)
+
+```r
+fp &lt;- file.path(img_path, project4)
+img_nms &lt;- refl_paths(fp)
+nms &lt;- img_nms[c(2, 4, 1)]
+b4 &lt;-  multi_band_stack(nms = nms, out_dir = out_dir, out_name = mband4)
 plotRGB(b4, scale = 1, colNA = "transparent", zlim = c(0, 1))
 ```
 
-```{r, echo = FALSE, eval=FALSE}
-png(here("materials/slides/figures/05/aug10_1.png"), height = 400, width = 400)
-par(mar = c(0, 0, 0, 0), bg = "transparent")
-plotRGB(b4, scale = 1, colNA = "transparent", zlim = c(0, 1), bgalpha = 0)
-dev.off()
-```
 
-![](figures/05/aug10_1.png) 
 
+![](figures/05/aug10_1.png)
 
 ---
 
-```{r, echo = FALSE, eval = FALSE}
-ext <- apply(do.call(rbind, lapply(list(b1, b2, b3), sf::st_bbox)), 2, min)
-ext <- as(extent(ext[c(1, 3, 2, 4)]), "SpatialPolygons")
-proj4string(ext) <- proj4string(b1)
-ext <- spTransform(ext, "+proj=longlat +datum=WGS84 +no_defs")
-```
+
 
 Now we are going to process the different images so that we can perform bandmath on them. 
 
 This entails using another custom function that calls `gdalwarp`:
 
-&nbsp;&nbsp;+ reprojects to WGS84
+&amp;nbsp;&amp;nbsp;+ reprojects to WGS84
 
-&nbsp;&nbsp;+ aligns images to same extent
+&amp;nbsp;&amp;nbsp;+ aligns images to same extent
 
 This is the extent we are using, so run this
 
-```{r, eval = FALSE}
-ext <- c(-71.8101, 42.1193, -71.8041, 42.1242)
+
+```r
+ext &lt;- c(-71.8101, 42.1193, -71.8041, 42.1242)
 ```
 
 And now let's process the first image stack
 
-```{r, eval = FALSE}
-b1a <- img_align(img = b1@file@name, out_dir = out_dir, out_name = out1, 
+
+```r
+b1a &lt;- img_align(img = b1@file@name, out_dir = out_dir, out_name = out1, 
                  ext = ext)
 ```
 
@@ -400,28 +381,25 @@ And have a look at it
 
 ---
 
-```{r, eval = FALSE}
+
+```r
 plotRGB(b1a, scale = 1, colNA = "transparent", zlim = c(0, 1))
 ```
 
-```{r, echo = FALSE, eval=FALSE}
-png(here("materials/slides/figures/05/aug03_warp1.png"), height = 400, width = 400)
-par(mar = c(0, 0, 0, 0), bg = "transparent")
-plotRGB(b1a, scale = 1, colNA = "transparent", zlim = c(0, 1), bgalpha = 0)
-dev.off()
-```
+
 ![](figures/05/aug03_warp1.png)
 
 ---
 
 Let's do the rest now
 
-```{r, eval = FALSE}
-b2a <- img_align(img = b2@file@name, out_dir = out_dir, out_name = out2, 
+
+```r
+b2a &lt;- img_align(img = b2@file@name, out_dir = out_dir, out_name = out2, 
                  ext = ext)
-b3a <- img_align(img = b3@file@name, out_dir = out_dir, out_name = out3, 
+b3a &lt;- img_align(img = b3@file@name, out_dir = out_dir, out_name = out3, 
                  ext = ext)
-b4a <- img_align(img = b4@file@name, out_dir = out_dir, out_name = out4, 
+b4a &lt;- img_align(img = b4@file@name, out_dir = out_dir, out_name = out4, 
                  ext = ext)
 ```
 
@@ -435,30 +413,26 @@ class: center, middle
 
 How much difference? Let's visualize with a bit of band math
 
-```{r, eval = FALSE}
-ref_diff <- b1a - b2a  # subtract no ref target from ref target
+
+```r
+ref_diff &lt;- b1a - b2a  # subtract no ref target from ref target
 
 # plot the difference maps, per band
-nms <- c("NIR", "Red", "Green")
+nms &lt;- c("NIR", "Red", "Green")
 plot(ref_diff, main = nms, axes = FALSE, zlim = c(-0.5, 0.5))  
 ```
 
-```{r, echo = FALSE, eval=FALSE}
-png(here("materials/slides/figures/05/ref_diff.png"), height = 400, width = 400)
-par(mar = c(0, 0, 0, 0), bg = "transparent")
-plot(ref_diff, zlim = c(-0.5, 0.5), 
-     axis.args = list(col = "white", col.axis = "white"))
-dev.off()
-```
+
 
 ![](figures/05/ref_diff.png) 
 
 ---
 How much difference in stats?
 
-```{r, eval = FALSE}
-stats <- cellStats(ref_diff, summary)
-colnames(stats) <- nms
+
+```r
+stats &lt;- cellStats(ref_diff, summary)
+colnames(stats) &lt;- nms
 round(stats, 3)
 ```
 
@@ -466,21 +440,16 @@ round(stats, 3)
 
 ## PPK versus not
 
-```{r, eval = FALSE}
-ref_diff <- b2a - b3a  # subtract no ref target from ref target
+
+```r
+ref_diff &lt;- b2a - b3a  # subtract no ref target from ref target
 plot(ref_diff, main = nms, axes = FALSE, zlim = c(-0.5, 0.5))
-stats <- cellStats(ref_diff, summary)
-colnames(stats) <- nms
+stats &lt;- cellStats(ref_diff, summary)
+colnames(stats) &lt;- nms
 round(stats, 3)
 ```
 
-```{r, echo = FALSE, eval=FALSE}
-png(here("materials/slides/figures/05/ref_diff2.png"), height = 400, width = 400)
-par(mar = c(0, 0, 0, 0), bg = "transparent")
-plot(ref_diff, zlim = c(-0.5, 0.5), 
-     axis.args = list(col = "white", col.axis = "white"))
-dev.off()
-```
+
 
 ![](figures/05/ref_diff2.png)
 
@@ -488,21 +457,16 @@ dev.off()
 
 ## Two different dates
 
-```{r, eval = FALSE}
-ref_diff <- b2a - b4a  # subtract no ref target from ref target
+
+```r
+ref_diff &lt;- b2a - b4a  # subtract no ref target from ref target
 plot(ref_diff, main = nms, axes = FALSE, zlim = c(-0.5, 0.5))
-stats <- cellStats(ref_diff, summary)
-colnames(stats) <- nms
+stats &lt;- cellStats(ref_diff, summary)
+colnames(stats) &lt;- nms
 round(stats, 3)
 ```
 
-```{r, echo = FALSE, eval=FALSE}
-png(here("materials/slides/figures/05/ref_diff3.png"), height = 400, width = 400)
-par(mar = c(0, 0, 0, 0), bg = "transparent")
-plot(ref_diff, zlim = c(-0.5, 0.5), 
-     axis.args = list(col = "white", col.axis = "white"))
-dev.off()
-```
+
 
 ![](figures/05/ref_diff3.png) 
 
@@ -512,9 +476,10 @@ dev.off()
 
 How much shift between PPK strategies?
 
-```{r, eval = FALSE}
-ext <- c(-71.80825, 42.120780, -71.807550, 42.121566)
-pt <- cbind(mean(ext[c(1, 3)]), mean(ext[c(2, 4)]))
+
+```r
+ext &lt;- c(-71.80825, 42.120780, -71.807550, 42.121566)
+pt &lt;- cbind(mean(ext[c(1, 3)]), mean(ext[c(2, 4)]))
 par(mar = c(0, 0, 0, 0), mfrow = c(1, 2))
 plot(as(extent(ext[c(1, 3, 2, 4)]), "SpatialPolygons"), lty = 0)
 plotRGB(b2a, scale = 1, colNA = "transparent", zlim = c(0, 1), add = TRUE)
@@ -524,19 +489,7 @@ plotRGB(b3a, scale = 1, colNA = "transparent", zlim = c(0, 1), add = TRUE)
 points(pt[, 1], pt[, 2], col = "cyan", pch = "+")
 ```
 
-```{r, echo = FALSE, eval=FALSE}
-png(here("materials/slides/figures/05/spat_diff.png"), height = 300, width = 500)
-ext <- c(-71.80825, 42.120780, -71.807550, 42.121566)
-pt <- cbind(mean(ext[c(1, 3)]), mean(ext[c(2, 4)]))
-par(mar = c(0, 0, 0, 0), mfrow = c(1, 2), bg = "transparent")
-plot(as(extent(ext[c(1, 3, 2, 4)]), "SpatialPolygons"), lty = 0)
-plotRGB(b2a, scale = 1, colNA = "transparent", zlim = c(0, 1), add = TRUE)
-points(pt[, 1], pt[, 2], col = "cyan", pch = "+")
-plot(as(extent(ext[c(1, 3, 2, 4)]), "SpatialPolygons"), lty = 0)
-plotRGB(b3a, scale = 1, colNA = "transparent", zlim = c(0, 1), add = TRUE)
-points(pt[, 1], pt[, 2], col = "cyan", pch = "+")
-dev.off()
-```
+
 
 ---
 
@@ -571,3 +524,126 @@ For the July 21 images, the PPK corrected images are on the class share. However
 
 - Review assignment 1 (due next Tuesday)
 - Sign-up for [Planet educational license](https://www.planet.com/markets/education-and-research/)! (please do this today)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

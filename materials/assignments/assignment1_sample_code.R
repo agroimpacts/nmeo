@@ -11,6 +11,15 @@ nir_no_refl_03aug20 <- raster("C:/Users/micha/Documents/pix4d/whittier_03aug20_p
 red_refl_03aug20 <- raster("C:/Users/micha/Documents/pix4d/whittier_03aug20_pix4d/4_index/reflectance/whittier_03aug20_pix4d_transparent_reflectance_red.tif")
 red_no_refl_03aug20 <- raster("C:/Users/micha/Documents/pix4d/whittier_03aug20_ppk_without_refl_cal/4_index/reflectance/whittier_03aug20_ppk_without_refl_cal_transparent_reflectance_red.tif")
 
+## it may occur that the reflectance and non-reflectance processed images...
+## have slightly different extents. If this is the case,
+## then you will need to project the non-reflectance versions to the CRS...
+## of the projected version.
+crs_refl_calibration <- crs(nir_refl_03aug20)
+nir_no_refl_03aug20 <- projectRaster(nir_no_refl_03aug20, crs = crs_refl_calibration)
+red_no_refl_03aug20 <- projectRaster(red_no_refl_03aug20, crs = crs_refl_calibration)
+
+
 ## assign crs of drone imagery to variable
 crs_drone <- (crs(nir_refl_03aug20))
 
