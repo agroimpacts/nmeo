@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Cloud-based Processing</title>
+    <meta charset="utf-8" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/lucy.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/middlebury-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="themes/class6-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Cloud-based Processing
+## New Methods in Earth Observation
+### Class 6
+
+---
+
+class: center, middle
+# Small Sats Review
+
+---
+### A look at our Planet results
+
+
+
+&lt;img src="figures/06/planet_clips.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+### GCVI =&gt; LAI
+
+GCVI = (NIR / GRN) – 1
+
+GCVI = 1.4 * LAI^1.03 + 0.93
+
+LAI = ((GCVI - 0.93) / 1.4)^(1 / 1.03)
+
+
+```r
+png("materials/slides/figures/06/planet_lai.png", width = 500, height = 150)
+par(mfrow = c(1, 4), mar = c(0, 0, 1, 0))
+for(i in 1:length(rl)) {
+  b &lt;- rl[[i]]
+  gcvi &lt;- b[[4]] / b[[1]] - 1
+  lai &lt;- ((gcvi - 0.93) / 1.4)^(1 / 1.03)
+  nm &lt;- gsub("_aoi.tif", "", basename(p[i]))
+  plot(as(extent(lai), "SpatialPolygons"), lty = 0, axes = FALSE)
+  plot(lai, axes = FALSE, add = TRUE, zlim = c(0, 5))#, 
+       #axis.args = list(col = "white", col.axis = "white"))
+  mtext(nm, side = 3, line = 0, cex = 0.8)#, col = "white")
+}
+dev.off()
+```
+
+---
+
+&lt;img src="figures/06/planet_lai.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Take-aways from Small-Sats Module
+
+&amp;nbsp;&amp;nbsp; - Understand what has enabled Small Sats
+
+&amp;nbsp;&amp;nbsp; - Understand their value
+
+&amp;nbsp;&amp;nbsp; - Understand their limitations
+
+&amp;nbsp;&amp;nbsp; - Know how to access Planet data
+
+&amp;nbsp;&amp;nbsp; - Run some basic searching &amp; filtering
+
+&amp;nbsp;&amp;nbsp; - Can do these things both programmatically and through Explorer
+
+
+---
+
+## Other work
+
+&amp;nbsp;&amp;nbsp; - Loading a Planet Collection
+
+&amp;nbsp;&amp;nbsp; - Harmonic models
+
+&amp;nbsp;&amp;nbsp; - Smooth curves
+
+&amp;nbsp;&amp;nbsp; - Center pivot detection
+
+---
+
+## Homework 
+
+&amp;nbsp;&amp;nbsp; - Do the background readings for this unit
+
+&amp;nbsp;&amp;nbsp; - Run &amp; study code for harmonic models, smooth curves, &amp; center pivot detection
+
+&amp;nbsp;&amp;nbsp; - Load in the 2018 Whittier PlanetScope collection and clip to our extent
+
+&amp;nbsp;&amp;nbsp; - Create a time series for the clipped PlanetScope collection
+
+&amp;nbsp;&amp;nbsp; - Fit a smooth curves to the PlanetScope NDVI time series for 2018
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

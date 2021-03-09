@@ -1,0 +1,268 @@
+---
+title: "Small Sats"
+subtitle: "New Methods in Earth Observation"
+date: "Class 7"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "lucy", "middlebury-fonts", "themes/class4-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+## Objectives
+### Understand: 
+&nbsp;&nbsp; - What has enabled them
+
+&nbsp;&nbsp; - Their value
+
+&nbsp;&nbsp; - Their limitations
+
+### Know how to:
+&nbsp;&nbsp; - Access Planet data
+
+&nbsp;&nbsp; - Run some basic searching & filtering (programmatically, with luck)
+
+---
+background-image: url(https://cdn.vox-cdn.com/uploads/chorus_image/image/58407563/38583831555_9ae89f5c10_o.0.jpg)
+background-size: cover
+
+
+## What has enabled small sats?
+
+&nbsp;&nbsp; - Technology gains in other sectors
+
+&nbsp;&nbsp;&nbsp;&nbsp;* Cell phones
+
+&nbsp;&nbsp;&nbsp;&nbsp;* Computer (drives)
+
+&nbsp;&nbsp;&nbsp;&nbsp;* Rocketry
+
+&nbsp;&nbsp;&nbsp;&nbsp;* Etc
+</div>
+
+---
+
+## Their Value
+
+.center[![](figures/04/kennedy_etal2014_1.png)]
+
+.center[Kennedy et al (2014), Figure 1]
+
+---
+
+.center[![](figures/04/kennedy_etal2014_3.png)]
+.center[Kennedy et al (2014), Figure 3]
+
+---
+## Examples
+
+![](https://cdn-images-1.medium.com/max/1400/1*ZZLYeSY72o_RI4fnOiBNyg.jpeg)
+.center[Urban growth in Shanghai]
+
+---
+
+## Examples
+
+.center[![](figures/04/mccabe_etal1.png)]
+.center[McCabe et al (2017), Figure 1]
+
+---
+
+## Examples
+
+.center[![](figures/04/mccabe_etal2.png)]
+.center[McCabe et al (2017), Figure 2]
+
+---
+
+## Examples
+
+.center[![](figures/04/planet1.png)]
+.center[![](figures/04/planet2.png)]
+
+---
+## Tradeoffs and Limitations
+
+&nbsp;&nbsp;- Spatial resolution not that high
+
+&nbsp;&nbsp;- Radiometry not superb
+
+&nbsp;&nbsp;&nbsp;&nbsp;* Cross-calibration between sensors an issue (5-6% SD)
+
+&nbsp;&nbsp;&nbsp;&nbsp;* Radiometric resolution fairly low
+
+&nbsp;&nbsp;- Accessibility
+
+
+---
+background-image: url(figures/04/explorer.png)
+background-size: cover
+class: center, top
+# Working with PlanetScope Data
+
+---
+background-image: url(https://www.planet.com/assets/images/approach/orbit-operations.jpg)
+background-size: 60%
+background-position: bottom
+## A bit more on PlanetScope Radiometrics
+&nbsp;&nbsp;- Detailed overview of radiometric calibration from [here](https://calval.cr.usgs.gov/wordpress/wp-content/uploads/Nick-Wilson.pdf)
+
+&nbsp;&nbsp;- Independent assessment [here](https://calval.cr.usgs.gov/wordpress/wp-content/uploads/Dmitry-Varlyguin.pdf)
+
+&nbsp;&nbsp; - (both in `materials/papers/`)
+
+---
+## Surface Reflectance
+
+![](figures/04/boa.png)
+
+---
+## Surface Reflectance
+&nbsp;&nbsp;- Aerosol optical depth, water vapor from `MOD09CMA`
+
+&nbsp;&nbsp;- Ozone from `MOD09CMG`
+
+&nbsp;&nbsp;- Time difference ~1 hour
+
+&nbsp;&nbsp;- Major uncertainties from MODIS values over clouds, ice, desert
+
+&nbsp;&nbsp;- Sometimes no MODIS nearby--default 6S model
+
+&nbsp;&nbsp;- Haze, cirrus not corrected
+
+&nbsp;&nbsp;- Single, global aerosol model
+
+&nbsp;&nbsp;- Scattering not dealt with
+
+&nbsp;&nbsp;- Lambertian surface assumed
+
+---
+
+.center[![](https://images.slideplayer.com/26/8855359/slides/slide_6.jpg)]
+
+
+---
+
+.center[![](figures/04/brdf.png)]
+.center[[Source](http://www.conabio.gob.mx/conocimiento/premota/doctos/papers/LandVeg/Crystal_Schaaf.ppt.pdf)]
+
+---
+
+### PlanetScope Geometric Accuracy
+
+![](figures/04/ortho.png)
+.center[Dobrinić et al, from [here](https://bib.irb.hr/datoteka/947280.DobrinicGasparovicZupan_manuscript.pdf)]
+
+---
+
+### Another assessment
+
+.center[![](figures/04/ortho2.png)]
+.center[The Joint Research Centre, from [here](http://publications.jrc.ec.europa.eu/repository/bitstream/JRC111221/jrc_technical_report_planetscope-final_2.pdf)]
+
+---
+## CESTEM
+
+```{r, echo = FALSE, out.width="80%", fig.align='center', fig.cap='Houbourg and McCabe, 2018'}
+knitr::include_graphics('figures/04/cestem_schematic.png')
+```
+
+---
+
+## CESTEM
+```{r, echo = FALSE, out.width="75%", fig.align='center', fig.cap='Houbourg and McCabe, 2018'}
+knitr::include_graphics('figures/04/cestem_ndvi.png')
+```
+
+---
+## CESTEM
+```{r, echo = FALSE, out.width="100%", fig.align='center', fig.cap='Houbourg and McCabe, 2018'}
+knitr::include_graphics('figures/04/cestem_lai.png')
+```
+---
+
+### Working with Planet Explorer
+#### The Point and Click Method
+
+[Let's Login](https://www.planet.com/login/)
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE, eval=FALSE, fig.align='center'}
+library(dplyr)
+library(rmapaccuracy)
+library(leaflet)
+library(sf)
+library(data.table)
+
+coninfo <- mapper_connect("crowdmapper.org")
+gcs <- "+proj=longlat +datum=WGS84 +no_defs"
+scenes <- tbl(coninfo$con, "scenes_data") %>% filter(tms_url != '') %>% 
+  collect()
+gss <- scenes %>% filter(season == "GS")
+oss <- scenes %>% filter(season == "OS")
+allss <- scenes %>% 
+  filter(cell_id %in% oss$cell_id[which(oss$cell_id %in% gss$cell_id)])
+ids <- (allss %>% distinct(cell_id))$cell_id
+idv <- ids[sample(1:length(ids), 1)]
+name <- tbl(coninfo$con, "master_grid") %>% filter(id == idv) %>%
+  select(id, name, x, y) %>% collect()
+gpoly <- rmapaccuracy::point_to_gridpoly(data.table::data.table(name), 
+                                         w = 0.005 / 2, gcs, gcs)
+scenes_sel <- scenes %>% filter(cell_id == idv)
+os <- (scenes_sel %>% filter(season == "OS") %>% select(tms_url))$tms_url
+gs <- (scenes_sel %>% filter(season == "GS") %>% select(tms_url))$tms_url
+
+slist <- list("color" = "white")
+m <- leaflet() %>% addProviderTiles("Esri.WorldImagery") %>% 
+  setView(name$x, name$y, zoom = 11) %>% 
+  addTiles(os, group = "OS") %>% addTiles(gs, group = "GS") %>% 
+  addPolygons(data = gpoly, color = "white", fill = FALSE, group = "Cell", 
+              weight = 1, opacity = 1) %>% 
+  addLabelOnlyMarkers(name$x, name$y, label = name$name, 
+                      labelOptions = labelOptions(noHide = TRUE, 
+                                                  style = slist,
+                                                  direction = 'top', 
+                                                  textOnly = TRUE)) %>% 
+  addLayersControl(overlayGroups = c("Cell", "GS", "OS"),
+                   options = layersControlOptions(collapsed = FALSE, 
+                                                  autoZIndex = FALSE))
+m
+
+```
+
+---
+
+## Point and click only gets you so far
+
+.center[![](figures/04/planet_downloads_180915103248.png)]
+.center[September 15th, 10:30 AM]
+
+---
+
+## Point and click only gets you so far
+
+.center[![](figures/04/planet_downloads_180917091530.png)]
+.center[September 17th, 3:30 PM]
+
+---
+
+## Point and click only gets you so far
+
+.center[![](figures/04/planet_downloads_180919112717.png)]
+.center[11:30 AM Today]
+
+---
+
+## Automation is key
+
+This is why we use `porder`, a command line interface:
+```bash
+porder idlist --input 'your/path/geog287387/materials/data/whittier/whittier_aoi.geojson' --start '2019-08-01' --end '2019-08-31' --item 'PSScene4Band' --asset 'analytic_sr' --outfile 'your/path/geog287387/materials/data/planet/whittier_0108_31082019.csv' --overlap '100' --filters 'range:view_angle:-3:3' 'range:clear_percent:55:100' 'string:ground_control:True' 'string:quality_category:standard' 
+```
+```bash
+porder order --name 'Your_Order_Name' --idlist 'your/path/geog287387/materials/data/planet/whittier_0108_31082019.csv' --item "PSScene4Band" --asset "analytic_sr"
+```
+
+*Animation*
