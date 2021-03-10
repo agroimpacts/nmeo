@@ -15,10 +15,10 @@ red_no_refl_03aug20 <- raster("C:/Users/micha/Documents/pix4d/whittier_03aug20_p
 ## have slightly different extents. If this is the case,
 ## then you will need to project the non-reflectance versions to the CRS...
 ## of the projected version.
-crs_refl_calibration <- crs(nir_refl_03aug20)
-nir_no_refl_03aug20 <- projectRaster(nir_no_refl_03aug20, crs = crs_refl_calibration)
-red_no_refl_03aug20 <- projectRaster(red_no_refl_03aug20, crs = crs_refl_calibration)
-
+# crs_refl_calibration <- crs(nir_refl_03aug20)
+# nir_no_refl_03aug20 <- projectRaster(nir_no_refl_03aug20, crs = crs_refl_calibration)
+# red_no_refl_03aug20 <- projectRaster(red_no_refl_03aug20, crs = crs_refl_calibration)
+# 
 
 ## assign crs of drone imagery to variable
 crs_drone <- (crs(nir_refl_03aug20))
@@ -39,7 +39,7 @@ ndvi_no_refl_03aug20 <- (nir_no_refl_03aug20 - red_no_refl_03aug20)/(nir_no_refl
 # calculate difference of nir surface reflectance, with and without reflectance calibration
 diff_nir_03aug20 <- nir_refl_03aug20 - nir_no_refl_03aug20
 # plot the difference image
-plot(diff_nir_03aug20)
+plot(diff_nir_03aug20, zlim = c(-0.5, 0.5))
 plot(whittier_poly_rpj, add = TRUE)
 # calculate the mean difference over the field polygons
 nir_mean_diff_03aug20 <- extract(diff_nir_03aug20, whittier_poly_rpj) %>% first() %>% mean(., na.rm = TRUE)
@@ -48,7 +48,7 @@ nir_mean_diff_03aug20 <- extract(diff_nir_03aug20, whittier_poly_rpj) %>% first(
 # calculate difference of ndvi surface reflectance, with and without reflectance calibration
 diff_ndvi_03aug20 <- ndvi_refl_03aug20 - ndvi_no_refl_03aug20
 # plot the difference image
-plot(diff_ndvi_03aug20)
+plot(diff_ndvi_03aug20, zlim = c(-0.5, 0.5))
 plot(whittier_poly_rpj, add = TRUE)
 # calculate the mean difference over the field polygons
 ndvi_mean_diff <- extract(diff_ndvi_03aug20, whittier_poly_rpj) %>% first() %>% mean(., na.rm = TRUE)
