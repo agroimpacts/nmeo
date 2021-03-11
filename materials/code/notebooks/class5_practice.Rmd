@@ -1,5 +1,5 @@
 ---
-title: "Class 5 practice - Planetscope"
+title: "Class 6 practice - Planetscope"
 output: html_document
 editor_options: 
   chunk_output_type: console
@@ -33,22 +33,34 @@ source(script_path)
 ## Paths
 Set up paths to downloaded Planetscope imagery, and create output directory for adjusting images. You can make notes here. 
 ```{r, eval=FALSE}
-img_path <- paste0(bpath, "materials/data/imagery/planet/")
-out_dir <- paste0(bpath, "materials/data/05")
+img_path <- paste0(bpath, "materials/data/whittier/planet_images")
+out_dir <- paste0(bpath, "materials/data/whittier/output")
 
 if(!dir.exists(out_dir)) dir.create(out_dir)
 
-planet_dirs <- dir(img_path, pattern = "2019", full.names = TRUE)
-planet_imgs <- lapply(planet_dirs, function(x) {
-  dir(x, pattern = "MS_SR", full.names = TRUE)
-})
+planet_imgs <- dir(img_path, pattern = "SR_clip.tif", full.names = FALSE)
+
+library(stringr)
+## rename files
+## this will leave us with only one image per date
+for (old_file_name in planet_imgs){
+  file_name_character_start <- str_locate(old_file_name, "2020-")[1]
+  new_file_name <- substr(old_file_name, file_name_character_start, 1000)
+  file.rename(paste0(img_path, "/", old_file_name), paste0(img_path, "/", new_file_name))
+}
+
+## get vector of new image paths
+planet_imgs <- dir(img_path, pattern = "SR_clip.tif", full.names = TRUE)
+
+
+
 ```
 
 ## Read in image details
 
 Testing read in and plot of one image
 ```{r, eval=FALSE}
-b1 <- brick(planet_imgs[[1]])
+b1 <- brick(planet_imgs[[20]])
 
 # Use gdal to reproject images to EPSG4326 and to a defined extent
 ext <- c(-71.8101, 42.1193, -71.8041, 42.1242)
@@ -56,7 +68,7 @@ out1 <- substr(basename(planet_imgs[[1]]), 1, 8)
 prj <- proj4string(b1)
 planet1 <- img_align(img = b1@file@name, res = 3 / 100000, out_dir = out_dir, 
                      out_name = out1, ext = ext)
-plotRGB(planet1[[c(4, 3, 2)]], stretch = "lin")
+plotRGB(planet1[[c(4, 3, 2)]], scale = 10000, zlim = c(0,10000), stretch = "lin")
 ```
 
 ## Read in and process all PlanetScope images
@@ -73,9 +85,12 @@ plist <- lapply(1:length(planet_imgs), function(x) {
 ```
 
 ## Drone image
-Read in the August 26, 2019 UAS orthomosaic processed during class 4. It should have been processed with PPK correction and against the reflectance target.  
+Read in the August 03, 2020 UAS orthomosaic processed during class 4. It should have been processed with PPK correction and against the reflectance target.  
 ```{r, eval=FALSE}
-uas <- brick("materials/data/04/aug262019_ngb_cog_gcs.tif")
+uas <- brick("/Users/michaelcecil/Downloads/aug03_ngb_cog.tif")
+
+## project uas raster to lat/lon
+uas <- projectRaster(uas, crs = crs(plist[[1]])) 
 ```
 
 ## Extract time series from imagery
@@ -87,7 +102,7 @@ library(dplyr)
 
 # create random sample of spatial points
 set.seed(1)
-pts <- sf::st_sample(st_as_sf(as(extent(uas[[1]]), "SpatialPolygons")), 
+pts <- sf::st_sample(st_as_sf(as(raster::intersect(extent(plist[[1]]), extent(uas[[1]])), "SpatialPolygons")), 
                      size = 1000, exact = TRUE)
 pts <- cbind(ID = 1:length(pts), st_sf(pts))  # convert points to sfc
 
@@ -105,6 +120,10 @@ plot(st_geometry(pts), add = TRUE)
 pts <- pts %>% filter(!is.na(nir))
 plot(st_geometry(pts), add = TRUE, col = "green", pch = 16) # check their distr
 
+# further reduce pts to those falling in Planet clipped images
+#planet_dat <- extract(b1, y = pts)
+
+
 ```
 
 ## Time series
@@ -112,7 +131,7 @@ plot(st_geometry(pts), add = TRUE, col = "green", pch = 16) # check their distr
 Now use points to extract points from Planet time series, but first
 ```{r, eval = FALSE}
 # create vector of dates
-dates <- substr(basename(unlist(planet_imgs)), 1, 8)
+dates <- substr(basename(unlist(planet_imgs)), 1, 10)
 dates <- lubridate::as_date(dates)
 
 # check images to see which have complete coverage
@@ -121,9 +140,9 @@ for(i in 1:length(plist)) {
   plot(plist[[i]][[4]], main = dates[i])
 }
 
-# select just full coverage images
-plist2 <- plist[c(3, 4, 7, 8, 9, 10, 12)]
-dates2 <- dates[c(3, 4, 7, 8, 9, 10, 12)]
+# select August images 
+plist2 <- plist[c(13, 14, 16, 17, 18, 19, 20)]
+dates2 <- dates[c(13, 14, 16, 17, 18, 19, 20)]
 
 # Note: (a fancier way to do this would be to count NAs in each image), e.g. 
 # which(sapply(plist, function(x) length(which(is.na(values(x[[4]]))))) == 0)
@@ -140,8 +159,10 @@ dates2 <- dates[c(3, 4, 7, 8, 9, 10, 12)]
 #   return(out)
 # })
 
+plot(plist2[[3]][[1]])
+plot(pts, add = TRUE)
 # extract points from all rasters
-ppts <- lapply(plist2, function(x) raster::extract(x, y = pts))
+ppts <- lapply(plist2, function(x) raster::extract(x, y = pts ))
 
 # subset to NIR, red, green, blue, ndvi
 nir <- lapply(ppts, function(x) x[, 4])
@@ -175,7 +196,7 @@ nir_ss <- do.call(rbind, nir_ss) # bind into matrix
 plot(dates2, ndvi_ss[, 1], ylim = c(0, 1), type = "l")  # first date first
 for(i in 2:10) lines(dates2, ndvi_ss[, i])  # 
 
-plot(dates2, nir_ss[, 1], ylim = c(0, 1), type = "l")
+plot(dates2, nir_ss[, 1]/10000, ylim = c(0, 1), type = "l")
 for(i in 2:10) lines(dates2, nir_ss[, i] / 10000)  # nir/10000 to scale to refl
 
 # where are these points?
@@ -184,19 +205,26 @@ plot(st_geometry(pts[ss, ]), add = TRUE)
 ```
 
 ## UAS-Planet comparison
-Now compare, for those same 10 points, the data from the drone to the values from the Planet image collected on the closest date (August 24) to see how different they are. Compare the NIR and red channels as well NDVI. The code above provides everything you need to do that. Note that we have already extracted all the values from the UAS for the full set of sample points. We also have already extracted from the PlanetScope data, and subset the values. You just need to select the right subset of points to compare from the UAS data to compare. The comparison is now on a scatter plot. I'll get you started.
+Now compare, for those same 10 points, the data from the drone to the values from the Planet image collected on the closest date (August 03) to see how different they are. Compare the NIR and red channels as well NDVI. The code above provides everything you need to do that. Note that we have already extracted all the values from the UAS for the full set of sample points. We also have already extracted from the PlanetScope data, and subset the values. You just need to select the right subset of points to compare from the UAS data to compare. The comparison is now on a scatter plot. I'll get you started.
 
 ```{r, eval=FALSE}
 uas_nir <- pts %>% slice(ss) %>% pull(nir)  # pulls the values out pts for nir 
-plot(uas_nir, nir_ss[6, ] / 10000, xlab = "UAS NIR", ylab = "Planet NIR") # plot
+
+par(pty="s") ## makes plot square
+plot(uas_nir, nir_ss[2, ] / 10000, xlab = "UAS NIR", ylab = "Planet NIR", xlim = c(0,1), ylim = c(0,1)) # plot
+abline(0,1) ## add 1:1 line
 ```
 
-We select the 6th row of `nir_ss` because the rows in the matrix represent different image dates (columns are different points from the image), and August 24th is the 6th or 7 PlanetScope images in the time series. 
+We select the 2nd row of `nir_ss` because the rows in the matrix represent different image dates (columns are different points from the image), and August 3rd is the 2nd or 7 PlanetScope images in the time series. 
 
 
 ```{r, eval=FALSE}
 uas_ndvi <- pts %>% slice(ss) %>% pull(ndvi) # pulls the values out pts for nir 
-plot(uas_ndvi, ndvi_ss[6, ], xlab = "UAS NIR", ylab = "Planet NIR") # plot
+
+par(pty="s") ## makes plot square
+plot(uas_ndvi, ndvi_ss[2, ], xlab = "UAS NDVI", ylab = "Planet NDVI", xlim = c(0,1), ylim = c(0,1)) # plot
+abline(0,1) ## add 1:1 line
+
 ```
 
 Now do the same for red and ndvi. 
