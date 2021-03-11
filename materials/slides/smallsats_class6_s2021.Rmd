@@ -10,121 +10,9 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
----
-class: center, middle
-# Finish-up UAS
 
 ---
-## Your results
-#### - 2018 versus 2019 PPK with reflectance targets
-#### - 2019 PPK reflectance target vs 2019 PPK no-reflectance target
-#### - 2019 PPK reflectance target vs 2019 no-PPK reflectance target
-
----
-## Comparisons from last year
-### Reflectance strategies (2018)
-```{r, echo = FALSE, out.width="100%", fig.align='center'}
-knitr::include_graphics('figures/04/uas_2018_ref_difference.png')
-```
-<!-- ![](figures/04/uas_2018_ref_difference.png) -->
-
----
-### Date differences (2018)
-```{r, echo = FALSE, out.width="100%", fig.align='center'}
-knitr::include_graphics('figures/04/uas_2018_date_difference.png')
-```
-
-<!-- ![](figures/04/uas_2018_date_difference.png) -->
-
-
----
-### PPK/no-PPK differences (2018)
-```{r, echo = FALSE, out.width="100%", fig.align='center'}
-knitr::include_graphics('figures/04/uas_2018_ppk_difference.png')
-```
-
-<!-- ![](figures/04/uas_2018_ppk_difference.png) -->
-
----
-### Spatial offset
-```{r, echo = FALSE, out.width="100%", fig.align='center'}
-knitr::include_graphics('figures/04/uas_2018_ppk_offset.png')
-```
-
-<!-- ![](figures/04/uas_2018_ppk_offset.png) -->
-
----
-### 2018-2019 difference (no reflectance target)
-```{r, echo = FALSE, out.width="100%", fig.align='center'}
-knitr::include_graphics('figures/04/uas_2018-2019_ref_difference.png')
-```
-
----
-### Pseudo-True From Sequioa Imagery
-
-```{r, eval = FALSE}
-library(raster)
-img1 <- brick("materials/data/05/aug24_ngb_noreftarget_cog_gcs.tif")
-green <- (img1[[3]] * 3 + img1[[1]]) / 4  # pseudo green band
-red <- img1[[3]]  # red as red
-blue <- img1[[2]]  # green serves as blue
-plotRGB(stack(red, green, blue), scale = 0.41, zlim = c(0, 0.41))
-```
-
-```{r, echo = FALSE, eval=FALSE}
-png("materials/slides/figures/04/pseudo_rgb.png", height = 400, width = 400)
-par(mar = c(0, 0, 0, 0), bg = "transparent")
-plotRGB(stack(red, green, blue), scale = 0.41, zlim = c(0, 0.41), bgalpha = 0)
-dev.off()
-```
-
-```{r, echo = FALSE, out.width="50%", fig.align='center'}
-knitr::include_graphics('figures/04/pseudo_rgb.png')
-```
-
-<!-- ![](figures/04/pseudo_rgb.png) -->
-
----
-
-### GCVI => LAI
-
-GCVI = (NIR / GRN) – 1
-
-GCVI = 1.4 * LAI^1.03 + 0.93
-
-```{r, eval = FALSE}
-gcvi <- (img1[[1]] / img1[[3]]) - 1
-```
-
-```{r, echo = FALSE, eval=FALSE}
-gcvi[gcvi > 10] <- 10
-png("materials/slides/figures/04/gcvi.png", height = 400, width = 400)
-par(mar = c(0, 0, 0, 0), bg = "transparent")
-plot(gcvi, axes = FALSE, axis.args = list(col = "white", col.axis = "white"))
-dev.off()
-```
-
-.center[![](figures/04/gcvi.png)]
-
----
-
-LAI = ((GCVI - 0.93) / 1.4)^(1 / 1.03)
-
-```{r, eval=FALSE}
-lai <- ((gcvi - 0.93) / 1.4)^(1 / 1.03)
-```
-
-```{r, echo = FALSE, eval=FALSE}
-png("materials/slides/figures/04/lai.png", height = 400, width = 400)
-par(mar = c(0, 0, 0, 0), bg = "transparent")
-plot(lai, axes = FALSE, axis.args = list(col = "white", col.axis = "white"))
-dev.off()
-```
-
-.center[![](figures/04/lai.png)]
-
----
-# Take-aways from this Module
+# Take-aways from UAS Module
 
 &nbsp;&nbsp;- Familiarity with Drone Operations
 
@@ -135,6 +23,14 @@ dev.off()
 ---
 class: center, middle
 # Small Sats
+---
+##Planet Unit
+
+### Overview, working with Planet Explorer (Mar 11)
+### Working with [NICFI basemaps](https://www.planet.com/nicfi/) (Mar 16)
+### Meha Jain Colloquium (Mar 18, noon)
+### Planet API (Mar 18)
+
 ---
 
 ## Objectives
@@ -413,3 +309,30 @@ pip install retry
 ---
 ## Planet school
 https://developers.planet.com/planetschool/
+
+---
+## Planet image types
+- [Planet Ortho-tiles](https://www.planet.com/products/satellite-imagery/planetscope-analytic-ortho-tile/)
+- includes surface reflectance "_SR" image type
+
+---
+## Planet data types
+- [Planet Usable Data Mask 2](https://developers.planet.com/docs/data/udm-2/)
+- includes measure of clearness, other bands
+
+---
+## Planet Explorer
+- https://www.planet.com/explorer
+
+---
+## Planet Orders
+- https://www.planet.com/account/#/orders
+- We will learn how to do these programatically!
+
+---
+## For next class
+
+- Assignment 1 (due Weds 3/17)
+- Sign-up for [Planet educational license](https://www.planet.com/markets/education-and-research/)! (please do this today)
+- Read [Jain et al (2017)](https://doi.org/10.3390/rs8100860)
+- Read [Planet Surface Reflectance White Paper v2](https://assets.planet.com/marketing/PDF/Planet_Surface_Reflectance_Technical_White_Paper.pdf)

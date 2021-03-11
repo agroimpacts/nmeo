@@ -42,7 +42,7 @@ planet_imgs <- dir(img_path, pattern = "SR_clip.tif", full.names = FALSE)
 
 library(stringr)
 ## rename files
-## this will leave us with only one image per date
+## this will remove most dates with duplicate images
 for (old_file_name in planet_imgs){
   file_name_character_start <- str_locate(old_file_name, "2020-")[1]
   new_file_name <- substr(old_file_name, file_name_character_start, 1000)
@@ -60,7 +60,7 @@ planet_imgs <- dir(img_path, pattern = "SR_clip.tif", full.names = TRUE)
 
 Testing read in and plot of one image
 ```{r, eval=FALSE}
-b1 <- brick(planet_imgs[[20]])
+b1 <- brick(planet_imgs[[7]])
 
 # Use gdal to reproject images to EPSG4326 and to a defined extent
 ext <- c(-71.8101, 42.1193, -71.8041, 42.1242)
@@ -229,25 +229,97 @@ abline(0,1) ## add 1:1 line
 
 Now do the same for red and ndvi. 
 
-## Scaling comparison
-Now, using the code from the previous class:
+##############
 
-- aggregate the UAS data to the same resolution as the PlanetScope data. Use a factor of 27 to aggregate
-- Create a file `pts2` using this argument `pts2 <- pts %>% select(ID)`
-- then, using all of `pts2`, extract the NDVI, NIR, red, and green reflectance values from aggregated drone data. Lines 95-100 will help you recreate the steps you need to extract from aggregated uas data using `pts`. 
-- Once extract, compare aggregated UAS reflectances (NDVI, NIR, red, and green) to those from the August 24 Planet (which doesn't need aggregation).  
-by plotting the extracted points for each band against the relevant PlanetScope subsets from lines 147-151 above. Use the correct PlanetScope data (image 6 in the time series). Note that red, green, and NIR needed to be scaled by 10000. 
-- The code from class 4 practice can show you how to plot the values in a scatter plot with the 1:1 line. 
-- Be ready to show your results in class 
+##UDM work
+
+
+
 ```{r, eval=FALSE}
+# setwd("..")
+library(gdalUtils)
+library(raster)
+script_path <- paste0(bpath, "materials/code/R/uas_image_functions.R")
+source(script_path)
+
 # code here
+bpath <- paste0(getwd(), "/")
+# bpath <- "D:/Users/<your_user_name>/Documents/geog287387/"
+bpath
+img_path <- paste0(bpath, "materials/data/whittier/planet_udm")
+out_dir <- paste0(bpath, "materials/data/whittier/output")
+
+if(!dir.exists(out_dir)) dir.create(out_dir)
+
+planet_imgs_udm <- dir(img_path, pattern = "udm2_clip.tif", full.names = FALSE)
+
+library(stringr)
+## rename files
+## this will remove most dates with duplicate images
+for (old_file_name in planet_imgs_udm){
+  file_name_character_start <- str_locate(old_file_name, "2020-")[1]
+  new_file_name <- substr(old_file_name, file_name_character_start, 1000)
+  file.rename(paste0(img_path, "/", old_file_name), paste0(img_path, "/", new_file_name))
+}
+
+## get vector of new image paths
+planet_imgs_udm <- dir(img_path, pattern = "udm2_clip.tif", full.names = TRUE)
+
+```
+
+# Read in image details
+
+Testing read in and plot of one image
+```{r, eval=FALSE}
+par(mfrow = c(1, 2), mar = rep(1, 2))
+
+b1_udm <- brick(planet_imgs_udm[[7]]) ## take 7th image, representing July 05, 2020
+
+# Use gdal to reproject images to EPSG4326 and to a defined extent
+ext <- c(-71.8101, 42.1193, -71.8041, 42.1242)
+out1 <- substr(basename(planet_imgs_udm[[1]]), 1, 8)
+prj <- proj4string(b1_udm)
+planet1_udm <- img_align(img = b1_udm@file@name, res = 3 / 100000, out_dir = out_dir, 
+                     out_name = out1, ext = ext)
+plot(planet1_udm[[c(1)]], scale = 1, zlim = c(0, 1), stretch = "lin") ## band 1 is clearness index
+
+
+## recreate the false-color composite of the same date (July 05)
+## for some reason you need to rerun the code below... you can't just 
+## skip to the plotRGB command
+
+b1 <- brick(planet_imgs[[7]])
+
+# Use gdal to reproject images to EPSG4326 and to a defined extent
+ext <- c(-71.8101, 42.1193, -71.8041, 42.1242)
+out1 <- substr(basename(planet_imgs[[1]]), 1, 8)
+prj <- proj4string(b1)
+planet1 <- img_align(img = b1@file@name, res = 3 / 100000, out_dir = out_dir, 
+                     out_name = out1, ext = ext)
+plotRGB(planet1[[c(4, 3, 2)]], scale = 10000, zlim = c(0,10000), stretch = "lin")
 ```
 
 
 
+Cell Stats, clearness index
+```{r, eval=FALSE}
+
+##need to rerun code for planet_1_udm
 
 
 
+## get percent of pixels in image that are clear
+pct_clear_table <- freq(planet1_udm[[c(1)]], digits=0, value=NULL, useNA='ifany', progress='')
+pct_clear_table
+
+pct_clear <- as.numeric(pct_clear_table[2, "count"]) / sum(pct_clear_table[ , "count"])
+pct_clear
+```
 
 
+Can you find the percent clear for each image date?
+```{r, eval=FALSE}
+## place code here
 
+
+```
