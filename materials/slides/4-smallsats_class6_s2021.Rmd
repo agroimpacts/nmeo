@@ -170,6 +170,11 @@ background-size: cover
 
 ---
 
+## SmallSats Launched
+
+https://airtable.com/shrbfAxhYJ8AbCo0O/tbl9y3pPy04L6QZjV
+---
+
 ## Their Value
 
 .center[![](figures/04/kennedy_etal2014_1.png)]
@@ -222,7 +227,7 @@ background-size: cover
 
 &nbsp;&nbsp;- Accessibility
 
-background-image: url(figures/04/explorer.png)
+[![](figures/04/explorer.png)]
 background-size: cover
 
 class: center, top
@@ -396,7 +401,7 @@ m
 
 &nbsp;&nbsp;&nbsp;&nbsp; - scipy
 
-&nbsp;&nbsp;&nbsp;&nbsp; - skimage https://scikit-image.org/download.html
+&nbsp;&nbsp;&nbsp;&nbsp; - skimage https://scikit-image.org/docs/stable/install.html
 
 ```
 python -m pip install --user numpy scipy matplotlib ipython jupyter pandas sympy nose
@@ -405,3 +410,6 @@ pip install rasterio
 pip install retry
 ```
 
+---
+## Planet school
+https://developers.planet.com/planetschool/
