@@ -40,6 +40,7 @@ if(!dir.exists(out_dir)) dir.create(out_dir)
 
 planet_imgs <- dir(img_path, pattern = "SR_clip.tif", full.names = FALSE)
 
+install.packages('stringr')
 library(stringr)
 ## rename files
 ## this will remove most dates with duplicate images
@@ -159,8 +160,9 @@ dates2 <- dates[c(13, 14, 16, 17, 18, 19, 20)]
 #   return(out)
 # })
 
-plot(plist2[[3]][[1]])
+plot(plist2[[4]][[4]])
 plot(pts, add = TRUE)
+
 # extract points from all rasters
 ppts <- lapply(plist2, function(x) raster::extract(x, y = pts ))
 
