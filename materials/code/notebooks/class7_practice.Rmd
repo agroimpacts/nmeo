@@ -64,7 +64,7 @@ b1 <- brick(planet_imgs[[7]])
 
 # Use gdal to reproject images to EPSG4326 and to a defined extent
 ext <- c(-71.8101, 42.1193, -71.8041, 42.1242)
-out1 <- substr(basename(planet_imgs[[1]]), 1, 8)
+out1 <- substr(basename(planet_imgs[[1]]), 1, 1000)
 prj <- proj4string(b1)
 planet1 <- img_align(img = b1@file@name, res = 3 / 100000, out_dir = out_dir, 
                      out_name = out1, ext = ext)
@@ -78,7 +78,7 @@ ext <- c(-71.8101, 42.1193, -71.8041, 42.1242)
 plist <- lapply(1:length(planet_imgs), function(x) {
   nm <- planet_imgs[[x]]
   b <- brick(nm)
-  out <- paste0(substr(basename(nm), 1, 8), "_", x)
+  out <- paste0(substr(basename(nm), 1, 1000), "_", x)
   prj <- proj4string(b)
   planet1 <- img_align(img = b@file@name, res = 3 / 100000, out_dir = out_dir,                        out_name = out, ext = ext)
 })
@@ -121,15 +121,17 @@ planet_imgs_udm <- dir(out_dir, pattern = "udm2_clip.tif", full.names = TRUE)
 
 # Read in image details
 
-Testing read in and plot of UDM2 image
+Testing read in and plot of UDM2 image. We are going to plot band 1 of UDM 2 representing clear/not-clear (1 is clear)
 ```{r, eval=FALSE}
+img_index <- 7 ## 7th of 28 images, for July 5th
+
 par(mfrow = c(1, 2), mar = rep(1, 2))
 
-b1_udm <- brick(planet_imgs_udm[[7]]) ## take 7th image, representing July 05, 2020
+b1_udm <- brick(planet_imgs_udm[[img_index]]) ## take 7th image, representing July 05, 2020
 
 # Use gdal to reproject images to EPSG4326 and to a defined extent
 ext <- c(-71.8101, 42.1193, -71.8041, 42.1242)
-out1 <- substr(basename(planet_imgs_udm[[7]]), 1, 1000)
+out1 <- substr(basename(planet_imgs_udm[[img_index]]), 1, 1000)
 prj <- proj4string(b1_udm)
 planet1_udm <- img_align(img = b1_udm@file@name, res = 3 / 100000, out_dir = out_dir, 
                      out_name = out1, ext = ext)
@@ -140,11 +142,11 @@ plot(planet1_udm[[c(1)]], scale = 1, zlim = c(0, 1), stretch = "lin") ## band 1 
 ## for some reason you need to rerun the code below... you can't just 
 ## skip to the plotRGB command
 
-b1 <- brick(planet_imgs[[7]])
+b1 <- brick(planet_imgs[[img_index]])
 
 # Use gdal to reproject images to EPSG4326 and to a defined extent
 ext <- c(-71.8101, 42.1193, -71.8041, 42.1242)
-out1 <- substr(basename(planet_imgs[[1]]), 1, 1000)
+out1 <- substr(basename(planet_imgs[[img_index]]), 1, 1000)
 prj <- proj4string(b1)
 planet1 <- img_align(img = b1@file@name, res = 3 / 100000, out_dir = out_dir, 
                      out_name = out1, ext = ext)
@@ -171,9 +173,13 @@ Let's create a PDF that shows the false color composite and UDM
 
 pdf(paste0("Whittier_Planet_July_05.pdf"), onefile = T) ## start plotting to PDF
 
-image_date <- substr(basename(planet1@file@name), 1, 1000) 
+image_date <- substr(basename(planet1_udm@file@name), 1, 15) 
+
+###plotting the UDM2 clearness band (band 1)
 plot(planet1_udm[[c(1)]], scale = 1, zlim = c(0, 1), stretch = "lin", ## band 1 is clearness index
      main =  paste0(image_date, " clearness index ", round(pct_clear, 2)))
+
+### plot false color composite of SR 
 plotRGB(planet1[[c(4, 3, 2)]], scale = 10000, zlim = c(0,10000), stretch = "lin")
 
 dev.off() ## end plotting to PDF
@@ -183,12 +189,18 @@ dev.off() ## end plotting to PDF
 
 
 ```{r, eval=FALSE}
-pdf(paste0("Whittier_Planet_all.pdf"), onefile = T)
-for (i in seq(length(planet1))) {
-## add code here
+pdf(paste0("Whittier_Planet_all.pdf"), onefile = T) ### open pdf
 
+for (i in seq(length(planet_imgs))) {
+## add code here
+  print(i)
+  ## for each i, process and plot the band 1 of the UDM2 mask and 
+  ## the false color composite
+  
 }
-dev.off()
+
+
+dev.off() ### close pdf
 ```
 
 
