@@ -19,112 +19,46 @@ class: center, middle, inverse, title-slide
 ---
 
 
-## Objectives
-### Understand: 
-&amp;nbsp;&amp;nbsp; - What has enabled them
+class: center, middle
+# Small Sats
+---
+##Planet Unit
 
-&amp;nbsp;&amp;nbsp; - Their value
-
-&amp;nbsp;&amp;nbsp; - Their limitations
-
-### Know how to:
-&amp;nbsp;&amp;nbsp; - Access Planet data
-
-&amp;nbsp;&amp;nbsp; - Run some basic searching &amp; filtering (programmatically, with luck)
+### Overview, working with Planet Explorer (Mar 11)
+### Understanding Planet data (Mar 16) &lt;---
+### Working with [NICFI basemaps](https://www.planet.com/nicfi/) (Mar 18)
+### Meha Jain Colloquium (Mar 18, noon)
+### Planet API (Mar 18/25)
 
 ---
-background-image: url(https://cdn.vox-cdn.com/uploads/chorus_image/image/58407563/38583831555_9ae89f5c10_o.0.jpg)
-background-size: cover
+## Meha Jain colloquium 
 
+![](figures/07/meha_jain.png)
 
-## What has enabled small sats?
+---
+## STEM Virtual Fair
 
-&amp;nbsp;&amp;nbsp; - Technology gains in other sectors
-
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;* Cell phones
-
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;* Computer (drives)
-
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;* Rocketry
-
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;* Etc
-&lt;/div&gt;
+![](figures/07/stem_fair.png)
 
 ---
 
-## Their Value
+## Jain et al. (2016)
 
-.center[![](figures/04/kennedy_etal2014_1.png)]
-
-.center[Kennedy et al (2014), Figure 1]
+![](figures/07/jain_et_al_2016.png)
 
 ---
 
-.center[![](figures/04/kennedy_etal2014_3.png)]
-.center[Kennedy et al (2014), Figure 3]
-
----
-## Examples
-
-![](https://cdn-images-1.medium.com/max/1400/1*ZZLYeSY72o_RI4fnOiBNyg.jpeg)
-.center[Urban growth in Shanghai]
-
----
-
-## Examples
-
-.center[![](figures/04/mccabe_etal1.png)]
-.center[McCabe et al (2017), Figure 1]
-
----
-
-## Examples
-
-.center[![](figures/04/mccabe_etal2.png)]
-.center[McCabe et al (2017), Figure 2]
-
----
-
-## Examples
-
-.center[![](figures/04/planet1.png)]
-.center[![](figures/04/planet2.png)]
-
----
-## Tradeoffs and Limitations
-
-&amp;nbsp;&amp;nbsp;- Spatial resolution not that high
-
-&amp;nbsp;&amp;nbsp;- Radiometry not superb
-
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;* Cross-calibration between sensors an issue (5-6% SD)
-
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;* Radiometric resolution fairly low
-
-&amp;nbsp;&amp;nbsp;- Accessibility
+## Jain et al. (2016)
+### Three data sets used to calibrate prediction models
+### Relatively low R² (common in agriculture)
+### Trade-offs between SkySat and Landsat
 
 
 ---
-background-image: url(figures/04/explorer.png)
-background-size: cover
-class: center, top
-# Working with PlanetScope Data
 
----
-background-image: url(https://www.planet.com/assets/images/approach/orbit-operations.jpg)
-background-size: 60%
-background-position: bottom
-## A bit more on PlanetScope Radiometrics
-&amp;nbsp;&amp;nbsp;- Detailed overview of radiometric calibration from [here](https://calval.cr.usgs.gov/wordpress/wp-content/uploads/Nick-Wilson.pdf)
-
-&amp;nbsp;&amp;nbsp;- Independent assessment [here](https://calval.cr.usgs.gov/wordpress/wp-content/uploads/Dmitry-Varlyguin.pdf)
-
-&amp;nbsp;&amp;nbsp; - (both in `materials/papers/`)
-
----
 ## Surface Reflectance
 
-![](figures/04/boa.png)
+![](figures/07/planet_boa_vs_sr.png)
 
 ---
 ## Surface Reflectance
@@ -147,94 +81,78 @@ background-position: bottom
 &amp;nbsp;&amp;nbsp;- Lambertian surface assumed
 
 ---
+## Surface Reflectance
+### Also tested by applying Planet SR model to Landsat Top-of-atmosphere reflectance, and comparing results to Landsat-derived SR
 
-.center[![](https://images.slideplayer.com/26/8855359/slides/slide_6.jpg)]
+![](figures/07/landsat_planet_sr.png)
+
+---
+## Surface Reflectance
+### Different sensors have different Relative Spectral Response
+
+![](figures/07/dove_spectral_response.png)
 
 
 ---
-
-.center[![](figures/04/brdf.png)]
-.center[[Source](http://www.conabio.gob.mx/conocimiento/premota/doctos/papers/LandVeg/Crystal_Schaaf.ppt.pdf)]
-
----
-
-### PlanetScope Geometric Accuracy
-
-![](figures/04/ortho.png)
-.center[Dobrinić et al, from [here](https://bib.irb.hr/datoteka/947280.DobrinicGasparovicZupan_manuscript.pdf)]
+## Planet sensors
+### Three generations of Dove satellites
+#### PS2 or Dove
+#### PS2.SD or Dove-R
+#### PSB.SD or SuperDove
 
 ---
+## Planet sensors
+### Planet also has two acquired constellations
+#### SkySat (50 cm)
+#### Rapideye (5 m)
 
-### Another assessment
-
-.center[![](figures/04/ortho2.png)]
-.center[The Joint Research Centre, from [here](http://publications.jrc.ec.europa.eu/repository/bitstream/JRC111221/jrc_technical_report_planetscope-final_2.pdf)]
-
----
-## CESTEM
-
-&lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="figures/04/cestem_schematic.png" alt="Houbourg and McCabe, 2018" width="80%" /&gt;
-&lt;p class="caption"&gt;Houbourg and McCabe, 2018&lt;/p&gt;
-&lt;/div&gt;
 
 ---
-
-## CESTEM
-&lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="figures/04/cestem_ndvi.png" alt="Houbourg and McCabe, 2018" width="75%" /&gt;
-&lt;p class="caption"&gt;Houbourg and McCabe, 2018&lt;/p&gt;
-&lt;/div&gt;
+## Planet sensors
+### [Sensor descriptions](https://developers.planet.com/docs/apis/data/sensors/)
+### [Product spec](https://assets.planet.com/docs/Planet_Combined_Imagery_Product_Specs_letter_screen.pdf)
 
 ---
-## CESTEM
-&lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="figures/04/cestem_lai.png" alt="Houbourg and McCabe, 2018" width="100%" /&gt;
-&lt;p class="caption"&gt;Houbourg and McCabe, 2018&lt;/p&gt;
-&lt;/div&gt;
----
+## Planet sensors
+### [Sensor comparison](https://www.planet.com/products/planet-imagery/)
+### [Calibration](https://calval.cr.usgs.gov/apps/sites/default/files/jacie/OnOrbitRadiometricCalibrationandValidationofPlanetsConstellations.pdf)
 
-### Working with Planet Explorer
-#### The Point and Click Method
+![](figures/07/planet_rad_cal_net.png)
 
-[Let's Login](https://www.planet.com/login/)
 
 
 
 ---
-
-## Point and click only gets you so far
-
-.center[![](figures/04/planet_downloads_180915103248.png)]
-.center[September 15th, 10:30 AM]
+## Planet image types
+- [Planet Ortho-tiles](https://www.planet.com/products/satellite-imagery/planetscope-analytic-ortho-tile/)
+- includes surface reflectance "_SR" image type
 
 ---
-
-## Point and click only gets you so far
-
-.center[![](figures/04/planet_downloads_180917091530.png)]
-.center[September 17th, 3:30 PM]
+## Planet data types
+- [Planet Usable Data Mask 2](https://developers.planet.com/docs/data/udm-2/)
+- includes measure of clearness, other bands
 
 ---
-
-## Point and click only gets you so far
-
-.center[![](figures/04/planet_downloads_180919112717.png)]
-.center[11:30 AM Today]
+## Planet Explorer
+- https://www.planet.com/explorer
 
 ---
+## Planet Orders
+- https://www.planet.com/account/#/orders
+- We will learn how to do these programatically!
 
-## Automation is key
+---
+## Today's coding
+### Compare time-series from different Planet sensors
+### Use UDM mask and visual interpretation to filter images
 
-This is why we use `porder`, a command line interface:
-```bash
-porder idlist --input 'your/path/geog287387/materials/data/whittier/whittier_aoi.geojson' --start '2019-08-01' --end '2019-08-31' --item 'PSScene4Band' --asset 'analytic_sr' --outfile 'your/path/geog287387/materials/data/planet/whittier_0108_31082019.csv' --overlap '100' --filters 'range:view_angle:-3:3' 'range:clear_percent:55:100' 'string:ground_control:True' 'string:quality_category:standard' 
-```
-```bash
-porder order --name 'Your_Order_Name' --idlist 'your/path/geog287387/materials/data/planet/whittier_0108_31082019.csv' --item "PSScene4Band" --asset "analytic_sr"
-```
+---
+## For next class
 
-*Animation*
+- Assignment 1 (due Weds 3/17)
+- Meha Jain colloquium! (Thursday at noon)
+- Read [Jain et al (2017)](https://doi.org/10.3390/rs8100860) and [Planet Surface Reflectance White Paper v2](https://assets.planet.com/marketing/PDF/Planet_Surface_Reflectance_Technical_White_Paper.pdf)
+-Set up Python and Python libraries (details to follow)
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
