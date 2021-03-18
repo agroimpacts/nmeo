@@ -201,6 +201,9 @@ ggplot(ndvi_df) +
 ```
 
 
+### let's try to download imagery over a larger area (Choma district)
+
+
 ### let's try this with different pod locations in northern Zambia
 
 
