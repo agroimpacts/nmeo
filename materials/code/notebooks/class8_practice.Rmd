@@ -1,0 +1,206 @@
+---
+title: "Class 8 practice - Planet NICFI"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Packages
+```{r, eval=FALSE}
+# setwd("..")
+library(gdalUtils)
+library(raster)
+library(ggplot2)
+library(dplyr)
+library(rgeos)
+
+#script_path <- paste0(bpath, "materials/code/R/uas_image_functions.R")
+#source(script_path)
+```
+
+## Paths
+Set up paths to downloaded Planetscope imagery, and create output directory for adjusting images. You can make notes here. 
+```{r, eval=FALSE}
+bpath <- paste0(getwd(), "/")
+bpath
+
+img_path <- paste0(bpath, "materials/data/Zambia/NICFI")
+out_dir <- paste0(bpath, "materials/data/Zambia/output")
+
+if(!dir.exists(out_dir)) dir.create(out_dir)
+
+NICFI_imgs <- dir(img_path, pattern = glob2rx("1184-934*.tiff"), full.names = T) ## search only for specific quad, and .tiff file type
+
+
+
+
+```
+
+## Read in image details
+
+Testing read in and plot of one image
+```{r, eval=FALSE}
+b1 <- brick(NICFI_imgs[[5]])
+crs(b1)
+# Use gdal to reproject images to EPSG4326 and to a defined extent
+#utm_zone_35S <- "+init=epsg:32735 +proj=utm +zone=35 +datum=WGS84 +units=m"
+
+
+planet1_nicfi <- b1 ## keep images as is, can also projectRaster to UTM projection
+plotRGB(planet1_nicfi[[c(4, 3, 2)]], scale = 10000, zlim = c(0,10000), stretch = "lin")
+```
+
+## Read in and process all NICFI images
+```{r, eval=FALSE}
+
+plist_NICFI <- lapply(1:length(NICFI_imgs), function(x) {
+  nm <- NICFI_imgs[[x]]
+  b <- brick(nm)
+})
+
+for(k in seq(length(plist_NICFI))){
+  current_brick <- plist_NICFI[[k]]
+  plotRGB(current_brick[[c(4, 3, 2)]], scale = 10000, zlim = c(0,10000), stretch = "lin")
+}
+```
+
+## Create NDVI images
+```{r, eval=FALSE}
+
+plist_NICFI_ndvi <- lapply(1:length(plist_NICFI), function(x) {
+  current_brick <- plist_NICFI[[x]]
+  ndvi <- (current_brick[[4]] - current_brick[[3]])/(current_brick[[4]] + current_brick[[3]])
+  plot(ndvi, zlim = c(0,1))    
+  return(ndvi)
+})
+
+ndvi_ts <- brick(plist_NICFI_ndvi)
+max_ndvi <- max(ndvi_ts)
+min_ndvi <- min(ndvi_ts)
+ndvi_range <- max_ndvi - min_ndvi
+
+plot(max_ndvi, zlim = (c(0,1)))
+plot(min_ndvi, zlim = (c(0,1)))
+plot(ndvi_range, zlim = (c(0,1)))
+
+
+```
+
+```{r, eval=FALSE}
+pod_points <- data.frame(lat=numeric(), long= numeric())
+pod_points[1,] <- c(-15.5493,	28.2491 ) 
+pod_points[2,] <- c(-15.5494,	28.2496) 
+pod_points[3,] <- c(-15.5497,	28.2495) 
+#pod_points[4,] <- c(-15.5881,	28.2857) 
+
+
+
+
+#add coordinates to make it spatial data
+coordinates(pod_points) <- ~long + lat
+crs(pod_points) <- "+init=epsg:4326" ## define projection
+
+pod_points_reproj <- pod_points %>% spTransform(., crs(b1) )
+library(sf)
+
+st_write(pod_points_reproj %>% st_as_sf(), "pod_points_Makulu.shp")
+
+
+pod_Buffer <- gBuffer(pod_points_reproj, width= 5, byid = TRUE)
+
+ext_pods <- extent(pod_Buffer)
+zoom(ndvi_ts[[4]], ext = ext_pods )
+plot(pod_Buffer, add = TRUE)
+
+
+```
+
+
+
+
+## plot pod locations at ZARI trials
+```{r, eval=FALSE}
+pod_points <- data.frame(lat=numeric(), long= numeric())
+pod_points[1,] <- c(-15.5493,	28.2491 ) 
+pod_points[2,] <- c(-15.5494,	28.2496) 
+pod_points[3,] <- c(-15.5497,	28.2495) 
+#pod_points[4,] <- c(-15.5881,	28.2857) 
+
+
+
+
+#add coordinates to make it spatial data
+coordinates(pod_points) <- ~long + lat
+crs(pod_points) <- "+init=epsg:4326" ## define projection
+
+pod_points_reproj <- pod_points %>% spTransform(., crs(b1) )
+library(sf)
+
+st_write(pod_points_reproj %>% st_as_sf(), "pod_points_Makulu.shp")
+pod_Buffer <- gBuffer(pod_points_reproj, width= 5, byid = TRUE)
+
+ext_pods <- extent(pod_Buffer)
+zoom(ndvi_ts[[4]], ext = ext_pods )
+plot(pod_Buffer, add = TRUE)
+
+
+```
+
+Extract NDVI time-series for specific fields
+##############
+
+```{r, eval=FALSE}
+library(lubridate)
+
+dates <- c("2020-09-15", "2020-10-15", "2020-11-15", "2020-12-15", "2021-01-15", "2021-02-15") %>% as_date()
+
+ndvi_df <- data.frame(dates)
+ndvi_df$pod1_ndvi <- sapply(1:NROW(ndvi_df), function(x){
+  current_ndvi_rast <- ndvi_ts[[x]]
+  ndvi <- extract(current_ndvi_rast, pod_Buffer[1], fun = mean, na.rm = TRUE)
+})
+
+ndvi_df$pod2_ndvi <- sapply(1:NROW(ndvi_df), function(x){
+  current_ndvi_rast <- ndvi_ts[[x]]
+  ndvi <- extract(current_ndvi_rast, pod_Buffer[2], fun = mean, na.rm = TRUE)
+})
+
+ndvi_df$pod3_ndvi <- sapply(1:NROW(ndvi_df), function(x){
+  current_ndvi_rast <- ndvi_ts[[x]]
+  ndvi <- extract(current_ndvi_rast, pod_Buffer[3], fun = mean, na.rm = TRUE)
+})
+
+
+## plot time series of ndvi
+colors <- c("Pod 1 late" = "blue",
+            "Pod 2 medium" = "green2",
+            "Pod 3 early" = "red3")
+
+
+
+ggplot(ndvi_df) +
+  scale_color_manual(values = colors) +
+  geom_line(aes(x = dates, y = pod1_ndvi, color = "Pod 1 late")) + 
+  geom_point(aes(x = dates, y = pod1_ndvi, color = "Pod 1 late")) +
+  geom_line(aes(x = dates, y = pod2_ndvi, color = "Pod 2 medium")) + 
+  geom_point(aes(x = dates, y = pod2_ndvi, color = "Pod 2 medium")) +
+  geom_line(aes(x = dates, y = pod3_ndvi, color = "Pod 3 early")) + 
+  geom_point(aes(x = dates, y = pod3_ndvi, color = "Pod 3 early")) 
+  ylim(0,1) +
+  ylab("Planet ndvi")
+
+
+#add coordinates to make it spatial data
+
+
+```
+
+
+### let's try this with different pod locations in northern Zambia
+
+

@@ -1,125 +1,68 @@
 ---
-title: "Cloud-based Processing"
+title: "Small Sats"
 subtitle: "New Methods in Earth Observation"
-date: "Class 6"
+date: "Class 8"
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    css: ["default", "lucy", "middlebury-fonts", "themes/class6-theme.css"]
+    css: ["default", "lucy", "middlebury-fonts", "themes/class4-theme.css"]
     nature:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
 ---
+
 class: center, middle
-# Small Sats Review
+# Small Sats
+---
+##Planet Unit
+
+### Overview, working with Planet Explorer (Mar 11)
+### Understanding Planet data (Mar 16) 
+### Working with [NICFI basemaps](https://www.planet.com/nicfi/) (Mar 18) <----
+### Meha Jain Colloquium (Mar 18, noon)
+### Planet API (Mar 18/25)
 
 ---
-### A look at our Planet results
+## STEM Virtual Fair
 
-```{r, eval = FALSE, echo = FALSE}
-library(raster)
-p <- dir("materials/data/06", pattern = "tif", full.names = TRUE)
-rl <- lapply(p, function(x) {
-  b <- brick(x)
-  b / cellStats(b, max)
-})
-
-# plot
-png("materials/slides/figures/06/planet_clips.png", width = 500, height = 150)
-par(mfrow = c(1, 4), mar = c(0, 0, 1, 0), bg = "transparent")
-for(i in 1:length(rl)) {
-  b <- rl[[i]]
-  nm <- gsub("_aoi.tif", "", basename(p[i]))
-  plot(as(extent(b), "SpatialPolygons"), lty = 0, axes = FALSE)
-  plotRGB(b[[1:3]], axes = FALSE, scale = 1, add = TRUE)
-  mtext(nm, side = 3, line = 0, cex = 0.8, col = "white")
-}
-dev.off()
-```
-
-```{r, echo = FALSE, out.width="80%", fig.align='center'}
-knitr::include_graphics('figures/06/planet_clips.png')
-```
+![](figures/07/stem_fair.png)
 
 ---
 
-### GCVI => LAI
+## NICFI links
+### [News article](https://news.mongabay.com/2020/09/new-partnership-brings-high-resolution-satellite-imagery-of-the-tropics-to-all/)
+### [NICFI FAQ](https://assets.planet.com/docs/NICFI_UserGuidesFAQ.pdf)
 
-GCVI = (NIR / GRN) – 1
-
-GCVI = 1.4 * LAI^1.03 + 0.93
-
-LAI = ((GCVI - 0.93) / 1.4)^(1 / 1.03)
-
-```{r, eval = FALSE}
-png("materials/slides/figures/06/planet_lai.png", width = 500, height = 150)
-par(mfrow = c(1, 4), mar = c(0, 0, 1, 0))
-for(i in 1:length(rl)) {
-  b <- rl[[i]]
-  gcvi <- b[[4]] / b[[1]] - 1
-  lai <- ((gcvi - 0.93) / 1.4)^(1 / 1.03)
-  nm <- gsub("_aoi.tif", "", basename(p[i]))
-  plot(as(extent(lai), "SpatialPolygons"), lty = 0, axes = FALSE)
-  plot(lai, axes = FALSE, add = TRUE, zlim = c(0, 5))#, 
-       #axis.args = list(col = "white", col.axis = "white"))
-  mtext(nm, side = 3, line = 0, cex = 0.8)#, col = "white")
-}
-dev.off()
-```
-
+### 
 ---
 
-```{r, echo = FALSE, out.width="80%", fig.align='center'}
-knitr::include_graphics('figures/06/planet_lai.png')
-```
-
----
-
-# Take-aways from Small-Sats Module
-
-&nbsp;&nbsp; - Understand what has enabled Small Sats
-
-&nbsp;&nbsp; - Understand their value
-
-&nbsp;&nbsp; - Understand their limitations
-
-&nbsp;&nbsp; - Know how to access Planet data
-
-&nbsp;&nbsp; - Run some basic searching & filtering
-
-&nbsp;&nbsp; - Can do these things both programmatically and through Explorer
+## Working with NICFI
+### NICFI are [Planet basemaps](https://assets.planet.com/marketing/PDF/Planet_Basemaps_Product_Specifications.pdf)
+### [Basemaps viewer](https://www.planet.com/basemaps/)
+### [NICFI quads](https://developers.planet.com/docs/apps/basemapsviewer/download-basemaps/)
+### [Basemaps API](https://developers.planet.com/docs/basemaps/reference/)
+### [Planet School lesson](https://developers.planet.com/planetschool/downloading-quads-from-a-mosaic-using-basemaps-api/)
 
 
 ---
-
-## Other work
-
-&nbsp;&nbsp; - Loading a Planet Collection
-
-&nbsp;&nbsp; - Harmonic models
-
-&nbsp;&nbsp; - Smooth curves
-
-&nbsp;&nbsp; - Center pivot detection
+## Today's coding
+### Download NICFI basemaps for Zambia
+### extract NDVI time-series at different locations
 
 ---
-
-## Homework 
-
-&nbsp;&nbsp; - Do the background readings for this unit
-
-&nbsp;&nbsp; - Run & study code for harmonic models, smooth curves, & center pivot detection
-
-&nbsp;&nbsp; - Load in the 2018 Whittier PlanetScope collection and clip to our extent
-
-&nbsp;&nbsp; - Create a time series for the clipped PlanetScope collection
-
-&nbsp;&nbsp; - Fit a smooth curves to the PlanetScope NDVI time series for 2018
+## Steps
+### Define AOI (as bounding box or using geojson file)
+### Find quads to download (Planet Explorer)
+### Download quads (Jupyter Labs)
+### Analysis (R)
 
 
 
+---
+## For next class
 
-
-
-
+- Assignment 2 (due Tues 3/30)
+- Read [Houborg et al ](https://www.sciencedirect.com/science/article/pii/S0034425718300786?casa_token=fiE3Ptm-aqEAAAAA:OiL_U2AFZbJYa39sE3aSPQ29M4_fZCYAxp0T3-tZgZxzaapaJeRv4x8bonPd4IKC6TYP4QsG7w) focus on Intro/Discussion
+- Watch [video](https://www.youtube.com/watch?v=qCwAqWCGnI8) (start at 13:00 )
+- Read [porder description](https://samapriyaroy.medium.com/order-up-using-and-building-with-planet-s-new-ordersv2-api-ba2fe14eac8e)
