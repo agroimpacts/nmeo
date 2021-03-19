@@ -13,7 +13,7 @@ geojson_write(coordinates_poly,
 
 
 ##geojson from shapefile
-choma <- sf::read_sf("/Users/michaelcecil/Downloads/choma/choma.shp")
+choma <- sf::read_sf("/Users/michaelcecil/Rprojects/geog287387_s/materials/data/Zambia/boundaries/choma/choma.shp")
 choma_geojson <- file_to_geojson("/Users/michaelcecil/Downloads/choma/choma.shp",
                                  method = 'local')
 

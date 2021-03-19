@@ -160,6 +160,7 @@ library(lubridate)
 dates <- c("2020-09-15", "2020-10-15", "2020-11-15", "2020-12-15", "2021-01-15", "2021-02-15") %>% as_date()
 
 ndvi_df <- data.frame(dates)
+
 ndvi_df$pod1_ndvi <- sapply(1:NROW(ndvi_df), function(x){
   current_ndvi_rast <- ndvi_ts[[x]]
   ndvi <- extract(current_ndvi_rast, pod_Buffer[1], fun = mean, na.rm = TRUE)
