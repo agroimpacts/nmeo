@@ -1,6 +1,6 @@
 {
 "type": "FeatureCollection",
-"name": "myfile",
+"name": "ZARI_makulu",
 "features": [
 { "type": "Feature", "properties": { "dummy": 0.0 }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 28.25102349, -15.55190159 ], [ 28.25033685, -15.55155016 ], [ 28.24868461, -15.54904882 ], [ 28.25115224, -15.54698158 ], [ 28.2534053, -15.5498137 ], [ 28.25102349, -15.55190159 ] ] ] } }
 ]

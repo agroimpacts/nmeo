@@ -3,13 +3,13 @@ library(sf)
 
 
 ##geojson from coordinats
-coordinates_poly <- read.csv("/Users/michaelcecil/Rprojects/zamPods/makulu_coords.csv")
+coordinates_poly <- read.csv("/Users/michaelcecil/Rprojects/geog287387_s/materials/data/Zambia/boundaries/makulu_coords.csv")
 geojson_write(coordinates_poly,
               lat = "lat",
               lon = "lon",
               geometry = "polygon",
               group = "group",
-              file = "myfile.geojson")
+              file = "ZARI_makulu.geojson")
 
 
 ##geojson from shapefile

@@ -91,38 +91,6 @@ plot(ndvi_range, zlim = (c(0,1)))
 
 ```
 
-```{r, eval=FALSE}
-pod_points <- data.frame(lat=numeric(), long= numeric())
-pod_points[1,] <- c(-15.5493,	28.2491 ) 
-pod_points[2,] <- c(-15.5494,	28.2496) 
-pod_points[3,] <- c(-15.5497,	28.2495) 
-#pod_points[4,] <- c(-15.5881,	28.2857) 
-
-
-
-
-#add coordinates to make it spatial data
-coordinates(pod_points) <- ~long + lat
-crs(pod_points) <- "+init=epsg:4326" ## define projection
-
-pod_points_reproj <- pod_points %>% spTransform(., crs(b1) )
-library(sf)
-
-st_write(pod_points_reproj %>% st_as_sf(), "pod_points_Makulu.shp")
-
-
-pod_Buffer <- gBuffer(pod_points_reproj, width= 5, byid = TRUE)
-
-ext_pods <- extent(pod_Buffer)
-zoom(ndvi_ts[[4]], ext = ext_pods )
-plot(pod_Buffer, add = TRUE)
-
-
-```
-
-
-
-
 ## plot pod locations at ZARI trials
 ```{r, eval=FALSE}
 pod_points <- data.frame(lat=numeric(), long= numeric())
@@ -142,14 +110,19 @@ pod_points_reproj <- pod_points %>% spTransform(., crs(b1) )
 library(sf)
 
 st_write(pod_points_reproj %>% st_as_sf(), "pod_points_Makulu.shp")
+
+
 pod_Buffer <- gBuffer(pod_points_reproj, width= 5, byid = TRUE)
 
 ext_pods <- extent(pod_Buffer)
-zoom(ndvi_ts[[4]], ext = ext_pods )
+plot(ndvi_ts[[4]], ext = ext_pods )
 plot(pod_Buffer, add = TRUE)
 
 
 ```
+
+
+
 
 Extract NDVI time-series for specific fields
 ##############
