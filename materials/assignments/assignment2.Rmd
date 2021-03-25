@@ -219,7 +219,7 @@ raster::plot ()
 ```{r, eval = TRUE}
 ## plot the ndvi difference
 
-writeRaster(diff_ndvi, file = "diff_ndvi.tif")
+writeRaster(diff_ndvi, file = "diff_ndvi.tif", overwrite = T)
 
 ```
 
