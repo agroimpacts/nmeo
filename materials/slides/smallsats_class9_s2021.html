@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Small Sats</title>
+    <meta charset="utf-8" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/lucy.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/middlebury-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="themes/class4-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Small Sats
+## New Methods in Earth Observation
+### Class 9
+
+---
+
+
+## Objectives
+### Understand: 
+&amp;nbsp;&amp;nbsp; - What has enabled them
+
+&amp;nbsp;&amp;nbsp; - Their value
+
+&amp;nbsp;&amp;nbsp; - Their limitations
+
+### Know how to:
+&amp;nbsp;&amp;nbsp; - Access Planet data
+
+&amp;nbsp;&amp;nbsp; - Run some basic searching &amp; filtering (programmatically, with luck)
+
+---
+## CESTEM
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/04/cestem_schematic.png" alt="Houbourg and McCabe, 2018" width="80%" /&gt;
+&lt;p class="caption"&gt;Houbourg and McCabe, 2018&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+## CESTEM
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/04/cestem_ndvi.png" alt="Houbourg and McCabe, 2018" width="75%" /&gt;
+&lt;p class="caption"&gt;Houbourg and McCabe, 2018&lt;/p&gt;
+&lt;/div&gt;
+
+---
+## CESTEM
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/04/cestem_lai.png" alt="Houbourg and McCabe, 2018" width="100%" /&gt;
+&lt;p class="caption"&gt;Houbourg and McCabe, 2018&lt;/p&gt;
+&lt;/div&gt;
+---
+## CESTEM Reading
+
+- Read [Houborg et al ](https://www.sciencedirect.com/science/article/pii/S0034425718300786?casa_token=fiE3Ptm-aqEAAAAA:OiL_U2AFZbJYa39sE3aSPQ29M4_fZCYAxp0T3-tZgZxzaapaJeRv4x8bonPd4IKC6TYP4QsG7w) focus on Intro/Discussion
+- Watch [video](https://www.youtube.com/watch?v=qCwAqWCGnI8) (start at 13:00 )
+
+---
+
+## Automation is key
+
+This is why we use `porder`, a command line interface:
+
+### porder uses the [v2 Planet API](https://developers.planet.com/docs/orders/reference/)
+### [porder description](https://samapriyaroy.medium.com/order-up-using-and-building-with-planet-s-new-ordersv2-api-ba2fe14eac8e)
+### [porder github](https://github.com/tyson-swetnam/porder)
+
+
+
+---
+## Getting porder installed
+### You should have Python3 installed with Anaconda
+### First run "pip install planet"  (also config, requests)
+### Then run "pip install porder"
+
+---
+## Running porder
+### you need to log-in first
+### run "planet init" in terminal, and log-in with your Planet account (with educational license)
+### check your image quota "porder quota"
+### help is "porder -h"
+
+---
+## porder workflow
+### 1. Searching for images
+### 2. Ordering images
+### 3. Downloading images
+
+---
+## Searching
+### Example
+```
+porder idlist --input '/Users/michaelcecil/Rprojects/geog287387_s/materials/data/whittier/whittier_aoi/whittier_aoi.geojson' --start '2020-06-01' --end '2020-09-30' --item 'PSOrthoTile' --asset 'analytic_sr'  --outfile '/Users/michaelcecil/Downloads/whittier_2020_sr.csv' --overlap '100' --filters 'range:view_angle:-3:3' 'range:clear_percent:70:100' 'string:ground_control:True' 'string:quality_category:standard'
+```
+---
+## 1. Searching
+### the "input" argument is used to filter to an AOI (use this!! otherwise your quota will run out)
+### "input" needs to be .geojson file type, one standard format for spatial data. [More info here](https://macwright.com/2015/03/23/geojson-second-bite.html)
+### matching files will be saved to "outfile" (.csv)
+
+---
+## converting from shapefile to geojson example
+### open 
+
+
+
+---
+## 2. Ordering images
+### order based on the images saved to "outfile" in step 1
+### enter AOI in "boundary" argument (instead of "input") 
+
+---
+## 2. Ordering
+### Example
+```
+porder order --name "whittier_2020" --idlist "/Users/michaelcecil/Downloads/whittier_2020_sr.csv" --bundle "analytic_sr_udm2" --item "PSOrthoTile" --boundary "/Users/michaelcecil/Rprojects/geog287387_s/materials/data/whittier/whittier_aoi/whittier_aoi.geojson" --op clip email 
+```
+---
+
+## 2. Ordering
+### You can see your order in your Planet account online
+### You should receive an order once the email is ready to download
+### The order URL is saved to clipboard, paste this somewhere!
+### 
+
+
+---
+## 3. Downloading
+### Once order is ready, you can download images with porder
+### copy order URL into sample code below
+### you can also view all your order URL's [here](https://api.planet.com/compute/ops/orders/v2)
+
+---
+```bash
+porder multiproc --url "https://api.planet.com/compute/ops/orders/v2/3fe22a5c-fe12-4e7f-87f6-4f8cbc550ba4" --local "/Users/michaelcecil/Rprojects/geog287387_s/materials/data/whittier/porder_download"
+```
+---
+
+
+
+---
+### A look at our Planet results
+
+
+
+---
+### UDM-2 masking
+### let's calulate the percent of each image that is "clear"
+### 
+
+
+
+
+
+---
+
+
+
+
+
+
+
+
+
+---
+
+### GCVI =&gt; LAI
+
+GCVI = (NIR / GRN) – 1
+
+GCVI = 1.4 * LAI^1.03 + 0.93
+
+LAI = ((GCVI - 0.93) / 1.4)^(1 / 1.03)
+
+
+```r
+## LAI plots
+for(i in 1:length(rl_filtered)) {
+  b &lt;- rl_filtered[[i]]
+  gcvi &lt;- b[[4]] / b[[1]] - 1
+  gcvi &lt;- max(gcvi, 0.93)
+  lai &lt;- ((gcvi - 0.93) / 1.4)^(1 / 1.03)
+  nm &lt;- gsub("_aoi.tif", "", basename(p[i]))
+  plot(as(extent(lai), "SpatialPolygons"), lty = 0, axes = FALSE)
+  plot(lai, axes = FALSE, add = TRUE, zlim = c(0, 5))#, 
+       #axis.args = list(col = "white", col.axis = "white"))
+  mtext(nm, side = 3, line = 0, cex = 0.8)#, col = "white")
+}
+```
+
+---
+## filter to unique dates
+
+
+
+
+
+
+
+
+
+---
+
+## Assignment 2
+### Download NICFI basemaps using Jupyter Labs, then perform analysis in R
+### You need to have signed up for a Planet account on the [NICFI sign up page](https://www.planet.com/nicfi/) . This is separate from the educational license you signed up for.
+### Assignment is in the "Assignment2.Rmd" file.
+
+
+
+
+---
+## For next class
+
+- Assignment 2 (due Thurs 4/1)
+- Read [Gorelick et al 2017](https://doi.org/10.1016/j.rse.2017.06.031)
+- Sign up for Google Earth Engine account [here](https://code.earthengine.google.com/)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

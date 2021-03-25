@@ -1,0 +1,138 @@
+---
+title: "Small Sats"
+subtitle: "New Methods in Earth Observation"
+date: "Class 9"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "lucy", "middlebury-fonts", "themes/class4-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+## Objectives
+### Understand: 
+&nbsp;&nbsp; - What has enabled them
+
+&nbsp;&nbsp; - Their value
+
+&nbsp;&nbsp; - Their limitations
+
+### Know how to:
+&nbsp;&nbsp; - Access Planet data
+
+&nbsp;&nbsp; - Run some basic searching & filtering (programmatically, with luck)
+
+---
+## CESTEM
+
+```{r, echo = FALSE, out.width="80%", fig.align='center', fig.cap='Houbourg and McCabe, 2018'}
+knitr::include_graphics('figures/04/cestem_schematic.png')
+```
+
+---
+
+## CESTEM
+```{r, echo = FALSE, out.width="75%", fig.align='center', fig.cap='Houbourg and McCabe, 2018'}
+knitr::include_graphics('figures/04/cestem_ndvi.png')
+```
+
+---
+## CESTEM
+```{r, echo = FALSE, out.width="100%", fig.align='center', fig.cap='Houbourg and McCabe, 2018'}
+knitr::include_graphics('figures/04/cestem_lai.png')
+```
+---
+## CESTEM Reading
+
+- Read [Houborg et al ](https://www.sciencedirect.com/science/article/pii/S0034425718300786?casa_token=fiE3Ptm-aqEAAAAA:OiL_U2AFZbJYa39sE3aSPQ29M4_fZCYAxp0T3-tZgZxzaapaJeRv4x8bonPd4IKC6TYP4QsG7w) focus on Intro/Discussion
+- Watch [video](https://www.youtube.com/watch?v=qCwAqWCGnI8) (start at 13:00 )
+
+---
+
+## Automation is key
+
+This is why we use `porder`, a command line interface:
+```bash
+porder idlist --input 'your/path/geog287387/materials/data/whittier/whittier_aoi.geojson' --start '2019-08-01' --end '2019-08-31' --item 'PSScene4Band' --asset 'analytic_sr' --outfile 'your/path/geog287387/materials/data/planet/whittier_0108_31082019.csv' --overlap '100' --filters 'range:view_angle:-3:3' 'range:clear_percent:55:100' 'string:ground_control:True' 'string:quality_category:standard' 
+```
+```bash
+porder order --name 'Your_Order_Name' --idlist 'your/path/geog287387/materials/data/planet/whittier_0108_31082019.csv' --item "PSScene4Band" --asset "analytic_sr"
+```
+
+*Animation*
+---
+
+### [porder description](https://samapriyaroy.medium.com/order-up-using-and-building-with-planet-s-new-ordersv2-api-ba2fe14eac8e)
+
+---
+
+
+---
+### A look at our Planet results
+
+```{r, eval = FALSE, echo = FALSE}
+library(raster)
+p <- dir("materials/data/06", pattern = "tif", full.names = TRUE)
+rl <- lapply(p, function(x) {
+  b <- brick(x)
+  b / cellStats(b, max)
+})
+
+# plot
+png("materials/slides/figures/06/planet_clips.png", width = 500, height = 150)
+par(mfrow = c(1, 4), mar = c(0, 0, 1, 0), bg = "transparent")
+for(i in 1:length(rl)) {
+  b <- rl[[i]]
+  nm <- gsub("_aoi.tif", "", basename(p[i]))
+  plot(as(extent(b), "SpatialPolygons"), lty = 0, axes = FALSE)
+  plotRGB(b[[1:3]], axes = FALSE, scale = 1, add = TRUE)
+  mtext(nm, side = 3, line = 0, cex = 0.8, col = "white")
+}
+dev.off()
+```
+
+```{r, echo = FALSE, out.width="80%", fig.align='center'}
+knitr::include_graphics('figures/06/planet_clips.png')
+```
+
+---
+
+### GCVI => LAI
+
+GCVI = (NIR / GRN) – 1
+
+GCVI = 1.4 * LAI^1.03 + 0.93
+
+LAI = ((GCVI - 0.93) / 1.4)^(1 / 1.03)
+
+```{r, eval = FALSE}
+png("materials/slides/figures/06/planet_lai.png", width = 500, height = 150)
+par(mfrow = c(1, 4), mar = c(0, 0, 1, 0))
+for(i in 1:length(rl)) {
+  b <- rl[[i]]
+  gcvi <- b[[4]] / b[[1]] - 1
+  lai <- ((gcvi - 0.93) / 1.4)^(1 / 1.03)
+  nm <- gsub("_aoi.tif", "", basename(p[i]))
+  plot(as(extent(lai), "SpatialPolygons"), lty = 0, axes = FALSE)
+  plot(lai, axes = FALSE, add = TRUE, zlim = c(0, 5))#, 
+       #axis.args = list(col = "white", col.axis = "white"))
+  mtext(nm, side = 3, line = 0, cex = 0.8)#, col = "white")
+}
+dev.off()
+```
+
+---
+
+```{r, echo = FALSE, out.width="80%", fig.align='center'}
+knitr::include_graphics('figures/06/planet_lai.png')
+```
+
+---
+## For next class
+
+- Assignment 2 (due Thurs 4/1)
+- Read [Gorelick et al 2017](https://doi.org/10.1016/j.rse.2017.06.031)
+- Sign up for Google Earth Engine account [here](https://code.earthengine.google.com/)

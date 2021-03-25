@@ -13,11 +13,11 @@ geojson_write(coordinates_poly,
 
 
 ##geojson from shapefile
-choma <- sf::read_sf("/Users/michaelcecil/Rprojects/geog287387_s/materials/data/Zambia/boundaries/choma/choma.shp")
-choma_geojson <- file_to_geojson("/Users/michaelcecil/Downloads/choma/choma.shp",
+whittier_geojson <- file_to_geojson("/Users/michaelcecil/Rprojects/geog287387_s/materials/data/whittier/whittier_aoi/whittier_shp.shp",
                                  method = 'local')
 
 
-##bounding box from shapefil
-choma_bbox <- sf::st_bbox(choma)
+##bounding box from shapefile
+whittier <- sf::read_sf("/Users/michaelcecil/Rprojects/geog287387_s/materials/data/whittier/whittier_aoi/whittier_shp.shp")
+whittier_bbox <- sf::st_bbox(whittier)
 
