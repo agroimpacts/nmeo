@@ -1,0 +1,321 @@
+---
+title: "Droning On"
+subtitle: "New Methods in Earth Observation"
+date: "Assignment 2"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "lucy", "middlebury-fonts", "themes/class3-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+---
+
+## Short Answer questions. One paragraph each. 
+
+### 1. SmallSats like Planet Doves represent a new model for satellite-based Earth Observation, using large constellations of less expensive small satellites. However, SmallSats have their own limitations, due to the large number of satellites used and because they are managed by private companies. Name two potential limitations to SmallSats and the methods to address these limitations.
+
+### 2. In the Jain et al. (2016) paper, the authors use SkySat and Landsat imagery to map sowing date and yield for smallholder wheat fields. Name one advantage of each sensor mentioned in the article (note: this just refers to advantages mentioned for this article, not general advantages/disadvantages of smallSats)
+
+---
+
+```
+## write short answer responses here
+
+
+
+```
+
+---
+
+## Deforestation monitoring
+### Today we will look at deforestation near the Inírida river in Colombia
+### [News article](https://news.mongabay.com/2019/09/as-the-amazon-burns-colombias-forests-decimated-for-cattle-and-coca/)
+
+---
+
+## Global Forest Watch
+### Remove the existing layers in the Legend (click the "x")
+### In the left menu, select Forest Change --> Deforestation Alerts (GLAD)
+### Set the time frame from Jan 1 2018 to the present
+### Select "Show Only High Confidence Alerts"
+### You should see quite a bit of recent deforestation near the river.
+
+---
+
+## Global Forest Watch
+### Remove the existing layers in the Legend (click the "x")
+### In the left menu, select Forest Change --> Deforestation Alerts (GLAD)
+### Set the time frame from Jan 1 2018 to the present
+### Select "Show Only High Confidence Alerts"
+### You should see quite a bit of recent deforestation near the river.
+
+---
+
+## Downloading NICFI basemaps
+### We will download NICFI basemaps using Jupyter notebook
+### Open Anaconda Navigator and Launch Jupyter Labs
+### Open "planet_basemap_download.ipynb" under materials --> code --> python
+
+
+---
+
+## Downloading NICFI basemaps
+### You will need to alter some of the variables in the 2nd block
+### For "PLANET_API_KEY", you need to log-in to your [Planet account](https://www.planet.com/account/#/profile) and click on the Account icon (top-right). Click the "eye" icon to show your API key, then copy and paste it into Jupyter Labs.
+### For "DIR", use your output directory. Use forward slashes "/" with no slash at the end
+
+---
+
+## Downloading NICFI basemaps
+### For "string_bbox", change this to represent the lon/lat of our point: -71.78366,2.27885 . You need to repeat this twice, so enter "-71.78366,2.27885,-71.78366,2.27885"
+### Finally for "mosaic_date", we will use two dates. "2021-02" (a monthly basemap from Feb 2021) and "2017-12_2018-05" (a biannual basemap from Dec 2017 to May 2018)
+### You will need to run the chunks of code in Jupyter Labs twice, once for each "mosaic_date".
+### This should result in two TIFFs being downloaded, for one quad location.
+
+---
+
+## Question
+### What is the quad ID for this location? It should be in the file name, before the year and month of the mosaic.
+
+```
+## write answer here
+
+
+```
+---
+
+## Processing in R
+### Now that the basemap quads are downloaded, we can perform analysis in R.
+### we'll refer to the basemap from Dec 2017 - May 2018 as "feb_2018_raster"
+### write code below to load the two raster quads
+
+```{r, eval = FALSE}
+library(raster)
+feb_2021_raster <- raster::stack("")
+feb_2018_raster <- raster::stack("")
+
+```
+
+---
+## Processing in R
+### Let's plot false-color composites of each raster.
+### Fill in the "bands_to_plot" below with the bands used in the false color composite. For example c(3,2,1) would plot band 3 as red, band 2 as green, and band 1 as blue. This is a true-color composite, but we want a false-color (NIR, red, green). The band order for the mosaics is Blue, Green, Red, NIR, Alpha.
+### We set the zlim to plot values from 0 to 5000, even though the reflectance values can go from 0 to 10000. This makes our image "brighter" and helps us to see contrast.
+
+---
+
+```{r, eval = FALSE}
+## fill in right side with NIR, red, and green band numbers
+bands_to_plot <- c( , , )
+
+plotRGB(feb_2021_raster[[bands_to_plot]],
+        zlim = c(0, 5000),
+        stretch = "lin")
+
+
+```
+
+---
+
+### Now let's also plot a false color composite of the Feb 2018 image.
+### fill in code below
+
+```{r, eval = FALSE}
+
+
+
+```
+
+---
+
+### Next let's calculate the NDVI images. Recall that NDVI = (NIR - red)/(NIR + red)
+### To select a band from a raster stack, use this notation. If "a" is a raster stack, then a[[3]] selects the 3rd band from a, a[[4]] selects the 4th band etc.
+### fill in code below
+
+
+```{r, eval = FALSE}
+## calculate ndvi images
+feb_2021_ndvi <- 
+feb_2018_ndvi <- 
+
+
+```
+
+---
+
+## Let's plot the NDVI images
+### First plot the Feb 2021 NDVI image. We set zlim = c(0,1) to stretch between values of 0 and 1.
+
+---
+```{r, eval = FALSE}
+## plot ndvi
+
+raster::plot(feb_2021_ndvi,
+            zlim = c(0,1))
+
+
+```
+
+
+---
+
+### Next plot the Feb 2018 image.
+### Fill in code below
+
+---
+```{r, eval = FALSE}
+## plot ndvi
+
+raster::plot()
+
+
+```
+
+
+---
+
+### Now let's find the difference of the two ndvi images
+### subtract the 2018 ndvi image from the 2021 image
+### fill in code below
+
+```{r, eval = FALSE}
+## ndvi diff
+
+diff_ndvi <- 
+
+
+```
+
+
+---
+
+### plot the ndvi difference
+### Set the zlim parameter to stretch between -0.2 and 0.2 
+### Because we are just plotting one band, we want to use the "raster::plot" function and not the "raster::plotRGB" function.
+### Using the default palette, ndvi decrease will appear white and ndvi increase will appear green.
+### fill in code below
+---
+
+```{r, eval = FALSE}
+## plot ndvi difference
+
+raster::plot ()
+
+
+```
+---
+
+### You can write the raster to a .tif file and then open it in QGIS
+### QGIS is better suited for zooming in and adjusting the color palette
+
+```{r, eval = FALSE}
+## plot the ndvi difference
+
+writeRaster(diff_ndvi, file = "diff_ndvi.tif")
+
+```
+
+
+---
+
+## Question
+### 2. Do there appear to be more high gains (0.2 NDVI units or greater) or high losses (-0.2 NDVI units or less) in the "ndvi_diff" image?
+### Where do gains/losses appear to be located?
+### Are there areas of NDVI gain/loss that are not forest gain/loss?
+
+---
+
+```
+## write answer here
+
+
+```
+
+---
+
+## We'd like to calculate the area of potential deforestation, where ndvi has changed by -0.2 or lower. 
+## However, we don't want to include the river/lake, so want to mask out water areas.
+
+---
+## let's first create a map of potential forest loss
+## the code below creates a boolean map with 1 where diff_ndvi is below -0.2, meaning that ndvi decreased by more than 0.2 units.
+
+
+```{r, eval = FALSE}
+potential_deforestation <- (diff_ndvi < -0.2)
+raster::plot(potential_deforestation)
+```
+
+---
+
+## we'd like to mask out areas that look like water (the river and the lake in the northeast). One way to mask water is to look for low ndvi locations.
+## in the code below, find all locations where the feb_2021_ndvi image is less than 0.2
+## fill in code below
+
+
+---
+```{r, eval = FALSE}
+## fill in code below for the water mask. this is similar to the above code
+water_mask <- ()
+raster::plot(water_mask)
+```
+
+---
+
+## next, mask the "potential_deforestation" image, using the "water_mask" image as a mask
+## the "maskvalue" parameter tells R what values to mask in the "water_mask" file
+---
+
+```{r, eval = FALSE}
+masked_deforestation <- raster::mask(potential_deforestation,
+                                     mask = water_mask,
+                                     maskvalue = 1)
+plot(masked_deforestation)
+```
+
+---
+
+
+## finally let's calculate the area of potential deforestation in this quad
+## we need both the spatial resolution and the number of cells that we have labeled as potential deforestation.
+## the below code calculates this 
+
+```{r, eval = FALSE}
+spatial_resolution <- res(masked_deforestation)
+number_cells <- sum(masked_deforestation[] == 1, na.rm =  T)
+
+```
+
+---
+
+##Questions
+
+### 3. Using the information above, calculate the area (in square meters) of potential deforestation. There are different methods to do this, please explain your reasoning.
+
+### 4. What percent of the total quad area is potential deforestation? Again, please explain your reasoning.
+
+---
+
+```
+## write answer here
+
+
+```
+
+---
+
+Submission instructions
+
+For your final submission,  run the "knitr::opts_chunk$set(echo = TRUE)" chunk at the top of this notebook. Then knit your .Rmd into a .html file. 
+
+Check that your plots/answers are appearing in the .html file. Then submit both the .Rmd and .html files on Slack.
+
+Questions? Errors? Post them on Slack!
