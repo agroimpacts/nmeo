@@ -240,7 +240,9 @@ for(i in 1:length(rl_filtered)) {
 ```
 
 ---
-## filter to unique dates
+## Additional steps
+### filter to unique dates (only one image per date)
+### download images for 2018, 2019
 
 
 
