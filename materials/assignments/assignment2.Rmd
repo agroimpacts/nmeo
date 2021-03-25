@@ -97,7 +97,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ### we'll refer to the basemap from Dec 2017 - May 2018 as "feb_2018_raster"
 ### write code below to load the two raster quads
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 library(raster)
 feb_2021_raster <- raster::stack("")
 feb_2018_raster <- raster::stack("")
@@ -112,7 +112,7 @@ feb_2018_raster <- raster::stack("")
 
 ---
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 ## fill in right side with NIR, red, and green band numbers
 bands_to_plot <- c( , , )
 
@@ -128,7 +128,7 @@ plotRGB(feb_2021_raster[[bands_to_plot]],
 ### Now let's also plot a false color composite of the Feb 2018 image.
 ### fill in code below
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 
 
 
@@ -141,7 +141,7 @@ plotRGB(feb_2021_raster[[bands_to_plot]],
 ### fill in code below
 
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 ## calculate ndvi images
 feb_2021_ndvi <- 
 feb_2018_ndvi <- 
@@ -155,7 +155,7 @@ feb_2018_ndvi <-
 ### First plot the Feb 2021 NDVI image. We set zlim = c(0,1) to stretch between values of 0 and 1.
 
 ---
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 ## plot ndvi
 
 raster::plot(feb_2021_ndvi,
@@ -171,7 +171,7 @@ raster::plot(feb_2021_ndvi,
 ### Fill in code below
 
 ---
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 ## plot ndvi
 
 raster::plot()
@@ -186,7 +186,7 @@ raster::plot()
 ### subtract the 2018 ndvi image from the 2021 image
 ### fill in code below
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 ## ndvi diff
 
 diff_ndvi <- 
@@ -204,7 +204,7 @@ diff_ndvi <-
 ### fill in code below
 ---
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 ## plot ndvi difference
 
 raster::plot ()
@@ -216,7 +216,7 @@ raster::plot ()
 ### You can write the raster to a .tif file and then open it in QGIS
 ### QGIS is better suited for zooming in and adjusting the color palette
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 ## plot the ndvi difference
 
 writeRaster(diff_ndvi, file = "diff_ndvi.tif")
@@ -249,7 +249,7 @@ writeRaster(diff_ndvi, file = "diff_ndvi.tif")
 ## the code below creates a boolean map with 1 where diff_ndvi is below -0.2, meaning that ndvi decreased by more than 0.2 units.
 
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 potential_deforestation <- (diff_ndvi < -0.2)
 raster::plot(potential_deforestation)
 ```
@@ -262,7 +262,7 @@ raster::plot(potential_deforestation)
 
 
 ---
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 ## fill in code below for the water mask. this is similar to the above code
 water_mask <- ()
 raster::plot(water_mask)
@@ -274,7 +274,7 @@ raster::plot(water_mask)
 ## the "maskvalue" parameter tells R what values to mask in the "water_mask" file
 ---
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 masked_deforestation <- raster::mask(potential_deforestation,
                                      mask = water_mask,
                                      maskvalue = 1)
@@ -288,7 +288,7 @@ plot(masked_deforestation)
 ## we need both the spatial resolution and the number of cells that we have labeled as potential deforestation.
 ## the below code calculates this 
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 spatial_resolution <- res(masked_deforestation)
 number_cells <- sum(masked_deforestation[] == 1, na.rm =  T)
 
