@@ -138,7 +138,8 @@ porder multiproc --url "https://api.planet.com/compute/ops/orders/v2/3fe22a5c-fe
 
 ```{r, eval = FALSE, echo = FALSE}
 library(raster)
-p <- dir("/Users/michaelcecil/Rprojects/geog287387_s/materials/data/whittier/porder_download/", pattern = "SR_clip.tif", full.names = TRUE)
+p <- dir("/Users/michaelcecil/Rprojects/geog287387_s/materials/data/whittier/porder_download", pattern = "SR_clip.tif", full.names = TRUE)
+
 rl <- lapply(p, function(x) {
   b <- raster::brick(x)
   b / cellStats(b, max)
@@ -149,7 +150,7 @@ for(i in 1:length(rl)) {
   b <- rl[[i]]
   nm <- gsub("_aoi.tif", "", basename(p[i]))
   plot(as(extent(b), "SpatialPolygons"), lty = 0, axes = FALSE)
-  plotRGB(b[[c(3,2,1)]], axes = FALSE, scale = 1, add = TRUE)
+  plotRGB(b[[c(4,3,2)]], axes = FALSE, scale = 1, add = TRUE)
   mtext(nm, side = 3, line = 0, cex = 0.8, col = "white")
 }
 ```
@@ -161,6 +162,7 @@ for(i in 1:length(rl)) {
 ```{r, eval = FALSE, echo = FALSE}
 
 p_udm2 <- dir("/Users/michaelcecil/Rprojects/geog287387_s/materials/data/whittier/porder_download/", pattern = "udm2", full.names = TRUE)
+
 rl_udm2 <- lapply(p_udm2, function(x) {
   b <- raster::brick(x)
 })
@@ -186,8 +188,8 @@ for(i in 1:length(rl_udm2)) {
 ```{r, eval = FALSE, echo = FALSE}
 ##pct clear
 pct_clear <- sapply(1:length(rl_udm2), function(x){
-  b <- rl_udm2[[x]]
-  clear_raster <- b[[1]]
+  b <- rl_udm2[[x]]  ## get the UDM2 raster brick in spot x, x going from 1 to 84
+  clear_raster <- b[[1]] ### get first band, clearness
   pct_clear <- cellStats(clear_raster, stat = 'mean')
 })
 
