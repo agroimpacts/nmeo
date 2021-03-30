@@ -43,7 +43,7 @@ class: center, middle
 &nbsp;&nbsp; - What are their limitations?
 
 ### Know how to:
-&nbsp;&nbsp; - Access Google Earth Engine and Radiant Earth
+&nbsp;&nbsp; - Access Google Earth Engine 
 
 &nbsp;&nbsp; - Perform some basic large-scale processing on each
 
@@ -118,7 +118,8 @@ knitr::include_graphics('figures/06/geospark.png')
 [COG Maps](https://cholmes.github.io/cog-map/)
 
 ---
-## Bringing These All Together
+## Bringing These All Together - GEE
+### [Video](https://sites.google.com/site/globalsnowobservatory/home/Presentations-and-Tutorials/GEE-Introduction/introductiontotheapi)
 
 .center[![](figures/06/ee_architecture.png)]
 .center[Gorelick et al, 2017]
@@ -135,7 +136,11 @@ knitr::include_graphics('figures/06/geospark.png')
 
 [Global Surface Water](https://global-surface-water.appspot.com)
 
-[Global Forest Watch](https://www.globalforestwatch.org/map/3/16.52/0.98/ALL/grayscale/loss/607,556,580,592?tab=analysis-tab&begin=2001-01-01&end=2016-01-01&threshold=30&dont_analyze=true)
+[Global Forest Watch](https://www.globalforestwatch.org/)
+
+[SCYM](http://www.g-feed.com/2015/05/introducing-scym.html)
+
+[Irrigation mapping](https://www.sciencedirect.com/science/article/abs/pii/S0034425719304195)
 
 ---
 
@@ -165,6 +170,12 @@ knitr::include_graphics('figures/06/geospark.png')
 
 ### [Introduction](https://developers.google.com/earth-engine/)
 ### [Code Editor](https://developers.google.com/earth-engine/playground)
+
+
+---
+## EE Reference Docs (bookmark these!)
+### [Guides](https://developers.google.com/earth-engine/guides)
+### [API Reference](https://developers.google.com/earth-engine/api_docs)
 ### [Datasets](https://developers.google.com/earth-engine/datasets/catalog/)
 ### [Tutorials](https://developers.google.com/earth-engine/tutorials)
 
@@ -197,9 +208,9 @@ Map.setCenter(-71.8067, 42.1214, 14); // Where is this?
 
 ---
 
-Let's add some color
+Let's rescale the legend
 ```{js, eval = FALSE}
-Map.addLayer(srtm, {min: 0, max: 3000, palette: ['blue', 'green', 'red']},
+Map.addLayer(srtm, {min: 150, max: 250},
              'custom palette');
 ```
 
@@ -366,33 +377,59 @@ var chart = ui.Chart.image.series({
 print(chart);
 
 ```
+---
+## How can we rerun previous code with Sentinel-2 imagery?
+
 
 ---
+## User-Interface
+### Left - Scripts, Assets, Documentation
+### Center - Code editor, import records
+### Right - Inspector, Console (for printing), Tasks (for exporting)
+### Bottom - map display
 
-## Other work
 
-&nbsp;&nbsp; - Loading a Planet Collection
 
-&nbsp;&nbsp; - Harmonic models
-
-&nbsp;&nbsp; - Smooth curves
-
-&nbsp;&nbsp; - Center pivot detection
 
 ---
+## Getting Info from GEE
+- Use print() command!
+- Inspector tool (right-hand side) - allows you to view layer values
 
-## Homework 
 
-&nbsp;&nbsp; - Do the background readings for this unit
+---
+## Key concepts
+- Client vs Server Side
+- Images, Image Collections
+- Filtering
+- Displaying Layers
 
-&nbsp;&nbsp; - Run & study code for harmonic models, smooth curves, & center pivot detection
 
-&nbsp;&nbsp; - Load in the 2018 Whittier PlanetScope collection and clip to our extent
+---
+## General Workflow
+- Import image collection
+- Filter
+- Analysis
+- Display Results
+- Export Image/Charts/Tables (if needed)
 
-&nbsp;&nbsp; - Create a time series for the clipped PlanetScope collection
+---
+## Schedule
+### Mar 30 - Intro to GEE
+### Apr 01 - Time-series analysis
+### Apr 06 - Classification methods
+### Apr 08 - Using GEE API in Python, R
 
-&nbsp;&nbsp; - Fit a smooth curves to the PlanetScope NDVI time series for 2018
 
+
+
+
+---
+## For next class
+
+- Assignment 2 (due Thurs 4/1)
+- Read [GEE Overview](https://developers.google.com/earth-engine/guides/concepts_overview). Please read each linked article. 
+- Watch first 3 videos in [Playlist](https://www.youtube.com/playlist?list=PLivRXhCUgrZpCR3iSByLYdd_VwFv-3mfs). (Intro, Client vs. Server side, Filtering)
 
 
 

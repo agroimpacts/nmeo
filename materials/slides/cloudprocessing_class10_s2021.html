@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Cloud-based Processing</title>
+    <meta charset="utf-8" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/lucy.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/middlebury-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="themes/class6-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Cloud-based Processing
+## New Methods in Earth Observation
+### Class 10
+
+---
+
+class: center, middle
+# Small Sats Review
+
+
+---
+
+# Take-aways from Small-Sats Module
+
+&amp;nbsp;&amp;nbsp; - Understand what has enabled Small Sats
+
+&amp;nbsp;&amp;nbsp; - Understand their value
+
+&amp;nbsp;&amp;nbsp; - Understand their limitations
+
+&amp;nbsp;&amp;nbsp; - Know how to access Planet data
+
+&amp;nbsp;&amp;nbsp; - Run some basic searching &amp; filtering
+
+&amp;nbsp;&amp;nbsp; - Can do these things both programmatically and through Explorer
+
+---
+# Cloud-based Processing
+
+## Objectives
+### Understand: 
+&amp;nbsp;&amp;nbsp; - What has enabled them?
+
+&amp;nbsp;&amp;nbsp; - What is their value?
+
+&amp;nbsp;&amp;nbsp; - What are their limitations?
+
+### Know how to:
+&amp;nbsp;&amp;nbsp; - Access Google Earth Engine 
+
+&amp;nbsp;&amp;nbsp; - Perform some basic large-scale processing on each
+
+&amp;nbsp;&amp;nbsp; - Ingest and do some basic analyses of our datasets
+---
+
+## What Has Enabled Cloud-Based Processing?
+
+#### 1. Large-scale processing + Internet
+#### 2. Open image archives
+#### 3. Software Advances
+
+---
+### Large-scale processing + Internet
+
+![](https://datacenterfrontier.com/wp-content/uploads/2015/09/amazon-dc-hamilton.jpg)
+
+---
+### Large-scale processing + Internet
+![](https://www.turnkeylinux.org/files/images/blog/aws-datacenters.jpg)
+
+---
+### [Open Image Archives](https://registry.opendata.aws)
+
+
+&lt;img src="figures/06/remote_pixel.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+### Software Advances
+
+Libraries and algorithms that can process these images at scale, e.g.
+
+&amp;nbsp;&amp;nbsp; - Hadoop
+
+&amp;nbsp;&amp;nbsp; - GeoSpark
+
+&amp;nbsp;&amp;nbsp; - TerraLib
+
+---
+
+&lt;img src="figures/06/hadoop1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="https://kapost-files-prod.s3.amazonaws.com/uploads/direct/1461686104-174-6263/SystemIllustration.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+
+&lt;!-- ![](https://kapost-files-prod.s3.amazonaws.com/uploads/direct/1461686104-174-6263/SystemIllustration.jpg) --&gt;
+
+---
+
+&lt;img src="figures/06/geospark.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+&lt;!-- .center[![](figures/06/geospark.png)] --&gt;
+.center[[Yu et al, 2015](http://dl.acm.org/citation.cfm?doid=2820783.2820860)]
+
+---
+
+### Image hosting 
+
+&gt; A Cloud Optimized GeoTIFF (COG) is a regular GeoTIFF file, aimed at being hosted on a HTTP file server, with an internal organization that enables more efficient workflows on the cloud. It does this by leveraging the ability of clients issuing HTTP GET range requests to ask for just the parts of a file they need.
+
+[COG Maps](https://cholmes.github.io/cog-map/)
+
+---
+## Bringing These All Together - GEE
+### [Video](https://sites.google.com/site/globalsnowobservatory/home/Presentations-and-Tutorials/GEE-Introduction/introductiontotheapi)
+
+.center[![](figures/06/ee_architecture.png)]
+.center[Gorelick et al, 2017]
+
+---
+## Value and Capabilities
+
+&amp;nbsp;&amp;nbsp; - Opened new scales to analysis
+
+&amp;nbsp;&amp;nbsp; - Much Greater Accessibility
+
+---
+### New Scales
+
+[Global Surface Water](https://global-surface-water.appspot.com)
+
+[Global Forest Watch](https://www.globalforestwatch.org/)
+
+[SCYM](http://www.g-feed.com/2015/05/introducing-scym.html)
+
+[Irrigation mapping](https://www.sciencedirect.com/science/article/abs/pii/S0034425719304195)
+
+---
+
+### Greater Accessibility
+
+[Remap](https://remap-app.org)
+
+&lt;!-- ![](https://youtu.be/nDiqkHR7n-g) --&gt;
+
+---
+
+## Limitations
+
+&amp;nbsp;&amp;nbsp; - Less control?
+
+&amp;nbsp;&amp;nbsp; - More opacity?
+
+---
+## Practicals
+
+&amp;nbsp;&amp;nbsp; - Google Earth Engine
+
+&amp;nbsp;&amp;nbsp; - Astraea Earth AI notebooks
+
+---
+## Earth Engine
+
+### [Introduction](https://developers.google.com/earth-engine/)
+### [Code Editor](https://developers.google.com/earth-engine/playground)
+
+
+---
+## EE Reference Docs (bookmark these!)
+### [Guides](https://developers.google.com/earth-engine/guides)
+### [API Reference](https://developers.google.com/earth-engine/api_docs)
+### [Datasets](https://developers.google.com/earth-engine/datasets/catalog/)
+### [Tutorials](https://developers.google.com/earth-engine/tutorials)
+
+---
+## Some Basics
+
+### Load and Display an Image
+
+Adapted from the Earth Engine [introductory tutorial](https://developers.google.com/earth-engine/tutorial_api_02).
+
+```js
+// Instantiate an image with the Image constructor.
+var srtm = ee.Image('CGIAR/SRTM90_V4');
+
+// Zoom to a location.
+Map.setCenter(-112.8598, 36.2841, 9); // Center on the Grand Canyon.
+
+// Display the image on the map.
+Map.addLayer(srtm);
+```
+
+Let's point somewhere else (substitute this into script)
+
+```js
+Map.setCenter(28, -13, 6); // Where is this?
+```
+
+How about here? 
+
+```js
+Map.setCenter(-71.8067, 42.1214, 14); // Where is this?
+```
+
+---
+
+Let's rescale the legend
+
+```js
+Map.addLayer(srtm, {min: 150, max: 250},
+             'custom palette');
+```
+
+---
+### Derived Layers
+#### Slope and Aspect
+
+Calculate and then have a look 
+
+```js
+// Slope
+var slope = ee.Terrain.slope(srtm);
+
+// Aspect
+var aspect = ee.Terrain.aspect(srtm);
+
+// Convert to radians, compute the sin of the aspect.
+var sinImage = aspect.divide(180).multiply(Math.PI).sin();
+
+// Add these to your displays
+Map.addLayer(slope, {min: 0, max :60}, 'slope');
+Map.addLayer(aspect, {min: 0, max: 360, palette: ['blue', 'green', 'red']}, 
+             'aspect');
+Map.addLayer(sinImage, {min: -1, max: 1, palette: ['blue', 'green', 'red']}, 
+             'sin');
+```
+
+---
+### Image Statistics
+#### First, define an area of interest
+&amp;nbsp;&amp;nbsp;1. Use the polygon tool to draw a polygon, which you rename to "myaoi"
+
+&amp;nbsp;&amp;nbsp;2. Turn an extent into a geometry feature
+
+```js
+// Clip boundaries (generous margin around Zambia)
+var zam = ee.Feature(ee.Geometry.Rectangle(21, -19, 34.5, -7.5));
+```
+
+&amp;nbsp;&amp;nbsp;3. Use an existing feature collection
+
+```js
+// Load a region representing Zambia
+var zam = ee.Feature(
+  ee.FeatureCollection('ft:1tdSwUL7MVpOauSgRzqVTOwdfy17KDbw-1d9omPw')
+  .filterMetadata('Country', 'equals', 'Zambia')
+  .first());
+```
+
+Or:
+
+```js
+var zam = ee.Feature(
+  ee.FeatureCollection("USDOS/LSIB/2013")
+  .filterMetadata('cc', 'equals', 'ZA')
+  .first());
+```
+
+---
+
+#### Calculate summary statistics within the AOI
+
+```js
+// Mean elevation
+var meanDict = srtm.reduceRegion({
+  reducer: ee.Reducer.mean(),
+  geometry: zam.geometry(),
+  scale: 90,
+  maxPixels: 1e8
+  //bestEffort: true
+});
+
+// Get the mean from the dictionary and print it.
+var mean = meanDict.get('elevation');
+print('Mean elevation', mean);
+```
+
+---
+## Image Collections
+
+Landsat 8
+
+```js
+var l8 = ee.ImageCollection('LANDSAT/LC08/C01/T1_TOA');
+
+var spatialFiltered = l8.filterBounds(myaoi);
+print('spatialFiltered', spatialFiltered);
+
+var temporalFiltered = spatialFiltered.filterDate('2018-05-01', '2018-09-15');
+print('temporalFiltered', temporalFiltered);
+```
+
+Find least cloudy
+
+```js
+// Sort from least to most cloudy.
+var sorted = temporalFiltered.sort('CLOUD_COVER');
+
+// Get least cloudy image
+var scene = ee.Image(sorted.first());
+```
+
+Display. Run this then try make a false color. 
+
+```js
+var visParams = {bands: ['B4', 'B3', 'B2'], max: 0.3};
+//var visParams = {bands: ['B5', 'B4', 'B3'], max: 0.3};
+Map.addLayer(scene, visParams, 'true-color composite');
+```
+
+---
+Show a collection
+
+```js
+var visParams = {bands: ['B4', 'B3', 'B2'], max: 0.3};
+Map.addLayer(temporalFiltered, visParams, 'Whittier L8 collection');
+```
+
+### Compositing
+
+
+```js
+var median = temporalFiltered.median();
+Map.addLayer(median, visParams, 'Whittier L8 collection');
+```
+
+### Cropping
+
+```js
+var whittier_median = median.clip(myaoi);
+```
+
+### Masking
+
+```js
+var elevmask = srtm.gt(100);
+var maskedMedian = median.updateMask(elevmask);
+```
+
+---
+## Calculating NDVI over a collection
+
+```js
+var addNDVI = function(image) {
+  var ndvi = image.normalizedDifference(['B5', 'B4']).rename('NDVI');
+  return image.addBands(ndvi);
+};
+
+// Apply function to single image
+var ndvi = addNDVI(scene).select('NDVI');
+
+// Map onto a collection
+var withNDVI = temporalFiltered.map(addNDVI);
+```
+---
+
+## Clip and calculate NDVI over a collection
+
+```r
+var zamNDVI = temporalFiltered.map(function(image) {
+    var img = image.clip(myaoi);
+    var ndvi = img.normalizedDifference(['B5', 'B4']).rename('NDVI');
+    return img.addBands(ndvi);
+});
+```
+
+## Charts
+
+```js
+// Create chart
+var chart = ui.Chart.image.series({
+  imageCollection: withNDVI.select('NDVI'),
+  region: myaoi,
+  reducer: ee.Reducer.first(),
+  scale: 30
+}).setOptions({title: 'NDVI over time'});
+
+// Display the chart in the console.
+print(chart);
+
+```
+---
+## How can we rerun previous code with Sentinel-2 imagery?
+
+
+---
+## User-Interface
+### Left - Scripts, Assets, Documentation
+### Center - Code editor, import records
+### Right - Inspector, Console (for printing), Tasks (for exporting)
+### Bottom - map display
+
+
+
+
+---
+## Getting Info from GEE
+- Use print() command!
+- Inspector tool (right-hand side) - allows you to view layer values
+
+
+---
+## Key concepts
+- Client vs Server Side
+- Images, Image Collections
+- Filtering
+- Displaying Layers
+
+
+---
+## General Workflow
+- Import image collection
+- Filter
+- Analysis
+- Display Results
+- Export Image/Charts/Tables (if needed)
+
+---
+## Schedule
+### Mar 30 - Intro to GEE
+### Apr 01 - Time-series analysis
+### Apr 06 - Classification methods
+### Apr 08 - Using GEE API in Python, R
+
+
+
+
+
+---
+## For next class
+
+- Assignment 2 (due Thurs 4/1)
+- Read [GEE Overview](https://developers.google.com/earth-engine/guides/concepts_overview). Please read each linked article. 
+- Watch first 3 videos in [Playlist](https://www.youtube.com/playlist?list=PLivRXhCUgrZpCR3iSByLYdd_VwFv-3mfs). (Intro, Client vs. Server side, Filtering)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
