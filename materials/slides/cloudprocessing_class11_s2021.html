@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Cloud-based Processing</title>
+    <meta charset="utf-8" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/lucy.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/middlebury-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="themes/class6-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Cloud-based Processing
+## New Methods in Earth Observation
+### Class 11
+
+---
+
+## Schedule
+### Mar 30 - Intro to GEE
+### Apr 01 - Time-series analysis &lt;---
+### Apr 06 - Classification methods
+### Apr 08 - Using GEE API in Python, R
+
+---
+
+# Cloud-based Processing
+
+## Objectives
+### Understand: 
+&amp;nbsp;&amp;nbsp; - What has enabled them?
+
+&amp;nbsp;&amp;nbsp; - What is their value?
+
+&amp;nbsp;&amp;nbsp; - What are their limitations?
+
+### Know how to:
+&amp;nbsp;&amp;nbsp; - Access Google Earth Engine 
+
+&amp;nbsp;&amp;nbsp; - Perform some basic large-scale processing on each
+
+&amp;nbsp;&amp;nbsp; - Ingest and do some basic analyses of our datasets
+---
+
+## What Has Enabled Cloud-Based Processing?
+
+#### 1. Large-scale processing + Internet
+#### 2. Open image archives
+#### 3. Software Advances
+
+---
+
+### Image hosting 
+
+&gt; A Cloud Optimized GeoTIFF (COG) is a regular GeoTIFF file, aimed at being hosted on a HTTP file server, with an internal organization that enables more efficient workflows on the cloud. It does this by leveraging the ability of clients issuing HTTP GET range requests to ask for just the parts of a file they need.
+
+[COG Maps](https://cholmes.github.io/cog-map/)
+
+---
+## Bringing These All Together - GEE
+### [Video](https://sites.google.com/site/globalsnowobservatory/home/Presentations-and-Tutorials/GEE-Introduction/introductiontotheapi)
+
+.center[![](figures/06/ee_architecture.png)]
+.center[Gorelick et al, 2017]
+
+---
+### New Scales
+
+[Global Surface Water](https://global-surface-water.appspot.com)
+
+[Global Forest Watch](https://www.globalforestwatch.org/)
+
+[SCYM](http://www.g-feed.com/2015/05/introducing-scym.html)
+
+[Irrigation mapping](https://www.sciencedirect.com/science/article/abs/pii/S0034425719304195)
+
+---
+### Gains in Computation Time
+
+From [Global Surface Water paper](https://www.nature.com/articles/nature20584.epdf?author_access_token=C5JSvooRop4jWxyp_qRPLNRgN0jAjWel9jnR3ZoTv0MqBuzCNsmw_DFxRd7sX93nfPzcbm_xTiPLlZMl7XrUhadm6EiT9cGdDNgn1s6EWrPWH3IeadLUjApplBoaS6xH)
+
+.center[![](figures/06/Computation_time.png)]
+
+
+
+
+---
+## Earth Engine
+
+### [Introduction](https://developers.google.com/earth-engine/)
+### [Code Editor](https://developers.google.com/earth-engine/playground)
+
+
+---
+## EE Reference Docs (bookmark these!)
+### [Guides](https://developers.google.com/earth-engine/guides)
+### [API Reference](https://developers.google.com/earth-engine/api_docs)
+### [Datasets](https://developers.google.com/earth-engine/datasets/catalog/)
+### [Tutorials](https://developers.google.com/earth-engine/tutorials)
+---
+## [Awesome-GEE](https://github.com/giswqs/Awesome-GEE)
+### Lots of great resources
+
+---
+## Today's Concepts
+- Image Collections
+- Mapping functions
+- Masking
+- Math Expressions
+
+---
+## Question - how to convert elevation to feet?
+
+
+```js
+Map.setCenter(-71.8067, 42.1214, 15); // Where is this?
+Map.setOptions("HYBRID")
+var srtm = ee.Image('CGIAR/SRTM90_V4');
+var visParams = {bands: ['elevation'], min: 100, max: 300};
+Map.addLayer(srtm, visParams, 'elevation - meters');
+
+// convert to feet. One meter = 3.28 ft
+//var srtm_feet = 
+```
+
+---
+## Adjusting Layer color ramp 
+.center[![](figures/06/adjust_color_ramp_gee.png)]
+
+
+
+---
+## Demo - Find Max NDVI, Leaf-Area Index (LAI)
+### These can help determine crop health, yield
+
+---
+## L8 bands --&gt; Vegetaton Index
+.center[![](figures/06/Bands_to_VI.png)]
+
+
+
+
+---
+## Vegetation Index --&gt; LAI
+### From [Nguy-Robertson et al 2012](https://doi.org/10.2134/agronj2012.0065)
+.center[![](figures/06/VI_to_LAI.png)]
+
+
+
+---
+
+## Drawing Polygons
+
+```js
+Map.setCenter(-71.8067, 42.1214, 15); // Where is this?
+// Turn on Satellite imagery in the map pane.
+// Use the Polygon tool in the map pane to create a polygon boundary around 
+// the Whittier Farms fields.
+// You should see "geometry" under Imports (top of code editor)Name the polygon "myaoi"
+// Rename "geometry" to "myaoi"
+```
+
+
+---
+## Image Collections
+
+Landsat 8
+
+```js
+var l8 = ee.ImageCollection('LANDSAT/LC08/C01/T1_TOA');
+
+var spatialFiltered = l8.filterBounds(myaoi);
+print('spatialFiltered', spatialFiltered);
+
+var temporalFiltered = spatialFiltered.filterDate('2018-05-01', '2018-09-15').sort('system:time_start');
+print('temporalFiltered', temporalFiltered);
+```
+
+Find least cloudy
+
+```js
+// Sort from least to most cloudy.
+var sorted = temporalFiltered.sort('CLOUD_COVER');
+
+// Get least cloudy image
+var scene = ee.Image(sorted.first());
+print(scene)
+```
+
+Display. Run this then try make a false color. 
+
+```js
+var visParams = {bands: ['B4', 'B3', 'B2'], max: 0.3};
+//var visParams = {bands: ['B5', 'B4', 'B3'], max: 0.3};
+Map.addLayer(scene, visParams, 'true-color composite');
+```
+
+---
+Show a collection
+
+```js
+var visParams = {bands: ['B4', 'B3', 'B2'], max: 0.3};
+Map.addLayer(temporalFiltered, visParams, 'Whittier L8 collection');
+```
+
+### Compositing
+Median surface reflectance
+
+```js
+var median = temporalFiltered.median();
+Map.addLayer(median, visParams, 'Whittier L8 median');
+// is this a median over space or time?
+// what is we wanted to see the pixel-wise max?
+```
+
+Max surface reflectance
+
+```js
+//add code here
+
+```
+
+---
+
+### Cropping
+
+```js
+var whittier_median = median.clip(myaoi);
+```
+
+### Masking
+
+```js
+var srtm = ee.Image('CGIAR/SRTM90_V4');
+var elevmask = srtm.gt(200);
+var maskedMedian = median.updateMask(elevmask);
+```
+
+### Viewing a mask
+
+```js
+var whittier_mask = maskedMedian.mask()
+Map.addLayer(whittier_mask, visParams, 'mask');
+print(whittier_mask)
+```
+
+
+
+---
+## Calculating NDVI over a collection
+
+```js
+var addNDVI = function(image) {
+  var ndvi = image.normalizedDifference(['B5', 'B4']).rename('NDVI');
+  return image.addBands(ndvi);
+};
+
+// Apply function to single image
+var ndvi = addNDVI(scene).select('NDVI');
+print(ndvi)
+
+// Map onto a collection
+var withNDVI = temporalFiltered.map(addNDVI);
+print(withNDVI)
+```
+---
+
+## Clip and calculate NDVI over a collection
+
+```r
+var whittier_NDVI = temporalFiltered.map(function(image) {
+    var img = image.clip(myaoi);
+    var ndvi = img.normalizedDifference(['B5', 'B4']).rename('NDVI');
+    return img.addBands(ndvi);
+});
+```
+
+## Charts
+
+```js
+// Create chart
+var chart = ui.Chart.image.series({
+  imageCollection: withNDVI.select('NDVI'),
+  region: myaoi,
+  reducer: ee.Reducer.first(),
+  scale: 30
+}).setOptions({title: 'NDVI over time, no mask'});
+
+// Display the chart in the console.
+print(chart);
+```
+
+---
+## Viewing one image from collection
+
+```js
+// What is happening on June 24?
+// code below displays an image
+var displayImage = function(imageCollection, imageIndex, visParams, layerName){
+  var imageCollection_list = imageCollection.toList(imageCollection.size());
+  var scene = ee.Image(imageCollection_list.get(imageIndex));
+  Map.addLayer(scene,visParams,layerName);
+  return(true);
+}
+
+displayImage(withNDVI, 5, visParams_true_color, "June 24" )
+
+```
+
+## Cloud masking 
+
+```js
+var maskL8 = function(image) {
+  var qa = image.select('BQA');
+  /// Check that the cloud bit is off.
+  // See https://www.usgs.gov/land-resources/nli/landsat/landsat-collection-1-level-1-quality-assessment-band
+  var mask = qa.bitwiseAnd(1 &lt;&lt; 4).eq(0);
+  return image.updateMask(mask);
+}
+
+var withNDVI_masked = withNDVI.map(maskL8)
+// add chart showing NDVI time-series for cloud masked
+```
+
+---
+## Converting to LAI
+https://developers.google.com/earth-engine/guides/image_math
+
+```js
+// compute LAI and add it as a separate band
+var addLAI_NDVI = function(image) {
+  var lai = image.expression(
+    '(log(-(ndvi - 0.943)/0.731))/(log(0.6))', {
+    'ndvi': image.select('NDVI')
+    }).rename('LAI_NDVI');
+  return(image.addBands(lai))
+};
+
+
+var withLAI = withNDVI_masked.map(addLAI_NDVI);
+
+// add chart showing LAI time-series 
+```
+
+---
+### Find Max NDVI/LAI
+
+```js
+var withLAI_max = withLAI.max();
+
+var visParams = {bands: ['LAI_NDVI'], max: 5};
+Map.addLayer(withLAI_max, visParams, 'Whittier L8 max - SR');
+
+// add code to display LAI max 
+
+```
+
+
+
+---
+## Group work
+- Calculate Simple Ratio for Collection
+- Chart Simple Ratio over season 
+- Calculate LAI from simple ratio
+- Chart LAI derived from Simple ratio
+
+---
+## Group work
+- Create NDVI/LAI maps from Sentinel -2
+
+
+
+---
+## For next class
+
+- Read [An Introduction to COGs](https://medium.com/planet-stories/cloud-native-geospatial-part-2-the-cloud-optimized-geotiff-6b3f15c696ed)
+- Work through [tutorial 1](https://developers.google.com/earth-engine/tutorials/tutorial_api_05)
+- Work through [tutorial 2](https://developers.google.com/earth-engine/tutorials/tutorial_api_06)
+- Work through [tutorial 3](https://developers.google.com/earth-engine/tutorials/community/extract-raster-values-for-points)
+- Watch videos in [Playlist](https://www.youtube.com/playlist?list=PLivRXhCUgrZpCR3iSByLYdd_VwFv-3mfs). (Calculating with Images, Mapping a function over an image, Iterate function)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
