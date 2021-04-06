@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Cloud-based Processing</title>
+    <meta charset="utf-8" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/lucy.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/middlebury-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="themes/class6-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Cloud-based Processing
+## New Methods in Earth Observation
+### Class 12
+
+---
+
+## Schedule
+### Mar 30 - Intro to GEE
+### Apr 01 - Time-series analysis 
+### Apr 06 - Reducers &lt;--
+### Apr 08 - Classification methods
+### Apr 13 - Using GEE API in Python, R
+
+---
+
+# Cloud-based Processing
+
+## Objectives
+### Understand: 
+&amp;nbsp;&amp;nbsp; - What has enabled them?
+
+&amp;nbsp;&amp;nbsp; - What is their value?
+
+&amp;nbsp;&amp;nbsp; - What are their limitations?
+
+### Know how to:
+&amp;nbsp;&amp;nbsp; - Access Google Earth Engine 
+
+&amp;nbsp;&amp;nbsp; - Perform some basic large-scale processing on each
+
+&amp;nbsp;&amp;nbsp; - Ingest and do some basic analyses of our datasets
+---
+## Last class
+- Viewing image, image collection
+- Mapping functions on an image collection
+- Calculating expressions
+- Masking
+
+---
+## Today's goal
+- Using Sentinel-2 imagery, calculate a GCVI time-series over Whittier farms. 
+- Use a function to smooth this time-series, and determine 
+ - (i) the max GCVI over the season 
+ - (ii) date of max GCVI
+
+
+
+
+
+
+---
+## Today's Concepts
+- Smoothing functions
+- Image statistics
+- Reducers (of image collection)
+- Reduce region (image statistics)
+
+---
+## Some links
+- [Smoothing]()
+- [Reducers](https://developers.google.com/earth-engine/guides/reducers_image_collection)
+- [Image ](https://developers.google.com/earth-engine/guides/reducers_reduce_region)
+
+---
+
+
+## Geometries
+- Can convert these to import records
+
+```js
+var myaoi = 
+    /* color: #d63000 */
+    /* shown: false */
+    ee.Geometry.Polygon(
+        [[[-71.80545545501708, 42.12069970532557],
+          [-71.80433965606689, 42.12089069554981],
+          [-71.80451131744384, 42.12286422749111],
+          [-71.8050263015747, 42.125474288227686],
+          [-71.80631376190185, 42.12534697068638],
+          [-71.80605626983642, 42.122927888788375],
+          [-71.80888868255614, 42.122545920045354],
+          [-71.80742956085204, 42.11968108107382]]])
+var point = /* color: #d63000 */ee.Geometry.Point([-71.80694676322936, 42.12009489915107]);
+
+```
+
+---
+
+## Setting map center
+
+```js
+Map.addLayer(myaoi)
+Map.setCenter(-71.8067, 42.1214, 15); // Where is this?
+```
+
+## Clipping, filtering
+
+```js
+var whittierClip = function(image){
+  return(image.clip(myaoi))
+}
+
+var sentinel2 = //fill in code
+
+var spatialFiltered = //fill in code
+print('spatialFiltered', spatialFiltered);
+
+var temporalFiltered = //fill in code
+print('temporalFiltered', temporalFiltered);
+
+```
+
+---
+## Cloud masking
+
+```js
+function maskS2clouds(image) {
+  var qa = image.select('QA60')
+  // Bits 10 and 11 are clouds and cirrus, respectively.
+  var cloudBitMask = 1 &lt;&lt; 10;
+  var cirrusBitMask = 1 &lt;&lt; 11;
+  // Both flags should be set to zero, indicating clear conditions.
+  var mask = qa.bitwiseAnd(cloudBitMask).eq(0).and(
+             qa.bitwiseAnd(cirrusBitMask).eq(0))
+  // Return the masked and scaled data, without the QA bands.
+  return image.updateMask(mask).divide(10000)
+      .select("B.*")
+      .copyProperties(image, ["system:time_start"])
+}
+
+var cloudMasked = //fill in code
+print('cloudMasked', cloudMasked);
+```
+
+---
+## Add GCVI
+
+```js
+// fill in math expression and bands below
+//GCVI = NIR/Green - 1
+
+var addGCVI = function(image){
+  var gcvi = image.expression(
+    '', {
+    'NIR': image.select(''),
+    'GREEN': image.select('')
+    }).rename('GCVI');
+  return(image.addBands(gcvi))    
+}
+var withGCVI = //fill in code
+print('GCVI', withGCVI)
+
+```
+
+---
+## Adding a "time" band (for smoothing)
+
+```js
+var addTimeBand = function(image) {
+  return image.addBands(image.metadata('system:time_start').divide(1e18).rename('time'));
+};
+
+var withTime = withGCVI.map(addTimeBand)
+
+```
+
+---
+## Smoothing functions
+### [Stack overflow](https://stackoverflow.com/questions/47134534/how-to-smooth-ndvi-curve-in-google-earth-engine/53626096)
+
+```js
+function smoother(t){
+  // helper function to apply linear regression equation
+  function applyFit(img){
+      return img.select('time').multiply(fit.select('scale')).add(fit.select('offset'))
+              .set('system:time_start',img.get('system:time_start')).rename('GCVI');
+  }
+  t = ee.Date(t);
+
+  var window = withTime.filterDate(t.advance(-windowSize,'day'),t.advance(windowSize,'day'));
+
+  var fit = window.select(['time','GCVI'])
+    .reduce(ee.Reducer.linearFit());
+
+  return window.map(applyFit).toList(5);
+}
+function reduceFits(t){
+  t = ee.Date(t);
+  return fitIC.filterDate(t.advance(-windowSize,'day'),t.advance(windowSize,'day'))
+              .mean().set('system:time_start',t.millis()).rename('GCVI');
+}
+```
+
+---
+## Apply smoothing functions
+
+```js
+var dates = ee.List(withTime.aggregate_array('system:time_start'));
+var windowSize = 10; //days on either side for smoothing
+
+var fitIC = ee.ImageCollection(dates.map(smoother).flatten());
+print ('fitic', fitIC)
+
+var smoothed = ee.ImageCollection(dates.map(reduceFits));
+
+// merge original and smoothed data into one image collection for plotting
+var joined = ee.ImageCollection(smoothed.select(['GCVI'],['smoothed'])
+                .merge(withTime.select(['GCVI'],['original'])));
+
+print('joined', joined)
+print('smoothed', smoothed)
+```
+
+---
+## Plot chart of time-series (smoothed and original)
+
+```js
+// plots chart of both smoothed and original time-series for GCVI
+var chart = ui.Chart.image.series({
+  imageCollection: joined,
+  region: point,
+  reducer: ee.Reducer.max(),
+  scale: 2
+}).setOptions({title: 'GCVI over time'});
+
+print(chart);
+
+```
+
+---
+## Add buffer for calculating mean GCVI
+
+```js
+var buffer = point.buffer(20);
+
+var chart_buffer = ui.Chart.image.series({
+  imageCollection: joined,
+  region: buffer,
+  reducer: ee.Reducer.max(),
+  scale: 2
+}).setOptions({title: 'GCVI over time'});
+
+print(chart_buffer)
+```
+
+---
+## Calculate max GCVI
+
+```js
+var maxGCVI = // add code here
+
+print('maxGCVI', maxGCVI)
+Map.addLayer(maxGCVI, {min: 0, max: 10}, 'maxGCVI')
+```
+
+## [Quality mosaic](https://developers.google.com/earth-engine/tutorials/tutorial_api_06?hl=en)
+
+```js
+//you can also use the qualityMosaic function to calculate max GCVI
+var maxGCVI_qm = smoothed.qualityMosaic('GCVI')
+print('maxGCVI_qm', maxGCVI_qm)
+Map.addLayer(maxGCVI_qm, {min: 0, max: 10}, 'maxGCVI quality mosaic')
+```
+
+
+---
+## Find the date when max GCVI occurs
+### [Stack overflow](https://stackoverflow.com/questions/54179195/date-of-max-and-min-value-extraction-from-time-series-using-google-earth-engine)
+
+```js
+// First add a band "day" that contains the day of year
+var addDay_S2 = function(image) {
+  image = ee.Image(image);
+  // return image.addBands(ee.Image.constant(ee.Number.parse(image.date().millis())).rename('day').float());
+  // return image.addBands(ee.Image.constant(ee.Number.parse(image.date().format("YYYYMMdd"))).rename('day').float());
+  return image.addBands(ee.Image.constant(ee.Number.parse(image.date().format("D"))).rename('day').float());
+};
+
+var smoothed_w_day = // add code to apply function to smoothed IC
+print('smoothed Day', smoothed_w_day)
+```
+
+---
+## Find the date when max GCVI occurs
+
+```js
+// code for calcuating day of max GCVI
+// the qualityMosaic function calculates the max value for each pixel
+var maxGCVI_day = smoothed_w_day.qualityMosaic('GCVI').select('day');
+print(maxGCVI_day, 'maxGCVI_day')
+Map.addLayer(maxGCVI_day, {min: 1, max: 365}, 'maxGCVI DOY')
+```
+
+
+---
+## Group work
+- Try different time windows for smooething
+- Try different points
+- Try different buffer radii to calculate mean GCVI (can you add the buffer as a geometry?)
+- Try different VI
+
+
+
+
+---
+## For next class
+
+- [Reducer Overview](https://developers.google.com/earth-engine/guides/reducers_intro)
+- [Reducers Image Collection](https://developers.google.com/earth-engine/guides/reducers_image_collection)
+- [Reducer Region](https://developers.google.com/earth-engine/guides/reducers_reduce_region)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
