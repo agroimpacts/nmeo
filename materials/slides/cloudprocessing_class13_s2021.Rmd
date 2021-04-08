@@ -1,0 +1,430 @@
+---
+title: "Cloud-based Processing"
+subtitle: "New Methods in Earth Observation"
+date: "Class 13"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "lucy", "middlebury-fonts", "themes/class6-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+## Schedule
+### Mar 30 - Intro to GEE
+### Apr 01 - Time-series analysis 
+### Apr 06 - Reducers 
+### Apr 08 - Classification and Import/Export <--
+### Apr 13 - Using GEE API in Python, R
+
+
+---
+## Last class
+- Using Sentinel-2 imagery, calculate a GCVI time-series over Whittier farms. 
+- Use a function to smooth this time-series, and determine 
+ - (i) the max GCVI over the season 
+ - (ii) date of max GCVI
+
+---
+## Today's goal
+
+---
+## Today's Concepts
+- Classification using RandomForest
+- Import/Export
+
+
+---
+## Classification
+### Lesson taken from [Colorado State Grad Program in Ecology](https://ecology.colostate.edu/google-earth-engine/)
+### [General steps](https://developers.google.com/earth-engine/guides/classification)
+### [video](https://www.youtube.com/watch?v=7u0xFyz7zt4)
+---
+
+## Importing data
+```{js, eval = FALSE}
+// Import and filter Landsat 8 surface reflectance data.
+var LS8_SR1 = ee.ImageCollection('LANDSAT/LC08/C01/T1_SR')
+  .filterDate('2015-08-01', '2015-11-01') //new date
+  .filter(ee.Filter.eq('WRS_PATH', 35))
+  .filter(ee.Filter.eq('WRS_ROW', 33))
+  .filterMetadata('CLOUD_COVER', 'less_than', 20);
+
+// Create true color visualization parameters 
+// to take an initial look at the study area.
+var visTrueColor = {bands: ["B4","B3","B2"], max:2742, min:0};
+Map.addLayer(LS8_SR1, visTrueColor, 'LS8_SR1', false);
+Map.centerObject(ee.Geometry.Point(-107.8583, 38.8893), 8);
+
+```
+
+---
+## Cloud masking
+```{js, eval = FALSE}
+// Define a cloud mask function specific to Landsat 8.
+var maskClouds = function(image){
+  var clear = image.select('pixel_qa').bitwiseAnd(2).neq(0);    
+  return image.updateMask(clear);   
+};
+
+// Apply the cloud mask function to the previously filtered image 
+// collection and calculate the median.
+var LS8_SR2 = LS8_SR1
+  .map(maskClouds)
+  .median();
+Map.addLayer(LS8_SR2, visTrueColor, 'LS8_SR2 - masked')
+```
+
+---
+## Index calcuations
+### TCB is [tasseled cap brightness](https://yceo.yale.edu/tasseled-cap-transform-landsat-8-oli)
+```{js, eval = FALSE}
+// First define individual bands as variables.
+var red = LS8_SR2.select('B4').rename("red")
+var green= LS8_SR2.select('B3').rename("green")
+var blue = LS8_SR2.select('B2').rename("blue")
+var nir = LS8_SR2.select('B5').rename("nir")
+var swir1 = LS8_SR2.select('B6').rename("swir1")
+var swir2 = LS8_SR2.select('B7').rename("swir2")
+
+// Then, calculate three different vegetation indices: NDVI, NDWI, and TCB.
+var ndvi = nir.subtract(red).divide(nir.add(red)).rename('ndvi');
+var ndwi = green.subtract(nir).divide(green.add(nir)).rename('ndwi');
+var TCB = LS8_SR2.expression(
+  "0.3029 * B2 + 0.2786 * B3 + 0.4733 * B4 + 0.5599 * B5 + 0.508 * B6 + 0.1872 * B7" , {
+  'B2': blue,
+  'B3': green,
+  'B4': red,
+  'B5': nir,
+  'B6': swir1,
+  'B7': swir1
+  }).rename("TCB");
+```
+
+---
+## Creating single predictor image
+```{js, eval = FALSE}
+// Combine the predictors into a single image.
+var predictors = nir
+.addBands(blue)
+.addBands(green)
+.addBands(red)
+.addBands(swir1)
+.addBands(swir2)
+.addBands(ndvi)
+.addBands(TCB)
+.addBands(ndwi)
+
+print('predictors: ', predictors);
+```
+
+---
+## Add training data (presence/absence of aspen forest)
+```{js, eval = FALSE}
+var PA = ee.FeatureCollection('users/GDPE-GEE/Module7_PresAbs');
+print('PA', PA)
+Map.addLayer(PA.style({color: 'red', pointSize: 3, width: 1, fillColor: 'white'}),{}, 'Merged_Presence_Absence');
+
+```
+
+## Filter to show presence/absence data separately
+```{js, eval = FALSE}
+var presenceOnly  = ee.FeatureCollection(PA.filter(ee.Filter.eq('presence', 1)))
+Map.addLayer(presenceOnly.style({color: 'blue', pointSize: 3, width: 1, fillColor: 'white'}),{}, 'Presence Only');
+
+// add code for absence observations, in grey
+
+```
+
+
+
+
+
+
+---
+## Extract band information and add to points
+```{js, eval = FALSE}
+
+var samples = predictors.sampleRegions({
+  collection: PA,
+  properties: ['presence'],
+  scale: 30 });
+  
+print('samples', samples)
+
+
+
+```
+
+---
+## [Separate training and validation data](https://gis.stackexchange.com/questions/345403/splitting-up-a-region-into-training-data-and-validation-data-for-landsat7-classi)
+```{js, eval = FALSE}
+
+//Separate training and testing data
+
+
+// add a random column (by default named 'random')
+samples = samples.randomColumn();
+// split in a training (80%) and validation (20%)
+var training = samples.filter(ee.Filter.gt('random',0.2));
+var validation = samples.filter(ee.Filter.lte('random',0.2));
+
+print('validation', validation);
+print('training', training);
+
+```
+
+---
+## Build model
+```{js, eval = FALSE}
+// Using the sampled data, build a randomForest model.
+// Using a specific seed (random number) exactly replicates your model each time you run it.
+
+var bands = ['nir', 'blue', 'green', 'red', 'swir1', 'swir2', 'ndvi', 'TCB', 'ndwi'];
+
+var trainingclassifier = ee.Classifier.smileRandomForest({
+                  numberOfTrees: 10,
+                  seed: 7})
+.train({
+features: training,
+classProperty: 'presence',
+inputProperties: bands
+});
+
+print('training classifier', trainingclassifier)
+
+```
+
+---
+## Accuracy assessment (training)
+```{js, eval = FALSE}
+// Print Confusion Matrix and Overall Accuracy.
+var confusionMatrix_training = trainingclassifier.confusionMatrix();
+print('Error matrix training: ', confusionMatrix_training);
+print('Training overall accuracy: ', confusionMatrix_training.accuracy());
+```
+
+
+---
+## Test validation data set
+```{js, eval = FALSE}
+//test validation data set
+var validation_classified = validation.classify(trainingclassifier)
+print('validation_classified', validation_classified)
+
+var confusionMatrix_validation = validation_classified.errorMatrix({
+  actual: 'presence',
+  predicted: 'classification'
+});
+print('Error Matrix validation: ', confusionMatrix_validation);
+print('Validation overall accuracy: ', confusionMatrix_validation.accuracy());
+
+
+```
+
+
+---
+## Apply model to larger area
+```{js, eval = FALSE}
+// Apply the model to the extent of the loaded predictor image.
+var classified = predictors.classify(trainingclassifier);
+Map.addLayer(classified, {min:0, max:1, palette:['grey', 'blue']}, 'classified')
+```
+
+---
+## Chart variable importance
+```{js, eval = FALSE}
+var dict = trainingclassifier.explain();
+print('Explain:',dict);
+ 
+var variable_importance = ee.Feature(null, ee.Dictionary(dict).get('importance'));
+ 
+var chart =
+ui.Chart.feature.byProperty(variable_importance)
+.setChartType('ColumnChart')
+.setOptions({
+title: 'Random Forest Variable Importance',
+legend: {position: 'none'},
+hAxis: {title: 'Bands'},
+vAxis: {title: 'Importance'}
+});
+ 
+print(chart);
+```
+
+
+
+---
+## Earth Engine import/export
+### [Exporting images](https://developers.google.com/earth-engine/guides/exporting)
+
+```{js, eval = FALSE}
+//Select single image
+Map.setCenter(-71.8067, 42.1214, 15); // Where is this?
+
+var l8 = ee.ImageCollection('LANDSAT/LC08/C01/T1_TOA');
+
+var spatialFiltered = l8.filterBounds(myaoi);
+print('spatialFiltered', spatialFiltered);
+
+var temporalFiltered = spatialFiltered.filterDate('2018-05-01', '2018-09-15');
+print('temporalFiltered', temporalFiltered);
+
+// Sort from least to most cloudy.
+var sorted = temporalFiltered.sort('CLOUD_COVER');
+
+// Get least cloudy image
+var scene = ee.Image(sorted.first());
+print(scene)
+
+```
+
+---
+## Export image to Google Drive
+```{js, eval = FALSE}
+
+// Export the image, specifying scale and region.
+Export.image.toDrive({
+  image: scene,
+  description: 'imageToDriveExample',
+  scale: 30,
+  region: geometry
+});
+```
+
+---
+## Exporting to asset
+```{js, eval = FALSE}
+
+// Export the image to an Earth Engine asset.
+Export.image.toAsset({
+  image: scene,
+  description: 'imageToAssetExample',
+  assetId: 'exampleExport',
+  scale: 30,
+  region: geometry
+
+});
+```
+
+---
+## Export feature collection to asset
+```{js, eval = FALSE}
+var myaoi_feature = ee.FeatureCollection(myaoi)
+Export.table.toAsset(myaoi_feature, 'myaoi', 'myaoi')
+
+
+
+```
+
+
+
+
+
+---
+## Export shapefile
+```{js, eval = FALSE}
+// Make a collection of points.
+var features = ee.FeatureCollection([
+  ee.Feature(ee.Geometry.Point(30.41, 59.933), {name: 'Voronoi'}),
+  ee.Feature(ee.Geometry.Point(-73.96, 40.781), {name: 'Thiessen'}),
+  ee.Feature(ee.Geometry.Point(6.4806, 50.8012), {name: 'Dirichlet'})
+]);
+
+// Export the FeatureCollection to a KML file.
+Export.table.toDrive({
+  collection: features,
+  description:'vectorsToDriveExample',
+  fileFormat: 'SHP'
+});
+```
+
+---
+## Export CSV
+```{js, eval = FALSE}
+
+// Get a dictionary of means in the region.
+var means = scene.reduceRegion({
+  reducer: ee.Reducer.mean(),
+  geometry: myaoi,
+  scale: 30
+});
+
+// Make a feature without geometry and set the properties to the dictionary of means.
+var feature = ee.Feature(null, means);
+
+// Wrap the Feature in a FeatureCollection for export.
+var featureCollection = ee.FeatureCollection([feature]);
+
+// Export the FeatureCollection.
+Export.table.toDrive({
+  collection: featureCollection,
+  description: 'exportTableExample',
+  fileFormat: 'CSV'
+});
+```
+
+---
+## Exporting charts
+```{js, eval = FALSE}
+var what = ee.ImageCollection('MODIS/006/MOD13A2').select('NDVI');
+var where = ee.Geometry.Point([-93.51, 35.76]);
+print(ui.Chart.image.series(what, where));
+
+//click on arrow next to chart
+```
+
+---
+## Importing data
+### [Use data here](https://clarkuedu-my.sharepoint.com/:f:/g/personal/mcecil_clarku_edu/Eorwv-fna4FFl71LjFwF0c4BgT1loX2nLHmSrGY3bEgQoQ?e=x5WNV2)
+
+---
+## [Image upload](https://developers.google.com/earth-engine/guides/image_upload)
+```{js, eval = FALSE}
+// First ingest the drone image
+// Then import the drone image as "image"
+
+Map.setCenter(-71.8067, 42.1214, 15); // Where is this?
+var whittierDroneImage = image;
+
+// for the drone image, nir is band 1, red is band 2, green is band 3
+var visParams = {bands: ['b1', 'b2', 'b3'], max: 0.6};
+Map.addLayer(whittierDroneImage, visParams, 'false-color composite');
+
+```
+
+
+
+
+---
+## [Shapefile upload](https://developers.google.com/earth-engine/guides/importing)
+```{js, eval = FALSE}
+// First ingest the Zambia districts shapefile
+// Then import the shapefile as "table" 
+var zamDists = ee.FeatureCollection(table)
+print(zamDists)
+Map.addLayer(zamDists)
+
+```
+
+
+---
+## Group work
+- Try different bands for training classifier. How well do single band classifiers perform?
+- Change the relative size of the training/validation data sets (for example, use 50% of data sets each for training and classification)
+
+
+
+
+---
+## For next class
+
+- Read [BULC - U](https://www.mdpi.com/2072-4292/10/9/1455) article
+- How can you adapt today's classification to use Sentinel-2 imagery? What would need to change? 
+
+
+
+
+
+
