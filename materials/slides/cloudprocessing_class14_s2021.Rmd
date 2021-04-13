@@ -1,0 +1,115 @@
+---
+title: "Cloud-based Processing"
+subtitle: "New Methods in Earth Observation"
+date: "Class 14"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "lucy", "middlebury-fonts", "themes/class6-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+## Schedule
+### Mar 30 - Intro to GEE
+### Apr 01 - Time-series analysis 
+### Apr 06 - Reducers 
+### Apr 08 - Classification and Import/Export 
+### Apr 13 - Using GEE API in Python, R <---
+
+
+---
+## Last class
+- Classification using RandomForest
+- Import/Export
+
+---
+## Today's Concepts
+- Finish Import Examples
+- Python API
+
+
+---
+## Importing data
+### [Use data here](https://clarkuedu-my.sharepoint.com/:f:/g/personal/mcecil_clarku_edu/Eorwv-fna4FFl71LjFwF0c4BgT1loX2nLHmSrGY3bEgQoQ?e=x5WNV2)
+
+---
+## [Image upload](https://developers.google.com/earth-engine/guides/image_upload)
+```{js, eval = FALSE}
+// First ingest the drone image
+// Then import the drone image as "image"
+
+Map.setCenter(-71.8067, 42.1214, 15); // Where is this?
+var whittierDroneImage = image;
+
+// for the drone image, nir is band 1, red is band 2, green is band 3
+var visParams = {bands: ['b1', 'b2', 'b3'], max: 0.6};
+Map.addLayer(whittierDroneImage, visParams, 'false-color composite');
+
+```
+
+
+---
+## [Shapefile upload](https://developers.google.com/earth-engine/guides/importing)
+```{js, eval = FALSE}
+// First ingest the Zambia districts shapefile
+// Then import the shapefile as "table" 
+var zamDists = ee.FeatureCollection(table)
+print(zamDists)
+Map.addLayer(zamDists)
+
+```
+
+---
+## Using Earth Engine in Python
+### [Intro Guide](https://developers.google.com/earth-engine/tutorials/community/intro-to-python-api-guiattard)
+
+
+
+---
+## Python API vs Javascript code editor
+### [Code differences](https://developers.google.com/earth-engine/guides/python_install#syntax)
+### [Strengths/weaknesses](https://docs.google.com/presentation/d/1MVVeyCdm-FrMVRPop6wB3iyd85TAlwB-F9ygTQZ8S1w/pub?slide=id.g22e6c65aa1_0_143)
+### [Comparison](https://bikeshbade.com.np/tutorials/Detail/?title=Google%20earth%20engine%20Detail%20comparison%20between%20Python%20and%20JavaScript&code=9)
+
+
+
+
+
+---
+## In-class demo
+### Open Terminal (Mac) or launch Command prompt from Anaconda (PC)
+### [Steps to install API](https://www.earthdatascience.org/tutorials/intro-google-earth-engine-python-api/)
+---
+
+## In-class demo
+### Open Materials --> Code --> Python --> "GEE_demo.ipynb"
+
+
+---
+
+
+## Using Python API in RStudio
+- [Tutorial](https://philippgaertner.github.io/2020/10/use-gee-python-api-in-rstudio/)
+- Uses "reticulate" package to connect RStudio with Python
+
+
+
+
+---
+## Resources
+- [GEE User Summit videos](https://events.withgoogle.com/google-earth-engine-user-summit-2017/breakout-sessions/) 
+- [ipyGEE](https://github.com/fitoprincipe/ipygee)
+
+
+---
+## For next class
+
+- [Create maps in Python API](https://towardsdatascience.com/a-quick-introduction-to-google-earth-engine-c6a608c5febe)
+- [RStudio tutorial](https://philippgaertner.github.io/2020/10/use-gee-python-api-in-rstudio/)
+
+
+
+
+

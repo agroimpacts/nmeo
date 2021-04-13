@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Cloud-based Processing</title>
+    <meta charset="utf-8" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/lucy.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/middlebury-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="themes/class6-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Cloud-based Processing
+## New Methods in Earth Observation
+### Class 14
+
+---
+
+## Schedule
+### Mar 30 - Intro to GEE
+### Apr 01 - Time-series analysis 
+### Apr 06 - Reducers 
+### Apr 08 - Classification and Import/Export 
+### Apr 13 - Using GEE API in Python, R &lt;---
+
+
+---
+## Last class
+- Classification using RandomForest
+- Import/Export
+
+---
+## Today's Concepts
+- Finish Import Examples
+- Python API
+
+
+---
+## Importing data
+### [Use data here](https://clarkuedu-my.sharepoint.com/:f:/g/personal/mcecil_clarku_edu/Eorwv-fna4FFl71LjFwF0c4BgT1loX2nLHmSrGY3bEgQoQ?e=x5WNV2)
+
+---
+## [Image upload](https://developers.google.com/earth-engine/guides/image_upload)
+
+```js
+// First ingest the drone image
+// Then import the drone image as "image"
+
+Map.setCenter(-71.8067, 42.1214, 15); // Where is this?
+var whittierDroneImage = image;
+
+// for the drone image, nir is band 1, red is band 2, green is band 3
+var visParams = {bands: ['b1', 'b2', 'b3'], max: 0.6};
+Map.addLayer(whittierDroneImage, visParams, 'false-color composite');
+
+```
+
+
+---
+## [Shapefile upload](https://developers.google.com/earth-engine/guides/importing)
+
+```js
+// First ingest the Zambia districts shapefile
+// Then import the shapefile as "table" 
+var zamDists = ee.FeatureCollection(table)
+print(zamDists)
+Map.addLayer(zamDists)
+
+```
+
+---
+## Using Earth Engine in Python
+### [Intro Guide](https://developers.google.com/earth-engine/tutorials/community/intro-to-python-api-guiattard)
+
+
+
+---
+## Python API vs Javascript code editor
+### [Code differences](https://developers.google.com/earth-engine/guides/python_install#syntax)
+### [Strengths/weaknesses](https://docs.google.com/presentation/d/1MVVeyCdm-FrMVRPop6wB3iyd85TAlwB-F9ygTQZ8S1w/pub?slide=id.g22e6c65aa1_0_143)
+### [Comparison](https://bikeshbade.com.np/tutorials/Detail/?title=Google%20earth%20engine%20Detail%20comparison%20between%20Python%20and%20JavaScript&amp;code=9)
+
+
+
+
+
+---
+## In-class demo
+### Open Terminal (Mac) or launch Command prompt from Anaconda (PC)
+### [Steps to install API](https://www.earthdatascience.org/tutorials/intro-google-earth-engine-python-api/)
+---
+
+## In-class demo
+### Open Materials --&gt; Code --&gt; Python --&gt; "GEE_demo.ipynb"
+
+
+---
+
+
+## Using Python API in RStudio
+- [Tutorial](https://philippgaertner.github.io/2020/10/use-gee-python-api-in-rstudio/)
+- Uses "reticulate" package to connect RStudio with Python
+
+
+
+
+---
+## Resources
+- [GEE User Summit videos](https://events.withgoogle.com/google-earth-engine-user-summit-2017/breakout-sessions/) 
+- [ipyGEE](https://github.com/fitoprincipe/ipygee)
+
+
+---
+## For next class
+
+- [Create maps in Python API](https://towardsdatascience.com/a-quick-introduction-to-google-earth-engine-c6a608c5febe)
+- [RStudio tutorial](https://philippgaertner.github.io/2020/10/use-gee-python-api-in-rstudio/)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
