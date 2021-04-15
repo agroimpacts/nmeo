@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Google Earth Engine</title>
+    <meta charset="utf-8" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Google Earth Engine
+## New Methods in Earth Observation
+### Assignment 3
+
+---
+
+&lt;style type="text/css"&gt;
+  body{
+  font-size: 12pt;
+}
+&lt;/style&gt;
+
+
+
+
+
+## Earth Engine Tutorial
+
+- One of the most famous applications of Google Earth Engine are the global deforestation maps [Hansen et al. 2013](https://science.sciencemag.org/content/342/6160/850).
+- We will use these forest maps to analyze deforestation, and examine changes in RS based indices (EVI and NDWI) for deforested areas. 
+
+---
+## Part 1 Calculating Deforestation by Year
+
+---
+
+## Deforestation in Brazil
+- We will examine deforestation changes in Brazil. 
+- The code below adds a layer for Brazil's borders. 
+- Fill in the following lines of code
+ - for the "country" variable, find the 2-letter code for Brazil here: https://en.wikipedia.org/wiki/List_of_FIPS_country_codes
+ - Use "Map.addLayer()" to add "selected" to the map
+ - Use "Map.setCenter()" to center the map on these coordinates: lon =  -53.2, lat = -10.6. Use scale level 3
+
+
+
+```js
+// add 2 letter code for Brazil
+var country = '';
+
+// Load country features from Large Scale International Boundary (LSIB) dataset.
+var countries = ee.FeatureCollection('USDOS/LSIB_SIMPLE/2017');
+var selected = countries.filter(ee.Filter.eq('country_co', ee.String(country)));
+
+// add Map.addLayer code  
+// use format Map.addLayer(feature, {}, "name of layer")
+
+
+// add Map.setCenter code
+
+```
+
+
+---
+## Visualizing deforestation
+
+- As a first step, let's visualize the deforestation map. We will use the 2013 version of the map, that shows deforestation between 2000 and 2012. 
+- The below code shows percent forest cover in 2000 
+- In the first line, add the Hansen 2000-2012 data set as an ee.Image
+
+
+```js
+var gfc2012 = // use ee.Image() to add the Hansen forest cover 2000-2012 data set
+
+var visParams = {
+  bands: ['treecover2000'],
+  min: 0.0,
+  max: 100.0,
+  palette: [
+    "3d3d3d","080a02","080a02","080a02","106e12","37a930",
+    "03ff17",
+  ]
+};
+
+Map.addLayer(gfc2012, visParams, "Tree Canopy Cover");
+```
+
+---
+
+## Examining forest change data set
+- Use the print command on "gfc2012" to examine the data
+- View the bands/spatial resolution by searching for the data set in the top search bar
+
+---
+## Questions
+
+### 1. How many bands does the data set have? What is the spatial resolution (pixel size)? (you may need to Google how to convert the resolution to meters)
+### 2. What band/value would tell you where deforestation has occurred at any time between 2000-2012? What band/value would tell you where deforestation occurred in 2005 only?
+
+```
+## write answer here
+
+
+```
+
+
+---
+
+## Set deforestation parameters
+- The code below sets parameters for measuring deforestation (no code changes needed)
+ - "cc" sets the minimum canopy cover for the year 2000. We are considering forest that had 50% canopy cover in 2000. 
+ - "pixels" sets the minimum connected area for forest in 2000 (so a forest area must have at least 6 connected pixels)
+ - "losspixels" sets the minimum connected area for forest loss.
+ 
+---
+## Set deforestation parameters
+
+
+```js
+// Canopy cover percentage (e.g. 10%).
+var cc = ee.Number(50);
+// Minimum forest area in pixels (e.g. 6 pixels, ~ 0.5 ha in this example).
+var pixels = ee.Number(6);
+// Minimum mapping area for tree loss (usually same as the minimum forest area).
+var lossPixels = ee.Number(6);
+
+// mask out areas with below 50% canopy cover
+var canopyCover = gfc2012.select(['treecover2000']);
+var canopyCover50 = canopyCover.gte(cc).selfMask();
+
+// mask out areas that do not have at least 6 connected pixels
+var contArea = canopyCover50.connectedPixelCount();
+var minArea = contArea.gte(pixels).selfMask();
+print('min area', minArea)
+
+Map.addLayer(minArea, {
+    palette: ['#96ED89']
+}, 'tree cover: &gt;= min canopy cover &amp; area (light green)');
+
+```
+
+---
+
+## Examining deforested area by year
+- the "lossAreaImage" below shows the area of deforestation loss in square meters. (this is because "ee.Image.pixelArea()" calculates area in sq meters.)
+
+- we want to convert "lossAreaImage" to square kilometers.. What factor do we need to divide "lossAreaImage" by? (hint: how many square meters in a square kilometer)
+
+- what function can divide an ee image by a number? (hint: it is similar to the "multiply" function below )
+
+- add code below to convert lossAreaImage from square meters to square km
+
+
+```js
+var validForestMask = minArea.mask() // identify areas that meet canopy/patch size criteria
+var lossImage = gfc2012.select(['loss']).mask(validForestMask);
+
+var lossAreaImage = lossImage.multiply(ee.Image.pixelArea())
+var lossAreaImage_sqkm = // add code here
+
+```
+
+---
+
+
+
+## Calculate loss by year
+- The code below calculates deforestation area by year (no changes needed)
+- The "lossByYear" object shows the deforested area by years, in sq km. 
+- If you expand "lossByYear" in the Console, you will see that each "object" has two properties. 
+ - The "group" property represents the loss year
+ - The "sum" property represents the total area of loss.
+
+
+```js
+var lossYear = gfc2012.select(['lossyear']);
+var lossByYear = lossAreaImage_sqkm.addBands(lossYear).reduceRegion({
+  reducer: ee.Reducer.sum().group({
+    groupField: 1 // this selects the 'lossyear' band for grouping
+    }),
+  geometry: selected,
+  scale: 30,
+  maxPixels: 1e8,
+  bestEffort: true
+});
+print('loss by year', lossByYear);
+
+```
+
+---
+
+## Questions
+### 3. How much deforestation occurred in 2005?
+### 4. Which year had the greatest amount of deforestation? What was the deforestation that year in square km?
+
+```
+## write answer here
+
+
+```
+
+---
+
+## Charting forest loss by year
+###The code below charts the forest loss by year (no changes needed)
+
+---
+## Charting forest loss by year
+
+```js
+var statsFormatted = ee.List(lossByYear.get('groups'))
+  .map(function(el) {
+    var d = ee.Dictionary(el);
+    return [ee.Number(d.get('group')).format("20%02d"), d.get('sum')];
+  });
+var statsDictionary = ee.Dictionary(statsFormatted.flatten());
+print('statsDictionary', statsDictionary);
+
+var chart = ui.Chart.array.values({
+  array: statsDictionary.values(),
+  axis: 0,
+  xLabels: statsDictionary.keys()
+}).setChartType('ColumnChart')
+  .setOptions({
+    title: 'Yearly Forest Loss (sq km)',
+    hAxis: {title: 'Year', format: '####'},
+    vAxis: {title: 'Area (sq km)'},
+    legend: { position: "none" },
+    lineWidth: 1,
+    pointSize: 3
+  });
+print(chart);
+
+```
+
+---
+## Part 2. Trends in EVI and NDWI
+- We will look at trends of two indices
+ - Enhanced Vegetation Index (EVI) 
+ - Normalized Difference Water Index (NDWI) 
+- We will use MODIS 16-day composites
+
+
+---
+## Questions 
+### 5. Which MODIS bands are needed to calculate EVI? What is EVI's formula?
+### 6. Which MODIC bands are needed to calculate NDWI? What is NDWI's formula? (use the NDWI developed by Gao)
+
+```
+## write answer here
+
+
+```
+---
+
+## EVI data set
+ - We will use the 'MODIS/006/MOD13Q1' data set. You can search for it in the top search bar.
+
+```js
+// Part 2 code
+var collectionModEVI = ee.ImageCollection('MODIS/006/MOD13Q1')
+print('MODIS EVI', collectionModEVI)
+```
+
+---
+## Questions
+### 7. What is the spatial resolution of this data set? What is the scale factor for the EVI band? 
+```
+## write answer here
+
+
+```
+
+---
+
+## Filtering, scaling EVI
+- We need to perform several processing steps.
+ - filter to dates between Jan 1, 2000 and Dec 31, 2010 (add code below)
+ - Use course lectures for reference
+
+
+```js
+var startDate = //add string in "YYYY-MM-DD" format
+var endDate = // add string in "YYYY-MM-DD" format
+
+// date filtering only 
+var collectionModEVI_filtDate = // add code for date filter
+
+```
+
+---
+## Filtering, scaling EVI
+- We also need to select the EVI layer 
+- add code below for this steps
+
+
+```js
+
+// add step for  
+// select EVI layer from "collectionModEVI_filtDate" 
+//- use .select()   (hint: what is the EVI band name?)
+var collectionModEVI_EVIband = 
+
+```
+
+---
+## rescale layer
+- We need to multiply by the scale factor to rescale the data
+- Add code to map the "multiplyScaleFactor" function on to "collectionModEVI_EVIband" 
+- After running, use the inspector to inspect a few EVI values,
+- *** When finished, comment out the map.addLayer line
+
+```js
+var scale_factor = ee.Number(0.0001)
+var multiplyScaleFactor = function(image){
+  return(image.multiply(scale_factor).copyProperties(image, ['system:time_start']))
+}
+
+// add code in line below to map the "multiplyScaleFactor" function on to 
+// the image collection "collectionModEVI_EVIband"
+// see class lecture for examples of mapping functions
+var collectionModEVI_scaled = 
+
+
+print(collectionModEVI_scaled)
+Map.addLayer(collectionModEVI_scaled, {}, "Scaled EVI") // comment out this line after running
+
+```
+
+
+---
+
+
+## Add deforestation layer
+- the code below adds a deforestation layer in yellow
+- no code changes needed
+
+```js
+var gfc_loss_band = gfc2012.select(['loss']);
+//Map.addLayer(deforestation)
+var deforestation = gfc_loss_band.eq(1).selfMask().updateMask(minArea.mask())
+Map.addLayer(deforestation, {palette: ['ffff00']}, 'deforestation only - yellow')
+
+```
+
+---
+## Mask EVI layer to deforested areas
+- no code changes needed
+
+```js
+var dataMask = deforestation.mask()
+var maskImage = function(image){
+  return(image.updateMask(dataMask))
+}
+
+var EVI_masked = collectionModEVI_scaled.map(maskImage)
+Map.addLayer(EVI_masked, {}, "EVI masked")
+
+```
+---
+
+## Use Inspector to view EVI change at one point
+- The EVI map now should appear in grey.
+- Zoom in so you can clearly see areas of deforestation.
+- Use the Inspector tool to click on one point where deforestation occured.
+- In the Inspector tab, under Pixels --&gt; EVI Masked, you should see a time-series of EVI at this point.
+
+---
+## Questions
+### 8. What trends do you see in EVI at this point?
+```
+## write answer here
+
+
+```
+
+
+---
+
+## Create time-series of EVI at all deforestation points
+- Our last step is to summarize EVI trends at ALL points in Brazil where deforestation occurred. 
+- First we will add a chart style that will add a trend line to our chart 
+- no code changes needed
+
+
+```js
+var chartStyle = {
+  trendlines: {
+    0: {  // add a trend line to the 1st series
+      type: 'linear',  // or 'polynomial', 'exponential'
+      color: 'green',
+      lineWidth: 5,
+      opacity: 0.2,
+      visibleInLegend: true,
+    }
+  },
+  title: "EVI trend in Brazil"
+};
+```
+---
+
+## Create time-series of EVI at all deforestation points
+-Next we will create a chart that finds the mean EVI at all deforestation points in Brazil
+- Fill in the code below to create a chart (separate parameters with commas)
+- it may take a few minutes for the chart to load
+
+```js
+// be sure to add commas between each parameter
+var chart = ui.Chart.image.series({
+  imageCollection:           // add image collection for masked EVI
+  region:                    // set region to Brazil
+  reducer:                   // use a mean reducer
+  scale: 10000
+}).setOptions(chartStyle);
+print(chart)
+
+```
+---
+## Questions
+### 9. What trends do you see in EVI across Brazil? Is there a clear positive or negative trend?
+```
+## write answer here
+
+
+```
+
+---
+## Create NDWI charts
+- As a last step, we want to examine trends using NDWI
+- Copy the code from your Part 2 of your Earth Engine script 
+- Paste the code into a text editor (recommend using https://www.sublimetext.com/)
+- You will need to make a few changes
+
+
+---
+## Changes for NDWI code
+- Change the following
+ - change the data set from ee.ImageCollection('MODIS/006/MOD13Q1') to ee.ImageCollection('MODIS/MCD43A4_NDWI')
+ - change all instances of "EVI" to "NDWI" (use find/replace)
+ - change the scale factor from 0.0001 to 1
+
+---
+## Paste code back into EE
+- After making changes, paste the code back at the bottom of the EE script
+- You should now also see a chart for NDWI
+
+---
+
+## Questions
+### 10. What trends do you see in NDWI? Is this trend more or less visible compared to the EVI trend?
+
+```
+## write answer here
+
+
+```
+
+---
+
+## Bonus question (10 points)
+- Alter your code to run the same analysis for a different country (besides Brazil)
+- What trends do you see? Are these trends different from the trends for Brazil?
+
+```
+## write answer here
+
+
+```
+
+
+---
+##Submission instructions
+- Save your script, then press the "Get Link" button to create a link to the script. Paste the link here.
+
+```
+## paste code link here
+
+
+```
+
+- Submit this .Rmd file with your answers and the link on Slack.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

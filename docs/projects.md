@@ -16,12 +16,31 @@ class.
 4.  [Crop type mapping with Radiant Earth machine learning data](#project-4)
 5.  [Data Visualization](#project-5)
 6.  [Google Earth Engine App](#project-6)
+7.  [Create your own project](#project-7)
+
 
 More detail on each follows:
 
 ## Project 1
-
 ### Maize Yield Estimates
+
+Units
+
+  - Drone sensors
+  - Ground sensors (Arable Marks)
+  
+Concepts
+
+  - Scaling ground measurements to broader areas
+  - Mapping yield based on VI's
+  - optional: crop model simulations
+  
+Code
+
+  - Jupyter Labs (Python, for downloading ground sensor data)
+  - R script (or Earth Engine)
+
+---
 
 We have been collecting data over the course of three summers in a
 maize/corn field at Whittier Farms, in Sutton, MA. Data include:
@@ -52,6 +71,23 @@ Resources:
 
 ### EO Platforms and High Resolution Image Time Series
 
+Units
+
+  - Google Earth Engine
+  - Ground sensors
+  
+Concepts
+
+  - Comparing different time-series in GEE
+  - Comparing radar (Sentinel-1) and multispectral (Sentinel-2) data
+
+Code
+
+  - Jupyter Labs (Python, for downloading ground sensor data)
+  - Google Earth Engine
+
+---
+
 One ongoing research need for estimating agricultural productivity is to
 have a set of imagery that can consistently monitor crop growth under cloudy conditions. Ground sensors are one method to monitor crops "below the clouds", but these sensors have limited spatial footprint and may have issues with charging and cellular connectivity. Satellite-based radar sensors, like Sentinel-1, offer another option to monitor crop growth under cloud cover.
 
@@ -62,8 +98,24 @@ Resources:
   - [Understanding the temporal behavior of crops using Sentinel-1 and Sentinel-2-like data for agricultural applications](https://doi.org/10.1016/j.rse.2017.07.015)
 
 ## Project 3
+### Planet imagery for crop productivity mapping
 
-### Planet basemaps and imagery for crop productivity mapping
+Units
+
+  - Planet 
+  - Google Earth Engine
+  
+Concepts
+
+  - Correcting Planet imagery
+  - Using Planet NICFI basemaps
+  - Planet integration in GEE
+
+Code
+
+  - Likely GEE, but could also do work in R
+  
+---
 
 Planet, the largest provider of CubeSat high-reolution imagery (3-4m), recently entered into an agreement to release monthly basemaps of tropical regions to monitor deforestation [linked here](https://www.planet.com/pulse/planet-ksat-and-airbus-awarded-first-ever-global-contract-to-combat-deforestation/)
 
@@ -80,8 +132,25 @@ Resources:
   - [NICFI FAQ](https://assets.planet.com/docs/NICFI_General_FAQs.pdf)
 
 ## Project 4
-
 ### Crop type mapping with Radiant Earth machine learning data 
+
+Units
+
+  - Machine Learning
+  - GEE
+  
+Concepts
+
+  - Using Radiant Earth training data sets to create a RandomForest model for mapping crop type
+  - Understanding complex data sets
+  - Potential to try using Deep Learning models as well
+  
+Code
+
+  - GEE
+  - Google Colab (for Deep Learning)
+
+---
 
 Radiant Earth has recently made publicly available a set of high quality training data sets for machine learning (ML) applications [linked here](https://www.mlhub.earth/) . This project focuses on using one of the crop type data sets in Africa to develop a ML (or deep learning) model that can predict crop type from satellite imagery. 
 
@@ -104,8 +173,24 @@ approach might be to try adapt this approach
 local or AWS server, and then point it at a new geography (e.g. Ghana).
 
 ## Project 5
-
 ### Data visualization for EO 
+
+Units
+
+  - GEE Python API
+  
+Concepts
+
+  - Create interesting data visualizations of satellite data
+  - Choose a project/topic of interest, and find different ways to visualize data
+  - Recommend using the Python API, which gives additional options for data viz
+  - Can also try to create a web-based application
+  
+Code
+
+  - Jupyter Labs
+  
+---
 
 ![](https://www.unfolded.ai/de1d7053da34883ecf43aa91b989f209/temp-variations-earth-engine.gif)
 
@@ -124,8 +209,22 @@ Resources:
   - [Mapbox - 3D mapping of global population density](https://blog.mapbox.com/3d-mapping-global-population-density-how-i-built-it-141785c91107)
 
 ## Project 6
-
 ### Google Earth Engine App
+
+Units
+
+  - GEE
+  
+Concepts
+
+  - Create an interactive web-based application for GEE
+  
+Code
+
+  - GEE (image processing)
+  - GEE (user interface)
+
+---
 
 ![](https://developers.google.com/earth-engine/images/Demo_trendy_lights.png)
 
@@ -139,6 +238,13 @@ Resources:
   - [GEE app guide](https://developers.google.com/earth-engine/guides/apps)
   - [sample app, Global Human Influence Mapping ](https://earthengineedu.users.earthengine.app/view/human-impact-explorer)
   - [sample app, changes in night lights](https://jhowarth.users.earthengine.app/view/lights-change-time-neighborhood)
+
+## Project 7
+### Design your own project
+
+Use the tools you have learned in this class to create your own project.
+
+---
 
 [Course Home](../README.md) | [General Info](general-information.md) |
 [Syllabus](syllabus.md) | [Intro Modules](introductory-modules.md)
