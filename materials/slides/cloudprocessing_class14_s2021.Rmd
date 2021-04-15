@@ -14,7 +14,7 @@ output:
 ## Other GEE Resources
 - [Awesome GEE](https://github.com/giswqs/Awesome-GEE)
 - [Community Data sets](https://github.com/samapriya/awesome-gee-community-datasets)
-- 
+- [Medium links](https://medium.com/google-earth/tagged/earth-engine)
 
 
 ---
@@ -34,8 +34,10 @@ output:
 ### Machine Learning (Apr 27, 29)
 
 ---
-## Final Project Options
-### [Project list](https://github.com/agroimpacts/geog287387/blob/class/s2021/docs/projects.md)
+## Final Project 
+- [Project list](https://github.com/agroimpacts/geog287387/blob/class/s2021/docs/projects.md)
+- Project proposal due Tuesday May 4
+- Project includes presentation (recorded video) and report (R Markdown, other scripts)
 
 ---
 ## Class check-in
