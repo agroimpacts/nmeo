@@ -12,6 +12,10 @@ output:
       countIncrementalSlides: false
 ---
 
+
+
+
+
 ```{r, eval = TRUE, echo = FALSE, warning = FALSE, message = FALSE}
 library(leaflet)
 library(sf)
@@ -89,7 +93,7 @@ library(raster)
 ---
 ```{r, echo=TRUE}
 # getwd()
-dev1 <- read.csv("/Users/michaelcecil/Rprojects/geog287387/materials/code/sensors/A000680_daily.csv",
+dev1 <- read.csv("/Users/michaelcecil/Rprojects/geog287387_s/materials/code/python/A000680_daily.csv",
                  stringsAsFactors = F)
 # a little cleaning
 dev1 <- data.table(dev1)
@@ -105,7 +109,7 @@ We've processed the data, now let's look at it
 ```{r, warning=FALSE, fig.width=7, fig.height=6, fig.align='center'}
 dat <- dev1  # change this when you change devices
 mytheme <- function() theme(axis.title.x = element_blank())
-p1 <- ggplot(dat) + geom_line(aes(date, precip), col = "blue") + mytheme()
+p1 <- ggplot(dat) + geom_line(aes(x = date, y = precip), col = "blue") + mytheme()
 p2 <- ggplot(dat) + geom_line(aes(date, ndvi), col = "green3") + mytheme()
 p3 <- ggplot(dat) + geom_line(aes(date, meant), col = "purple") + mytheme()
 p4 <- ggplot(dat) + geom_line(aes(date, swdw), col = "orange") + mytheme()
@@ -127,11 +131,74 @@ grid.arrange(p1, p2, p3, p4, ncol = 2)
 - This means you will have three blocks of processing code, for `dev1`, `dev2`, `dev3`, and three blocks of plotting code for `dev1`, `dev2`, `dev3`
 ---
 
+```{r, echo=TRUE}
+# getwd()
+
+## dev1 is A000680
+## dev2 is A000667
+## dev3 is A000671
+dev2 <- read.csv("/Users/michaelcecil/Rprojects/geog287387_s/materials/code/python/A000667_daily.csv",
+                 stringsAsFactors = F)
+# a little cleaning
+dev2 <- data.table(dev2)
+dev2[is.na(precip), precip := 0]  # set NA precip to 0
+dev2$date <- as_date(dev2$time)
+dev2 <- dev2 %>% filter( (date >= as_date("2018-06-01")) & 
+                           (date <= as_date("2018-09-30") ))
+
+
+
+dat <- dev2  # change this when you change devices
+mytheme <- function() theme(axis.title.x = element_blank())
+p1 <- ggplot(dat) + geom_line(aes(x = date, y = precip), col = "blue") + mytheme()
+p2 <- ggplot(dat) + geom_line(aes(date, ndvi), col = "green3") + mytheme()
+p3 <- ggplot(dat) + geom_line(aes(date, meant), col = "purple") + mytheme()
+p4 <- ggplot(dat) + geom_line(aes(date, swdw), col = "orange") + mytheme()
+grid.arrange(p1, p2, p3, p4, ncol = 2)
+```
+
+
+---
+```{r, echo=TRUE}
+# getwd()
+
+## dev1 is A000680
+## dev2 is A000667
+## dev3 is A000671
+dev3 <- read.csv("/Users/michaelcecil/Rprojects/geog287387_s/materials/code/python/A000671_daily.csv",
+                 stringsAsFactors = F)
+# a little cleaning
+dev3 <- data.table(dev3)
+dev3[is.na(precip), precip := 0]  # set NA precip to 0
+dev3$date <- as_date(dev3$time)
+dev3 <- dev3 %>% filter( (date >= as_date("2018-06-01")) & 
+                           (date <= as_date("2018-09-30") ))
+
+
+
+dat <- dev3  # change this when you change devices
+mytheme <- function() theme(axis.title.x = element_blank())
+p1 <- ggplot(dat) + geom_line(aes(x = date, y = precip), col = "blue") + mytheme()
+p2 <- ggplot(dat) + geom_line(aes(date, ndvi), col = "green3") + mytheme()
+p3 <- ggplot(dat) + geom_line(aes(date, meant), col = "purple") + mytheme()
+p4 <- ggplot(dat) + geom_line(aes(date, swdw), col = "orange") + mytheme()
+grid.arrange(p1, p2, p3, p4, ncol = 2)
+```
+
+
+```
+
+
+
+
+
+
+---
 **Part 2: Download CHIRPs daily rainfall data for Sutton**
 
 Using this [code](https://code.earthengine.google.com/7b5f93a1c71f25619d6414c71ce671a1)
 
-- Change the dates for download to start on 5/1/2020 and end on 9/30/2020
+- Change the dates for download to start on 6/1/2018 and end on 9/30/2018
 - Export it to your Google Drive account
 - Study the code so that you understand how it works
     - Be ready to explain how you would change it to download more than one year's worth of data. 
@@ -139,8 +206,8 @@ Using this [code](https://code.earthengine.google.com/7b5f93a1c71f25619d6414c71c
 ---
 ```{r, eval = FALSE}
 
-##devs <- rbind(dev1, dev2, dev3)  # joint them into a single dataset
-devs <- dev1
+devs <- rbind(dev1, dev2, dev3)  # joint them into a single dataset
+##devs <- dev1
 dev_coords <- devs[, list("lat" = mean(lat, na.rm = TRUE), 
                           "long" = mean(long, na.rm = TRUE)), by = device]
 
@@ -155,7 +222,7 @@ Find the CHIRPs data you downloaded from Google Drive. You need to put your file
 
 We are going to quickly look at that dataset, and where the pods lie in relation to it. 
 ```{r, eval = FALSE}
-chirpsrf <- brick("/Users/michaelcecil/Downloads/chirps_2018 (1).tif")
+chirpsrf <- brick("/Users/michaelcecil/Downloads/chirps_20180601.tif")
 rfsum <- calc(chirpsrf, sum)  # sum the rainfall
 
 # plot it
@@ -166,7 +233,7 @@ points(dev_coords$long, dev_coords$lat, pch = "+")
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, eval = FALSE, fig.align="center"}
 # code repeated, hidden for slide building purposes
-chirpsrf <- brick("/Users/michaelcecil/Downloads/chirps_2018 (1).tif")
+chirpsrf <- brick("/Users/michaelcecil/Downloads/chirps_20180601.tif")
 rfsum <- calc(chirpsrf, sum)  # sum the rainfall
 
 # plot it
@@ -180,8 +247,8 @@ Let's try that with leafet instead, making our own little mini-GIS
 ```{r, eval = FALSE}
 m <- leaflet() %>% addProviderTiles("Esri.WorldImagery") %>% 
   setView(dev_coords[1, long], dev_coords[1, lat], zoom = 11) %>%
-#  addTiles(planet1, group = "planet6/12") %>% 
- # addTiles(sequoia, group = "sequoia") %>% 
+  addTiles(planet1, group = "planet6/12") %>% 
+  addTiles(sequoia, group = "sequoia") %>% 
   addRasterImage(rfsum, group = "CHIRPS") %>% 
   addCircleMarkers(lng = dev_coords$long, lat = dev_coords$lat, radius = 1, 
                    col = "red", opacity = 1, group = "Pods") %>% 
@@ -231,7 +298,7 @@ rfvals <- unname(rfvals[1, ])  # remove column names, convert to vector
 
 # create date, using lubridate library
 chirps_start_date <- "2018-06-01"
-chirps_end_date <- "2018-06-30"
+chirps_end_date <- "2018-09-30"
 dts <- seq(ymd(chirps_start_date), ymd(chirps_end_date), by =  '1 day')
 start_date <- which(dts %in% as_date("2018-06-08"))  # starting date for pods
 end_date <- length(rfvals)  # last date in CHIRPs
@@ -264,7 +331,7 @@ devs2[, week := week(date)]  # create a variable indicating week of year
 weeklypre <- devs2[, list("podpre" = sum(precip), "chirppre" = sum(chirpsrf)), 
       by = list(device, week)]  # sum rainfall by device and week
 
-ggplot(weeklypre) + geom_point(aes(podpre, chirppre, colour = device)) + coord_fixed()
+ggplot(weeklypre) + geom_point(aes(podpre, chirppre, colour = device)) + coord_fixed() 
 ```
 
 Now, that's starting to look like a bit better. So what does that tell us?

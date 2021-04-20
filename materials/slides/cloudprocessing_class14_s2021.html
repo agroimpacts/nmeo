@@ -31,9 +31,13 @@ class: center, middle, inverse, title-slide
 
 
 
+
+
+
+
 ```{=html}
-&lt;div id="htmlwidget-dc6e3cdc3e4cf5e6c0e7" style="width:504px;height:504px;" class="leaflet html-widget"&gt;&lt;/div&gt;
-&lt;script type="application/json" data-for="htmlwidget-dc6e3cdc3e4cf5e6c0e7"&gt;{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Esri.WorldImagery",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addTiles","args":["https://tiles.rasterfoundry.com/7a4b4cb3-fe35-46c9-9896-6e98eec46665/{z}/{x}/{y}/?tag=1538578249206&amp;mapToken=8ab506f7-9ef0-46f2-afe6-db5ec1c9e9e4",null,"planet6/12",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false}]},{"method":"addTiles","args":["https://tiles.rasterfoundry.com/e319cae9-4093-40b1-8961-033fa6753ec6/{z}/{x}/{y}/?tag=1538580563314&amp;mapToken=3438e35f-07d3-4644-a52a-aea0a4bf7aec",null,"planet6/16",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false}]},{"method":"addMarkers","args":[[42.120884,42.121805,42.122951],[-71.806965,-71.806478,-71.805491],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addLayersControl","args":[[],["sequoia","planet6/16"],{"collapsed":false,"autoZIndex":false,"position":"topright"}]}],"setView":[[42.121805,-71.806965],15,[]],"limits":{"lat":[42.120884,42.122951],"lng":[-71.806965,-71.805491]}},"evals":[],"jsHooks":[]}&lt;/script&gt;
+&lt;div id="htmlwidget-fe1af92d1e2a7b5dc3c9" style="width:504px;height:504px;" class="leaflet html-widget"&gt;&lt;/div&gt;
+&lt;script type="application/json" data-for="htmlwidget-fe1af92d1e2a7b5dc3c9"&gt;{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Esri.WorldImagery",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addTiles","args":["https://tiles.rasterfoundry.com/7a4b4cb3-fe35-46c9-9896-6e98eec46665/{z}/{x}/{y}/?tag=1538578249206&amp;mapToken=8ab506f7-9ef0-46f2-afe6-db5ec1c9e9e4",null,"planet6/12",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false}]},{"method":"addTiles","args":["https://tiles.rasterfoundry.com/e319cae9-4093-40b1-8961-033fa6753ec6/{z}/{x}/{y}/?tag=1538580563314&amp;mapToken=3438e35f-07d3-4644-a52a-aea0a4bf7aec",null,"planet6/16",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false}]},{"method":"addMarkers","args":[[42.120884,42.121805,42.122951],[-71.806965,-71.806478,-71.805491],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addLayersControl","args":[[],["sequoia","planet6/16"],{"collapsed":false,"autoZIndex":false,"position":"topright"}]}],"setView":[[42.121805,-71.806965],15,[]],"limits":{"lat":[42.120884,42.122951],"lng":[-71.806965,-71.805491]}},"evals":[],"jsHooks":[]}&lt;/script&gt;
 ```
 
 
@@ -84,7 +88,7 @@ library(raster)
 
 ```r
 # getwd()
-dev1 &lt;- read.csv("/Users/michaelcecil/Rprojects/geog287387/materials/code/sensors/A000680_daily.csv",
+dev1 &lt;- read.csv("/Users/michaelcecil/Rprojects/geog287387_s/materials/code/python/A000680_daily.csv",
                  stringsAsFactors = F)
 # a little cleaning
 dev1 &lt;- data.table(dev1)
@@ -101,7 +105,7 @@ We've processed the data, now let's look at it
 ```r
 dat &lt;- dev1  # change this when you change devices
 mytheme &lt;- function() theme(axis.title.x = element_blank())
-p1 &lt;- ggplot(dat) + geom_line(aes(date, precip), col = "blue") + mytheme()
+p1 &lt;- ggplot(dat) + geom_line(aes(x = date, y = precip), col = "blue") + mytheme()
 p2 &lt;- ggplot(dat) + geom_line(aes(date, ndvi), col = "green3") + mytheme()
 p3 &lt;- ggplot(dat) + geom_line(aes(date, meant), col = "purple") + mytheme()
 p4 &lt;- ggplot(dat) + geom_line(aes(date, swdw), col = "orange") + mytheme()
@@ -125,11 +129,92 @@ grid.arrange(p1, p2, p3, p4, ncol = 2)
 - This means you will have three blocks of processing code, for `dev1`, `dev2`, `dev3`, and three blocks of plotting code for `dev1`, `dev2`, `dev3`
 ---
 
+
+```r
+# getwd()
+
+## dev1 is A000680
+## dev2 is A000667
+## dev3 is A000671
+dev2 &lt;- read.csv("/Users/michaelcecil/Rprojects/geog287387_s/materials/code/python/A000667_daily.csv",
+                 stringsAsFactors = F)
+# a little cleaning
+dev2 &lt;- data.table(dev2)
+dev2[is.na(precip), precip := 0]  # set NA precip to 0
+dev2$date &lt;- as_date(dev2$time)
+dev2 &lt;- dev2 %&gt;% filter( (date &gt;= as_date("2018-06-01")) &amp; 
+                           (date &lt;= as_date("2018-09-30") ))
+
+
+
+dat &lt;- dev2  # change this when you change devices
+mytheme &lt;- function() theme(axis.title.x = element_blank())
+p1 &lt;- ggplot(dat) + geom_line(aes(x = date, y = precip), col = "blue") + mytheme()
+p2 &lt;- ggplot(dat) + geom_line(aes(date, ndvi), col = "green3") + mytheme()
+p3 &lt;- ggplot(dat) + geom_line(aes(date, meant), col = "purple") + mytheme()
+p4 &lt;- ggplot(dat) + geom_line(aes(date, swdw), col = "orange") + mytheme()
+grid.arrange(p1, p2, p3, p4, ncol = 2)
+```
+
+```
+## Warning: Removed 1 row(s) containing missing values (geom_path).
+
+## Warning: Removed 1 row(s) containing missing values (geom_path).
+
+## Warning: Removed 1 row(s) containing missing values (geom_path).
+```
+
+![](cloudprocessing_class14_s2021_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+
+
+---
+
+```r
+# getwd()
+
+## dev1 is A000680
+## dev2 is A000667
+## dev3 is A000671
+dev3 &lt;- read.csv("/Users/michaelcecil/Rprojects/geog287387_s/materials/code/python/A000671_daily.csv",
+                 stringsAsFactors = F)
+# a little cleaning
+dev3 &lt;- data.table(dev3)
+dev3[is.na(precip), precip := 0]  # set NA precip to 0
+dev3$date &lt;- as_date(dev3$time)
+dev3 &lt;- dev3 %&gt;% filter( (date &gt;= as_date("2018-06-01")) &amp; 
+                           (date &lt;= as_date("2018-09-30") ))
+
+
+
+dat &lt;- dev3  # change this when you change devices
+mytheme &lt;- function() theme(axis.title.x = element_blank())
+p1 &lt;- ggplot(dat) + geom_line(aes(x = date, y = precip), col = "blue") + mytheme()
+p2 &lt;- ggplot(dat) + geom_line(aes(date, ndvi), col = "green3") + mytheme()
+p3 &lt;- ggplot(dat) + geom_line(aes(date, meant), col = "purple") + mytheme()
+p4 &lt;- ggplot(dat) + geom_line(aes(date, swdw), col = "orange") + mytheme()
+grid.arrange(p1, p2, p3, p4, ncol = 2)
+```
+
+```
+## Warning: Removed 2 row(s) containing missing values (geom_path).
+```
+
+![](cloudprocessing_class14_s2021_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+
+
+```
+
+
+
+
+
+
+---
 **Part 2: Download CHIRPs daily rainfall data for Sutton**
 
 Using this [code](https://code.earthengine.google.com/7b5f93a1c71f25619d6414c71ce671a1)
 
-- Change the dates for download to start on 5/1/2020 and end on 9/30/2020
+- Change the dates for download to start on 6/1/2018 and end on 9/30/2018
 - Export it to your Google Drive account
 - Study the code so that you understand how it works
     - Be ready to explain how you would change it to download more than one year's worth of data. 
@@ -137,8 +222,8 @@ Using this [code](https://code.earthengine.google.com/7b5f93a1c71f25619d6414c71c
 ---
 
 ```r
-##devs &lt;- rbind(dev1, dev2, dev3)  # joint them into a single dataset
-devs &lt;- dev1
+devs &lt;- rbind(dev1, dev2, dev3)  # joint them into a single dataset
+##devs &lt;- dev1
 dev_coords &lt;- devs[, list("lat" = mean(lat, na.rm = TRUE), 
                           "long" = mean(long, na.rm = TRUE)), by = device]
 ```
@@ -152,7 +237,7 @@ Find the CHIRPs data you downloaded from Google Drive. You need to put your file
 We are going to quickly look at that dataset, and where the pods lie in relation to it. 
 
 ```r
-chirpsrf &lt;- brick("/Users/michaelcecil/Downloads/chirps_2018 (1).tif")
+chirpsrf &lt;- brick("/Users/michaelcecil/Downloads/chirps_20180601.tif")
 rfsum &lt;- calc(chirpsrf, sum)  # sum the rainfall
 
 # plot it
@@ -170,8 +255,8 @@ Let's try that with leafet instead, making our own little mini-GIS
 ```r
 m &lt;- leaflet() %&gt;% addProviderTiles("Esri.WorldImagery") %&gt;% 
   setView(dev_coords[1, long], dev_coords[1, lat], zoom = 11) %&gt;%
-#  addTiles(planet1, group = "planet6/12") %&gt;% 
- # addTiles(sequoia, group = "sequoia") %&gt;% 
+  addTiles(planet1, group = "planet6/12") %&gt;% 
+  addTiles(sequoia, group = "sequoia") %&gt;% 
   addRasterImage(rfsum, group = "CHIRPS") %&gt;% 
   addCircleMarkers(lng = dev_coords$long, lat = dev_coords$lat, radius = 1, 
                    col = "red", opacity = 1, group = "Pods") %&gt;% 
@@ -207,7 +292,7 @@ rfvals &lt;- unname(rfvals[1, ])  # remove column names, convert to vector
 
 # create date, using lubridate library
 chirps_start_date &lt;- "2018-06-01"
-chirps_end_date &lt;- "2018-06-30"
+chirps_end_date &lt;- "2018-09-30"
 dts &lt;- seq(ymd(chirps_start_date), ymd(chirps_end_date), by =  '1 day')
 start_date &lt;- which(dts %in% as_date("2018-06-08"))  # starting date for pods
 end_date &lt;- length(rfvals)  # last date in CHIRPs
@@ -243,7 +328,7 @@ devs2[, week := week(date)]  # create a variable indicating week of year
 weeklypre &lt;- devs2[, list("podpre" = sum(precip), "chirppre" = sum(chirpsrf)), 
       by = list(device, week)]  # sum rainfall by device and week
 
-ggplot(weeklypre) + geom_point(aes(podpre, chirppre, colour = device)) + coord_fixed()
+ggplot(weeklypre) + geom_point(aes(podpre, chirppre, colour = device)) + coord_fixed() 
 ```
 
 Now, that's starting to look like a bit better. So what does that tell us?
