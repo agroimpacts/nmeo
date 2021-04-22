@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Cloud-based Processing</title>
+    <title>Final projects</title>
     <meta charset="utf-8" />
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/lucy.css" rel="stylesheet" />
@@ -12,111 +12,48 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Cloud-based Processing
+# Final projects
 ## New Methods in Earth Observation
-### Class 14
+### Class 15
 
 ---
 
-## Schedule
-### Mar 30 - Intro to GEE
-### Apr 01 - Time-series analysis 
-### Apr 06 - Reducers 
-### Apr 08 - Classification and Import/Export 
-### Apr 13 - Using GEE API in Python, R &lt;---
+## Other GEE Resources
+- [Awesome GEE](https://github.com/giswqs/Awesome-GEE)
+- [Community Data sets](https://github.com/samapriya/awesome-gee-community-datasets)
+- [Medium links](https://medium.com/google-earth/tagged/earth-engine)
 
 
 ---
-## Last class
-- Classification using RandomForest
-- Import/Export
+## Assignment 3
+- Uses [Hansen et al. 2013](https://science.sciencemag.org/content/342/6160/850) deforestation maps
+- Two parts
+ - Part 1: Calcuating yearly deforestation
+ - Part 2: Measuring trends of EVI/NDWI
+- Due in two weeks (Apr 29)
 
 ---
-## Today's Concepts
-- Finish Import Examples
-- Python API
-
-
----
-## Importing data
-### [Use data here](https://clarkuedu-my.sharepoint.com/:f:/g/personal/mcecil_clarku_edu/Eorwv-fna4FFl71LjFwF0c4BgT1loX2nLHmSrGY3bEgQoQ?e=x5WNV2)
+## Class so far
+### Drones
+### Planet Images
+### Google Earth Engine
+### Ground Sensors (Apr 20, 22) &lt;---
+### Machine Learning (Apr 27, 29)
 
 ---
-## [Image upload](https://developers.google.com/earth-engine/guides/image_upload)
-
-```js
-// First ingest the drone image
-// Then import the drone image as "image"
-
-Map.setCenter(-71.8067, 42.1214, 15); // Where is this?
-var whittierDroneImage = image;
-
-// for the drone image, nir is band 1, red is band 2, green is band 3
-var visParams = {bands: ['b1', 'b2', 'b3'], max: 0.6};
-Map.addLayer(whittierDroneImage, visParams, 'false-color composite');
-
-```
-
+## Final Project 
+- [Project list](https://github.com/agroimpacts/geog287387/blob/class/s2021/docs/projects.md)
+- Project proposal due Tuesday May 4
+- Project includes presentation (recorded video) and report (R Markdown, other scripts)
 
 ---
-## [Shapefile upload](https://developers.google.com/earth-engine/guides/importing)
-
-```js
-// First ingest the Zambia districts shapefile
-// Then import the shapefile as "table" 
-var zamDists = ee.FeatureCollection(table)
-print(zamDists)
-Map.addLayer(zamDists)
-
-```
-
----
-## Using Earth Engine in Python
-### [Intro Guide](https://developers.google.com/earth-engine/tutorials/community/intro-to-python-api-guiattard)
-
-
-
----
-## Python API vs Javascript code editor
-### [Code differences](https://developers.google.com/earth-engine/guides/python_install#syntax)
-### [Strengths/weaknesses](https://docs.google.com/presentation/d/1MVVeyCdm-FrMVRPop6wB3iyd85TAlwB-F9ygTQZ8S1w/pub?slide=id.g22e6c65aa1_0_143)
-### [Comparison](https://bikeshbade.com.np/tutorials/Detail/?title=Google%20earth%20engine%20Detail%20comparison%20between%20Python%20and%20JavaScript&amp;code=9)
-
-
-
-
-
----
-## In-class demo
-### Open Terminal (Mac) or launch Command prompt from Anaconda (PC)
-### [Steps to install API](https://www.earthdatascience.org/tutorials/intro-google-earth-engine-python-api/)
----
-
-## In-class demo
-### Open Materials --&gt; Code --&gt; Python --&gt; "GEE_demo.ipynb"
-
-
----
-
-
-## Using Python API in RStudio
-- [Tutorial](https://philippgaertner.github.io/2020/10/use-gee-python-api-in-rstudio/)
-- Uses "reticulate" package to connect RStudio with Python
-
-
-
-
----
-## Resources
-- [GEE User Summit videos](https://events.withgoogle.com/google-earth-engine-user-summit-2017/breakout-sessions/) 
-- [ipyGEE](https://github.com/fitoprincipe/ipygee)
+## Class check-in
 
 
 ---
 ## For next class
 
-- [Create maps in Python API](https://towardsdatascience.com/a-quick-introduction-to-google-earth-engine-c6a608c5febe)
-- [RStudio tutorial](https://philippgaertner.github.io/2020/10/use-gee-python-api-in-rstudio/)
+- Work on Assignment 3
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

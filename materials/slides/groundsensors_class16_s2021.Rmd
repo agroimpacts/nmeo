@@ -1,0 +1,348 @@
+---
+title: "Ground Sensors"
+subtitle: "New Methods in Earth Observation"
+date: "Class 16"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "lucy", "middlebury-fonts", "themes/class8-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+
+
+
+
+```{r, eval = TRUE, echo = FALSE, warning = FALSE, message = FALSE}
+library(leaflet)
+library(sf)
+library(dplyr)
+
+xs <- c(-71.806965, -71.806478, -71.805491)
+ys <- c(42.120884, 42.121805, 42.122951)
+
+pts <- st_sfc(st_multipoint(cbind(x = as.numeric(xs), y = as.numeric(ys))))
+
+planet1 <- paste0("https://tiles.rasterfoundry.com/", 
+                  "7a4b4cb3-fe35-46c9-9896-6e98eec46665/{z}/{x}/{y}/?tag=",
+                  "1538578249206&mapToken=8ab506f7-9ef0-46f2-afe6-db5ec1c9e9e4")
+planet2 <- paste0("https://tiles.rasterfoundry.com/",
+                  "43ebd5c0-ae71-4505-8ab5-e1009583d0be/{z}/{x}/{y}/?tag=",
+                  "1538578546868&mapToken=93ccd998-413a-458c-a573-ffa7e49ca251")
+sequoia <- paste0("https://tiles.rasterfoundry.com/", 
+                  "e319cae9-4093-40b1-8961-033fa6753ec6/{z}/{x}/{y}/?tag=",
+                  "1538580563314&mapToken=3438e35f-07d3-4644-a52a-aea0a4bf7aec")
+
+m <- leaflet() %>% addProviderTiles("Esri.WorldImagery") %>% 
+  setView(xs[1], ys[2], zoom = 15) %>%
+  addTiles(planet1, group = "planet6/12") %>% 
+  addTiles(sequoia, group = "planet6/16") %>% 
+  addMarkers(lng = as.numeric(xs), lat = as.numeric(ys)) %>% 
+  addLayersControl(overlayGroups = c("sequoia", "planet6/16"),
+                   options = layersControlOptions(collapsed = FALSE, 
+                                                  autoZIndex = FALSE))
+m
+```
+
+
+
+## [Arable Labs](https://www.arable.com/)
+### [Mark-2 Sensor](https://www.arable.com/mark2)
+### [Water Issues](https://www.youtube.com/watch?v=BG4FaHkhkho)
+
+---
+
+## Main Arable data
+- NDVI 
+- Individual band reflectance 
+- Precipitation
+- Temperature
+- Shortwave downwelling radiation (important for crop growth)
+
+---
+## Arable API
+- Data sets are available in different formats (e.g. "daily", "hourly")
+- Currently uses a Python API
+- Follow instructions on [Github repo](https://github.com/arable-examples/arable-python-lib)
+
+
+---
+## Let's use the Client
+
+There are a couple of things to note: 
+
+##### 1. We have three devices--their IDs are A000667, A000671,  and A000680
+
+We are going to start by selecting daily variables for device A000680 for the month of June
+
+---
+```{r, message=FALSE, warning=FALSE}
+## load libraries
+library(dplyr)
+library(data.table)
+library(ggplot2)
+library(gridExtra)
+library(lubridate)
+library(raster)
+```
+
+
+---
+```{r, echo=TRUE}
+# getwd()
+dev1 <- read.csv("/Users/michaelcecil/Rprojects/geog287387_s/materials/code/python/A000680_daily.csv",
+                 stringsAsFactors = F)
+# a little cleaning
+dev1 <- data.table(dev1)
+dev1[is.na(precip), precip := 0]  # set NA precip to 0
+dev1$date <- as_date(dev1$time)
+dev1 <- dev1 %>% filter( (date >= as_date("2018-06-01")) & 
+                           (date <= as_date("2018-09-30") ))
+```
+
+
+---
+We've processed the data, now let's look at it
+```{r, warning=FALSE, fig.width=7, fig.height=6, fig.align='center'}
+dat <- dev1  # change this when you change devices
+mytheme <- function() theme(axis.title.x = element_blank())
+p1 <- ggplot(dat) + geom_line(aes(x = date, y = precip), col = "blue") + mytheme()
+p2 <- ggplot(dat) + geom_line(aes(date, ndvi), col = "green3") + mytheme()
+p3 <- ggplot(dat) + geom_line(aes(date, meant), col = "purple") + mytheme()
+p4 <- ggplot(dat) + geom_line(aes(date, swdw), col = "orange") + mytheme()
+grid.arrange(p1, p2, p3, p4, ncol = 2)
+```
+
+---
+
+## Assignment
+
+**Part 1: Reuse the code above to do the following:**
+
+- Change the date range to June 1 to September 15
+- Do that for each of the three devices
+  - Change the `device` argument between "A000667", "A000671", "A000680"
+  - direct the output to `dev1`, `dev2`, `dev3`
+- Reuse the plot code for `dev1`, `dev2`, `dev3`
+  - replace `dev1` with `dev2` or `dev3` in the `dat` argument, e.g. `dat <- dev2`
+- This means you will have three blocks of processing code, for `dev1`, `dev2`, `dev3`, and three blocks of plotting code for `dev1`, `dev2`, `dev3`
+---
+
+```{r, echo=TRUE}
+# getwd()
+
+## dev1 is A000680
+## dev2 is A000667
+## dev3 is A000671
+dev2 <- read.csv("/Users/michaelcecil/Rprojects/geog287387_s/materials/code/python/A000667_daily.csv",
+                 stringsAsFactors = F)
+# a little cleaning
+dev2 <- data.table(dev2)
+dev2[is.na(precip), precip := 0]  # set NA precip to 0
+dev2$date <- as_date(dev2$time)
+dev2 <- dev2 %>% filter( (date >= as_date("2018-06-01")) & 
+                           (date <= as_date("2018-09-30") ))
+
+
+
+dat <- dev2  # change this when you change devices
+mytheme <- function() theme(axis.title.x = element_blank())
+p1 <- ggplot(dat) + geom_line(aes(x = date, y = precip), col = "blue") + mytheme()
+p2 <- ggplot(dat) + geom_line(aes(date, ndvi), col = "green3") + mytheme()
+p3 <- ggplot(dat) + geom_line(aes(date, meant), col = "purple") + mytheme()
+p4 <- ggplot(dat) + geom_line(aes(date, swdw), col = "orange") + mytheme()
+grid.arrange(p1, p2, p3, p4, ncol = 2)
+```
+
+
+---
+```{r, echo=TRUE}
+# getwd()
+
+## dev1 is A000680
+## dev2 is A000667
+## dev3 is A000671
+dev3 <- read.csv("/Users/michaelcecil/Rprojects/geog287387_s/materials/code/python/A000671_daily.csv",
+                 stringsAsFactors = F)
+# a little cleaning
+dev3 <- data.table(dev3)
+dev3[is.na(precip), precip := 0]  # set NA precip to 0
+dev3$date <- as_date(dev3$time)
+dev3 <- dev3 %>% filter( (date >= as_date("2018-06-01")) & 
+                           (date <= as_date("2018-09-30") ))
+
+
+
+dat <- dev3  # change this when you change devices
+mytheme <- function() theme(axis.title.x = element_blank())
+p1 <- ggplot(dat) + geom_line(aes(x = date, y = precip), col = "blue") + mytheme()
+p2 <- ggplot(dat) + geom_line(aes(date, ndvi), col = "green3") + mytheme()
+p3 <- ggplot(dat) + geom_line(aes(date, meant), col = "purple") + mytheme()
+p4 <- ggplot(dat) + geom_line(aes(date, swdw), col = "orange") + mytheme()
+grid.arrange(p1, p2, p3, p4, ncol = 2)
+```
+
+
+```
+
+
+
+
+
+
+---
+**Part 2: Download CHIRPs daily rainfall data for Sutton**
+
+Using this [code](https://code.earthengine.google.com/7b5f93a1c71f25619d6414c71ce671a1)
+
+- Change the dates for download to start on 6/1/2018 and end on 9/30/2018
+- Export it to your Google Drive account
+- Study the code so that you understand how it works
+    - Be ready to explain how you would change it to download more than one year's worth of data. 
+
+---
+```{r, eval = FALSE}
+
+devs <- rbind(dev1, dev2, dev3)  # joint them into a single dataset
+##devs <- dev1
+dev_coords <- devs[, list("lat" = mean(lat, na.rm = TRUE), 
+                          "long" = mean(long, na.rm = TRUE)), by = device]
+
+
+```
+---
+
+
+### Bring in the rainfall data
+
+Find the CHIRPs data you downloaded from Google Drive. You need to put your file path into that. 
+
+We are going to quickly look at that dataset, and where the pods lie in relation to it. 
+```{r, eval = FALSE}
+chirpsrf <- brick("/Users/michaelcecil/Downloads/chirps_20180601.tif")
+rfsum <- calc(chirpsrf, sum)  # sum the rainfall
+
+# plot it
+plot(rfsum)
+points(dev_coords$long, dev_coords$lat, pch = "+")
+```
+
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, eval = FALSE, fig.align="center"}
+# code repeated, hidden for slide building purposes
+chirpsrf <- brick("/Users/michaelcecil/Downloads/chirps_20180601.tif")
+rfsum <- calc(chirpsrf, sum)  # sum the rainfall
+
+# plot it
+plot(rfsum)
+points(dev_coords$long, dev_coords$lat, pch = "+")
+```
+
+---
+
+Let's try that with leafet instead, making our own little mini-GIS
+```{r, eval = FALSE}
+m <- leaflet() %>% addProviderTiles("Esri.WorldImagery") %>% 
+  setView(dev_coords[1, long], dev_coords[1, lat], zoom = 11) %>%
+  addTiles(planet1, group = "planet6/12") %>% 
+  addTiles(sequoia, group = "sequoia") %>% 
+  addRasterImage(rfsum, group = "CHIRPS") %>% 
+  addCircleMarkers(lng = dev_coords$long, lat = dev_coords$lat, radius = 1, 
+                   col = "red", opacity = 1, group = "Pods") %>% 
+  addLayersControl(overlayGroups = c( "CHIRPS", "Pods"),
+                   options = layersControlOptions(collapsed = FALSE, 
+                                                  autoZIndex = FALSE))
+m
+```
+
+
+
+```{r, eval = TRUE, echo = FALSE, warning = FALSE, eval = FALSE, message = FALSE}
+# code repeated, hidden for slide building purposes
+chirpsrf <- brick("/Users/michaelcecil/Downloads/chirps_2018 (1).tif")
+rfsum <- calc(chirpsrf, sum)  # sum the rainfall
+
+m <- leaflet() %>% addProviderTiles("Esri.WorldImagery") %>% 
+  setView(dev_coords[1, long], dev_coords[1, lat], zoom = 11) %>%
+##  addTiles(planet1, group = "planet6/12") %>% 
+ ## addTiles(sequoia, group = "sequoia") %>% 
+  addRasterImage(rfsum, group = "CHIRPS") %>% 
+  addCircleMarkers(lng = dev_coords$long, lat = dev_coords$lat, radius = 1, 
+                   col = "red", opacity = 1, group = "Pods") %>% 
+  addLayersControl(overlayGroups = c("CHIRPS", "Pods"),
+                   options = layersControlOptions(collapsed = FALSE, 
+                                                  autoZIndex = FALSE))
+m
+```
+
+
+---
+
+Now we are going to use the pod coordinates to `extract` (a function from the raster package) data from CHIRPs and the UAS data. Let's start with CHIRPs. Since the pods all sit in one CHIRPs pixel, we only need to use one point to extract the data. 
+
+```{r, eval = FALSE}
+rfvals <- extract(chirpsrf, dev_coords[1, 3:2])
+```
+
+That gives us a data.frame with one row, with all CHIRPs values from 5/1 to 8/31. We need to do some extra work to: 
+
+1) convert the data to a vector 
+
+2) reduce it to just the dates for which we have pod data.
+
+```{r, eval = FALSE}
+rfvals <- unname(rfvals[1, ])  # remove column names, convert to vector
+
+# create date, using lubridate library
+chirps_start_date <- "2018-06-01"
+chirps_end_date <- "2018-09-30"
+dts <- seq(ymd(chirps_start_date), ymd(chirps_end_date), by =  '1 day')
+start_date <- which(dts %in% as_date("2018-06-08"))  # starting date for pods
+end_date <- length(rfvals)  # last date in CHIRPs
+rfvals_forpods <- rfvals[start_date:end_date] # subset the CHIRPs to pod dates
+dts_forpods <- dts[start_date:end_date]  # extract the dates from dts
+rfvals_dts <- data.table(dts_forpods, rfvals_forpods)  # combine into data.table
+setnames(rfvals_dts, c("date", "chirpsrf")) # rename the columns
+```
+---
+Now that we have our CHIRPs data extracted, we join it back into our pod data, using a function called `merge`. We are going to merge by the date variable, but we need to make a new date variable in `devs` first
+
+```{r, eval = FALSE}
+# combine with devs
+#devs[, date := as_date(datetime)]  # make new date column
+devs2 <- merge(devs, rfvals_dts, by = "date", all.x = TRUE)  # merge data
+```
+
+Let's look at the results now, comparing how well the pod rainfall aligns with the CHIRPs rainfall
+
+```{r, fig.align="center", fig.height=4, fig.width=4, message=FALSE, warning=FALSE, eval = FALSE}
+# ggplot(devs2) + geom_line(aes(date, precip, colour = device))
+ggplot(devs2) + geom_point(aes(precip, chirpsrf, colour = device)) + coord_fixed()
+```
+---
+So that's not great.  Why might that be? 
+
+How about we see how it looks at weekly time steps?
+```{r, fig.align="center", fig.height=4, fig.width=4, message=FALSE, warning=FALSE, eval = FALSE}
+devs2[, week := week(date)]  # create a variable indicating week of year
+weeklypre <- devs2[, list("podpre" = sum(precip), "chirppre" = sum(chirpsrf)), 
+      by = list(device, week)]  # sum rainfall by device and week
+
+ggplot(weeklypre) + geom_point(aes(podpre, chirppre, colour = device)) + coord_fixed() 
+```
+
+Now, that's starting to look like a bit better. So what does that tell us?
+
+---
+## For next class
+
+- Work on Assignment 3
+- (demo) Run the precip comparison for 2020
+- Read [Antony et al 2020](http://dx.doi.org/10.3390/su12093750)
+- Watch [delivering soil intelligence](https://www.youtube.com/watch?v=gAapCKrrO18)
+
+
+
