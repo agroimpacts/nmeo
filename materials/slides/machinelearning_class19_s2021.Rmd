@@ -1,0 +1,77 @@
+---
+title: "Combining Human & Machine Intelligence"
+subtitle: "New Methods in Earth Observation"
+date: "Class 19"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "lucy", "middlebury-fonts", "themes/class14-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+## Today
+- Sam Khallaghi presentation
+- Google Colab demo - using TensorFlow
+
+---
+## Sam Khallaghi presentation
+
+
+---
+## Earth Engine and TensorFlow
+- [TensorFlow in Earth Engine](https://developers.google.com/earth-engine/guides/tensorflow#:~:text=Although%20TensorFlow%20models%20are%20developed,exporting%20imagery%20in%20TFRecord%20format.&text=See%20the%20TFRecord%20page%20to,writes%20data%20to%20TFRecord%20files.)
+- [Keras](https://keras.io/about/) 
+- [Google Colab](https://research.google.com/colaboratory/faq.html#:~:text=Colaboratory%2C%20or%20%E2%80%9CColab%E2%80%9D%20for,learning%2C%20data%20analysis%20and%20education.)
+
+
+
+---
+## Earth Engine Only Approach (last class)
+.center[![](figures/11/ee_only.png)]
+
+
+
+
+---
+## Earth Engine and TensorFlow (today)
+.center[![](figures/11/ee_plus_tf.png)]
+
+
+
+---
+## Google Colab demo
+- [link to demo](https://colab.research.google.com/github/google/earthengine-api/blob/master/python/examples/ipynb/TF_demo1_keras.ipynb#scrollTo=ZcjQnHH8zT4q)
+
+
+---
+## Final projects
+- Schedule
+ - Tuesday (May 4). Check-in on project ideas, open time to ask questions, work with group members.
+ - Thursday (May 6). Proposals due by 4:15 PM (on Slack)
+
+---
+## Final projects
+- Written proposal (1/2 - 1 page)
+ - What are the goals of the project? (i.e. what do you want to find out/demonstrate?)
+ - What methods/tools will you use?
+ - What data sets do you have, and what data sets do you still need to find?
+ - Provide a list of concrete steps you can take to achieve this project's goals. These steps should be sequential (i.e. first steps are fundamental to project, later steps are "nice-to-have"). If you are in a group, it may be helpful to assign different tasks to group members.
+
+---
+## Final projects
+- [Google sign-up](https://docs.google.com/spreadsheets/d/1h42PUu3rfIO2NpAh4oiVoLo0K0miPSvkUeXnBXHccDY/edit?usp=sharing)
+
+
+
+
+---
+## For next class
+- Work on project proposals
+- Read [Elmes et al. 2020](https://doi.org/10.3390/rs12061034)
+
+
+
+
+
