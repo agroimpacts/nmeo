@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Machine Learning Demo - Final Projects</title>
+    <meta charset="utf-8" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/lucy.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/middlebury-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="themes/class14-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Machine Learning Demo - Final Projects
+## New Methods in Earth Observation
+### Class 20
+
+---
+
+## Today
+- Google Colab demo - using TensorFlow
+- Final project Discussion
+
+---
+## Earth Engine and TensorFlow
+- [TensorFlow in Earth Engine](https://developers.google.com/earth-engine/guides/tensorflow#:~:text=Although%20TensorFlow%20models%20are%20developed,exporting%20imagery%20in%20TFRecord%20format.&amp;text=See%20the%20TFRecord%20page%20to,writes%20data%20to%20TFRecord%20files.)
+- [Keras](https://keras.io/about/) 
+- [Google Colab](https://research.google.com/colaboratory/faq.html#:~:text=Colaboratory%2C%20or%20%E2%80%9CColab%E2%80%9D%20for,learning%2C%20data%20analysis%20and%20education.)
+
+
+
+---
+## Earth Engine Only Approach (last class)
+.center[![](figures/11/ee_only.png)]
+
+
+---
+## Earth Engine and TensorFlow (today)
+.center[![](figures/11/ee_plus_tf.png)]
+
+
+
+---
+## Google Colab demo
+- [link to demo](https://colab.research.google.com/github/google/earthengine-api/blob/master/python/examples/ipynb/TF_demo1_keras.ipynb#scrollTo=ZcjQnHH8zT4q)
+
+
+---
+## Final Project 
+- [Project list](https://github.com/agroimpacts/geog287387/blob/class/s2021/docs/projects.md)
+- Project proposal due Thursday May 6
+- Project includes presentation (recorded video) and report (R Markdown, other scripts)
+
+---
+## Project Rubric
+- [Rubric link](https://github.com/agroimpacts/geog287387/blob/class/s2021/docs/general-information.md)
+
+---
+## Schedule
+- Tuesday (May 4). Check-in on project ideas
+- Thursday (May 6). Proposals due by 4:15 PM (on Slack)
+- Project updates (May 18, 25). Short presentations (2-3 slides). Focus on main obstacles.
+
+---
+## Final Project due dates
+- Video presentation (Weds June 2)
+- Final report (Fri June 4)
+
+---
+## Proposal
+- Written proposal (1/2 - 1 page)
+ - What are the goals of the project? (i.e. what do you want to find out/demonstrate?)
+ - What methods/tools will you use?
+ - What data sets do you have, and what data sets do you still need to find?
+ - Provide a list of concrete steps you can take to achieve this project's goals. These steps should be sequential (i.e. first steps are fundamental to project, later steps are "nice-to-have"). If you are in a group, it may be helpful to assign different tasks to group members.
+
+---
+## Project ideas
+- [Google sign-up](https://docs.google.com/spreadsheets/d/1h42PUu3rfIO2NpAh4oiVoLo0K0miPSvkUeXnBXHccDY/edit?usp=sharing)
+
+
+---
+## For next class
+- Finish project proposals (due on Slack by 4:15 PM May 6)
+- Read [Elmes et al. 2020](https://doi.org/10.3390/rs12061034)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
