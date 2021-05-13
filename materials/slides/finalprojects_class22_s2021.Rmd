@@ -1,0 +1,66 @@
+---
+title: "Final projects"
+subtitle: "New Methods in Earth Observation"
+date: "Class 22"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "lucy", "middlebury-fonts", "themes/class6-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+## GEE Apps
+- [GEE Apps](https://www.earthengine.app/)
+- [Gallery](https://philippgaertner.github.io/2020/12/ee-apps-table-searchable/)
+
+---
+## Steps in App Creation
+- Step 1. Create maps/layers you will need to use in GEE
+
+
+---
+## Steps in App Creation
+- Step 2. Determine how you want app to work (create mock-up, write out specs)
+ - "User can select from list of VI's to display in panels"
+ - "User can click on point and see time-series of mangrove index"
+
+---
+## Steps in App Creation
+- Step 3. Search the web! Find an example/video that shows a similar style app.
+- Useful links
+ - [GEE Apps](https://www.earthengine.app/)
+ - [Gallery](https://philippgaertner.github.io/2020/12/ee-apps-table-searchable/)
+
+---
+## Steps in App Creation
+- Step 4. Determine what aspects of code you need to change for your app. 
+
+---
+## Steps in App Creation
+- Step 5. Update code and troubleshoot. You will certainly run into errors! (this is part of the coding process)
+- Iterate through steps 3-5 as needed.
+- Ask Mike/Laurence when you run into roadblocks.
+
+---
+## Sample app
+- Start with [preexisting app](https://google.earthengine.app/view/ocean)
+- Update app to use Sentinel-2 imagery for Whittier.
+- [Template app code](https://code.earthengine.google.com/)
+- [Final app link](https://michaeljcecil.users.earthengine.app/view/apptest2)
+
+---
+## Project updates
+- Project updates (May 18, 25). 
+ - Short presentations (2-3 slides). 
+ - Focus on main obstacles.
+
+---
+## Project check-in
+
+
+
+
+
+

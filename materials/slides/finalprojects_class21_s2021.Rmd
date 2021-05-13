@@ -1,0 +1,43 @@
+---
+title: "Final projects"
+subtitle: "New Methods in Earth Observation"
+date: "Class 21"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "lucy", "middlebury-fonts", "themes/class6-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+## GEE Resources
+- [Awesome GEE](https://github.com/giswqs/Awesome-GEE)
+- [Community Data sets](https://samapriya.github.io/awesome-gee-community-datasets/)
+
+---
+## GEE Apps
+- [GEE Apps](https://www.earthengine.app/)
+- [Gallery](https://philippgaertner.github.io/2020/12/ee-apps-table-searchable/)
+
+---
+## User Interface Development
+- [Balsamiq](https://balsamiq.com/)
+
+
+---
+## Final Project Timeline
+- Project updates (May 18, 25). 
+ - Short presentations (2-3 slides). 
+ - Focus on main obstacles.
+- Video presentation (Weds June 2)
+- Final report (Fri June 4)
+
+---
+## Project check-in
+
+
+
+
+
+
