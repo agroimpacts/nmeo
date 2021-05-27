@@ -1,7 +1,7 @@
 ---
 title: "Final projects"
 subtitle: "New Methods in Earth Observation"
-date: "Class 25"
+date: "Class 24"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -12,26 +12,57 @@ output:
       countIncrementalSlides: false
 ---
 ## Today
-- GEE Demo
+- Evaluations
+- Final Project Deliverables
 - Project Updates
 
 ---
-## Office Hours
-- Sign up here! https://calendly.com/mcecil/office-hours?month=2021-05
-- Fri May 28 11 AM - 1 PM
-- Tues June 1 12 - 2 PM
-- Thur June 3 12 - 2 PM
+## Evaluations
+- TA: https://clarku.qualtrics.com/jfe/form/SV_07dWi7gkqicZwmq 
+- Instructor: https://moodle.clarku.edu/my/
+- Please complete now!
+
+
 ---
-## GEE Demo
-- get a smoothed curve for all dates in a date range
-- download chart data from GEE
-- merge data in R
+## Final Project Deliverables
+- [Format](https://github.com/agroimpacts/geog287387/blob/class/s2021/docs/general-information.md)
+
+---
+## Video presentation (due Weds June 2)
+- Record using Zoom
+- 4-6 min per person (can be longer for indvidual projects). 
+- Each person should present
+- Slides should convey a point, have figures rather than text
+ - Overall aim of project
+ - Methods used
+ - Results 
+ - Impact of results (why do they matter)
+
+---
+## Final report (due Fri June 4)
+- Should be written as R Markdown (similar to assignments)
+- Include links to external code/apps (e.g. Google Earth Engine, Python)
+- Include any data files used. See Github for folder structure
+- For groups, add initials for paragraphs you write (e.g. [MC])
+
+---
+## Final report
+- 5 questions
+ - Q1 What is the overall aim of the project and what specific Earth Observation is it trying to solve? 
+ - Q2 What were the methods you developed and/or applied? 
+ - Q3 What were your results?
+ - Q4 Did the results show that the project aim was realized? Was an Earth Observation limit pushed back (or potentially pushed back)? If this was a group project, how were the results of individual efforts integrated? 
+ - Q5 What are potential improvements, and any next steps you plan to take?
+ 
+---
+## Final report
+- Responses
+ - Q1: ~500 words
+ - Q2: as much text/code as needed
+ - Q3: figures/tables and supporting text
+ - Q4/5: 500-1000 words
 
 ---
 ## Project check-in
-
-
-
-
 
 

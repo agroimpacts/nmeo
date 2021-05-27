@@ -1,0 +1,37 @@
+---
+title: "Final projects"
+subtitle: "New Methods in Earth Observation"
+date: "Class 25"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "lucy", "middlebury-fonts", "themes/class6-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+## Today
+- GEE Demo
+- Project Updates
+
+---
+## Office Hours
+- Sign up here! https://calendly.com/mcecil/office-hours?month=2021-05
+- Fri May 28 11 AM - 1 PM
+- Tues June 1 12 - 2 PM
+- Thur June 3 12 - 2 PM
+---
+## GEE Demo
+- get a smoothed curve for all dates in a date range
+- download chart data from GEE
+- merge data in R
+
+---
+## Project check-in
+
+
+
+
+
+
