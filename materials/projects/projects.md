@@ -15,13 +15,17 @@ involving deep learning/advanced ML.
 
 More detail on each follows:
 
-## Field boundary mapping
+## Project 1
+
+### Field boundary mapping
 
 The goal of this project is to use advanced machine learning models that
 we have developed to [map smallholder-dominated croplands in
 Africa](mappingafrica.io), and apply it to map new regions and years.
 
-## Detecting crop types in drone data
+## Project 2
+
+### Detecting crop types in drone data
 
 As part of a project to develop improved crop analytics for farmers in
 Ghana, we have collected an extensive set of UAS imagery, which we will

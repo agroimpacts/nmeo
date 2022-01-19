@@ -1,14 +1,13 @@
 Weekly Assignments
 ================
 
-|                             |                         |                                               |                                      |                         |
-|-----------------------------|-------------------------|-----------------------------------------------|--------------------------------------|-------------------------|
-| [Course Home](../README.md) | [Syllabus](syllabus.md) | [General Course Info](general-information.md) | [Weekly assignments](assignments.md) | [Projects](projects.md) |
-
-## Introductory Modules
+|                             |                         |                                               |                                      |                                     |
+|-----------------------------|-------------------------|-----------------------------------------------|--------------------------------------|-------------------------------------|
+| [Course Home](../README.md) | [Syllabus](syllabus.md) | [General Course Info](general-information.md) | [Weekly assignments](assignments.md) | [Projects](../projects/projects.md) |
 
 Please check here to find the materials we will be covering each week
-for the first \~10 weeks.
+for the first \~10 weeks, including links to various software tools you
+will need to install.
 
 Return to [syllabus](syllabus.md) or the course [home
 page](../README.md).
@@ -28,6 +27,6 @@ page](../README.md).
 -   Sign up for an account on
     [EarthEngine](https://signup.earthengine.google.com/#!/)
 
-|                             |                         |                                               |                                      |                         |
-|-----------------------------|-------------------------|-----------------------------------------------|--------------------------------------|-------------------------|
-| [Course Home](../README.md) | [Syllabus](syllabus.md) | [General Course Info](general-information.md) | [Weekly assignments](assignments.md) | [Projects](projects.md) |
+[Course Home](../README.md) \|\| [Syllabus](syllabus.md) \|\| [General
+Course Info](general-information.md) \|\| [Weekly
+assignments](assignments.md) \|\| [Projects](../projects/projects.md)
