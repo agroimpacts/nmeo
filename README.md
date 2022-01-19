@@ -1,35 +1,43 @@
-# New Methods in Earth Observation
+New Methods in Earth Observation
+================
 
 ## Overview
-This course is a skills-based follow-on to GEO391-Innovation in Earth Observation, a seminar that reviewed key limitations facing Earth Observation (EO), and the recent developments that are challenging these limitations. In this course, students will work, within the broader context of several active research projects, on developing and applying several specific EO methods that were reviewed in GEOG391. These methods are: 
 
-- Scaling-up crop growth and productivity estimates derived from automated _in situ_ sensors and UAS imagery up to smallsats; 
-- Processing imagery using cloud-based computational platforms, such as Google Earth Engine and Radiant Earth.
-- An active learning approach (combining crowdsourcing and machine learning) to mapping agricultural land cover;
+This course provides an overview of recent advances in Earth Observation
+(EO) technology that are helping to overcome some of traditional
+limitations of EO, and are leading to breakthrough in our ability to
+understand our planet. In this course, students will work with datasets
+and methods arising from a number of active research projects, and will
+learn background and skills in the following areas:
 
-We will learn a range of new skills, including: 
+1.  Cloud-computing/cloud-based EO platforms
+2.  Small satellites
+3.  UAS/drones
+4.  In situ sensor networks
+5.  Advanced ML/Deep learning
 
-- Programmatic access to sensor and image-serving APIs, as well as cloud-based earth observation platforms, using Javascript, python, and R; 
-- Use of AWS computing instances;
-- Postgres/PostGIS databases;
-- UAS flight planning and image processing with PIX4D software.
-
-After an initial introduction to the various toolsets we will be using, students will form project teams (~3-5 people each) to tackle further development and application of one of the three project areas. These projects (described [here](docs/projects.md) in more detail) will be assessed by means of a formal in-class presentation and team-authored final project. 
+After an initial introduction to the various toolsets we will be using,
+students will form project teams (\~3-5 people each) to tackle further
+development and application of one of the three project areas. These
+projects (described [here](docs/projects.md) in more detail) will be
+assessed by means of a formal in-class presentation and team-authored
+final project.
 
 ## Course details
 
-Class is held in BP217 on Tuesdays from 1450-1750. 
+Class is held in S321 on Monday and Wednesday from 1615-1730.
 
-Office hours: Wednesdays 0930-1130 in Jefferson 105. 
+Office hours: Tuesdays 1300-1500 via Zoom.
 
 ## Course contents
 
-- [General Information](docs/general-information.md)
-- [Syllabus](docs/syllabus.md)
-- [Overview of Projects](docs/projects.md)
-- [Content of Introductory Modules](docs/introductory-modules.md)
+-   [General Information](materials/general-information.md)
+-   [Syllabus](materials/syllabus/syllabus.md)
+-   [Overview of Projects](materials/projects/projects.md)
+-   [Weekly Assignments](syllabus/assignments.md)
 
 <br><br>
 
-![](docs/figures/whittier10082018.png?raw=true)
+<img src="materials/syllabus/figures/whittier10082018.png" width="100%" style="display: block; margin: auto;" />
 
+<!-- ![](materials/syllabus/figures/whittier10082018.png?raw=true) -->
