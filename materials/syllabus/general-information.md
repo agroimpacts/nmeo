@@ -1,9 +1,9 @@
 General Course Information
 ================
 
-|                             |                         |                                               |                                      |                         |
-|-----------------------------|-------------------------|-----------------------------------------------|--------------------------------------|-------------------------|
-| [Course Home](../README.md) | [Syllabus](syllabus.md) | [General Course Info](general-information.md) | [Weekly assignments](assignments.md) | [Projects](projects.md) |
+[Course Home](../../README.md) \|\| [Syllabus](syllabus.md) \|\|
+[General Course Info](general-information.md) \|\| [Weekly
+assignments](assignments.md) \|\| [Projects](../projects/projects.md)
 
 ### Expectations
 
@@ -217,6 +217,6 @@ Codes:
 | OM F, CON F, CRE F    | 25          | F        | 12           | NAR F, NAR F, WRI F     | 12          |
 | OM H, CON H, CRE H    | 30          | H        | 15           | NAR H, NAR H, WRI H     | 15          |
 
-|                             |                         |                                               |                                      |                         |
-|-----------------------------|-------------------------|-----------------------------------------------|--------------------------------------|-------------------------|
-| [Course Home](../README.md) | [Syllabus](syllabus.md) | [General Course Info](general-information.md) | [Weekly assignments](assignments.md) | [Projects](projects.md) |
+[Course Home](../../README.md) \|\| [Syllabus](syllabus.md) \|\|
+[General Course Info](general-information.md) \|\| [Weekly
+assignments](assignments.md) \|\| [Projects](../projects/projects.md)

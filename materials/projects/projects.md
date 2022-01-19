@@ -1,9 +1,11 @@
 Team Projects
 ================
 
+<p align="center">
 [Course Home](../../README.md) \|\| [Syllabus](syllabus.md) \|\|
 [General Course Info](general-information.md) \|\| [Weekly
 assignments](assignments.md) \|\| [Projects](../projects/projects.md)
+</p>
 
 This year we are going to focus on 2-3 potential projects, mostly
 involving deep learning/advanced ML.

@@ -1,9 +1,9 @@
 Weekly Assignments
 ================
 
-|                             |                         |                                               |                                      |                                     |
-|-----------------------------|-------------------------|-----------------------------------------------|--------------------------------------|-------------------------------------|
-| [Course Home](../README.md) | [Syllabus](syllabus.md) | [General Course Info](general-information.md) | [Weekly assignments](assignments.md) | [Projects](../projects/projects.md) |
+[Course Home](../README.md) \|\| [Syllabus](syllabus.md) \|\| [General
+Course Info](general-information.md) \|\| [Weekly
+assignments](assignments.md) \|\| [Projects](../projects/projects.md)
 
 Please check here to find the materials we will be covering each week
 for the first \~10 weeks, including links to various software tools you
@@ -24,6 +24,8 @@ page](../README.md).
 
 ### Tools
 
+-   Install `git` on your computer
+-   Download AWS CLI
 -   Sign up for an account on
     [EarthEngine](https://signup.earthengine.google.com/#!/)
 

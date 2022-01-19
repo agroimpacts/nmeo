@@ -1,9 +1,9 @@
 Syllabus
 ================
 
-|                             |                         |                                               |                                      |                         |
-|-----------------------------|-------------------------|-----------------------------------------------|--------------------------------------|-------------------------|
-| [Course Home](../README.md) | [Syllabus](syllabus.md) | [General Course Info](general-information.md) | [Weekly assignments](assignments.md) | [Projects](projects.md) |
+[Course Home](../../README.md) \|\| [Syllabus](syllabus.md) \|\|
+[General Course Info](general-information.md) \|\| [Weekly
+assignments](assignments.md) \|\| [Projects](../projects/projects.md)
 
 ## Overview
 
@@ -50,6 +50,6 @@ project.
 |   14 |    25/27-Apr |            Group Projects |
 |   15 |        2-May |            Group Projects |
 
-|                             |                         |                                               |                                      |                         |
-|-----------------------------|-------------------------|-----------------------------------------------|--------------------------------------|-------------------------|
-| [Course Home](../README.md) | [Syllabus](syllabus.md) | [General Course Info](general-information.md) | [Weekly assignments](assignments.md) | [Projects](projects.md) |
+[Course Home](../../README.md) \|\| [Syllabus](syllabus.md) \|\|
+[General Course Info](general-information.md) \|\| [Weekly
+assignments](assignments.md) \|\| [Projects](../projects/projects.md)
