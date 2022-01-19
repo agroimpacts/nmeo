@@ -1,7 +1,7 @@
-New Methods in Earth Observation
-================
 
-## Overview
+<img src="https://s28151.pcdn.co/offices/marketing-and-communications/wp-content/blogs.dir/3/files/sites/106/2019/08/CU_Seal_Red_SM_60_75_v4-768x768.png" align="right" width="80" />
+
+## New Methods in Earth Observation
 
 This course provides an overview of recent advances in Earth Observation
 (EO) technology that are helping to overcome some of traditional
@@ -36,8 +36,8 @@ Office hours: Tuesdays 1300-1500 via Zoom.
 -   [Overview of Projects](materials/projects/projects.md)
 -   [Weekly Assignments](syllabus/assignments.md)
 
-<br><br>
+------------------------------------------------------------------------
 
-<img src="materials/syllabus/figures/whittier10082018.png" width="100%" style="display: block; margin: auto;" />
+<img src="materials/syllabus/figures/train_strategy.png" width="100%" style="display: block; margin: auto;" />
 
 <!-- ![](materials/syllabus/figures/whittier10082018.png?raw=true) -->
