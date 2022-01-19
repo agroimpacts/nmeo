@@ -51,10 +51,10 @@ Innovations:
 
 ## Course Walk-through
 
-- [Home page](https://github.com/agroimpacts/geog287387)
-- [Approach](https://github.com/agroimpacts/geog287387/blob/master/docs/general-information.md)
-- [Syllabus](https://github.com/agroimpacts/geog287387/blob/master/docs/syllabus.md)
-- [Projects](https://github.com/agroimpacts/geog287387/blob/master/docs/projects.md)
+- [Home page](https://github.com/agroimpacts/nmeo)
+- [Syllabus](https://github.com/agroimpacts/nmeo/blob/class/s2022/materials/syllabus/syllabus.md)
+- [More details](https://github.com/agroimpacts/nmeo/blob/class/s2022/materials/syllabus/general-information.md)
+- [Projects](https://github.com/agroimpacts/nmeo/blob/class/s2022/materials/projects/projects.md)
 
 ---
 background-image: url(figures/uas.jpg)
@@ -64,9 +64,9 @@ background-position: right
 ## Project Tools
 
 - UAS
-- [Sensors](https://clark.arable.com/dashboard/locations)
+- [Sensors](https://www.arable.com/products/sensing/)
 - [Cloud-processing](https://www.mlhub.earth)
-- [Active learning](https://mappingafrica.io)
+- [Advanced ML](https://mappingafrica.io/technology/#panel3)
 
 
 ---
@@ -161,6 +161,8 @@ grid.arrange(img1, img2, ncol = 2)
 
 - PlanetScope
 
+![](https://spacedata.copernicus.eu/documents/20126/0/PlanetScope.jpg/e9586b26-b1c9-1885-40fa-0a8467bb6912?t=1589374106539&imagePreview=1)
+
 ---
 background-image: url(figures/01/geowiki.png)
 background-size: 60%
@@ -181,7 +183,7 @@ background-position: bottom
     - Inadequate calibration/validation data
     - Better models
 - Societal:
-    - Accesibility
+    - Accessibility
   
 ---
 
@@ -189,6 +191,13 @@ background-position: bottom
 
 - Crowdsourcing platform
 - Arable
+- UAS
+
+---
+
+```{r, echo=FALSE, out.width="100%", fig.align='center'}
+knitr::include_graphics("figures/01/uas_ghana.png")
+```
 
 ---
 background-image: url(figures/01/gaveau_etal2014.png)
@@ -198,7 +207,23 @@ background-position: center
 ## Innovation Pushing Back Limits 3
 
 - Peering into the gaps
+---
 
+```{r, echo=FALSE, out.width="80%", fig.align='center'}
+knitr::include_graphics("figures/01/uas_1.png")
+```
+
+---
+
+```{r, echo=FALSE, out.width="100%", fig.align='center'}
+knitr::include_graphics("figures/01/uas_2.png")
+```
+
+---
+
+```{r, echo=FALSE, out.width="100%", fig.align='center'}
+knitr::include_graphics("figures/01/uas_3.png")
+```
 
 ---
 
@@ -282,8 +307,7 @@ background-position: center
 
 ## How Our Methods Fit In
 
-- Would be great to implement STAIR!
-- Arable Marks + Ebee + Planet + DSSAT crop model & R package
+- Arable Marks + Sentinel + DSSAT crop model & R package
 
 ---
 background-image: url(http://2rct3i2488gxf9jvb1lqhek9-wpengine.netdna-ssl.com/wp-content/uploads/2017/05/isprs-potsdam-predicitions-4.gif)
@@ -293,6 +317,7 @@ background-position: bottom
 ## Innovations Pushing Back Limits 6
 - Computer vision, machine, and deep learning
 - Azavea's `rastervision`
+- Our own CNN that runs on AWS
 
 ---
 
@@ -308,7 +333,7 @@ background-position: bottom
 
 ## How Our Methods Fit In
 
-- Debats et al (2016) (adapted by Song and Young, 2018)
+- Estes et al (2022)
 
 ---
 background-image: url(figures/01/activelearning.png)

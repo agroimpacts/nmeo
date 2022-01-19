@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
     <title>New Methods in Earth Observation</title>
     <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/lucy.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/middlebury-fonts.css" rel="stylesheet" />
@@ -58,10 +59,10 @@ Innovations:
 
 ## Course Walk-through
 
-- [Home page](https://github.com/agroimpacts/geog287387)
-- [Approach](https://github.com/agroimpacts/geog287387/blob/master/docs/general-information.md)
-- [Syllabus](https://github.com/agroimpacts/geog287387/blob/master/docs/syllabus.md)
-- [Projects](https://github.com/agroimpacts/geog287387/blob/master/docs/projects.md)
+- [Home page](https://github.com/agroimpacts/nmeo)
+- [Syllabus](https://github.com/agroimpacts/nmeo/blob/class/s2022/materials/syllabus/syllabus.md)
+- [More details](https://github.com/agroimpacts/nmeo/blob/class/s2022/materials/syllabus/general-information.md)
+- [Projects](https://github.com/agroimpacts/nmeo/blob/class/s2022/materials/projects/projects.md)
 
 ---
 background-image: url(figures/uas.jpg)
@@ -71,9 +72,9 @@ background-position: right
 ## Project Tools
 
 - UAS
-- [Sensors](https://clark.arable.com/dashboard/locations)
+- [Sensors](https://www.arable.com/products/sensing/)
 - [Cloud-processing](https://www.mlhub.earth)
-- [Active learning](https://mappingafrica.io)
+- [Advanced ML](https://mappingafrica.io/technology/#panel3)
 
 
 ---
@@ -162,6 +163,8 @@ background-position: center
 
 - PlanetScope
 
+![](https://spacedata.copernicus.eu/documents/20126/0/PlanetScope.jpg/e9586b26-b1c9-1885-40fa-0a8467bb6912?t=1589374106539&amp;imagePreview=1)
+
 ---
 background-image: url(figures/01/geowiki.png)
 background-size: 60%
@@ -182,7 +185,7 @@ background-position: bottom
     - Inadequate calibration/validation data
     - Better models
 - Societal:
-    - Accesibility
+    - Accessibility
   
 ---
 
@@ -190,6 +193,11 @@ background-position: bottom
 
 - Crowdsourcing platform
 - Arable
+- UAS
+
+---
+
+&lt;img src="figures/01/uas_ghana.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ---
 background-image: url(figures/01/gaveau_etal2014.png)
@@ -199,7 +207,17 @@ background-position: center
 ## Innovation Pushing Back Limits 3
 
 - Peering into the gaps
+---
 
+&lt;img src="figures/01/uas_1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="figures/01/uas_2.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="figures/01/uas_3.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -283,8 +301,7 @@ background-position: center
 
 ## How Our Methods Fit In
 
-- Would be great to implement STAIR!
-- Arable Marks + Ebee + Planet + DSSAT crop model &amp; R package
+- Arable Marks + Sentinel + DSSAT crop model &amp; R package
 
 ---
 background-image: url(http://2rct3i2488gxf9jvb1lqhek9-wpengine.netdna-ssl.com/wp-content/uploads/2017/05/isprs-potsdam-predicitions-4.gif)
@@ -294,6 +311,7 @@ background-position: bottom
 ## Innovations Pushing Back Limits 6
 - Computer vision, machine, and deep learning
 - Azavea's `rastervision`
+- Our own CNN that runs on AWS
 
 ---
 
@@ -309,7 +327,7 @@ background-position: bottom
 
 ## How Our Methods Fit In
 
-- Debats et al (2016) (adapted by Song and Young, 2018)
+- Estes et al (2022)
 
 ---
 background-image: url(figures/01/activelearning.png)
@@ -352,6 +370,7 @@ background-position: bottom
 - PIX4D
 - Anaconda, with Jupyter Notebooks and RStudio
 - AWS Workspaces
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -399,6 +418,32 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
 // adds .remark-code-has-line-highlighted class to <pre> parent elements
 // of code chunks containing highlighted lines with class .remark-code-line-highlighted
 (function(d) {
@@ -416,17 +461,6 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   }
   preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
 })(document);</script>
-
-<script>
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-</script>
 
 <script>
 slideshow._releaseMath = function(el) {
