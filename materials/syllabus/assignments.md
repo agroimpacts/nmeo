@@ -28,9 +28,13 @@ page](../README.md).
 -   Install
     [`git`](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
     on your computer
--   Download and install the [`AWS CLI`](https://aws.amazon.com/cli/)
+-   Download the [`AWS CLI`](https://aws.amazon.com/cli/)
 -   Sign up for an account on
     [EarthEngine](https://signup.earthengine.google.com/#!/)
+
+### Ongoing
+
+-   Week 1: Do homework assignments at end of Class 3 slides
 
 [Course Home](../README.md) \|\| [Syllabus](syllabus.md) \|\| [General
 Course Info](general-information.md) \|\| [Weekly
