@@ -1,0 +1,367 @@
+---
+title: "Cloud-based Processing"
+subtitle: "New Methods in Earth Observation"
+date: "Class 3"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "lucy", "middlebury-fonts", "themes/class6-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+
+---
+## Practicals
+
+&nbsp;&nbsp; - Google Earth Engine (today)
+
+&nbsp;&nbsp; - AWS (next week)
+
+---
+## Earth Engine
+
+### [Introduction](https://developers.google.com/earth-engine/)
+### [Code Editor](https://developers.google.com/earth-engine/playground)
+### [Datasets](https://developers.google.com/earth-engine/datasets/catalog/)
+### [Tutorials](https://developers.google.com/earth-engine/tutorials)
+### [Guides](https://developers.google.com/earth-engine/guides)
+### [API reference](https://developers.google.com/earth-engine/api_docs)
+
+---
+## Some Basics
+
+### Load and Display an Image
+
+Adapted from the Earth Engine [introductory tutorial](https://developers.google.com/earth-engine/tutorial_api_02).
+```{js, eval = FALSE}
+// Instantiate an image with the Image constructor.
+var srtm = ee.Image('CGIAR/SRTM90_V4');
+
+// Zoom to a location.
+Map.setCenter(-112.8598, 36.2841, 9); // Center on the Grand Canyon.
+
+// Display the image on the map.
+Map.addLayer(srtm);
+```
+
+Let's point somewhere else (substitute this into script)
+```{js, eval = FALSE}
+Map.setCenter(28, -13, 6); // Where is this?
+```
+
+How about here? 
+```{js, eval = FALSE}
+Map.setCenter(-71.8067, 42.1214, 14); // Where is this?
+```
+
+---
+
+Let's add some color
+```{js, eval = FALSE}
+Map.addLayer(srtm, {min: 0, max: 3000, palette: ['blue', 'green', 'red']},
+             'custom palette');
+```
+
+---
+### Derived Layers
+#### Slope and Aspect
+
+Calculate and then have a look 
+```{js, eval = FALSE}
+// Slope
+var slope = ee.Terrain.slope(srtm);
+
+// Aspect
+var aspect = ee.Terrain.aspect(srtm);
+
+// Convert to radians, compute the sin of the aspect.
+var sinImage = aspect.divide(180).multiply(Math.PI).sin();
+
+// Add these to your displays
+Map.addLayer(slope, {min: 0, max :60}, 'slope');
+Map.addLayer(aspect, {min: 0, max: 360, palette: ['blue', 'green', 'red']}, 
+             'aspect');
+Map.addLayer(sinImage, {min: -1, max: 1, palette: ['blue', 'green', 'red']}, 
+             'sin');
+```
+
+---
+### Image Statistics
+#### First, define an area of interest
+&nbsp;&nbsp;1. Use the polygon tool to draw a polygon, which you rename to "myaoi"
+
+&nbsp;&nbsp;2. Turn an extent into a geometry feature
+```{js, eval = FALSE}
+// Clip boundaries (generous margin around Zambia)
+var zam = ee.Feature(ee.Geometry.Rectangle(21, -19, 34.5, -7.5));
+```
+
+&nbsp;&nbsp;3. Use an existing feature collection
+```{js, eval = FALSE}
+// Load a region representing Zambia
+var zam = ee.Feature(
+  ee.FeatureCollection('ft:1tdSwUL7MVpOauSgRzqVTOwdfy17KDbw-1d9omPw')
+  .filterMetadata('Country', 'equals', 'Zambia')
+  .first());
+```
+
+Or:
+```{js, eval = FALSE}
+var zam = ee.Feature(
+  ee.FeatureCollection("USDOS/LSIB/2013")
+  .filterMetadata('cc', 'equals', 'ZA')
+  .first());
+```
+
+---
+
+#### Calculate summary statistics within the AOI
+```{js, eval = FALSE}
+// Mean elevation
+var meanDict = srtm.reduceRegion({
+  reducer: ee.Reducer.mean(),
+  geometry: zam.geometry(),
+  scale: 90,
+  maxPixels: 1e8
+  //bestEffort: true
+});
+
+// Get the mean from the dictionary and print it.
+var mean = meanDict.get('elevation');
+print('Mean elevation', mean);
+```
+
+---
+## Image Collections
+
+Landsat 8
+```{js, eval = FALSE}
+var l8 = ee.ImageCollection('LANDSAT/LC08/C01/T1_TOA');
+
+var spatialFiltered = l8.filterBounds(myaoi);
+print('spatialFiltered', spatialFiltered);
+
+var temporalFiltered = spatialFiltered.filterDate('2018-05-01', '2018-09-15');
+print('temporalFiltered', temporalFiltered);
+```
+
+Find least cloudy
+```{js, eval = FALSE}
+// Sort from least to most cloudy.
+var sorted = temporalFiltered.sort('CLOUD_COVER');
+
+// Get least cloudy image
+var scene = ee.Image(sorted.first());
+```
+
+Display. Run this then try make a false color. 
+```{js, eval = FALSE}
+var visParams = {bands: ['B4', 'B3', 'B2'], max: 0.3};
+//var visParams = {bands: ['B5', 'B4', 'B3'], max: 0.3};
+Map.addLayer(scene, visParams, 'true-color composite');
+```
+
+---
+Show a collection
+```{js, eval = FALSE}
+var visParams = {bands: ['B4', 'B3', 'B2'], max: 0.3};
+Map.addLayer(temporalFiltered, visParams, 'L8 collection');
+```
+
+---
+## Viewing one image from collection
+```{js, eval = FALSE}
+// What is happening on June 24?
+// code below displays an image
+var displayImage = function(imageCollection, imageIndex, visParams, layerName) {
+  var imageCollection_list = imageCollection.toList(imageCollection.size());
+  var scene = ee.Image(imageCollection_list.get(imageIndex));
+  Map.addLayer(scene, visParams, layerName);
+  return(true);
+}
+displayImage(sorted, 5, visParams, "June 24" )
+```
+
+
+### Compositing
+
+```{js, eval = FALSE}
+var median = temporalFiltered.median();
+Map.addLayer(median, visParams, 'Zambia L8 median');
+// is this a median over space or time?
+// what is we wanted to see the pixel-wise max?
+```
+
+### Cropping
+```{js, eval = FALSE}
+var medianCrop = median.clip(myaoi);
+Map.addLayer(medianCrop, visParams, 'Zambia L8 median cropped');
+```
+
+### Masking
+```{js, eval = FALSE}
+var elevmask = srtm.gt(100);
+var maskedMedian = median.updateMask(elevmask);
+Map.addLayer(maskedMedian, visParams, 'Zambia L8 masked median');
+```
+
+---
+## Calculating NDVI on an image
+```{js, eval = FALSE}
+var addNDVI = function(image) {
+  var ndvi = image.normalizedDifference(['B5', 'B4']).rename('NDVI');
+  return image.addBands(ndvi);
+};
+
+// Apply function to single image
+var ndvi = addNDVI(scene).select('NDVI');
+// Map.addLayer(ndvi, ndviVis, 'Cropped NDVI from median');
+
+// Map onto a collection
+var withNDVI = temporalFiltered.map(medianCrop);
+Map.addLayer(withNDVI);
+```
+---
+
+## Clip and calculate NDVI over a collection
+```{r, eval=FALSE}
+var zamNDVI = temporalFiltered.map(function(image) {
+    var img = image.clip(myaoi);
+    var ndvi = img.normalizedDifference(['B5', 'B4']).rename('NDVI');
+    return img.addBands(ndvi);
+});
+
+Map.addLayer(zamNDVI);
+```
+
+## Charts
+```{js, eval = FALSE}
+// Create chart
+var chart = ui.Chart.image.series({
+  imageCollection: withNDVI.select('NDVI'),
+  region: myaoi,
+  reducer: ee.Reducer.first({maxPixels = 100000}),
+  scale: 30
+}).setOptions({title: 'NDVI over time'});
+
+// Display the chart in the console.
+print(chart);
+
+```
+
+---
+## Cloud masking 
+```{js, eval=FALSE}
+var maskL8 = function(image) {
+  var qa = image.select('BQA');
+  /// Check that the cloud bit is off.
+  // See https://www.usgs.gov/land-resources/nli/landsat/landsat-collection-1-level-1-quality-assessment-band
+  var mask = qa.bitwiseAnd(1 << 4).eq(0);
+  return image.updateMask(mask);
+}
+
+var temporalFilteredMasked = temporalFiltered.map(maskL8)
+Map.addLayer(temporalFilteredMasked.first())
+```
+
+---
+## Converting to LAI
+https://developers.google.com/earth-engine/guides/image_math
+```{js, eval=FALSE}
+// compute LAI and add it as a separate band
+var addLAI_NDVI = function(image) {
+  var lai = image.expression(
+    '(log(-(ndvi - 0.943)/0.731))/(log(0.6))', {
+    'ndvi': image.select('NDVI')
+    }).rename('LAI_NDVI');
+  return(image.addBands(lai))
+};
+
+
+var withLAI = withNDVI_masked.map(addLAI_NDVI);
+
+// add chart showing LAI time-series 
+```
+
+---
+## Find Max NDVI/LAI
+```{js, eval = FALSE}
+var withLAI_max = withLAI.max();
+
+// add code to display LAI max 
+var visParams = {bands: ['LAI_NDVI'], max: 5};
+Map.addLayer(withLAI_max, visParams, 'Whittier L8 max - SR');
+
+```
+
+---
+## Export image to Google Drive
+```{js, eval = FALSE}
+
+// Export the image, specifying scale and region.
+Export.image.toDrive({
+  image: scene,
+  description: 'imageToDriveExample',
+  scale: 30,
+  region: geometry
+});
+```
+
+
+---
+## General Workflow
+- Import image / image collection
+- Filter
+- Analysis
+- Display Results
+- Export Image/Charts/Tables (if needed)
+
+---
+
+## Other work
+
+&nbsp;&nbsp; - Harmonic models
+
+&nbsp;&nbsp; - Smooth curves
+
+&nbsp;&nbsp; - Center pivot detection
+
+---
+
+## Resources
+
+- [Awesome GEE](https://github.com/giswqs/Awesome-GEE)
+- Reading/viewing:
+  - [GEE Overview](https://developers.google.com/earth-engine/guides/concepts_overview)
+  - First 3 videos in [Playlist](https://www.youtube.com/playlist?list=PLivRXhCUgrZpCR3iSByLYdd_VwFv-3mfs). (Intro, Client vs. Server side, Filtering)
+
+---
+## Homework 
+
+- Review the resources above
+
+- Run & study code for harmonic models, smooth curves, & center pivot detection
+---
+## Homework cont.
+
+- Run the following analyses in Earth Engine:
+
+    - Create a new empty EE script called "yourname287387"
+    - Define an AOI over any region of interest
+    - Load in the Sentinel 2 collection
+    - Filter the collection to 2021-01-01 and 2021-12-31
+    - Apply a cloud mask to your filtered collection: 
+        
+        ```
+        // S2 cloud mask
+        var maskcloud1 = function(image) {
+            var QA60 = image.select(['QA60']);
+            return image.updateMask(QA60.lt(1));
+        };
+        ```
+    - Calculate NDVI over the masked collection (note Sentinel-2 has different bands--find the right ones), and crop to your AOI;
+    - Calculated the median NDVI value from your cropped collection;
+    - Plot a time series NDVI chart;
+    - Share the script with me (drop it in a Slack direct message)
+

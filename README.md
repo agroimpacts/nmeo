@@ -34,7 +34,7 @@ Office hours: Tuesdays 1300-1500 via Zoom.
 -   [General Information](materials/general-information.md)
 -   [Syllabus](materials/syllabus/syllabus.md)
 -   [Overview of Projects](materials/projects/projects.md)
--   [Weekly Assignments](syllabus/assignments.md)
+-   [Weekly Assignments](materials/syllabus/assignments.md)
 
 ------------------------------------------------------------------------
 
