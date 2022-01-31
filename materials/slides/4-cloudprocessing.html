@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Cloud-based Processing</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/lucy.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/middlebury-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="themes/class6-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Cloud-based Processing
+## New Methods in Earth Observation
+### Class 4
+
+---
+
+## Today
+- Go over homework
+- Use EE to calculated smoothing functions
+
+---
+
+
+## General EE Workflow
+- Import image / image collection
+- Filter
+- Analysis
+- Display Results
+- Export Image/Charts/Tables (if needed)
+
+
+
+---
+## Cloud masking 
+
+```js
+var maskL8clouds = function(image) {
+  var qa = image.select('BQA');
+  /// Check that the cloud bit is off.
+  // See https://www.usgs.gov/land-resources/nli/landsat/landsat-collection-1-level-1-quality-assessment-band
+  var mask = qa.bitwiseAnd(1 &lt;&lt; 4).eq(0);
+  return image.updateMask(mask);
+}
+```
+
+---
+## Sentinel-2 cloud masking
+
+```js
+function maskS2clouds(image) {
+    var qa = image.select('QA60')
+    // Bits 10 and 11 are clouds and cirrus, respectively.
+    var cloudBitMask = 1 &lt;&lt; 10;
+    var cirrusBitMask = 1 &lt;&lt; 11;
+    // Both flags should be set to zero, indicating clear conditions.
+    var mask = qa.bitwiseAnd(cloudBitMask).eq(0).and(
+              qa.bitwiseAnd(cirrusBitMask).eq(0))
+    // Return the masked and scaled data, without the QA bands.
+    return image.updateMask(mask).divide(10000)
+        .select("B.*")
+        .copyProperties(image, ["system:time_start"])
+}
+```
+
+---
+## Calculating other VIs
+&lt;div class="figure"&gt;
+&lt;img src="figures/04/Bands_to_VI.png" alt="From Nguy-Robertson et al, 2012, doi:10.2134/agronj2012.0065" width="100%" /&gt;
+&lt;p class="caption"&gt;From Nguy-Robertson et al, 2012, doi:10.2134/agronj2012.0065&lt;/p&gt;
+&lt;/div&gt;
+
+---
+## GCVI
+
+```js
+var gcvi = function(image){
+  var gcvi = image.expression(
+    '(NIR / GREEN) - 1.0', {
+    'NIR': image.select('B8'),
+    'GREEN': image.select('B3')
+    }).rename('GCVI');
+  return(gcvi)    
+}
+```
+---
+
+## Time band for smoothing
+
+```js
+var addTimeBand = function(image) {
+  return image.addBands(image.metadata('system:time_start')
+                             .divide(1e18).rename('time'));
+};
+```
+---
+
+## Smoothing functions
+
+
+```js
+function smoother(t){
+  // helper function to apply linear regression equation
+  function applyFit(img){
+      return img.select('time').multiply(fit.select('scale')).add(fit.select('offset'))
+              .set('system:time_start',img.get('system:time_start')).rename('GCVI');
+  }
+  t = ee.Date(t);
+  var window = data.filterDate(t.advance(-windowSize,'day'),
+                               t.advance(windowSize,'day'));
+  var fit = window.select(['time','GCVI'])
+    .reduce(ee.Reducer.linearFit());
+  return window.map(applyFit).toList(5);
+}
+function reduceFits(t){
+  t = ee.Date(t);
+  return fitIC.filterDate(t.advance(-windowSize,'day'),t.advance(windowSize,'day'))
+              .mean().set('system:time_start',t.millis()).rename('GCVI');
+}
+```
+
+---
+
+## Apply smoothing functions
+
+```js
+var dates = ee.List(withTime.aggregate_array('system:time_start'));
+var windowSize = 10; //days on either side for smoothing
+var fitIC = ee.ImageCollection(dates.map(smoother).flatten());
+print ('fitic', fitIC)
+var smoothed = ee.ImageCollection(dates.map(reduceFits));
+// merge original and smoothed data into one image collection for plotting
+var joined = ee.ImageCollection(smoothed.select(['GCVI'],['smoothed'])
+                .merge(withTime.select(['GCVI'],['original'])));
+print('joined', joined)
+print('smoothed', smoothed)
+```
+
+
+---
+## Group Exercises
+
+- Calculate smooth curve from Landsat GCVI
+- Calculate another vegetation index from Sentinel and smooth
+
+---
+
+## Other work
+
+- Harmonic models
+
+- Center pivot detection
+
+---
+
+
+
+## LAI from VIs
+&lt;div class="figure"&gt;
+&lt;img src="figures/04/VI_to_LAI.png" alt="From Nguy-Robertson et al, 2012, doi:10.2134/agronj2012.0065" width="100%" /&gt;
+&lt;p class="caption"&gt;From Nguy-Robertson et al, 2012, doi:10.2134/agronj2012.0065&lt;/p&gt;
+&lt;/div&gt;
+
+---
+## Export image to Google Drive
+
+```js
+
+// Export the image, specifying scale and region.
+Export.image.toDrive({
+  image: scene,
+  description: 'imageToDriveExample',
+  scale: 30,
+  region: geometry
+});
+```
+
+---
+## Converting to LAI
+https://developers.google.com/earth-engine/guides/image_math
+
+```js
+// compute LAI and add it as a separate band
+var ndviLAI = function(image) {
+  var lai = image.expression(
+    '(log(-(ndvi - 0.943)/0.731))/(log(0.6))', {
+    'ndvi': image.select('NDVI')
+    }).rename('LAI');
+  return(image.addBands(lai))
+};
+
+var withLAI = withNDVI_masked.map(addLAI_NDVI);
+
+// add chart showing LAI time-series 
+```
+
+
+
+
+
+
+```r
+var gcviLAI = function(image) {
+  var lai = image.expression(
+    '((img - 0.93) / 1.4)**(1 / 1.03)', {
+    'img': image.select('GCVI')
+    }).rename('LAI');
+  return(lai)
+}
+```
+
+---
+## Find Max NDVI/LAI
+
+```js
+var withLAI_max = withLAI.max();
+
+// add code to display LAI max 
+var visParams = {bands: ['LAI_NDVI'], max: 5};
+Map.addLayer(withLAI_max, visParams, 'Whittier L8 max - SR');
+
+```
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

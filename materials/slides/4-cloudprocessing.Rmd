@@ -1,0 +1,218 @@
+---
+title: "Cloud-based Processing"
+subtitle: "New Methods in Earth Observation"
+date: "Class 4"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "lucy", "middlebury-fonts", "themes/class6-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+
+---
+## Today
+- Go over homework
+- Use EE to calculated smoothing functions
+
+---
+
+
+## General EE Workflow
+- Import image / image collection
+- Filter
+- Analysis
+- Display Results
+- Export Image/Charts/Tables (if needed)
+
+
+
+---
+## Cloud masking 
+```{js, eval=FALSE}
+var maskL8clouds = function(image) {
+  var qa = image.select('BQA');
+  /// Check that the cloud bit is off.
+  // See https://www.usgs.gov/land-resources/nli/landsat/landsat-collection-1-level-1-quality-assessment-band
+  var mask = qa.bitwiseAnd(1 << 4).eq(0);
+  return image.updateMask(mask);
+}
+```
+
+---
+## Sentinel-2 cloud masking
+```{js, eval=FALSE}
+function maskS2clouds(image) {
+    var qa = image.select('QA60')
+    // Bits 10 and 11 are clouds and cirrus, respectively.
+    var cloudBitMask = 1 << 10;
+    var cirrusBitMask = 1 << 11;
+    // Both flags should be set to zero, indicating clear conditions.
+    var mask = qa.bitwiseAnd(cloudBitMask).eq(0).and(
+              qa.bitwiseAnd(cirrusBitMask).eq(0))
+    // Return the masked and scaled data, without the QA bands.
+    return image.updateMask(mask).divide(10000)
+        .select("B.*")
+        .copyProperties(image, ["system:time_start"])
+}
+```
+
+---
+## Calculating other VIs
+```{r, echo=FALSE, out.width="100%", fig.cap="From Nguy-Robertson et al, 2012, doi:10.2134/agronj2012.0065"}
+knitr::include_graphics("figures/04/Bands_to_VI.png")
+```
+
+---
+## GCVI
+```{js, eval=FALSE}
+var gcvi = function(image){
+  var gcvi = image.expression(
+    '(NIR / GREEN) - 1.0', {
+    'NIR': image.select('B8'),
+    'GREEN': image.select('B3')
+    }).rename('GCVI');
+  return(gcvi)    
+}
+```
+---
+
+## Time band for smoothing
+```{js, eval=FALSE}
+var addTimeBand = function(image) {
+  return image.addBands(image.metadata('system:time_start')
+                             .divide(1e18).rename('time'));
+};
+```
+---
+
+## Smoothing functions
+
+```{js, eval=FALSE}
+function smoother(t){
+  // helper function to apply linear regression equation
+  function applyFit(img){
+      return img.select('time').multiply(fit.select('scale')).add(fit.select('offset'))
+              .set('system:time_start',img.get('system:time_start')).rename('GCVI');
+  }
+  t = ee.Date(t);
+  var window = data.filterDate(t.advance(-windowSize,'day'),
+                               t.advance(windowSize,'day'));
+  var fit = window.select(['time','GCVI'])
+    .reduce(ee.Reducer.linearFit());
+  return window.map(applyFit).toList(5);
+}
+function reduceFits(t){
+  t = ee.Date(t);
+  return fitIC.filterDate(t.advance(-windowSize,'day'),t.advance(windowSize,'day'))
+              .mean().set('system:time_start',t.millis()).rename('GCVI');
+}
+```
+
+---
+
+## Apply smoothing functions
+```{js, eval=FALSE}
+var dates = ee.List(withTime.aggregate_array('system:time_start'));
+var windowSize = 10; //days on either side for smoothing
+var fitIC = ee.ImageCollection(dates.map(smoother).flatten());
+print ('fitic', fitIC)
+var smoothed = ee.ImageCollection(dates.map(reduceFits));
+// merge original and smoothed data into one image collection for plotting
+var joined = ee.ImageCollection(smoothed.select(['GCVI'],['smoothed'])
+                .merge(withTime.select(['GCVI'],['original'])));
+print('joined', joined)
+print('smoothed', smoothed)
+```
+
+
+---
+## Group Exercises
+
+- Calculate smooth curve from Landsat GCVI
+- Calculate another vegetation index from Sentinel and smooth
+
+---
+
+## Other work
+
+- Harmonic models
+
+- Center pivot detection
+
+---
+
+
+
+## LAI from VIs
+```{r, echo=FALSE, out.width="100%", fig.cap="From Nguy-Robertson et al, 2012, doi:10.2134/agronj2012.0065"}
+knitr::include_graphics("figures/04/VI_to_LAI.png")
+```
+
+---
+## Export image to Google Drive
+```{js, eval = FALSE}
+
+// Export the image, specifying scale and region.
+Export.image.toDrive({
+  image: scene,
+  description: 'imageToDriveExample',
+  scale: 30,
+  region: geometry
+});
+```
+
+---
+## Converting to LAI
+https://developers.google.com/earth-engine/guides/image_math
+```{js, eval=FALSE}
+// compute LAI and add it as a separate band
+var ndviLAI = function(image) {
+  var lai = image.expression(
+    '(log(-(ndvi - 0.943)/0.731))/(log(0.6))', {
+    'ndvi': image.select('NDVI')
+    }).rename('LAI');
+  return(image.addBands(lai))
+};
+
+var withLAI = withNDVI_masked.map(addLAI_NDVI);
+
+// add chart showing LAI time-series 
+```
+
+
+```{r, eval=FALSE, echo=FALSE}
+# ndvi_lai <- function(x) log(0.6) * (-(x - 0.943) / 0.731)
+gcvi_lai <- function(x) ((x - 0.931) / 1.44)^0.971
+ndvi_lai <- function(x) (log(-(x - 0.943) / 0.731)) / (log(0.6))
+
+nir <- seq(0.5, 0.7, 0.02)
+red <- seq(0.02, 0.07, 0.005)
+green <- seq(0.05, 0.1, 0.005)
+ndvi <- (nir - red) / (nir + red)
+gcvi <- (nir / green - 1)
+plot(gcvi_lai(gcvi), ndvi_lai(ndvi))
+```
+
+
+```{r, eval=FALSE}
+var gcviLAI = function(image) {
+  var lai = image.expression(
+    '((img - 0.93) / 1.4)**(1 / 1.03)', {
+    'img': image.select('GCVI')
+    }).rename('LAI');
+  return(lai)
+}
+```
+
+---
+## Find Max NDVI/LAI
+```{js, eval = FALSE}
+var withLAI_max = withLAI.max();
+
+// add code to display LAI max 
+var visParams = {bands: ['LAI_NDVI'], max: 5};
+Map.addLayer(withLAI_max, visParams, 'Whittier L8 max - SR');
+
+```

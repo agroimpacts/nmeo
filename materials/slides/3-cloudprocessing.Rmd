@@ -341,7 +341,6 @@ Export.image.toDrive({
 
 - Review the resources above
 
-- Run & study code for harmonic models, smooth curves, & center pivot detection
 ---
 ## Homework cont.
 
