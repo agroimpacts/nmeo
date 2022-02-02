@@ -1,0 +1,44 @@
+---
+title: "Cloud-based Processing"
+subtitle: "New Methods in Earth Observation"
+date: "Class 5"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "lucy", "middlebury-fonts", "themes/class6-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+
+---
+
+## Today
+- Set up AWS account
+
+---
+## Permissions
+
+- AWS credentials provided to you
+- Log in to console: https://554330630998.signin.aws.amazon.com/console
+- Assign an MFA device
+
+---
+## Launch a new Rstudio/jupyter instance
+
+- Browse to EC2 console
+- AMIs
+- Set up new instance with key-pair
+
+---
+## Access your running instance
+
+- RStudio access
+- ssh access for jupyter notebook
+
+
+
+
+
+
+
