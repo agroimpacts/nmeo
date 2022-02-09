@@ -1,0 +1,70 @@
+---
+title: "Cloud-based Processing"
+subtitle: "New Methods in Earth Observation"
+date: "Class 7"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "lucy", "middlebury-fonts", "themes/class6-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+
+---
+
+## Set up notes
+
+Start up your instance through through the R console, and then when it is running, open up your Git Bash or terminal, and enter the following commands:
+
+```{bash, eval=FALSE}
+ssh -i <your.pem> ubuntu@<ip>
+```
+But replace <your.pem> with the full file path and name for AWS key (.pem) file, and <ip> with the public address copied from your computer. 
+
+Running this command will prompt you whether you want to accept the new fingerprint. Type yes and hit enter. 
+
+Once in run the following commands in the terminal (you are now in the instance, not your local computer's OS):
+```{bash, eval=FALSE}
+cd /home/rstudio
+sudo chmod -R a+rwX .
+cd projects/
+mkdir notebooks
+```
+
+That will move you into into the directory `/home/rstudio/`, make it writable by your user, and create a `notebooks` directory under `projects`.
+
+---
+
+Then run this:
+```{bash, eval=FALSE}
+git clone https://github.com/agroimpacts/cloudtools.git
+cd cloudtools
+pip install .
+cd ..
+```
+
+That will install a python package we need to query S3 buckets using python.
+
+---
+Now run the following:
+
+```{bash, eval=FALSE}
+screen  
+````
+
+Hit enter when prompted, and then type:
+```{bash, eval=FALSE}
+jupyter lab
+```
+
+Which will start the `jupyter lab` server. Get out of that screen by typing ctrl+a+d
+
+---
+We will then open `jupyter lab` from our local browser by pasting this into your browser (Firefox, not chrome). 
+
+https://<ip>:8888
+
+Replace <ip> with your instance's current public IP address. That will open up a password interface. Enter the one I provide you. 
+
+
