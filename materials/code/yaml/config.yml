@@ -1,0 +1,28 @@
+# API keys
+# ag analytics
+ag_analytics:
+    SSURGO:
+        KEY1: a5315193af5c4b5f8d952993809db28b
+        KEY2: 8c798de136dc4ba2a29ef369bd347f62
+    CDL:
+        KEY1: 9e59aa3688fc41508f61ea9e1fa46f92
+        KEY2: 8719dfd2db47434285249c0c8e1ab4a8
+    CLU:
+        KEY1: c0d9871e54794d15bbebaf407a206150
+        KEY2: 18b0082049104cc6900703c003b1e875
+    eMODIS:
+        KEY1: ee8c8f922e6845f9a43a1e569294b802
+        KEY2: 233975e046464b579393e4aec0a76cf9
+    POLARIS:
+        KEY1: 80e010ee0d034b9bb3dbfc450bc4c6eb
+        KEY2: e84c268106cb43c7af98b883eafb4236
+    GDD:
+        KEY1: a666e9440151434f91d2780da6240e6f
+        KEY2: 3009fe33ac8b4700bbdc6de2f86a3131
+    PREC:
+        KEY1: e531c0797cb94934bb9d08321c5a4b74
+        KEY2: 83a2f24e8f2c4c8f9035bdf95915eb5e
+  
+# dark sky
+darksky:
+    KEY1: 3d5ac4d8748079f6be850269bfc1d7c4
