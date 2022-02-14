@@ -36,7 +36,7 @@ project.
 |    1 |       19-Jan |           Course overview |
 |    2 |    24/26-Jan | Cloud-based EO processing |
 |    3 | 31-Jan/2-Feb | Cloud-based EO processing |
-|    4 |      7/9-Feb |                Small Sats |
+|    4 |      7/9-Feb | Cloud-based EO processing |
 |    5 |    14/16-Feb |                Small Sats |
 |    6 |    21/23-Feb |                Droning on |
 |    7 | 28-Feb/2-Mar |               Sensor Data |

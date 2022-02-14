@@ -1,0 +1,299 @@
+---
+title: "Small Sats"
+subtitle: "New Methods in Earth Observation"
+date: "Class 8"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "lucy", "middlebury-fonts", "themes/class4-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+## Objectives
+### Understand: 
+&nbsp;&nbsp; - What has enabled them
+
+&nbsp;&nbsp; - Their value
+
+&nbsp;&nbsp; - Their limitations
+
+### Know how to:
+&nbsp;&nbsp; - Access Planet data
+
+&nbsp;&nbsp; - Run some basic searching & filtering (programmatically, with luck)
+
+---
+background-image: url(https://cdn.vox-cdn.com/uploads/chorus_image/image/58407563/38583831555_9ae89f5c10_o.0.jpg)
+background-size: cover
+
+
+## What has enabled small sats?
+
+&nbsp;&nbsp; - Technology gains in other sectors
+
+&nbsp;&nbsp;&nbsp;&nbsp;* Cell phones
+
+&nbsp;&nbsp;&nbsp;&nbsp;* Computer (drives)
+
+&nbsp;&nbsp;&nbsp;&nbsp;* Rocketry
+
+&nbsp;&nbsp;&nbsp;&nbsp;* Etc
+</div>
+
+---
+
+## Their Value
+
+.center[![](figures/07/kennedy_etal2014_1.png)]
+
+.center[Kennedy et al (2014), Figure 1]
+
+---
+
+.center[![](figures/07/kennedy_etal2014_3.png)]
+.center[Kennedy et al (2014), Figure 3]
+
+---
+## Examples
+
+![](https://cdn-images-1.medium.com/max/1400/1*ZZLYeSY72o_RI4fnOiBNyg.jpeg)
+.center[Urban growth in Shanghai]
+
+---
+
+## Examples
+
+.center[![](figures/07/mccabe_etal1.png)]
+.center[McCabe et al (2017), Figure 1]
+
+---
+
+## Examples
+
+.center[![](figures/07/mccabe_etal2.png)]
+.center[McCabe et al (2017), Figure 2]
+
+---
+
+## Examples
+
+.center[![](figures/07/planet1.png)]
+.center[![](figures/07/planet2.png)]
+
+---
+
+## Tradeoffs and Limitations
+
+&nbsp;&nbsp;- Spatial resolution not that high
+
+&nbsp;&nbsp;- Radiometry not superb (but changing)
+
+&nbsp;&nbsp;&nbsp;&nbsp;* Cross-calibration between sensors an issue (5-6% SD)
+
+&nbsp;&nbsp;&nbsp;&nbsp;* Radiometric resolution fairly low (but changing)
+
+&nbsp;&nbsp;- Accessibility
+
+---
+background-image: url(https://www.planet.com/assets/images/approach/orbit-operations.jpg)
+background-size: 60%
+background-position: bottom
+## PlanetScope Radiometrics
+&nbsp;&nbsp;- Detailed overview of radiometric calibration from [here](https://calval.cr.usgs.gov/wordpress/wp-content/uploads/Nick-Wilson.pdf)
+
+&nbsp;&nbsp;- Independent assessment [here](https://calval.cr.usgs.gov/wordpress/wp-content/uploads/Dmitry-Varlyguin.pdf)
+
+&nbsp;&nbsp; - (both in `materials/papers/`)
+
+---
+
+### Bands
+
+```{r, echo=FALSE, fig.align='center', fig.cap="https://bit.ly/3uMlmac d"}
+knitr::include_graphics("figures/07/planet_band_spec.png")
+```
+
+[44 Super Doves in orbit](https://www.planet.com/pulse/44-superdove-satellites-successfully-launch-on-spacex-falcon-9-rocket/)
+
+
+
+---
+## Surface Reflectance
+
+![](figures/07/boa.png)
+
+---
+## Surface Reflectance
+&nbsp;&nbsp;- Aerosol optical depth, water vapor from `MOD09CMA`
+
+&nbsp;&nbsp;- Ozone from `MOD09CMG`
+
+&nbsp;&nbsp;- Time difference ~1 hour
+
+&nbsp;&nbsp;- Major uncertainties from MODIS values over clouds, ice, desert
+
+&nbsp;&nbsp;- Sometimes no MODIS nearby--default 6S model
+
+&nbsp;&nbsp;- Haze, cirrus not corrected
+
+&nbsp;&nbsp;- Single, global aerosol model
+
+&nbsp;&nbsp;- Scattering not dealt with
+
+&nbsp;&nbsp;- Lambertian surface assumed
+
+---
+
+
+```{r, echo=FALSE, out.width = "70%", fig.cap="From https://caps.umb.edu/spectralmass/terra_aqua_modis/modis", fig.align='center'}
+p <- "https://www.umb.edu/editor_uploads/images/school_for_the_environment_cs/"
+knitr::include_graphics(
+  c(glue::glue("{p}brdf1.gif"))
+)
+
+```
+
+---
+
+```{r, echo=FALSE, out.width = "30%", fig.align='center'}
+p <- "https://www.umb.edu/editor_uploads/images/school_for_the_environment_cs/"
+knitr::include_graphics(
+  c(glue::glue("{p}brdfspruce.jpg"), glue::glue("{p}brdf3.jpg"),
+    glue::glue("{p}brdf4.jpg"))
+)
+```
+.center[[Source](https://caps.umb.edu/spectralmass/terra_aqua_modis/modis)]
+
+
+<!-- .center[![](https://images.slideplayer.com/26/8855359/slides/slide_6.jpg)] -->
+
+
+---
+
+.center[![](figures/07/brdf.png)]
+.center[[Source](http://www.conabio.gob.mx/conocimiento/premota/doctos/papers/LandVeg/Crystal_Schaaf.ppt.pdf)]
+
+---
+
+### PlanetScope Geometric Accuracy
+
+![](figures/07/ortho.png)
+.center[Dobrinić et al, from [here](https://bib.irb.hr/datoteka/947280.DobrinicGasparovicZupan_manuscript.pdf)]
+
+---
+
+### Another assessment
+
+.center[![](figures/07/ortho2.png)]
+.center[The Joint Research Centre, from [here](http://publications.jrc.ec.europa.eu/repository/bitstream/JRC111221/jrc_technical_report_planetscope-final_2.pdf)]
+
+---
+## CESTEM
+
+```{r, echo = FALSE, out.width="80%", fig.align='center', fig.cap='Houbourg and McCabe, 2018'}
+knitr::include_graphics('figures/07/cestem_schematic.png')
+```
+
+---
+
+## CESTEM
+```{r, echo = FALSE, out.width="80%", fig.align='center', fig.cap='Houbourg and McCabe, 2018'}
+knitr::include_graphics('figures/07/cestem_ndvi.png')
+```
+
+---
+## CESTEM
+```{r, echo = FALSE, out.width="80%", fig.align='center', fig.cap='Houbourg and McCabe, 2018'}
+knitr::include_graphics('figures/07/cestem_lai.png')
+```
+
+---
+```{r, echo = FALSE, out.width="80%", fig.align='center', fig.cap="https://bit.ly/3JrokVM"}
+knitr::include_graphics('figures/07/planet_fusion.png')
+```
+
+---
+
+```{r, echo = FALSE, out.width="80%", fig.align='center', fig.cap="https://bit.ly/3JrokVM"}
+knitr::include_graphics('figures/07/planet_fusion2.png')
+```
+
+---
+```{r, echo = FALSE, out.width="80%", fig.align='center', fig.cap="https://bit.ly/3JrokVM"}
+knitr::include_graphics('figures/07/planet_fusion3.png')
+```
+
+---
+```{r, echo = FALSE, out.width="80%", fig.align='center', fig.cap="https://bit.ly/3JrokVM"}
+knitr::include_graphics('figures/07/planet_fusion4.png')
+```
+
+
+---
+
+background-image: url(figures/07/explorer.png)
+background-size: cover
+
+class: center, top
+# Working with PlanetScope Data
+
+---
+
+### Working with Planet Explorer
+#### The Point and Click Method
+
+[Login](https://www.planet.com/login/), after [first signing up](https://www.planet.com/nicfi/)
+
+---
+
+## Point and click only gets you so far
+
+.center[![](figures/07/planet_downloads_180915103248.png)]
+.center[September 15th, 10:30 AM]
+
+---
+
+## Point and click only gets you so far
+
+.center[![](figures/07/planet_downloads_180917091530.png)]
+.center[September 17th, 3:30 PM]
+
+---
+
+## Point and click only gets you so far
+
+.center[![](figures/07/planet_downloads_180919112717.png)]
+.center[11:30 AM Today]
+
+---
+
+## Automation is key
+Updated approach (from Estes et al, 2021, and available [here](https://github.com/agroimpacts/imager))
+
+```{r, echo = FALSE, out.width="80%", fig.align='center'}
+knitr::include_graphics('figures/07/planet_coverage.png')
+```
+
+---
+### Compositing daily images
+[Compositing approach](http://mappingafrica.io/technology/#panel1)
+
+```{r, echo = FALSE, out.width="35%", fig.align='center', fig.cap="From Estes et al (2021)"}
+knitr::include_graphics(
+  glue::glue(
+    "https://github.com/agroimpacts/activemapper/blob/main/inst/",
+    "manuscript/figures/figure3.png?raw=True"
+  ))
+```
+
+---
+### Next steps
+
+- Work with PlanetScope NICFI basemaps
+- Download by area, date, and then analyze
+
+
+

@@ -36,6 +36,17 @@ page](../README.md).
 
 -   Week 1: Do homework assignments at end of Class 3 slides
 
+## Weeks 3-4
+
+-   EarthEngine and AWS work
+
+## Week 5
+
+-   Review Houborg et al [(2018)](https://doi.org/10.3390/rs10060890),
+    and watch [video here](https://www.youtube.com/watch?v=qCwAqWCGnI8),
+    lecture on CESTEM starting at 12:50.
+-   Assignment 1 due Friday 18/2
+
 [Course Home](../README.md) \|\| [Syllabus](syllabus.md) \|\| [General
 Course Info](general-information.md) \|\| [Weekly
 assignments](assignments.md) \|\| [Projects](../projects/projects.md)
