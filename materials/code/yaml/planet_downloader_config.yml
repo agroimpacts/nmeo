@@ -1,0 +1,24 @@
+# This is a template yaml file commited to git. Make a copy with a different 
+# name so that it will not be tracked
+
+planet:
+  key: 
+imagery:
+  # Just give it a name
+  aoiname: 
+  # Boundary geojson to query
+  geom: 
+  # Path to download image to
+  quads_path: 
+  # Path for catalog
+  tile_path: 
+  # Make sure use the right format
+  # If you are not familiar with the format, please check the Planet web.
+  # Monthly and biannual has different format
+  dates: 
+s3:
+  # AWS bucket name
+  bucket:
+  # prefix on bucket to upload into
+  prefix: 
+  
