@@ -24,10 +24,10 @@ e.g. mine would be `lde_nmeo_2022_assn`.
     );
     ```
 
--   Load in the Landsat-8 TOA reflectance (“LANDSAT/LC08/C01/T2_SR”) and
-    Sentinel-2 surface reflectance (“COPERNICUS/S2_SR”) collections. We
-    used TOA for Landsat because the surface reflectance collection only
-    has 4 time points over this area.
+-   Load in the Landsat-8 TOA reflectance (“LANDSAT/LC08/C02/T1_TOA”)
+    and Sentinel-2 surface reflectance (“COPERNICUS/S2_SR”) collections.
+    We used TOA for Landsat because the surface reflectance collection
+    only has 4 time points over this area.
 
 -   Filter each collection by the location of the AOI and by for the
     period 2021-03-01 to 2021-12-31.

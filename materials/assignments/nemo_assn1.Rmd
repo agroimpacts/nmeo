@@ -19,7 +19,7 @@ Create a script named with you initials followed by `_nmeo_2022_assn`, e.g. mine
           [-0.18707781982421068, 9.48094283485201]]], null, false
     );
     ```
-- Load in the Landsat-8 TOA reflectance ("LANDSAT/LC08/C01/T2_SR") and Sentinel-2 surface reflectance ("COPERNICUS/S2_SR") collections.  We used TOA for Landsat because the surface reflectance collection only has 4 time points over this area. 
+- Load in the Landsat-8 TOA reflectance ("LANDSAT/LC08/C02/T1_TOA") and Sentinel-2 surface reflectance ("COPERNICUS/S2_SR") collections.  We used TOA for Landsat because the surface reflectance collection only has 4 time points over this area. 
 - Filter each collection by the location of the AOI and by for the period 2021-03-01 to 2021-12-31.
 - Use the cloud masking functions for each source of imagery to mask each collection, and crop them to the AOI. 
 - Map an NDVI band onto each cloudmasked collection.
