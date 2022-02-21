@@ -1,5 +1,25 @@
 .title-slide {
-  background-image: url(http://thenypost.files.wordpress.com/2014/05/drone_drain.jpg);
+  background-image: url(https://asiadronetech.com/wp-content/uploads/2019/04/different-types-of-drones-prominent-features-2-1000x500.jpg);
   background-size: cover;
 }
-
+}
+.title-slide h1 {
+  color: #F0FFFF;
+}
+.title-slide h2, .title-slide h3 {
+  color: #F0FFFF; 
+  line-height: 1.5em;
+}
+.large { font-size: 130% }
+.small { font-size: 70% }
+.verysmall { font-size: 50% }
+li {
+ font-size: 20px;
+  margin: 18px 0;
+}
+.remark-inline-code{
+  background: #272626; /* lighter */
+  color: #FE0909; /* darker */
+  border-radius: 0px;
+  padding: 1px;
+}

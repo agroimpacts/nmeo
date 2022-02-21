@@ -50,3 +50,15 @@ page](../README.md).
 [Course Home](../README.md) \|\| [Syllabus](syllabus.md) \|\| [General
 Course Info](general-information.md) \|\| [Weekly
 assignments](assignments.md) \|\| [Projects](../projects/projects.md)
+
+## Week 6
+
+-   Read/watch:
+    -   Manfreda et al [(2018)](http://www.mdpi.com/2072-4292/10/4/641)
+        [comparison](https://imagininc.wildapricot.org/resources/SPPC/2015/papers/john_gross_paper.pdf)
+        of different SfM software
+-   Install:
+    -   PIX4D mapper: 30 day trial version available from
+        [here](https://cloud.pix4d.com/signup/?sol=pro). If interested
+        in longer-term use, annual paid licenses are available at a
+        discount through my academic license.
