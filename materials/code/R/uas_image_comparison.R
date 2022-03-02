@@ -22,7 +22,7 @@ if(!dir.exists(out_dir)) dir.create(out_dir)
 ref_dir <- "merged"
 
 # 5. path to companion uas_image_functions.R script
-script_path <- "materials/code/R/uas_image_functions.R"
+script_path <- "/home/rstudio/projects/nmeo/materials/code/R/uas_image_functions.R"
 
 ## The following variables are optional to change. These are the name roots for 
 #  each of the images will we be creating. 
