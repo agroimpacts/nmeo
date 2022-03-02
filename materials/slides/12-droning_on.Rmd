@@ -90,6 +90,7 @@ class: center, middle
 
 --
 
+---
 - Under RTK/PPK, you have two choices:
   
   - Standalone: geotag your images with low accuracy
@@ -134,7 +135,7 @@ class: center, middle
 
 --
 
-  - To do that, you can either choose to import photos by using the "Add images" dialog, and leaving out the calibration images from the dataset (they are the first 12 images by timestamp in our sample datasets).  The other way we will see in a little while.
+  - To do that, you can either choose to import photos by using the "Add images" dialog, and leaving out the calibration images from the dataset (they are the first 12 images by timestamp). 
 
 --
 
@@ -153,7 +154,9 @@ You will see an image that looks like the one below now. Click the "Processing O
 The dialog lists
 
 *1. Initial processing*
+
 *2. Point cloud and mesh*
+
 *3. DSM, orthomosaic, and index*
 
 ---
@@ -208,18 +211,13 @@ class: center, middle
 
 ### For homework, run the following processing tasks:
 
-#### On the imagery you have been given (EP-01-20622_0043) (link in slack, data includes a .bb3 flight log having the same name), run the following tasks:
+On the imagery you have been given (EP-01-20622_0043) run the following tasks:
 
-##### - Create a PPK and reflectance-target corrected set of imagery (reflectance orthomosaics and DSM/DTM). i.e. Do the PPK corrections from Rinex file in eMotion3, and let PIX4D pick up the reflectance target images.
+##### 1. Complete the eMotion post-processing of imagery, for a PPK correction (already done in class) 
 
-##### - Create a PPK and non-reflectance target image (i.e. don't let PIX4D find the reflectance target images)
+##### 2. Create orthomosaicks in PIX4D using the reflectance target images to perform the surface reflectance converstion.
 
-##### - Create a non-PPK corrected (standalone geotags mode in eMotion3), non-reflectance target corrected set of images
+#### Perform the same steps for the next batch of imagery (EP-01-20622_005):
 
-#### On the next batch of imagery (EP-01-20622_0050, with .bb3 flight log having the "_20" suffix):
-
-##### - PPK (you need a new Rinex file) + non-reflectance target corrected images.
-
-### We will analyze the differences next class!
 
 

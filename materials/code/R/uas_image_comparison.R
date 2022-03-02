@@ -3,7 +3,7 @@
 ##### Path variables
 ## You have to replace the paths within the quotes to match: 
 # 1. the directory path where you put the PIX4D outputs 
-img_path <- "materials/data/imagery/uas/pix4d"
+img_path <- "/home/rstudio/data/imagery/uas/pix4d"
 
 # 2. The folder names for each of the projects. 
 # !!!NOTE!!!: this assumes you put all four PIX4D project folders in one common # directory. Please move them into one if you didn't do so.
@@ -13,7 +13,7 @@ project3 <- "whittier_demo_24August2018_noppk"
 project4 <- "whittier_demo_31August2018_noreftarget"
 
 # 3. the directory where you want your outputs to be written
-out_dir <- "materials/data/03"  
+out_dir <- "/home/rstudio/data/imagery/uas/analyzed"
 if(!dir.exists(out_dir)) dir.create(out_dir)
 
 # 4. the directory containing reflectance images in your projects. 
