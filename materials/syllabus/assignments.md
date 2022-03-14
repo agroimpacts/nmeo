@@ -62,3 +62,15 @@ assignments](assignments.md) \|\| [Projects](../projects/projects.md)
         [here](https://cloud.pix4d.com/signup/?sol=pro). If interested
         in longer-term use, annual paid licenses are available at a
         discount through my academic license.
+
+## Week 7
+-  Read:
+    - Antony et al [(2020)](https://doi.org/10.3390/su12093750)
+
+- Install (on your instance):
+    - Arable's Python [client package](https://github.com/arable-examples/arable-python-lib).
+    
+    
+    
+
+
