@@ -112,7 +112,7 @@ stats <- summary(sampleRandom(ref_diff, 1000))
 colnames(stats) <- nms
 
 # ## PPK versus not
-# ref_diff <- b2a - b3a  # subtract no ref target from ref target
+# ref_diff <- b1a - b3a  # subtract PPK ref target from non-PPK ref target
 # plot(ref_diff, main = nms, axes = FALSE, zlim = c(-0.5, 0.5))
 # stats <- cellStats(ref_diff, summary)
 # colnames(stats) <- nms

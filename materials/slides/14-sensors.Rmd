@@ -1,0 +1,128 @@
+---
+title: "Realtime In Situ Sensing"
+subtitle: "New Methods in Earth Observation"
+# author: "Lyndon Estes"
+date: "3/14/2022"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "lucy", "middlebury-fonts", "themes/class8-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+class: center, middle
+# Wrap-up UAS
+
+---
+## Your results
+#### - Reflectance target vs non-reflectance target
+#### - PPK vs no-PPK correction
+
+---
+## Comparisons from last year
+### Reflectance strategies 
+```{r, echo = FALSE, out.width="100%", fig.align='center'}
+knitr::include_graphics('figures/14/uas_2018_ref_difference.png')
+```
+
+---
+### PPK/no-PPK differences 
+```{r, echo = FALSE, out.width="100%", fig.align='center'}
+knitr::include_graphics('figures/14/uas_2018_ppk_difference.png')
+```
+
+---
+### Date differences 
+```{r, echo = FALSE, out.width="100%", fig.align='center'}
+knitr::include_graphics('figures/14/uas_2018_date_difference.png')
+```
+
+---
+### Spatial offset
+```{r, echo = FALSE, out.width="100%", fig.align='center'}
+knitr::include_graphics('figures/14/uas_2018_ppk_offset.png')
+```
+
+<!-- ![](figures/04/uas_2018_ppk_offset.png) -->
+
+---
+### 2018-2019 difference (no reflectance target)
+```{r, echo = FALSE, out.width="100%", fig.align='center'}
+knitr::include_graphics('figures/14/uas_2018-2019_ref_difference.png')
+```
+
+---
+### Pseudo-True From Sequioa Imagery
+
+```{r, eval = FALSE}
+library(raster)
+img1 <- brick(here::here("materials/data/04/aug24_ngb_noreftarget_cog_gcs.tif"))
+green <- (img1[[3]] * 3 + img1[[1]]) / 4  # pseudo green band
+red <- img1[[3]]  # red as red
+blue <- img1[[2]]  # green serves as blue
+plotRGB(stack(red, green, blue), scale = 0.41, zlim = c(0, 0.41))
+```
+
+```{r, echo = FALSE, eval=FALSE}
+png("materials/slides/figures/14/pseudo_rgb.png", height = 400, width = 400)
+par(mar = c(0, 0, 0, 0), bg = "transparent")
+plotRGB(stack(red, green, blue), scale = 0.41, zlim = c(0, 0.41), bgalpha = 0)
+dev.off()
+```
+
+```{r, echo = FALSE, out.width="50%", fig.align='center'}
+knitr::include_graphics('figures/14/pseudo_rgb.png')
+```
+---
+
+### GCVI => LAI
+
+GCVI = (NIR / GRN) – 1
+
+GCVI = 1.4 * LAI^1.03 + 0.93
+
+```{r, eval = FALSE}
+gcvi <- (img1[[1]] / img1[[3]]) - 1
+```
+
+```{r, echo = FALSE, eval=FALSE}
+gcvi[gcvi > 10] <- 10
+png("materials/slides/figures/04/gcvi.png", height = 400, width = 400)
+par(mar = c(0, 0, 0, 0), bg = "transparent")
+plot(gcvi, axes = FALSE, axis.args = list(col = "white", col.axis = "white"))
+dev.off()
+```
+
+.center[![](figures/04/gcvi.png)]
+
+---
+
+LAI = ((GCVI - 0.93) / 1.4)^(1 / 1.03)
+
+```{r, eval=FALSE}
+lai <- ((gcvi - 0.93) / 1.4)^(1 / 1.03)
+```
+
+```{r, echo = FALSE, eval=FALSE}
+png("materials/slides/figures/04/lai.png", height = 400, width = 400)
+par(mar = c(0, 0, 0, 0), bg = "transparent")
+plot(lai, axes = FALSE, axis.args = list(col = "white", col.axis = "white"))
+dev.off()
+```
+
+.center[![](figures/04/lai.png)]
+
+
+---
+class: center, middle
+# Sensors
+
+---
+.center[![](figures/16/eo.001.png)]
+
+---
+- Work by Mike Cecil
+- Work by Dr. Adam Wolf
+
