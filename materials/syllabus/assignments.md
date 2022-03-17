@@ -64,13 +64,22 @@ assignments](assignments.md) \|\| [Projects](../projects/projects.md)
         discount through my academic license.
 
 ## Week 7
--  Read:
-    - Antony et al [(2020)](https://doi.org/10.3390/su12093750)
 
-- Install (on your instance):
-    - Arable's Python [client package](https://github.com/arable-examples/arable-python-lib).
-    
-    
-    
+-   Read:
+    -   Antony et al [(2020)](https://doi.org/10.3390/su12093750)
+-   Install (on your instance):
+    -   Arable’s Python [client
+        package](https://github.com/arable-examples/arable-python-lib).
 
+## Weeks 8-9
 
+-   Read:
+    -   [Dive into Deep Learning](https://d2l.ai) (reading only, don’t
+        do exercises & examples):
+        -   [Chapter 1](https://d2l.ai/chapter_introduction/index.html)
+        -   [Chapter
+            4](https://d2l.ai/chapter_multilayer-perceptrons/index.html)
+            -   Sections: 4.1; 4.4 - 4.4.3; 4.5 - 4.5.1; 4.6-4.6.2;
+                4.7 - 4.7.5; 4.8-4.8.3; 4.9-4.9.6  
+        -   [Chapter
+            6](https://d2l.ai/chapter_convolutional-neural-networks/index.html)

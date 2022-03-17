@@ -85,17 +85,19 @@ GCVI = 1.4 * LAI^1.03 + 0.93
 
 ```{r, eval = FALSE}
 gcvi <- (img1[[1]] / img1[[3]]) - 1
+par(mar = rep(0, 4))
+plot(gcvi)
 ```
 
 ```{r, echo = FALSE, eval=FALSE}
 gcvi[gcvi > 10] <- 10
-png("materials/slides/figures/04/gcvi.png", height = 400, width = 400)
+png("materials/slides/figures/14/gcvi.png", height = 400, width = 400)
 par(mar = c(0, 0, 0, 0), bg = "transparent")
 plot(gcvi, axes = FALSE, axis.args = list(col = "white", col.axis = "white"))
 dev.off()
 ```
 
-.center[![](figures/04/gcvi.png)]
+.center[![](figures/14/gcvi.png)]
 
 ---
 
@@ -106,13 +108,13 @@ lai <- ((gcvi - 0.93) / 1.4)^(1 / 1.03)
 ```
 
 ```{r, echo = FALSE, eval=FALSE}
-png("materials/slides/figures/04/lai.png", height = 400, width = 400)
+png("materials/slides/figures/14/lai.png", height = 400, width = 400)
 par(mar = c(0, 0, 0, 0), bg = "transparent")
 plot(lai, axes = FALSE, axis.args = list(col = "white", col.axis = "white"))
 dev.off()
 ```
 
-.center[![](figures/04/lai.png)]
+.center[![](figures/14/lai.png)]
 
 
 ---

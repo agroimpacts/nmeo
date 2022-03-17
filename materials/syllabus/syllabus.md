@@ -39,12 +39,12 @@ project.
 |    4 |      7/9-Feb | Cloud-based EO processing |
 |    5 |    14/16-Feb |                Small Sats |
 |    6 |    21/23-Feb |                Droning on |
-|    7 | 28-Feb/2-Mar |               Sensor Data |
+|    7 | 28-Feb/2-Mar |                Droning on |
 |   \- |           \- |              Spring Break |
-|    8 |    14/16-Mar | Advanced ML/Deep Learning |
+|    8 |    14/16-Mar |               Sensor Data |
 |    9 |    21/23-Mar | Advanced ML/Deep Learning |
 |   10 |    28/30-Mar | Advanced ML/Deep Learning |
-|   11 |      4/6-Apr |            Group Projects |
+|   11 |      4/6-Apr | Advanced ML/Deep Learning |
 |   12 |    11/13-Apr |            Group Projects |
 |   13 |    18/20-Apr |            Group Projects |
 |   14 |    25/27-Apr |            Group Projects |

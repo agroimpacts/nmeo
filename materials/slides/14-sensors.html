@@ -77,11 +77,13 @@ GCVI = 1.4 * LAI^1.03 + 0.93
 
 ```r
 gcvi &lt;- (img1[[1]] / img1[[3]]) - 1
+par(mar = rep(0, 4))
+plot(gcvi)
 ```
 
 
 
-.center[![](figures/04/gcvi.png)]
+.center[![](figures/14/gcvi.png)]
 
 ---
 
@@ -94,7 +96,7 @@ lai &lt;- ((gcvi - 0.93) / 1.4)^(1 / 1.03)
 
 
 
-.center[![](figures/04/lai.png)]
+.center[![](figures/14/lai.png)]
 
 
 ---
