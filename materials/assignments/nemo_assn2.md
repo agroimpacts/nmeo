@@ -23,6 +23,7 @@ your AWS instance.
 -   Then run:
 
     ``` bash
+    cd ..
     cp nmeo/materials/code/notebooks/arable_query.ipynb notebooks/ 
     ```
 

@@ -15,6 +15,7 @@ To undertake the assignment, work through the [`arable_query.ipynb`](../code/not
 - Then run:
 
   ```{bash, eval=FALSE}
+  cd ..
   cp nmeo/materials/code/notebooks/arable_query.ipynb notebooks/ 
   ```
 
