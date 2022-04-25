@@ -10,11 +10,14 @@ solar <- st_read(
 )
 
 # reproject to US Albers equal areas
-solar_proj <- st_transform(solar, crs = "ESRI:102003")
+solar_proj <- st_transform(solar, crs = "EPSG:26986")
+# plot(solar_proj$geometry)
+# solar_proj <- st_transform(solar, crs = "ESRI:102003")
 
 # create template raster from the bounding box of the solar vectors, setting
 # resolution to 10 m
-r <- terra::rast(ext(solar_proj), crs = "ESRI:102003", res = 10)
+r <- terra::rast(ext(solar_proj), crs = st_crs(solar_proj)$proj4string, 
+                 res = 10)
 values(r) <- 1:ncell(r)
 
 # aggregate by factor of X to give chip extent
