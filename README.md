@@ -1,8 +1,5 @@
 # New Methods in Earth Observation
 
-- [Course details](#course-details)
-- [Course contents](#course-contents)
-
 <img src="https://s28151.pcdn.co/offices/marketing-and-communications/wp-content/blogs.dir/3/files/sites/106/2019/08/CU_Seal_Red_SM_60_75_v4-768x768.png" align="right" width="80"/>
 
 This course provides an overview of recent advances in Earth Observation
@@ -42,5 +39,3 @@ Office hours: Tuesdays 1000-1200 in Jefferson 201C
 
 <img src="materials/syllabus/figures/train_strategy.png"
 style="width:100.0%" data-fig-align="center" />
-
-\[\](materials/syllabus/figures/whittier10082018.png?raw=true)
