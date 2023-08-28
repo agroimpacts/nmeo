@@ -1,11 +1,8 @@
-Syllabus
-================
+# Syllabus
 
-[Course Home](../../README.md) \|\| [Syllabus](syllabus.md) \|\|
-[General Course Info](general-information.md) \|\| [Weekly
-assignments](assignments.md) \|\| [Projects](../projects/projects.md)
-
-## Overview
+|                                |                         |                                       |                               |                                     |
+|--------------------------------|-------------------------|---------------------------------------|-------------------------------|-------------------------------------|
+| [Course Home](../../README.md) | [Syllabus](syllabus.md) | [Course Policies](course-policies.md) | [Assignments](assignments.md) | [Projects](../projects/projects.md) |
 
 The purpose of this course is to introduce students to recent advances
 in Earth Observation technology that are leading to breakthroughs in our
@@ -19,37 +16,35 @@ the following areas:
 4.  In situ sensor networks
 5.  Advanced ML/Deep learning
 
-This semester, we will spend the most time on the first and last areas.
-
 Course learning is drawn from some background reading, brief lectures,
 participation and completion of in-class practicals, and a final group
 project.
 
--   More detailed syllabus background information is found
-    [here](general-information.md);
--   Assignments/readings are listed [here]()
--   A list of potential final projects is [found here](projects.md).
--   The course schedule is below.
+- More detailed syllabus background information is found
+  [here](general-information.md);
+- Assignments/readings are listed [here]()
+- A list of potential final projects is [found here](projects.md).
+- The course schedule is below.
 
-| Week |         Date |                   Subject |
-|-----:|-------------:|--------------------------:|
-|    1 |       19-Jan |           Course overview |
-|    2 |    24/26-Jan | Cloud-based EO processing |
-|    3 | 31-Jan/2-Feb | Cloud-based EO processing |
-|    4 |      7/9-Feb | Cloud-based EO processing |
-|    5 |    14/16-Feb |                Small Sats |
-|    6 |    21/23-Feb |                Droning on |
-|    7 | 28-Feb/2-Mar |                Droning on |
-|   \- |           \- |              Spring Break |
-|    8 |    14/16-Mar |               Sensor Data |
-|    9 |    21/23-Mar | Advanced ML/Deep Learning |
-|   10 |    28/30-Mar | Advanced ML/Deep Learning |
-|   11 |      4/6-Apr | Advanced ML/Deep Learning |
-|   12 |    11/13-Apr |            Group Projects |
-|   13 |    18/20-Apr |            Group Projects |
-|   14 |    25/27-Apr |            Group Projects |
-|   15 |        2-May |            Group Projects |
+| Week |        Date |                                   Subject |
+|-----:|------------:|------------------------------------------:|
+|    1 |      Week 1 | Course overview/Cloud-based EO processing |
+|    2 |  Week 2 (1) |                 Cloud-based EO processing |
+|    3 |      Week 3 |                 Cloud-based EO processing |
+|    4 |      Week 4 |                                Small Sats |
+|    5 |      Week 5 |                                Small Sats |
+|    6 |      Week 6 |                                Droning on |
+|    7 |  Week 7 (1) |                                Droning on |
+|   \- |      Week 8 |                                Fall Break |
+|    8 |      Week 9 |                               Sensor Data |
+|    9 |     Week 10 |                 Advanced ML/Deep Learning |
+|   10 |     Week 11 |                 Advanced ML/Deep Learning |
+|   11 |     Week 12 |                 Advanced ML/Deep Learning |
+|   12 | Week 13 (1) |                            Group Projects |
+|   13 |     Week 14 |                            Group Projects |
+|   14 |     Week 15 |                            Group Projects |
+|   15 | Week 16 (1) |                            Group Projects |
 
-[Course Home](../../README.md) \|\| [Syllabus](syllabus.md) \|\|
-[General Course Info](general-information.md) \|\| [Weekly
-assignments](assignments.md) \|\| [Projects](../projects/projects.md)
+|                                |                         |                                       |                               |                                     |
+|--------------------------------|-------------------------|---------------------------------------|-------------------------------|-------------------------------------|
+| [Course Home](../../README.md) | [Syllabus](syllabus.md) | [Course Policies](course-policies.md) | [Assignments](assignments.md) | [Projects](../projects/projects.md) |
