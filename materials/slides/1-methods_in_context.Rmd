@@ -52,9 +52,9 @@ Innovations:
 ## Course Walk-through
 
 - [Home page](https://github.com/agroimpacts/nmeo)
-- [Syllabus](https://github.com/agroimpacts/nmeo/blob/class/s2022/materials/syllabus/syllabus.md)
-- [More details](https://github.com/agroimpacts/nmeo/blob/class/s2022/materials/syllabus/general-information.md)
-- [Projects](https://github.com/agroimpacts/nmeo/blob/class/s2022/materials/projects/projects.md)
+- [Syllabus](https://github.com/agroimpacts/nmeo/blob/class/f2023/materials/syllabus/syllabus.md)
+- [More details](https://github.com/agroimpacts/nmeo/blob/class/f2023/materials/syllabus/course-policies.md)
+- [Projects](https://github.com/agroimpacts/nmeo/blob/class/s2023/materials/projects/projects.md)
 
 ---
 background-image: url(figures/uas.jpg)
@@ -65,9 +65,10 @@ background-position: right
 
 - UAS
 - [Sensors](https://www.arable.com/products/sensing/)
-- [Cloud-processing](https://www.mlhub.earth)
-- [Advanced ML](https://mappingafrica.io/technology/#panel3)
-
+- [Cloud-processing](https://geemap.org/)
+- Advanced ML: 
+    - [Cropland mapping](https://mappingafrica.io/technology/#panel3)
+    - [General segmentation](https://samgeo.gishub.org/)
 
 ---
 
@@ -161,11 +162,8 @@ grid.arrange(img1, img2, ncol = 2)
 
 - PlanetScope
 
-![](https://spacedata.copernicus.eu/documents/20126/0/PlanetScope.jpg/e9586b26-b1c9-1885-40fa-0a8467bb6912?t=1589374106539&imagePreview=1)
+![](https://storage.googleapis.com/corpeng-pulse-assets/uploads/2022/07/nicfi_tropics_basemap_map_d1.jpg)
 
----
-background-image: url(figures/01/geowiki.png)
-background-size: 60%
-background-position: bottom
+
 
 
