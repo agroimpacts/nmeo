@@ -35,7 +35,7 @@ page](../README.md).
 
 ### Ongoing
 
-- Week 1: Do homework assignments at end of Class 3 slides
+- Week 2: Do homework assignments at end of Class 3 slides
 
 ## Weeks 3-4
 
