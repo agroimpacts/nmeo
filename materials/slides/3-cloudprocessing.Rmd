@@ -12,21 +12,31 @@ output:
       countIncrementalSlides: false
 
 ---
-## Practicals
+---
+## Agenda
+### Discussion
+- Pillars of Cloud-Based EO Education (Crowley et al, 2023)
 
-&nbsp;&nbsp; - Google Earth Engine (today)
+### Practicals
 
-&nbsp;&nbsp; - AWS (next week)
+- Google Earth Engine (today)
+- AWS (next week)
+
+---
+### Discussion
+- What are the three pillars of cloud-based EO education?
+- What underlies their need? 
+- How do we connect existing EO science/practice to cloud-based EO? 
 
 ---
 ## Earth Engine
 
-### [Introduction](https://developers.google.com/earth-engine/)
-### [Code Editor](https://developers.google.com/earth-engine/playground)
-### [Datasets](https://developers.google.com/earth-engine/datasets/catalog/)
-### [Tutorials](https://developers.google.com/earth-engine/tutorials)
-### [Guides](https://developers.google.com/earth-engine/guides)
-### [API reference](https://developers.google.com/earth-engine/api_docs)
+- [Introduction](https://developers.google.com/earth-engine/)
+- [Code Editor](https://developers.google.com/earth-engine/playground)
+- [Datasets](https://developers.google.com/earth-engine/datasets/catalog/)
+- [Tutorials](https://developers.google.com/earth-engine/tutorials)
+- [Guides](https://developers.google.com/earth-engine/guides)
+- [API reference](https://developers.google.com/earth-engine/api_docs)
 
 ---
 ## Some Basics
@@ -193,6 +203,7 @@ Map.addLayer(median, visParams, 'Zambia L8 median');
 // what is we wanted to see the pixel-wise max?
 ```
 
+---
 ### Cropping
 ```{js, eval = FALSE}
 var medianCrop = median.clip(myaoi);
@@ -215,8 +226,9 @@ var addNDVI = function(image) {
 };
 
 // Apply function to single image
+var ndviVis = {min: -1, max: 1, palette: ['blue', 'green', 'red']};
 var ndvi = addNDVI(scene).select('NDVI');
-// Map.addLayer(ndvi, ndviVis, 'Cropped NDVI from median');
+Map.addLayer(ndvi, ndviVis, 'Cropped NDVI from median');
 
 // Map onto a collection
 var withNDVI = temporalFiltered.map(medianCrop);
@@ -225,11 +237,12 @@ Map.addLayer(withNDVI);
 ---
 
 ## Clip and calculate NDVI over a collection
-```{r, eval=FALSE}
+```{js, eval=FALSE}
 var zamNDVI = temporalFiltered.map(function(image) {
     var img = image.clip(myaoi);
     var ndvi = img.normalizedDifference(['B5', 'B4']).rename('NDVI');
     return img.addBands(ndvi);
+  };
 });
 
 Map.addLayer(zamNDVI);
@@ -277,10 +290,7 @@ var addLAI_NDVI = function(image) {
     }).rename('LAI_NDVI');
   return(image.addBands(lai))
 };
-
-
 var withLAI = withNDVI_masked.map(addLAI_NDVI);
-
 // add chart showing LAI time-series 
 ```
 
@@ -321,11 +331,9 @@ Export.image.toDrive({
 
 ## Other work
 
-&nbsp;&nbsp; - Harmonic models
-
-&nbsp;&nbsp; - Smooth curves
-
-&nbsp;&nbsp; - Center pivot detection
+- Harmonic models
+- Smooth curves
+- Center pivot detection
 
 ---
 
@@ -333,6 +341,7 @@ Export.image.toDrive({
 
 - [Awesome GEE](https://github.com/giswqs/Awesome-GEE)
 - Reading/viewing:
+  - [Cloud-Based Remote Sensing with Google Earth Engine](https://www.eefabook.org/)
   - [GEE Overview](https://developers.google.com/earth-engine/guides/concepts_overview)
   - First 3 videos in [Playlist](https://www.youtube.com/playlist?list=PLivRXhCUgrZpCR3iSByLYdd_VwFv-3mfs). (Intro, Client vs. Server side, Filtering)
 
@@ -344,23 +353,25 @@ Export.image.toDrive({
 ---
 ## Homework cont.
 
-- Run the following analyses in Earth Engine:
+Run the following analyses in Earth Engine:
 
-    - Create a new empty EE script called "yourname287387"
-    - Define an AOI over any region of interest
-    - Load in the Sentinel 2 collection
-    - Filter the collection to 2021-01-01 and 2021-12-31
-    - Apply a cloud mask to your filtered collection: 
-        
-        ```
-        // S2 cloud mask
-        var maskcloud1 = function(image) {
-            var QA60 = image.select(['QA60']);
-            return image.updateMask(QA60.lt(1));
-        };
-        ```
-    - Calculate NDVI over the masked collection (note Sentinel-2 has different bands--find the right ones), and crop to your AOI;
-    - Calculated the median NDVI value from your cropped collection;
-    - Plot a time series NDVI chart;
-    - Share the script with me (drop it in a Slack direct message)
+- Create a new empty EE script called "yourname287387"
+- Define an AOI over any region of interest
+- Load in the Sentinel 2 collection
+- Filter the collection to 2021-01-01 and 2021-12-31
+- Apply a cloud mask to your filtered collection: 
+    
+    ```
+    // S2 cloud mask
+    var maskcloud1 = function(image) {
+        var QA60 = image.select(['QA60']);
+        return image.updateMask(QA60.lt(1));
+    };
+    ```
+
+---
+- Calculate NDVI over the masked collection (note Sentinel-2 has different bands--find the right ones), and crop to your AOI;
+- Calculated the median NDVI value from your cropped collection;
+- Plot a time series NDVI chart;
+- Share the script with me (drop it in a Slack direct message)
 
