@@ -157,3 +157,31 @@ cp $HOME directory/I/just/left/somefile.txt $HOME/some/other/directory/
 
 Of course, if those directory are nested deeper than \$HOME, you have to
 specify the sub-folders in between.
+
+## Working with other executables
+
+Programs running in linux all have a command line executable that you
+can use, making the examples that are obviously to numerous to list
+here. So let’s start with the one that is of most relevance for
+accessing the materials for this class, which is using `git` to clone
+and keep the `nmeo` repository updated on your local machine.
+
+### `git`
+
+``` bash
+# clone the repository into your directory of choice, let's say 
+# one sitting right under your home directory
+mkdir -p $HOME/repos
+cd $HOME/repos
+git clone https://github.com/agroimpacts/nmeo.git
+cd nmeo # now you are in your local copy of the class repo
+
+# run this to fetch updates made to the main nmeo repo on GitHub
+# You have to be in the nmeo repo for this to work. If you aren't, 
+# run cd first
+cd $HOME/repos/nmeo
+git pull
+
+# Note that the pull will fail if you have made local changes to the 
+# materials in the repo. We can discuss how to prevent that in class
+```
