@@ -262,7 +262,7 @@ var ndvi = addNDVI(scene).select('NDVI');
 Map.addLayer(ndvi, ndviVis, 'Cropped NDVI from median');
 
 // Map onto a collection
-var withNDVI = temporalFiltered.map(medianCrop);
+var withNDVI = temporalFiltered.map(addNDVI);
 Map.addLayer(withNDVI);
 ```
 ---
