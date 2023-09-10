@@ -254,7 +254,7 @@ Map.addLayer(zamNDVI);
 var chart = ui.Chart.image.series({
   imageCollection: withNDVI.select('NDVI'),
   region: myaoi,
-  reducer: ee.Reducer.first({maxPixels = 100000}),
+  reducer: ee.Reducer.first(),
   scale: 30
 }).setOptions({title: 'NDVI over time'});
 
