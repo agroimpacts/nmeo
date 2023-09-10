@@ -4,84 +4,14 @@
 |--------------------------------|-------------------------|---------------------------------------|-------------------------------|-------------------------------------|
 | [Course Home](../../README.md) | [Syllabus](syllabus.md) | [Course Policies](course-policies.md) | [Assignments](assignments.md) | [Projects](../projects/projects.md) |
 
-Expectations
+## Attendance and assignment submissions
 
 Class attendance is expected, as is on-time submission of assignments
 (late submissions require valid justification prior to submission date),
 and doing all the readings/assignments prior to the class for which they
 are assigned.
 
-We follow the University’s policies on plagiarism and cheating. Please
-familiarize yourself with the University’s
-[policy](http://www2.clarku.edu/offices/aac/integrity.cfm) on academic
-integrity, particularly section I.
-
-### Communications
-
-We will conduct class communications via a Slack channel that you should
-already be invited to. Please don’t send emails. We use Slack because it
-keeps relevant conversations in defined places, rather than scattered
-across email inboxes.
-
-### Approach
-
-This is a project-oriented class, and the projects map onto ongoing
-research problems. This means that the course will be hands-on and
-devoted to developing new methods/analyses from some of the newest tools
-to hit the EO scenes. The downside is that this means that we are all
-learning as we go, and there will generally not be step-by-step
-tutorials or recipes to follow. The upside to that downside is that we
-will all learn a lot more!
-
-### Academic Dishonesty
-
-University’s policies on academic integrity will be strictly enforced.
-Go to www.clarku.edu/offices/aac/integrity.cfm to learn more about this
-policy and what it entails. Plagiarism, cheating, lying, stealing, or
-falsification will not be tolerated and will be referred to the
-University Administration.
-
-### Additional Information
-
-#### Student Accessibility Services
-
-Clark University is committed to providing students with documented
-disabilities equal access to all university programs and facilities.
-Students are encouraged to register with Student Accessibility Services
-(SAS) to explore and access accommodations that may support their
-success in their coursework. SAS is located on the second floor of the
-Shaich Family Alumni and Student Engagement Center (ASEC). Please
-contact SAS at <accessibilityservices@clarku.edu> with questions or to
-initiate the registration process. For additional information, please
-visit the [SAS
-website](https://www.clarku.edu/offices/student-accessibility-services/).
-
-#### FERPA Policy
-
-The link to Clark’s policy regarding student privacy under the Family
-Education Rights and Privacy Act is available
-[here](https://www.clarku.edu/offices/registrar/ferpa/)
-
-#### Title IX
-
-Please be aware that all Clark University faculty and teaching
-assistants are considered responsible employees, which means that if you
-tell us about a situation involving the aforementioned offenses, we must
-share that information with the Title IX Coordinator, Brittany Brickman
-(<titleix@clarku.edu>). Although we must make that notification, you
-will, for the most part, control how your case will be handled,
-including whether or not you wish to pursue a formal complaint. Our goal
-is to make sure you are aware of the range of options available to you
-and have access to the resources you need. 
-
-If you wish to speak to a confidential resource who does not have this
-reporting responsibility, you can contact Clark's Center for Counseling
-and Professional Growth (508-793-7678), Clark's Health Center
-(508-793-7467), or confidential resource providers on campus (see
-[here](https://www.clarku.edu/offices/title-ix/resources/) for a list,
-and for other resources).
-
-### Assessment
+## Assessment
 
 Final letter grades will be assigned as follows:
 
@@ -104,12 +34,12 @@ Grades will be based on:
 - **Participation**: Attendance, contribution to discussion, and
   problem-solving is worth 15% of the overall grade.
 
-#### Assignments
+### Assignments
 
 The details of the assignments will vary, and will be provided along
 with assessment criteria at the same of their release.
 
-#### Project plan
+### Project plan
 
 The project plan should provide an overview of how your team will tackle
 the final project, and consist of:
@@ -121,7 +51,7 @@ the final project, and consist of:
 4.  A summary of anticipated results, including any expected
     difficulties that might be encountered
 
-#### Final project report
+### Final project report
 
 The final report will provide a written summary of your project,
 including the progress you achieved since the presentation. It should
@@ -228,6 +158,74 @@ Codes:
 | OM NV, CON NV, CRE NV | 20          | NV       | 9            | NAR NV, NAR NV, WRI N/F | 9           |
 | OM F, CON F, CRE F    | 25          | F        | 12           | NAR F, NAR F, WRI F     | 12          |
 | OM H, CON H, CRE H    | 30          | H        | 15           | NAR H, NAR H, WRI H     | 15          |
+
+## Time Commitment
+
+The following provides an approximate breakdown for the 180 total hours
+you are expected to spend on this class over the course of the semester:
+
+|                                                                 |          |
+|-----------------------------------------------------------------|----------|
+| Class meetings (1.25 hours/class X 27 )                         | 34 hours |
+| Assigned readings, tutorials, and coding (7.5 hours X 10 weeks) | 75 hours |
+| Analysis leading to final projects (12.75 hours X 4 weeks)      | 51 hours |
+| Write up final projects (10 hours X 2 weeks)                    | 20 hours |
+
+## Communications
+
+We will conduct class communications via a Slack channel that you should
+already be invited to. Please don’t send emails. We use Slack because it
+keeps relevant conversations in defined places, rather than scattered
+across email inboxes.
+
+## Academic Dishonesty
+
+University’s policies on academic integrity will be strictly enforced.
+Plagiarism, cheating, lying, stealing, or falsification will not be
+tolerated and will be referred to the University Administration. Please
+go
+[here](https://catalog.clarku.edu/content.php?catoid=32&navoid=2735#academic-integrity)
+to learn more about this policy and what it entails.
+
+## Additional Information
+
+### Student Accessibility Services
+
+Clark University is committed to providing students with documented
+disabilities equal access to all university programs and facilities.
+Students are encouraged to register with Student Accessibility Services
+(SAS) to explore and access accommodations that may support their
+success in their coursework. SAS is located on the second floor of the
+Shaich Family Alumni and Student Engagement Center (ASEC). Please
+contact SAS at <accessibilityservices@clarku.edu> with questions or to
+initiate the registration process. For additional information, please
+visit the [SAS
+website](https://www.clarku.edu/offices/student-accessibility-services/).
+
+### FERPA Policy
+
+The link to Clark’s policy regarding student privacy under the Family
+Education Rights and Privacy Act is available
+[here](https://www.clarku.edu/offices/registrar/ferpa/)
+
+### Title IX
+
+Please be aware that all Clark University faculty and teaching
+assistants are considered responsible employees, which means that if you
+tell us about a situation involving the aforementioned offenses, we must
+share that information with the Title IX Coordinator, Brittany Brickman
+(<titleix@clarku.edu>). Although we must make that notification, you
+will, for the most part, control how your case will be handled,
+including whether or not you wish to pursue a formal complaint. Our goal
+is to make sure you are aware of the range of options available to you
+and have access to the resources you need. 
+
+If you wish to speak to a confidential resource who does not have this
+reporting responsibility, you can contact Clark’s Center for Counseling
+and Professional Growth (508-793-7678), Clark’s Health Center
+(508-793-7467), or confidential resource providers on campus (see
+[here](https://www.clarku.edu/offices/title-ix/resources/) for a list,
+and for other resources).
 
 |                                |                         |                                       |                               |                                     |
 |--------------------------------|-------------------------|---------------------------------------|-------------------------------|-------------------------------------|
