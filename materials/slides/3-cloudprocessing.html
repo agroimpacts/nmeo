@@ -287,7 +287,7 @@ Map.addLayer(zamNDVI);
 var chart = ui.Chart.image.series({
   imageCollection: withNDVI.select('NDVI'),
   region: myaoi,
-  reducer: ee.Reducer.first({maxPixels = 100000}),
+  reducer: ee.Reducer.first(),
   scale: 30
 }).setOptions({title: 'NDVI over time'});
 
@@ -385,18 +385,13 @@ Export.image.toDrive({
 ---
 ## Homework 
 
-- Review the resources above
+Run the following Earth Engine analyses from Google Colab:
 
----
-## Homework cont.
-
-Run the following analyses in Earth Engine:
-
-- Create a new empty EE script called "yourname287387"
-- Define an AOI over any region of interest
+- Create a new colab notebook called "yourname287387" (replace with your actual name)
+- Define an AOI over a region of interest in Zambia
 - Load in the Sentinel 2 collection
-- Filter the collection to 2021-01-01 and 2021-12-31
-- Apply a cloud mask to your filtered collection: 
+- Filter the collection to your AOI and to the dates 2021-01-01 and 2021-12-31
+- Apply a cloud mask to your filtered collection, translating the javascript below to `python`: 
     
     ```
     // S2 cloud mask
@@ -407,10 +402,10 @@ Run the following analyses in Earth Engine:
     ```
 
 ---
-- Calculate NDVI over the masked collection (note Sentinel-2 has different bands--find the right ones), and crop to your AOI;
-- Calculated the median NDVI value from your cropped collection;
-- Plot a time series NDVI chart;
-- Share the script with me (drop it in a Slack direct message)
+- Calculate NDVI over the masked collection (note Sentinel-2 has different bands than Landsat for red and NIR--find the right ones), and crop to your AOI;
+- Calculate the median NDVI value from your filtered collection;
+- Plot a time series NDVI chart from the collection;
+- Share the completed notebook with me
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
