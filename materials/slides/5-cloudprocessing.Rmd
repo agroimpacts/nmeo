@@ -14,31 +14,34 @@ output:
 ---
 
 ## Today
-- Set up AWS account
+- Go over colab/EE homework
+- Some more in class work
+- Set up an AWS SageMaker account
 
 ---
-## Permissions
-
-- AWS credentials provided to you
-- Log in to console: https://554330630998.signin.aws.amazon.com/console
-- Assign an MFA device
+## Today
+- Go over homework
+- Use EE to calculated smoothing functions
 
 ---
-## Launch a new Rstudio/jupyter instance
 
-- Browse to EC2 console
-- AMIs
-- Set up new instance with key-pair
+
+## General EE Workflow
+- Import image / image collection
+- Filter
+- Analysis
+- Display Results
+- Export Image/Charts/Tables (if needed)
+
 
 ---
-## Access your running instance
+## Group Exercises
 
-- RStudio access
-- ssh access for jupyter notebook
+- Port the harmonic regression function to colab
 
+---
 
-
-
-
-
+## Homework 
+- Apply the Harmonic regression function to Sentinel-2 over your AOI in Zambia, for 2017-2022
+- Find another example function in EE code editor. Port it to python/colab, applying it to Zambia for your AOI and time period of interest
 

@@ -3,7 +3,7 @@
   <head>
     <title>Cloud-based Processing</title>
     <meta charset="utf-8" />
-    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.19/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/lucy.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/middlebury-fonts.css" rel="stylesheet" />
@@ -13,217 +13,22 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Cloud-based Processing
+]
+.subtitle[
 ## New Methods in Earth Observation
+]
+.date[
 ### Class 4
+]
 
 ---
+
 
 ## Today
-- Go over homework
-- Use EE to calculated smoothing functions
 
----
-
-
-## General EE Workflow
-- Import image / image collection
-- Filter
-- Analysis
-- Display Results
-- Export Image/Charts/Tables (if needed)
-
-
-
----
-## Cloud masking 
-
-```js
-var maskL8clouds = function(image) {
-  var qa = image.select('BQA');
-  /// Check that the cloud bit is off.
-  // See https://www.usgs.gov/land-resources/nli/landsat/landsat-collection-1-level-1-quality-assessment-band
-  var mask = qa.bitwiseAnd(1 &lt;&lt; 4).eq(0);
-  return image.updateMask(mask);
-}
-```
-
----
-## Sentinel-2 cloud masking
-
-```js
-function maskS2clouds(image) {
-    var qa = image.select('QA60')
-    // Bits 10 and 11 are clouds and cirrus, respectively.
-    var cloudBitMask = 1 &lt;&lt; 10;
-    var cirrusBitMask = 1 &lt;&lt; 11;
-    // Both flags should be set to zero, indicating clear conditions.
-    var mask = qa.bitwiseAnd(cloudBitMask).eq(0).and(
-              qa.bitwiseAnd(cirrusBitMask).eq(0))
-    // Return the masked and scaled data, without the QA bands.
-    return image.updateMask(mask).divide(10000)
-        .select("B.*")
-        .copyProperties(image, ["system:time_start"])
-}
-```
-
----
-## Calculating other VIs
-&lt;div class="figure"&gt;
-&lt;img src="figures/04/Bands_to_VI.png" alt="From Nguy-Robertson et al, 2012, doi:10.2134/agronj2012.0065" width="100%" /&gt;
-&lt;p class="caption"&gt;From Nguy-Robertson et al, 2012, doi:10.2134/agronj2012.0065&lt;/p&gt;
-&lt;/div&gt;
-
----
-## GCVI
-
-```js
-var gcvi = function(image){
-  var gcvi = image.expression(
-    '(NIR / GREEN) - 1.0', {
-    'NIR': image.select('B8'),
-    'GREEN': image.select('B3')
-    }).rename('GCVI');
-  return(gcvi)    
-}
-```
----
-
-## Time band for smoothing
-
-```js
-var addTimeBand = function(image) {
-  return image.addBands(image.metadata('system:time_start')
-                             .divide(1e18).rename('time'));
-};
-```
----
-
-## Smoothing functions
-
-
-```js
-function smoother(t){
-  // helper function to apply linear regression equation
-  function applyFit(img){
-      return img.select('time').multiply(fit.select('scale')).add(fit.select('offset'))
-              .set('system:time_start',img.get('system:time_start')).rename('GCVI');
-  }
-  t = ee.Date(t);
-  var window = data.filterDate(t.advance(-windowSize,'day'),
-                               t.advance(windowSize,'day'));
-  var fit = window.select(['time','GCVI'])
-    .reduce(ee.Reducer.linearFit());
-  return window.map(applyFit).toList(5);
-}
-function reduceFits(t){
-  t = ee.Date(t);
-  return fitIC.filterDate(t.advance(-windowSize,'day'),t.advance(windowSize,'day'))
-              .mean().set('system:time_start',t.millis()).rename('GCVI');
-}
-```
-
----
-
-## Apply smoothing functions
-
-```js
-var dates = ee.List(withTime.aggregate_array('system:time_start'));
-var windowSize = 10; //days on either side for smoothing
-var fitIC = ee.ImageCollection(dates.map(smoother).flatten());
-print ('fitic', fitIC)
-var smoothed = ee.ImageCollection(dates.map(reduceFits));
-// merge original and smoothed data into one image collection for plotting
-var joined = ee.ImageCollection(smoothed.select(['GCVI'],['smoothed'])
-                .merge(withTime.select(['GCVI'],['original'])));
-print('joined', joined)
-print('smoothed', smoothed)
-```
-
-
----
-## Group Exercises
-
-- Calculate smooth curve from Landsat GCVI
-- Calculate another vegetation index from Sentinel and smooth
-
----
-
-## Other work
-
-- Harmonic models
-
-- Center pivot detection
-
----
-
-
-
-## LAI from VIs
-&lt;div class="figure"&gt;
-&lt;img src="figures/04/VI_to_LAI.png" alt="From Nguy-Robertson et al, 2012, doi:10.2134/agronj2012.0065" width="100%" /&gt;
-&lt;p class="caption"&gt;From Nguy-Robertson et al, 2012, doi:10.2134/agronj2012.0065&lt;/p&gt;
-&lt;/div&gt;
-
----
-## Export image to Google Drive
-
-```js
-
-// Export the image, specifying scale and region.
-Export.image.toDrive({
-  image: scene,
-  description: 'imageToDriveExample',
-  scale: 30,
-  region: geometry
-});
-```
-
----
-## Converting to LAI
-https://developers.google.com/earth-engine/guides/image_math
-
-```js
-// compute LAI and add it as a separate band
-var ndviLAI = function(image) {
-  var lai = image.expression(
-    '(log(-(ndvi - 0.943)/0.731))/(log(0.6))', {
-    'ndvi': image.select('NDVI')
-    }).rename('LAI');
-  return(image.addBands(lai))
-};
-
-var withLAI = withNDVI_masked.map(addLAI_NDVI);
-
-// add chart showing LAI time-series 
-```
-
-
-
-
-
-
-```r
-var gcviLAI = function(image) {
-  var lai = image.expression(
-    '((img - 0.93) / 1.4)**(1 / 1.03)', {
-    'img': image.select('GCVI')
-    }).rename('LAI');
-  return(lai)
-}
-```
-
----
-## Find Max NDVI/LAI
-
-```js
-var withLAI_max = withLAI.max();
-
-// add code to display LAI max 
-var visParams = {bands: ['LAI_NDVI'], max: 5};
-Map.addLayer(withLAI_max, visParams, 'Whittier L8 max - SR');
-
-```
+In class `colab` work
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -271,6 +76,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable
