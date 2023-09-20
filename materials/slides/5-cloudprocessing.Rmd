@@ -42,7 +42,7 @@ output:
 ---
 
 ## Homework 
-- Apply the Harmonic regression function to Sentinel-2 over your AOI in Zambia, for 2017-2022
+- Apply the Harmonic regression function to Sentinel-2 over your AOI in Zambia, for 2019-2022
 - Find another example function in EE code editor. Port it to python/colab, applying it to Zambia for your AOI and time period of interest
 - Work through the SageMaker [Geospatial Data Analysis demo notebook](https://studiolab.sagemaker.aws/import/github/aws/studio-lab-examples/blob/main/geospatial-data-science/CA_data/geospatial_analysis.ipynb)
 

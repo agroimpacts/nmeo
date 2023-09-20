@@ -21,7 +21,7 @@ participation and completion of in-class practicals, and a final group
 project.
 
 - More detailed syllabus background information is found
-  [here](general-information.md);
+  [here](general-information.md)
 - Assignments/readings are listed [here]()
 - A list of potential final projects is [found here](projects.md).
 - The course schedule is below.
@@ -31,9 +31,9 @@ project.
 |    1 |      Week 1 | Course overview/Cloud-based EO processing |
 |    2 |  Week 2 (1) |                 Cloud-based EO processing |
 |    3 |      Week 3 |                 Cloud-based EO processing |
-|    4 |      Week 4 |                                Small Sats |
+|    4 |      Week 4 |                 Cloud-based EO processing |
 |    5 |      Week 5 |                                Small Sats |
-|    6 |      Week 6 |                                Droning on |
+|    6 |      Week 6 |                     Small Sats/Droning on |
 |    7 |  Week 7 (1) |                                Droning on |
 |   \- |      Week 8 |                                Fall Break |
 |    8 |      Week 9 |                               Sensor Data |

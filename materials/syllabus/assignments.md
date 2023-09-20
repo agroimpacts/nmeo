@@ -41,18 +41,18 @@ page](../README.md).
 
 - EarthEngine, AWS, and cloud platform work.
 
-## Week 5
+## Weeks 5 and 6
 
 - Review Houborg et al [(2018)](https://doi.org/10.3390/rs10060890), and
   watch [video here](https://www.youtube.com/watch?v=qCwAqWCGnI8),
   lecture on CESTEM starting at 12:50.
-- Assignment 1 due Friday 18/2
+- Read Feng et al
+  ([2023](https://spj.science.org/doi/full/10.34133/remotesensing.0064))
+  and Song et al
+  ([2023](https://www.sciencedirect.com/science/article/pii/S1569843222003405))
+- Assignment 1 due Friday, October 6
 
-[Course Home](../README.md) \|\| [Syllabus](syllabus.md) \|\| [General
-Course Info](general-information.md) \|\| [Weekly
-assignments](assignments.md) \|\| [Projects](../projects/projects.md)
-
-## Week 6
+## Week 7
 
 - Read/watch:
   - Manfreda et al [(2018)](http://www.mdpi.com/2072-4292/10/4/641)
@@ -64,7 +64,7 @@ assignments](assignments.md) \|\| [Projects](../projects/projects.md)
     longer-term use, annual paid licenses are available at a discount
     through my academic license.
 
-## Week 7
+## Week 8
 
 - Read:
   - Antony et al [(2020)](https://doi.org/10.3390/su12093750)
@@ -72,7 +72,7 @@ assignments](assignments.md) \|\| [Projects](../projects/projects.md)
   - Arable’s Python [client
     package](https://github.com/arable-examples/arable-python-lib).
 
-## Weeks 8-9
+## Weeks 9
 
 - Read:
   - [Dive into Deep Learning](https://d2l.ai) (reading only, don’t do

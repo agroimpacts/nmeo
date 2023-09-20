@@ -3,7 +3,7 @@
   <head>
     <title>Cloud-based Processing</title>
     <meta charset="utf-8" />
-    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.19/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/lucy.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/middlebury-fonts.css" rel="stylesheet" />
@@ -13,73 +13,28 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Cloud-based Processing
+]
+.subtitle[
 ## New Methods in Earth Observation
+]
+.date[
 ### Class 7
+]
 
 ---
 
 
-## Set up notes
+## Review of homework
 
-Start up your instance through through the R console, and then when it is running, open up your Git Bash or terminal, and enter the following commands:
-
-
-```bash
-ssh -i &lt;your.pem&gt; ubuntu@&lt;ip&gt;
-```
-But replace &lt;your.pem&gt; with the full file path and name for AWS key (.pem) file, and &lt;ip&gt; with the public address copied from your computer. 
-
-Running this command will prompt you whether you want to accept the new fingerprint. Type yes and hit enter. 
-
-Once in run the following commands in the terminal (you are now in the instance, not your local computer's OS):
-
-```bash
-cd /home/rstudio
-sudo chmod -R a+rwX .
-cd projects/
-mkdir notebooks
-```
-
-That will move you into into the directory `/home/rstudio/`, make it writable by your user, and create a `notebooks` directory under `projects`.
+- SageMaker notebooks and STAC
 
 ---
+## Class work
 
-Then run this:
-
-```bash
-git clone https://github.com/agroimpacts/cloudtools.git
-cd cloudtools
-pip install .
-cd ..
-```
-
-That will install a python package we need to query S3 buckets using python.
-
----
-Now run the following:
-
-
-```bash
-screen  
-```
-
-Hit enter when prompted, and then type:
-
-```bash
-jupyter lab
-```
-
-Which will start the `jupyter lab` server. Get out of that screen by typing ctrl+a+d
-
----
-We will then open `jupyter lab` from our local browser by pasting this into your browser (Firefox, not chrome). 
-
-https://&lt;ip&gt;:8888
-
-Replace &lt;ip&gt; with your instance's current public IP address. That will open up a password interface. Enter the one I provide you. 
-
-
+- Create Cloud Optimized Geotiffs from NDVI collection
+- Convert to [STAC](https://stacspec.org/en/tutorials/2-create-stac-catalog-python/)
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -127,6 +82,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable
