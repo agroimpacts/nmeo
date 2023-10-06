@@ -1,80 +1,71 @@
 ---
-title: "Assignment 1, Spring 2022"
+title: "Assignment 1, Fall 2023"
 output: github_document
 ---
 
-# First assignment
-The first class assignment consists of two exercises: one using Earth Engine and the other using your AWS instance.  It will be due on Friday February 18th at midnight. Submission instructions for each will be provided below. 
+The first class assignment consists of three exercises: two on colab (one using Earth Engine, the other the Planet API), and the  and the other using your AWS instance.  It will be due on Monday, October 18th by the beginning of class. The assignments are provided below. 
 
-## Earth Engine
-Create a script named with you initials followed by `_nmeo_2022_assn`, e.g. mine would be `lde_nmeo_2022_assn`. 
+## colab
+### Part 1 - Earth Engine
+Create a colab notebook named with your initials followed by `_nmeo_2022_ee_assn_part1`, e.g. mine would be `lde_nmeo_2022_ee_assn_part1`. 
 
 - Use this block of code to define the area of interest:
 
-    ```{js, eval=FALSE}
-    var aoi = ee.Geometry.Polygon(
+    ```{python, eval=FALSE}
+    myaoi = ee.Geometry.Polygon(
         [[[-0.3436329956054607, 9.48094283485201],
           [-0.3436329956054607, 9.334622294426413],
           [-0.18707781982421068, 9.334622294426413],
-          [-0.18707781982421068, 9.48094283485201]]], null, false
-    );
+          [-0.18707781982421068, 9.48094283485201]
+        ]]
+    )    
     ```
-- Load in the Landsat-8 TOA reflectance ("LANDSAT/LC08/C02/T1_TOA") and Sentinel-2 surface reflectance ("COPERNICUS/S2_SR") collections.  We used TOA for Landsat because the surface reflectance collection only has 4 time points over this area. 
-- Filter each collection by the location of the AOI and by for the period 2021-03-01 to 2021-12-31.
-- Use the cloud masking functions for each source of imagery to mask each collection, and crop them to the AOI. 
-- Map an NDVI band onto each cloudmasked collection.
-- Create a smoothed NDVI time series for the AOI from each image collection. To do the smoothing, the following functions are required: 
-    - `addTimeBand`
+- Load in the Sentinel-2 surface reflectance ("COPERNICUS/S2_SR") collections.  
+- Filter the collection by the location of the AOI and by for the period 2021-07-01 to 2021-12-31.
+- Use the cloud masking functions to mask the collection, and crop them to the AOI. 
+- Map a VI band onto each cloudmasked collection. Previously we calculated NDVI. This time calculate EVI instead. 
+- Create a smoothed EVI time series for the AOI from each image collection. To do the smoothing, the following functions are required: 
+    - `add_time_band`
     - `smoother`
-    - `reduceFits`
-    
-    And a separate smoother should be applied to each collection. When applying the smooth, use a 20 day window size
+    - `reduce_fits`
+    And a separate smoother should be applied to each collection. When applying the smooth, use a 10 day window size
 - Create median composites of:
     - The Sentinel-2 NDVI series
     - The smoothed Sentinel-2 NDVI time series
-    - The Landsat-8 NDVI series
-    - The smoothed Landsat-8 NDVI time series
 - Then finally make some plots:
-    - Create a time series chart of the Landsat smoothed and original NDVI series for the AOI (Sentinel-2 has a lot of images, so we will not do that here). 
-    - Use the `displayImage` function we developed to show the 30th images from the Sentinel collection and the 30th image from the Landsat collection. Use the correct `vizParams` for each to make a false color image, e.g. a `vizParams` for Sentinel 2 and one for Landsat 8. Set Band min and max values in the `vizParams` for each image collection to [0.2, 0.2, 0.4]. Use meaningful titles in the `vizParams`, e.g. "30th Sentinel 2 image".
-    - Plot the median NDVI images for all four median images (S2 NDVI median; S2 smoothed NDVI median; L8 NDVI median; L8 smoothed NDVI median). Use a range of `{min: -0.5, max: 1}` to stretch the NDVI images, and also add meaningful titles, e.g. "Sentinel-2 median NDVI".  
-
-
-### Reference code
-The code we have already used in class provides the ingredients for how to undertake this assignment, such as this [one](https://code.earthengine.google.com/94a61ebc88710eb4becc30668152996b) and this [one](https://code.earthengine.google.com/cfe5da89d3e806d951848aea3d1ac953), as well as your own homework. 
-
-### Materials to hand-in
-Create a set of Google slides with Name written as `firstname_lastname_nmeo_assn1` (replace firstname and lastname with your names) Provide a link to your script in the slides, and images of all the plots made in your notebook. 
-
-## AWS
-In this exercise, you will re-use the notebook we used in class to select another tile to subset. To do this, you can use the notebook in the class repo, rather than the ones that we used in the last class. A bit of prep is necessary. 
-- Log into the AWS console and start your instance.
-- `ssh` in to the instance.
-- Once in, `cd /home/rstudio/projects`
-- Then run `git clone https://github.com/agroimpacts/nmeo.git`. This will install the class repository onto your instance. 
-- Then run:
-
-
-  ```{bash, eval=FALSE}
-  cp nmeo/materials/code/notebooks/retile_images_on_cloud.ipynb notebooks/ 
-  ```
-
-    That will copy the notebook from the class repo to your notebooks folder. 
+    - Create a time series chart of the Landsat smoothed and original EVI series for the AOI (Sentinel-2 has a lot of images, so we will not do that here). 
+    - Use `geemap` and the `display_image` function we developed to show the 10th images from the Sentinel collection. Use the correct `viz_params` to make a false color image. Set Band min and max values in the `viz_params` for each image collection to [0.2, 0.2, 0.4]. Use meaningful titles in the `viz_params`, e.g. "30th Sentinel 2 image".
+    - Plot the median EVI images for both median images (S2 EVI median; S2 smoothed EVI median). Use a range of `{min: -0.5, max: 1}` to stretch the EVI images, and also add meaningful titles, e.g. "Sentinel-2 median EVI".  
+- Use the minimum code necessary to complete the task, i.e. do not maintain superfluous blocks that were previously there just to demonstrate components of the code, extra visualizations, etc.  
     
-- Then run `screen`, and once in the other screen `jupyter lab`. ctrl+a+d back to the original screen, and open up `jupyter lab` interface in a browser. 
-- Navigate to the notebook you copied in the `jupyter lab` file browser, and rename it `<yourinitials>_nmeo_2022_assn`, where <yourinitials> is replaced with your actual initials. 
-- Work through the notebook. Select tile 300 as the one to create a subset, and then work through the whole notebook. 
-- Once done, go to the menu at the top of the interface, and select File > Download. That will download the notebook to your local computer. 
+### Part 2 - Planet API
+Create a colab notebook named with your initials followed by `_nmeo_2022_ee_assn_part2`, e.g. mine would be `lde_nmeo_2022_ee_assn_part2`. 
 
-### Materials to hand in
-Send me the completed notebook. 
+- Use the `maputil` package, together with the Malawi tiles dataset, adapting the code as needed from `[planet_downloader_retiler.ipynb](https://github.com/agroimpacts/nmeo/blob/class/f2023/materials/code/notebooks/planet_downloader_retiler.ipynb).
+- Select a new AOI in Malawi then the one you ran in the class exercise, making sure it only intersects about 10-20 tiles
+- Query the Planet API to download the quads intersecting that new AOI, reproject and retile the quads into each tile polygon (as we did in class), making a COG of each. 
+- Use `leafmap` to show a randomly selected retiled sample against your selected tile grid.
+- Create a STAC catalog of the retiled images on Google Drive, porting the procedures we used on SageMaker to colab (see `sagemaker-geo-demo.ipynb`).
+  - Print the properties of the catalog items
+- As above, use the minimum code necessary to complete the task.  
+- **10 point bonus**: Instead of using `sklearn` to do the kmeans clustering, replace that workflow with one based on `ee` and `geemap`, so that the kmeans clustering is done on Google Earth Engine. That will require first transferring the processed Planet tiles to Earth Engine as assets first. 
+
+
+## AWS Sagemaker
+In this exercise, you will process a Sentinel-2 image from the same month as the Planet imagery (June, 2021) and over the same area of Malawi covered by your new AOI from colab assignment part 2. The assignment requires the following:
+
+- Drawing on the examples provided in the [sagemaker-geo-demo.ipynb](https://github.com/agroimpacts/nmeo/blob/class/f2023/materials/code/notebooks/sagemaker-geo-demo.ipynb) notebook, use the STAC browser to query the Sentinel-2 catalog on AWS, using the boundaries of one of the tiles from `malawi_tiles_buf179.geojson` that intersect your AOI to provide the spatial dimensions of the query, and the period of June 1, 2021 to June 30, 2021 as the time period. 
+- Select the least cloudy image. Hint: you can use the STAC browser to filter available Sentinel images by cloud cover by adding an argument to `satsearch.Search.search`. See the "Complex Query" section [here](https://github.com/sat-utils/sat-search/blob/master/tutorial-1.ipynb) for how to do that. 
+- Collect Bands 3, 4 and 8 for the least cloudy image. You could do that by selecting any one of the filtered images that have <1% cloud cover). Or you could use capture for each item in `sentinel_items` the `item.properties['eo:cloud_cover']` in a list, use that to find the index of least cloudy image, and then use that to select the three bands of the least cloudy image. 
+- Each band from the least cloudy image should be subset to the bounds of your selected tile (`read_subset`)
+- Combine those three subset bands into a single 3 band image, with the dimensions (row, col, band). `np.dstack()` will do the job. Save out the 3 band image to a geotiff. 
+- Drawing on the [planet_basemap_cluster_segment.ipynb](https://github.com/agroimpacts/nmeo/blob/class/f2023/materials/code/notebooks/planet_basemap_cluster_segment.ipynb) notebook as a guide, use the `KMeans` function from `sklearn` to fit a 7-cluster KMeans model to a sample of pixels from the 3 band image (don't forget to flatten the image first). 
+- Use the model to classify the 3 band image. Save it out to geotiff.  
+- Use `leafmap` to plot both the Sentinel 3-band image (as false color) and the kmeans-classified image in relation to the tile `GeoDataFrame`. 
+- As above, use the minimum code necessary to complete the task.  
 
 ## Assessment
-This assignment will be assessed out of 50 points, with 35 assigned to the Earth Engine section and 15 to the AWS section.  
-
-Points will be assigned as follows:
-
-For Earth Engine:
+Each notebook is worth 50 points, which will be assessed as follows:  
 
 | Assignment tasks| Points | Style of code & presentation       | Points | 
 |-----------------|--------|------------------------------------|--------|
@@ -83,17 +74,7 @@ For Earth Engine:
 | 50-75% correct  |   20   | Somewhat tidy, somewhat documented |  7.5   |
 | 75-100% correct |   25   | Tidy, well-documented              |  10    |
 
-For AWS:
-
-Fully and correctly completed notebook is worth 15 points. Fully complete entails:
-
-- Notebook template used as instructed: 2 pts
-- Correct tile processed: 2 pts
-- All plots rendered (tile grids and retiled images): 5 points
-- Retiled image transferred to AWS bucket: 5 points
-- Downloaded notebook submitted via Slack: 1 point
-
-
+That makes the total worth 150 points. However, your grade will only be 100 points (plus any bonus points). That means the notebook with the lowest grade is dropped.  
 
 
 

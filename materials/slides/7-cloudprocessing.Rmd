@@ -10,7 +10,6 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
-
 ---
 
 ## Review of homework

@@ -118,8 +118,6 @@ knitr::include_graphics("figures/07/planet_band_spec.png")
 
 [44 Super Doves in orbit](https://www.planet.com/pulse/44-superdove-satellites-successfully-launch-on-spacex-falcon-9-rocket/)
 
-
-
 ---
 ## Surface Reflectance
 

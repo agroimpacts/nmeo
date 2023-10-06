@@ -50,7 +50,7 @@ page](../README.md).
   ([2023](https://spj.science.org/doi/full/10.34133/remotesensing.0064))
   and Song et al
   ([2023](https://www.sciencedirect.com/science/article/pii/S1569843222003405))
-- Assignment 1 due Friday, October 6
+- Assignment 1 due Monday, October 18.
 
 ## Week 7
 
