@@ -53,9 +53,8 @@ Create a colab notebook named with your initials followed by
 
 - Then finally make some plots:
 
-  - Create a time series chart of the Landsat smoothed and original EVI
-    series for the AOI (Sentinel-2 has a lot of images, so we will not
-    do that here).
+  - Create a time series chart of the Sentinel-2 smoothed and original
+    EVI series for the AOI.
   - Use `geemap` and the `display_image` function we developed to show
     the 10th images from the Sentinel collection. Use the correct
     `viz_params` to make a false color image. Set Band min and max
