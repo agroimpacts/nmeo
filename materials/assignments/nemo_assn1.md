@@ -45,8 +45,10 @@ Create a colab notebook named with your initials followed by
   - `mask_clouds`
   - `add_evi` (see `add_ndvi`)
   - `add_dependents`
-  - `add_harmonics` And a smoother to the collection. When applying the
-    smooth, use a 10 day window size
+  - `add_harmonics`
+
+  And a smoother to the collection. When applying the smooth, use a 10
+  day window size
 
 - Create median composites of:
 
