@@ -41,10 +41,12 @@ Create a colab notebook named with your initials followed by
 - Create a smoothed EVI time series for the AOI from each image
   collection. To do the smoothing, the following functions are required:
 
-  - `add_time_band`
-  - `smoother`
-  - `reduce_fits` And a separate smoother should be applied to each
-    collection. When applying the smooth, use a 10 day window size
+  - `construct_band_names`
+  - `mask_clouds`
+  - `add_evi` (see `add_ndvi`)
+  - `add_dependents`
+  - `add_harmonics` And a smoother to the collection. When applying the
+    smooth, use a 10 day window size
 
 - Create median composites of:
 
