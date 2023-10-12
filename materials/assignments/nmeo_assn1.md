@@ -50,7 +50,7 @@ Create a colab notebook named with your initials followed by
 
 - Create median composites of:
 
-  - The Sentinel-2 NDVI series
+  - The Sentinel-2 EVI series
 
 - Then finally make some plots:
 
