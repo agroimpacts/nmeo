@@ -38,8 +38,9 @@ Create a colab notebook named with your initials followed by
 - Map a VI band onto each cloudmasked collection. Previously we
   calculated NDVI. This time calculate EVI instead.
 
-- Create a smoothed EVI time series for the AOI from each image
-  collection. To do the smoothing, the following functions are required:
+- Fit a harmonic regression to the EVI time series for the AOI from each
+  image collection. To fit the harmonic regression, the following
+  functions are required:
 
   - `construct_band_names`
   - `mask_clouds`
@@ -47,28 +48,23 @@ Create a colab notebook named with your initials followed by
   - `add_dependents`
   - `add_harmonics`
 
-  And a smoother to the collection. When applying the smooth, use a 10
-  day window size
-
 - Create median composites of:
 
   - The Sentinel-2 NDVI series
-  - The smoothed Sentinel-2 NDVI time series
 
 - Then finally make some plots:
 
-  - Create a time series chart of the Sentinel-2 smoothed and original
-    EVI series for the AOI.
+  - Create a time series chart of the Sentinel-2 harmonic fitted and
+    original EVI series for the AOI.
   - Use `geemap` and the `display_image` function we developed to show
     the 10th images from the Sentinel collection. Use the correct
     `viz_params` to make a false color image. Set Band min and max
-    values in the `viz_params` for each image collection to \[0.2, 0.2,
-    0.4\]. Use meaningful titles in the `viz_params`, e.g. “30th
-    Sentinel 2 image”.
-  - Plot the median EVI images for both median images (S2 EVI median; S2
-    smoothed EVI median). Use a range of `{min: -0.5, max: 1}` to
-    stretch the EVI images, and also add meaningful titles,
-    e.g. “Sentinel-2 median EVI”.  
+    values in the `viz_params` for each image collection to 0, 3000. Use
+    meaningful titles in the `viz_params`, e.g. “30th Sentinel 2 image”.
+  - Plot the median EVI image and the seasonality image from fitted
+    harmonic model. Use a range of `{min: -0.5, max: 1}` to stretch the
+    EVI images, and also add meaningful titles, e.g. “Sentinel-2 median
+    EVI”.  
 
 - Use the minimum code necessary to complete the task, i.e. do not
   maintain superfluous blocks that were previously there just to
