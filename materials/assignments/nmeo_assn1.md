@@ -90,12 +90,7 @@ Create a colab notebook named with your initials followed by
   the procedures we used on SageMaker to colab (see
   `sagemaker-geo-demo.ipynb`).
   - Print the properties of the catalog items
-- As above, use the minimum code necessary to complete the task.  
-- **10 point bonus**: Instead of using `sklearn` to do the kmeans
-  clustering, replace that workflow with one based on `ee` and `geemap`,
-  so that the kmeans clustering is done on Google Earth Engine. That
-  will require first transferring the processed Planet tiles to Earth
-  Engine as assets first.
+- As above, use the minimum code necessary to complete the task.
 
 ## AWS Sagemaker
 
@@ -132,7 +127,12 @@ assignment requires the following:
   notebook as a guide, use the `KMeans` function from `sklearn` to fit a
   7-cluster KMeans model to a sample of pixels from the 3 band image
   (don’t forget to flatten the image first).
-- Use the model to classify the 3 band image. Save it out to geotiff.  
+- Use the model to classify the 3 band image. Save it out to geotiff.
+- **10 point bonus**: Instead of using `sklearn` to do the kmeans
+  clustering, replace that workflow with one based on `ee` and `geemap`,
+  so that the kmeans clustering is done on Google Earth Engine. That
+  will require first transferring the processed Planet tiles to Earth
+  Engine as assets first.
 - Use `leafmap` to plot both the Sentinel 3-band image (as false color)
   and the kmeans-classified image in relation to the tile
   `GeoDataFrame`.
