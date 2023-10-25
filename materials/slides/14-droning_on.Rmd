@@ -1,0 +1,18 @@
+---
+title: "Droning On"
+subtitle: "New Methods in Earth Observation"
+date: "Class 14-15"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "lucy", "middlebury-fonts", "themes/class2-theme.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+## Processing and comparing data
+
+A look at the orthomosaicks we processed, using this [notebook](https://github.com/agroimpacts/nmeo/blob/class/f2023/materials/code/notebooks/drone_image_analysis.ipynb)
+
