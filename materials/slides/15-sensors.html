@@ -3,7 +3,7 @@
   <head>
     <title>Realtime In Situ Sensing</title>
     <meta charset="utf-8" />
-    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.19/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/lucy.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/middlebury-fonts.css" rel="stylesheet" />
@@ -13,22 +13,25 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Realtime In Situ Sensing
+]
+.subtitle[
 ## New Methods in Earth Observation
-### 3/14/2022
+]
+.date[
+### 30/10/2023
+]
 
 ---
 
 class: center, middle
-# Wrap-up UAS
+# Wrap-up
+## UAS
+## Where we have been so far
 
 ---
-## Your results
-#### - Reflectance target vs non-reflectance target
-#### - PPK vs no-PPK correction
-
----
-## Comparisons from last year
+## A look at some other drone results (from earlier years)
 ### Reflectance strategies 
 &lt;img src="figures/14/uas_2018_ref_difference.png" width="100%" style="display: block; margin: auto;" /&gt;
 
@@ -54,15 +57,6 @@ class: center, middle
 ### Pseudo-True From Sequioa Imagery
 
 
-```r
-library(raster)
-img1 &lt;- brick(here::here("materials/data/04/aug24_ngb_noreftarget_cog_gcs.tif"))
-green &lt;- (img1[[3]] * 3 + img1[[1]]) / 4  # pseudo green band
-red &lt;- img1[[3]]  # red as red
-blue &lt;- img1[[2]]  # green serves as blue
-plotRGB(stack(red, green, blue), scale = 0.41, zlim = c(0, 0.41))
-```
-
 
 
 &lt;img src="figures/14/pseudo_rgb.png" width="50%" style="display: block; margin: auto;" /&gt;
@@ -75,11 +69,6 @@ GCVI = (NIR / GRN) – 1
 GCVI = 1.4 * LAI^1.03 + 0.93
 
 
-```r
-gcvi &lt;- (img1[[1]] / img1[[3]]) - 1
-par(mar = rep(0, 4))
-plot(gcvi)
-```
 
 
 
@@ -90,9 +79,6 @@ plot(gcvi)
 LAI = ((GCVI - 0.93) / 1.4)^(1 / 1.03)
 
 
-```r
-lai &lt;- ((gcvi - 0.93) / 1.4)^(1 / 1.03)
-```
 
 
 
@@ -101,15 +87,44 @@ lai &lt;- ((gcvi - 0.93) / 1.4)^(1 / 1.03)
 
 ---
 class: center, middle
-# Sensors
+# A look back at what we have covered so far
+![](figures/limits.png)
+---
+## Physical Limits 1
+
+- Space-time tradeoff
+- Initiated by conflict between resolution and extent
+- Temporal: length of record
+- Surface characteristics: terrain and vegetation
+- Atmosphere
+- Perspective
 
 ---
+## Methodological Limits
+
+- Inadequate models: 
+    - Need these to solve the inverse problem 
+    - Models outpaced by EO data
+- Not enough cal/val data
+- Competing standards
+
+---
+
+## Societal Limits
+- Expertise barrier
+- Institutional limitations
+    - Data access and collection policies
+    - Coordination
+- Accessibility to methods
+- Collection biases
+
+---
+background-image: url(figures/10/uas_slides/uas_slides.002.png)
+background-size: cover
+
+---
+## Where we are headed
 .center[![](figures/16/eo.001.png)]
-
----
-- Work by Mike Cecil
-- Work by Dr. Adam Wolf
-
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -157,6 +172,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

@@ -2,7 +2,7 @@
 title: "Realtime In Situ Sensing"
 subtitle: "New Methods in Earth Observation"
 # author: "Lyndon Estes"
-date: "3/14/2022"
+date: "30/10/2023"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -13,15 +13,12 @@ output:
       countIncrementalSlides: false
 ---
 class: center, middle
-# Wrap-up UAS
+# Wrap-up
+## UAS
+## Where we have been so far
 
 ---
-## Your results
-#### - Reflectance target vs non-reflectance target
-#### - PPK vs no-PPK correction
-
----
-## Comparisons from last year
+## A look at some other drone results (from earlier years)
 ### Reflectance strategies 
 ```{r, echo = FALSE, out.width="100%", fig.align='center'}
 knitr::include_graphics('figures/14/uas_2018_ref_difference.png')
@@ -56,7 +53,7 @@ knitr::include_graphics('figures/14/uas_2018-2019_ref_difference.png')
 ---
 ### Pseudo-True From Sequioa Imagery
 
-```{r, eval = FALSE}
+```{r, echo=FALSE, eval=FALSE}
 library(raster)
 img1 <- brick(here::here("materials/data/04/aug24_ngb_noreftarget_cog_gcs.tif"))
 green <- (img1[[3]] * 3 + img1[[1]]) / 4  # pseudo green band
@@ -71,7 +68,6 @@ par(mar = c(0, 0, 0, 0), bg = "transparent")
 plotRGB(stack(red, green, blue), scale = 0.41, zlim = c(0, 0.41), bgalpha = 0)
 dev.off()
 ```
-
 ```{r, echo = FALSE, out.width="50%", fig.align='center'}
 knitr::include_graphics('figures/14/pseudo_rgb.png')
 ```
@@ -83,13 +79,13 @@ GCVI = (NIR / GRN) – 1
 
 GCVI = 1.4 * LAI^1.03 + 0.93
 
-```{r, eval = FALSE}
+```{r, echo=FALSE, eval=FALSE}
 gcvi <- (img1[[1]] / img1[[3]]) - 1
 par(mar = rep(0, 4))
 plot(gcvi)
 ```
 
-```{r, echo = FALSE, eval=FALSE}
+```{r, echo=FALSE, eval=FALSE}
 gcvi[gcvi > 10] <- 10
 png("materials/slides/figures/14/gcvi.png", height = 400, width = 400)
 par(mar = c(0, 0, 0, 0), bg = "transparent")
@@ -103,7 +99,7 @@ dev.off()
 
 LAI = ((GCVI - 0.93) / 1.4)^(1 / 1.03)
 
-```{r, eval=FALSE}
+```{r, echo=FALSE, eval=FALSE}
 lai <- ((gcvi - 0.93) / 1.4)^(1 / 1.03)
 ```
 
@@ -119,12 +115,41 @@ dev.off()
 
 ---
 class: center, middle
-# Sensors
+# A look back at what we have covered so far
+![](figures/limits.png)
+---
+## Physical Limits 1
+
+- Space-time tradeoff
+- Initiated by conflict between resolution and extent
+- Temporal: length of record
+- Surface characteristics: terrain and vegetation
+- Atmosphere
+- Perspective
 
 ---
+## Methodological Limits
+
+- Inadequate models: 
+    - Need these to solve the inverse problem 
+    - Models outpaced by EO data
+- Not enough cal/val data
+- Competing standards
+
+---
+
+## Societal Limits
+- Expertise barrier
+- Institutional limitations
+    - Data access and collection policies
+    - Coordination
+- Accessibility to methods
+- Collection biases
+
+---
+background-image: url(figures/10/uas_slides/uas_slides.002.png)
+background-size: cover
+
+---
+## Where we are headed
 .center[![](figures/16/eo.001.png)]
-
----
-- Work by Mike Cecil
-- Work by Dr. Adam Wolf
-
