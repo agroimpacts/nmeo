@@ -12,13 +12,12 @@ output:
       highlightLines: true
       countIncrementalSlides: false
 ---
-class: center, middle
 # Wrap-up
 ## UAS
 ## Where we have been so far
 
 ---
-## A look at some other drone results (from earlier years)
+## Drone results (from earlier years)
 ### Reflectance strategies 
 ```{r, echo = FALSE, out.width="100%", fig.align='center'}
 knitr::include_graphics('figures/14/uas_2018_ref_difference.png')
@@ -53,6 +52,9 @@ knitr::include_graphics('figures/14/uas_2018-2019_ref_difference.png')
 ---
 ### Pseudo-True From Sequioa Imagery
 
+- Make pseudo green from red and green: 
+  - pseudo_green = (red * 3 + green) / 4
+- pseudo_rgb: red = red, green = pseudo_green, blue = green
 ```{r, echo=FALSE, eval=FALSE}
 library(raster)
 img1 <- brick(here::here("materials/data/04/aug24_ngb_noreftarget_cog_gcs.tif"))
@@ -118,6 +120,11 @@ class: center, middle
 # A look back at what we have covered so far
 ![](figures/limits.png)
 ---
+
+background-image: url(figures/10/uas_slides/uas_slides.002.png)
+background-size: cover
+---
+
 ## Physical Limits 1
 
 - Space-time tradeoff
@@ -147,9 +154,43 @@ class: center, middle
 - Collection biases
 
 ---
-background-image: url(figures/10/uas_slides/uas_slides.002.png)
-background-size: cover
-
----
 ## Where we are headed
 .center[![](figures/16/eo.001.png)]
+
+---
+## Sensors
+
+- [Arable Labs](https://www.arable.com/)
+- [Mark Sensor](https://www.arable.com/mark3)
+
+---
+
+## Antony et al (2020)
+
+- Typical structure of IoT device?
+
+---
+
+```{r, echo = FALSE, out.width="100%", fig.align='center', fig.cap="Anthony et al, 2020, Figure 1"}
+knitr::include_graphics('https://www.mdpi.com/sustainability/sustainability-12-03750/article_deploy/html/images/sustainability-12-03750-g001.png
+')
+```
+
+---
+- Agricultural (EO) uses?
+
+---
+```{r, echo = FALSE, out.width="100%", fig.align='center', fig.cap="Anthony et al, 2020, Figure 5"}
+knitr::include_graphics('https://www.mdpi.com/sustainability/sustainability-12-03750/article_deploy/html/images/sustainability-12-03750-g004-550.jpg')
+```
+
+---
+
+- Key challenges?
+
+---
+
+```{r, echo = FALSE, out.width="100%", fig.align='center', fig.cap="Anthony et al, 2020, Figure 12"}
+knitr::include_graphics('https://www.mdpi.com/sustainability/sustainability-12-03750/article_deploy/html/images/sustainability-12-03750-g012.png')
+```
+

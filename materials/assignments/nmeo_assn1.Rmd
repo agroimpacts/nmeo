@@ -69,10 +69,10 @@ Each notebook is worth 50 points, which will be assessed as follows:
 
 | Assignment tasks| Points | Style of code & presentation       | Points | 
 |-----------------|--------|------------------------------------|--------|
-| 0-25% correct   |   10   | Messy & undocumented               |  2.5   |
-| 25-50% correct  |   15   | Fairly messy, lightly documented   |  5     |
-| 50-75% correct  |   20   | Somewhat tidy, somewhat documented |  7.5   |
-| 75-100% correct |   25   | Tidy, well-documented              |  10    |
+| 0-25% correct   |    9   | Messy & undocumented               |  3.5   |
+| 25-50% correct  |   18   | Fairly messy, lightly documented   |  7     |
+| 50-75% correct  |   27   | Somewhat tidy, somewhat documented |  10.5  |
+| 75-100% correct |   36   | Tidy, well-documented              |  14    |
 
 That makes the total worth 150 points. However, your grade will only be 100 points (plus any bonus points). That means the notebook with the lowest grade is dropped.  
 
