@@ -64,7 +64,7 @@ page](../README.md).
     longer-term use, annual paid licenses are available at a discount
     through my academic license.
 
-## Week 8
+## Week 8/9
 
 - Read:
   - Antony et al [(2020)](https://doi.org/10.3390/su12093750)
@@ -72,18 +72,18 @@ page](../README.md).
   - Arable’s Python [client
     package](https://github.com/arable-examples/arable-python-lib).
 
-## Weeks 9
+## Weeks 9/10
 
 - Read:
-  - [Dive into Deep Learning](https://d2l.ai) (reading only, don’t do
-    exercises & examples):
-    - [Chapter 1](https://d2l.ai/chapter_introduction/index.html)
-    - [Chapter
-      4](https://d2l.ai/chapter_multilayer-perceptrons/index.html)
-      - Sections: 4.1; 4.4 - 4.4.3; 4.5 - 4.5.1; 4.6-4.6.2; 4.7 - 4.7.5;
-        4.8-4.8.3; 4.9-4.9.
-    - [Chapter
-      6](https://d2l.ai/chapter_convolutional-neural-networks/index.html)
+  - [Deep learning
+    simplified](https://towardsai.net/p/deep-learning/deep-learning-simplified-feel-and-talk-like-an-expert-in-neural-networks)
+  - [Semantic image
+    segmentation](https://www.jeremyjordan.me/semantic-segmentation/)
+  - [Khallagi et al
+    (2023)](https://arxiv.org/ftp/arxiv/papers/2308/2308.09221.pdf):
+    - Sections 1-4.2 (pp 1-28)
+    - Section 5.4 (pp 56-60)
+    - Section 6 (pp 61-63)
 
 |                                |                         |                                       |                               |                                     |
 |--------------------------------|-------------------------|---------------------------------------|-------------------------------|-------------------------------------|

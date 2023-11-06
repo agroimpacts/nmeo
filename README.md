@@ -32,8 +32,8 @@ Office hours: Tuesdays 1000-1200 in Jefferson 201C
 
 - [Course policies](materials/course-policies.md)
 - [Syllabus](materials/syllabus/syllabus.md)
+- [Weekly details](materials/syllabus-details.md)
 - [Overview of Projects](materials/projects/projects.md)
-- [Assignments](materials/syllabus/assignments.md)
 
 ------------------------------------------------------------------------
 

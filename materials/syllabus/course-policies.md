@@ -1,8 +1,8 @@
 # Course Policies
 
-|                                |                         |                                       |                               |                                     |
-|--------------------------------|-------------------------|---------------------------------------|-------------------------------|-------------------------------------|
-| [Course Home](../../README.md) | [Syllabus](syllabus.md) | [Course Policies](course-policies.md) | [Assignments](assignments.md) | [Projects](../projects/projects.md) |
+|                                |                                |                         |                                         |                                       |
+|--------------------------------|--------------------------------|-------------------------|-----------------------------------------|---------------------------------------|
+| [Course Home](../../README.md) | [Course Home](../../README.md) | [Syllabus](syllabus.md) | [Syllabus details](syllabus-details.md) | [Course Policies](course-policies.md) |
 
 ## Attendance and assignment submissions
 
@@ -227,6 +227,6 @@ and Professional Growth (508-793-7678), Clark’s Health Center
 [here](https://www.clarku.edu/offices/title-ix/resources/) for a list,
 and for other resources).
 
-|                                |                         |                                       |                               |                                     |
-|--------------------------------|-------------------------|---------------------------------------|-------------------------------|-------------------------------------|
-| [Course Home](../../README.md) | [Syllabus](syllabus.md) | [Course Policies](course-policies.md) | [Assignments](assignments.md) | [Projects](../projects/projects.md) |
+|                                |                         |                                         |                                       |                                     |
+|--------------------------------|-------------------------|-----------------------------------------|---------------------------------------|-------------------------------------|
+| [Course Home](../../README.md) | [Syllabus](syllabus.md) | [Syllabus details](syllabus-details.md) | [Course Policies](course-policies.md) | [Projects](../projects/projects.md) |

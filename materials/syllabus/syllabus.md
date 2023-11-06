@@ -1,8 +1,8 @@
 # Syllabus
 
-|                                |                         |                                       |                               |                                     |
-|--------------------------------|-------------------------|---------------------------------------|-------------------------------|-------------------------------------|
-| [Course Home](../../README.md) | [Syllabus](syllabus.md) | [Course Policies](course-policies.md) | [Assignments](assignments.md) | [Projects](../projects/projects.md) |
+|                                |                         |                                         |                                       |                                     |
+|--------------------------------|-------------------------|-----------------------------------------|---------------------------------------|-------------------------------------|
+| [Course Home](../../README.md) | [Syllabus](syllabus.md) | [Syllabus details](syllabus-details.md) | [Course Policies](course-policies.md) | [Projects](../projects/projects.md) |
 
 The purpose of this course is to introduce students to recent advances
 in Earth Observation technology that are leading to breakthroughs in our
@@ -45,6 +45,6 @@ project.
 |   14 |     Week 15 |                            Group Projects |
 |   15 | Week 16 (1) |                            Group Projects |
 
-|                                |                         |                                       |                               |                                     |
-|--------------------------------|-------------------------|---------------------------------------|-------------------------------|-------------------------------------|
-| [Course Home](../../README.md) | [Syllabus](syllabus.md) | [Course Policies](course-policies.md) | [Assignments](assignments.md) | [Projects](../projects/projects.md) |
+|                                |                         |                                         |                                       |                                     |
+|--------------------------------|-------------------------|-----------------------------------------|---------------------------------------|-------------------------------------|
+| [Course Home](../../README.md) | [Syllabus](syllabus.md) | [Syllabus details](syllabus-details.md) | [Course Policies](course-policies.md) | [Projects](../projects/projects.md) |
