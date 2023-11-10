@@ -11,8 +11,8 @@ the beginning of class. The assignments are provided below.
 ### Part 1 - Earth Engine
 
 Create a colab notebook named with your initials followed by
-`_nmeo_2022_ee_assn_part1`, e.g. mine would be
-`lde_nmeo_2022_ee_assn_part1`.
+`_nmeo_2023_ee_assn_part1`, e.g. mine would be
+`lde_nmeo_2023_ee_assn_part1`.
 
 - Use this block of code to define the area of interest:
 
@@ -73,8 +73,8 @@ Create a colab notebook named with your initials followed by
 ### Part 2 - Planet API
 
 Create a colab notebook named with your initials followed by
-`_nmeo_2022_ee_assn_part2`, e.g. mine would be
-`lde_nmeo_2022_ee_assn_part2`.
+`_nmeo_2023_ee_assn_part2`, e.g. mine would be
+`lde_nmeo_2023_ee_assn_part2`.
 
 - Use the `maputil` package, together with the Malawi tiles dataset,
   adapting the code as needed from

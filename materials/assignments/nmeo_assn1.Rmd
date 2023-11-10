@@ -7,7 +7,7 @@ The first class assignment consists of three exercises: two on colab (one using 
 
 ## colab
 ### Part 1 - Earth Engine
-Create a colab notebook named with your initials followed by `_nmeo_2022_ee_assn_part1`, e.g. mine would be `lde_nmeo_2022_ee_assn_part1`. 
+Create a colab notebook named with your initials followed by `_nmeo_2023_ee_assn_part1`, e.g. mine would be `lde_nmeo_2023_ee_assn_part1`. 
 
 - Use this block of code to define the area of interest:
 
@@ -39,7 +39,7 @@ Create a colab notebook named with your initials followed by `_nmeo_2022_ee_assn
 - Use the minimum code necessary to complete the task, i.e. do not maintain superfluous blocks that were previously there just to demonstrate components of the code, extra visualizations, etc.  
     
 ### Part 2 - Planet API
-Create a colab notebook named with your initials followed by `_nmeo_2022_ee_assn_part2`, e.g. mine would be `lde_nmeo_2022_ee_assn_part2`. 
+Create a colab notebook named with your initials followed by `_nmeo_2023_ee_assn_part2`, e.g. mine would be `lde_nmeo_2023_ee_assn_part2`. 
 
 - Use the `maputil` package, together with the Malawi tiles dataset, adapting the code as needed from `[planet_downloader_retiler.ipynb](https://github.com/agroimpacts/nmeo/blob/class/f2023/materials/code/notebooks/planet_downloader_retiler.ipynb).
 - Select a new AOI in Malawi then the one you ran in the class exercise, making sure it only intersects about 10-20 tiles
