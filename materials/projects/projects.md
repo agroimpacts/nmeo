@@ -1,11 +1,9 @@
 Team Projects
 ================
 
-<p align="center">
-[Course Home](../../README.md) \|\| [Syllabus](syllabus.md) \|\|
-[General Course Info](general-information.md) \|\| [Weekly
-assignments](assignments.md) \|\| [Projects](../projects/projects.md)
-</p>
+[Course Home](../../README.md) \| [Syllabus](../syllabus/syllabus.md) \|
+[Syllabus Details](../syllabus/syllabus-details.md) \|
+[Projects](projects.md)
 
 This year we are going to focus on 2-3 potential projects, mostly
 involving deep learning/advanced ML.
@@ -17,23 +15,14 @@ More detail on each follows:
 
 ## Project 1
 
-### Field boundary mapping
-
-The goal of this project is to use advanced machine learning models that
-we have developed to [map smallholder-dominated croplands in
-Africa](mappingafrica.io), and apply it to map new regions and years.
+### Building detection in hyperlocal PLACE imagery
 
 ## Project 2
 
-### Detecting crop types in drone data
-
-As part of a project to develop improved crop analytics for farmers in
-Ghana, we have collected an extensive set of UAS imagery, which we will
-use to identify crop types. The goal of this project is to see if we can
-develop a model to classify the crops visible in the drone imagery.
+### Using PRESTO to map crop fields in Planet imagery
 
 ------------------------------------------------------------------------
 
-[Course Home](../../README.md) \|\| [Syllabus](syllabus.md) \|\|
-[General Course Info](general-information.md) \|\| [Weekly
-assignments](assignments.md) \|\| [Projects](../projects/projects.md)
+[Course Home](../../README.md) \| [Syllabus](../syllabus/syllabus.md) \|
+[Syllabus Details](../syllabus/syllabus-details.md) \|
+[Projects](projects.md)

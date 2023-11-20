@@ -30,7 +30,7 @@ Grades will be based on:
 - **Project plan**: A plan describing how your team will undertake the
   final project (20% of total grade)
 - **Final project report**: The final analysis and report for your team
-  project is worth 35 of the total grade
+  project is worth 35% of the total grade
 - **Participation**: Attendance, contribution to discussion, and
   problem-solving is worth 15% of the overall grade.
 
